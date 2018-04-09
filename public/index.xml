@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shreyas Ragavan</title>
+    <link>shrysr.github.io/</link>
+    <description>Recent content on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="shrysr.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code School - free weekend - Fly with python</title>
+      <link>shrysr.github.io/blog/ef377257-29f5-41bf-a7f8-e195243967fa/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/blog/ef377257-29f5-41bf-a7f8-e195243967fa/</guid>
+      <description>Note taken on [2017-08-20 Sun 15:48] 
+Completed this course today.  Level 1 - Lists and Dictionaries &amp;lt;2017-08-19 Sat&amp;gt; asdasdas  hello Dictionaries : basically used to lookup values using a key instead of an index. It maps keys to values. These are separated by a colon. Dictionaries can hold anything in terms of the value type, eg strings to string, strings to numbers and etc etc. Dictionaries are enclosed within Curly {} brackets, and lists are enclosed within square brackets [].</description>
+    </item>
+    
+    <item>
+      <title>Code School - free weekend - Python course &lt;2017-08-19 Sat&gt;</title>
+      <link>shrysr.github.io/blog/c7d42fe6-53c9-4057-9585-b2cf4026890d/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/blog/c7d42fe6-53c9-4057-9585-b2cf4026890d/</guid>
+      <description>Level 1 - 1.5 python variables cannot have a space inbetween or start with digits or special characters. pep 8 style underscore seperating words, more pythonic than camelcase camelcase is basically a capital letter separating words. Math Floor function is used to round down figures This is a test line
+import math num_macaws = 20 num_students = 3 macaws_per_student = num_macaws / num_students macaws_per_student_rounded= math.ceil(macaws_per_student) print (macaws_per_student_rounded) 7  Level 2 , 2.</description>
+    </item>
+    
+    <item>
+      <title>1. Simulation job scheduler</title>
+      <link>shrysr.github.io/projects/cfd-job-scheduler/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/projects/cfd-job-scheduler/</guid>
+      <description>Scheduler Psuedo-Algorithm   Introduction Code On Github
+This is a Python script for a portable, scalable job scheduler with multiple priorities - for ANSYS CFX simulations. The script was designed to be called every minute by an external scheduler program. In the practical case, the free version of the software System Scheduler was used to deploy the script successfully, for over 3 years, managing 2 computing clusters.</description>
+    </item>
+    
+    <item>
+      <title>CFD Post Processing automation</title>
+      <link>shrysr.github.io/projects/cfd-post-automation/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/projects/cfd-post-automation/</guid>
+      <description>Introduction It is possible (and prevalent) to create templates to post process CFD Simulation results in ANSYS CFD Post using session (.cse) files. Using Shell scripts, it would then be simple to apply these session files on multiple result files and extract the output dictated by the session file.
+This python script that enables the user to set the location of: - the session file (.cse) - the CFD result files (.</description>
+    </item>
+    
+    <item>
+      <title>Contributions to the CFD-Online Wiki</title>
+      <link>shrysr.github.io/projects/cfd-online-wiki/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/projects/cfd-online-wiki/</guid>
+      <description>View : CFD-Online Wiki page.
+Motivation During my initial foray into open source CFD and especially getting started with Linux - there was a lot of information that I had to collate from different sources in order to figure out each step. In addition, there were perspectives on performance that could be gained only through experience. Therefore, I plugged back the knowledge gained to the CFD-Online wiki with the idea that it would help any newbie get started a little quicker.</description>
+    </item>
+    
+    <item>
+      <title>Fancy App 4</title>
+      <link>shrysr.github.io/projects/item4/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/projects/item4/</guid>
+      <description> App 4 </description>
+    </item>
+    
+    <item>
+      <title>How Org-mode has significantly uplifted my life</title>
+      <link>shrysr.github.io/blog/c5b6d731-2722-4988-83e6-b55b84aaa405/</link>
+      <pubDate>Sun, 02 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/blog/c5b6d731-2722-4988-83e6-b55b84aaa405/</guid>
+      <description>Table of Contents  Introduction Needs versus software&amp;rsquo;s development Everybody&amp;rsquo;s needs are unique Concluding points  
+Introduction There are several videos, articles, complex manuals, customisable code snippets, all borne on a long, rich history behind emacs, and Orgmode. I doubt I can add much to those articles, except to share my viewpoint on why I think org mode should be learnt and utilised by more people. It will probably also cover why it won&amp;rsquo;t be utilised by those people.</description>
+    </item>
+    
+  </channel>
+</rss>

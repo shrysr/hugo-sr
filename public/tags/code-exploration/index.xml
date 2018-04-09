@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code exploration on Shreyas Ragavan</title>
+    <link>shrysr.github.io/tags/code-exploration/</link>
+    <description>Recent content in Code exploration on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="shrysr.github.io/tags/code-exploration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code School - free weekend - Python course &lt;2017-08-19 Sat&gt;</title>
+      <link>shrysr.github.io/blog/c7d42fe6-53c9-4057-9585-b2cf4026890d/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>shrysr.github.io/blog/c7d42fe6-53c9-4057-9585-b2cf4026890d/</guid>
+      <description>Level 1 - 1.5 python variables cannot have a space inbetween or start with digits or special characters. pep 8 style underscore seperating words, more pythonic than camelcase camelcase is basically a capital letter separating words. Math Floor function is used to round down figures This is a test line
+import math num_macaws = 20 num_students = 3 macaws_per_student = num_macaws / num_students macaws_per_student_rounded= math.ceil(macaws_per_student) print (macaws_per_student_rounded) 7  Level 2 , 2.</description>
+    </item>
+    
+  </channel>
+</rss>
