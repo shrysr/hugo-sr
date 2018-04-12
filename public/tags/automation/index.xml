@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Automation on Shreyas Ragavan</title>
+    <link>/tags/automation/</link>
+    <description>Recent content in Automation on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Mon, 27 May 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Simulation job scheduler</title>
+      <link>/project/cfd-simulation-scheduler/</link>
+      <pubDate>Mon, 27 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/project/cfd-simulation-scheduler/</guid>
+      <description>Scheduler Psuedo-Algorithm   Introduction Code On Github
+This is a Python script for a portable, scalable job scheduler with multiple priorities - for ANSYS CFX simulations. The script was designed to be called every minute by an external scheduler program.
+ In the practical case, the free version of the software System Scheduler was used to deploy the script successfully, for over 3 years, managing 2 computing clusters.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shreyas Ragavan on Shreyas Ragavan</title>
+    <link>/</link>
+    <description>Recent content in Shreyas Ragavan on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 -0400</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Code School - free weekend - Fly with python</title>
+      <link>/post/ef377257-29f5-41bf-a7f8-e195243967fa/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ef377257-29f5-41bf-a7f8-e195243967fa/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-20 Sun 15:48] &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+Completed this course today.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;level-1-lists-and-dictionaries-span-class-timestamp-wrapper-span-class-timestamp-lt-2017-08-19-sat-gt-span-span&#34;&gt;Level 1 - Lists and Dictionaries &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2017-08-19 Sat&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;hello&lt;/li&gt;
+&lt;li&gt;Dictionaries : basically used to lookup values using a key instead
+of an index. It maps keys to values. These are separated by a colon.&lt;/li&gt;
+&lt;li&gt;Dictionaries can hold anything in terms of the value type, eg strings to string, strings to numbers and etc etc.&lt;/li&gt;
+&lt;li&gt;Dictionaries are enclosed within Curly {} brackets, and lists are enclosed within square brackets [].&lt;/li&gt;
+&lt;li&gt;To check whether a word is in the dictionary, use the get()&lt;/li&gt;
+&lt;li&gt;There is no append function for the dictionary. THis works only on lists, or pehaps lists within dictionaries !&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Test program for key:value pair demonstration&lt;/p&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-19 Sat 20:13] &lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;None&amp;rsquo; - is a special type which basically represents the absence of
+any value. &amp;lsquo;True&amp;rsquo; is returned if the key exists.&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; using get() is best practise because it will not crash the program. Need to understand this statement better&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;slang = {&amp;lsquo;testing&amp;rsquo;:&amp;lsquo;gre&amp;rsquo;, &amp;lsquo;champagne&amp;rsquo;:&amp;lsquo;sparkler&amp;rsquo;, &amp;lsquo;ontario&amp;rsquo;:&amp;lsquo;canada&amp;rsquo;}
+print(slang.get(&amp;lsquo;toronto&amp;rsquo;))
+print(slang.get(&amp;lsquo;canada&amp;rsquo;)) #note that this is none. Shows that the dictionary only searches for the first term or the key. The second terms is called value.
+print(slang.get(&amp;lsquo;ontario&amp;rsquo;))&lt;/p&gt;
+
+&lt;p&gt;None
+None
+canada&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Test program for updating dictionary items&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-19 Sat 20:30] &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+The square brackets are used to represent each key value inside the
+dictionary.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;performances = {&amp;lsquo;Ventriloquism&amp;rsquo;:&amp;lsquo;9:00am&amp;rsquo;,
+                &amp;lsquo;Snake Charmer&amp;rsquo;: &amp;lsquo;12:00pm&amp;rsquo;,
+                &amp;lsquo;Amazing Acrobatics&amp;rsquo;: &amp;lsquo;2:00pm&amp;rsquo;,
+                &amp;lsquo;Enchanted Elephants&amp;rsquo;:&amp;lsquo;5:00pm&amp;rsquo;}
+print (performances)&lt;/p&gt;
+
+&lt;p&gt;#changing a key&amp;rsquo;s value
+performances[&amp;lsquo;Enchanted Elephants&amp;rsquo;]=&amp;lsquo;6:00pm&amp;rsquo;
+print (performances)&lt;/p&gt;
+
+&lt;p&gt;#Deleteing an item
+del performances[&amp;lsquo;Enchanted Elephants&amp;rsquo;]
+print (performances)&lt;/p&gt;
+
+&lt;p&gt;{&amp;lsquo;Ventriloquism&amp;rsquo;: &amp;lsquo;9:00am&amp;rsquo;, &amp;lsquo;Snake Charmer&amp;rsquo;: &amp;lsquo;12:00pm&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;: &amp;lsquo;2:00pm&amp;rsquo;, &amp;lsquo;Enchanted Elephants&amp;rsquo;: &amp;lsquo;5:00pm&amp;rsquo;}
+{&amp;lsquo;Ventriloquism&amp;rsquo;: &amp;lsquo;9:00am&amp;rsquo;, &amp;lsquo;Snake Charmer&amp;rsquo;: &amp;lsquo;12:00pm&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;: &amp;lsquo;2:00pm&amp;rsquo;, &amp;lsquo;Enchanted Elephants&amp;rsquo;: &amp;lsquo;6:00pm&amp;rsquo;}
+{&amp;lsquo;Ventriloquism&amp;rsquo;: &amp;lsquo;9:00am&amp;rsquo;, &amp;lsquo;Snake Charmer&amp;rsquo;: &amp;lsquo;12:00pm&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;: &amp;lsquo;2:00pm&amp;rsquo;}&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Comparing lists : They need to have the same values in the same order. Even if the values are the same, but the order is different, the list is deemed different.&lt;/p&gt;
+
+&lt;p&gt;list_a = [&amp;lsquo;python&amp;rsquo;, &amp;lsquo;bison&amp;rsquo;, &amp;lsquo;lion&amp;rsquo;]
+list_b = [&amp;lsquo;python&amp;rsquo;, &amp;lsquo;lion&amp;rsquo;, &amp;lsquo;bison&amp;rsquo;]&lt;/p&gt;
+
+&lt;p&gt;print(list_a == list_b)&lt;/p&gt;
+
+&lt;p&gt;False&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Works a little different for dictionaries: Dictionaries are not ordered lists. They are just key:value pairs. Therefore in a comparison, only the key value pairs need to be equal.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List of lists:it is possible to have a list of multiple lists. Sometimes called 2D lists.&lt;/p&gt;
+
+&lt;p&gt;breakfast = [&amp;lsquo;omelette&amp;rsquo;, &amp;lsquo;noodles&amp;rsquo;, &amp;lsquo;soy milk&amp;rsquo;]
+lunch= [&amp;lsquo;upma&amp;rsquo;, &amp;lsquo;rice&amp;rsquo;, &amp;lsquo;roti and sabji&amp;rsquo;, &amp;lsquo;curd&amp;rsquo;]
+dinner= [&amp;lsquo;curd rice&amp;rsquo;, &amp;lsquo;bakhri and sabji&amp;rsquo;, &amp;lsquo;adai&amp;rsquo;]
+food_items = [breakfast, lunch, dinner]
+print (food_items[0])
+print (food_items[2])
+#also possible to get a specific item within this list, by using the 2D list concept. The 2nd list ordering also starts from 0.
+print (food_items[0][2])&lt;/p&gt;
+
+&lt;p&gt;[&amp;lsquo;omelette&amp;rsquo;, &amp;lsquo;noodles&amp;rsquo;, &amp;lsquo;soy milk&amp;rsquo;]
+[&amp;lsquo;curd rice&amp;rsquo;, &amp;lsquo;bakhri and sabji&amp;rsquo;, &amp;lsquo;adai&amp;rsquo;]
+soy milk&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dictionary of lists - makes it easier to define&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Test program 1 : example for defining multiple lists and a dictionary of lists&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;breakfast = [&#39;omelette&#39;, &#39;noodles&#39;, &#39;soy milk&#39;]
+lunch= [&#39;upma&#39;, &#39;rice&#39;, &#39;roti and sabji&#39;, &#39;curd&#39;]
+dinner= [&#39;curd rice&#39;, &#39;bakhri and sabji&#39;, &#39;adai&#39;]
+food_items = {&#39;bf&#39;:breakfast,&#39;dins&#39;: dinner}
+print (&#39;Breakfast is \n\t&#39;,food_items[&#39;bf&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Breakfast is
+     [&amp;lsquo;omelette&amp;rsquo;, &amp;lsquo;noodles&amp;rsquo;, &amp;lsquo;soy milk&amp;rsquo;s&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Test program 2 - extracting a particular value from dictionaries / nested lists&lt;/p&gt;
+
+&lt;h1 id=&#34;so-instead-of-having-separate-lists&#34;&gt;So instead of having separate lists &amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;weekdays = [&amp;lsquo;Bearded Lady&amp;rsquo;, &amp;lsquo;Tiniest Man&amp;rsquo;, &amp;lsquo;Ventriloquist Vinnie&amp;rsquo;]
+saturday = [&amp;lsquo;Amazing Acrobatics&amp;rsquo;, &amp;lsquo;Enchanted Elephants&amp;rsquo;]
+sunday   = [&amp;lsquo;Snake Charmer&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;]&lt;/p&gt;
+
+&lt;h1 id=&#34;we-could-have-one-big-list&#34;&gt;We could have one big list &amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;performances = [[&amp;lsquo;Bearded Lady&amp;rsquo;, &amp;lsquo;Tiniest Man&amp;rsquo;, &amp;lsquo;Ventriloquist Vinnie&amp;rsquo;],
+                [&amp;lsquo;Amazing Acrobatics&amp;rsquo;, &amp;lsquo;Enchanted Elephants&amp;rsquo;],
+                [&amp;lsquo;Snake Charmer&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;]]&lt;/p&gt;
+
+&lt;p&gt;#to get one particular value, ventriloquist,  the code would be :
+print (performances[0][2])&lt;/p&gt;
+
+&lt;p&gt;Ventriloquist Vinnie&lt;/p&gt;
+
+&lt;p&gt;performances = {&amp;lsquo;weekdays&amp;rsquo;: [&amp;lsquo;Bearded Lady&amp;rsquo;, &amp;lsquo;Tiniest Man&amp;rsquo;, &amp;lsquo;Ventriloquist Vinnie&amp;rsquo;],
+                &amp;lsquo;saturday&amp;rsquo;: [&amp;lsquo;Amazing Acrobatics&amp;rsquo;, &amp;lsquo;Enchanted Elephants&amp;rsquo;],
+                &amp;lsquo;sunday&amp;rsquo;:   [&amp;lsquo;Snake Charmer&amp;rsquo;, &amp;lsquo;Amazing Acrobatics&amp;rsquo;]}&lt;/p&gt;
+
+&lt;p&gt;#to get Ventriloquist Vinnie performance
+print (performances[&amp;lsquo;weekdays&amp;rsquo;][2])&lt;/p&gt;
+
+&lt;p&gt;Ventriloquist Vinnie&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;level-2-loops-span-class-timestamp-wrapper-span-class-timestamp-lt-2017-08-20-sun-gt-span-span&#34;&gt;Level 2 - Loops  &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2017-08-20 Sun&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;for-loop-can-be-used-to-sum-up-the-numbers-within-a-list-len-can-be-used-to-compute-the-average&#34;&gt;For loop can be used to sum up the numbers within a list. len() can be used to compute the average.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;lista= [1,4,5,2.45]  #list of numbers
+sum = 0 #initialising the variable
+for x in lista:   #x is a temporary arbitrary variable, just to represent the items while looping.
+    sum = sum + x
+
+print (&#39;the sum is&#39;,sum)
+average = sum/len(lista)
+print (&#39;the average is&#39;,average)    
+
+the sum is 12.45
+the average is 3.1125
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generating-a-random-number&#34;&gt;Generating a random number !&lt;/h2&gt;
+
+&lt;h3 id=&#34;random-random-picks-a-random-number-between-0-0-1-0&#34;&gt;random.random() : picks a random number between 0.0 - 1.0&lt;/h3&gt;
+
+&lt;h3 id=&#34;random-choice-1-2-3-picks-a-random-number-from-the-provided-list-this-could-also-be-used-on-multiple-lists-by-just-referencing-the-variable-where-the-multiple-lists-are-stored-refer-test-program-printing-random-choice-from-a-list-of-strings-org0fe143e&#34;&gt;random.choice([1,2,3]): picks a random number from the provided list. This could also be used on multiple lists, by just referencing the variable where the multiple lists are stored. Refer &lt;a href=&#34;#org0fe143e&#34;&gt;Test program - printing random choice from a list of strings&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h3 id=&#34;random-randint-a-b-provides-a-random-integer-between-a-and-b&#34;&gt;random.randint(a,b): provides a random integer between a and b.&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;import random
+
+r1 = random.random()
+print (r1)
+r2 = random.choice ([1,4,5,67])
+print (r2)
+
+r4= random.randint (1,56)
+print (r4)
+
+0.8639718856206364
+1
+16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;for-fixing-the-number-of-iterations-when-there-is-no-list-or-reference-we-use-the-function-range&#34;&gt;For fixing the number of iterations, when there is no list or reference, we use the function range().&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-20 Sun 07:39] &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+notice how the range values are from 0-9. When we use range(10), an
+internal list for a count is taken by python. However, the total count is 10 times.&lt;/p&gt;
+
+&lt;p&gt;import random
+for i in range(10):  #notice how the range taken is from 0-9.
+    print (i,&amp;rsquo;\t&amp;rsquo;)
+    print (&amp;lsquo;The number is &amp;lsquo;,random.randint(1,500),&amp;rsquo;\n&amp;rsquo;)&lt;/p&gt;
+
+&lt;p&gt;0&lt;br /&gt;
+The number is  28&lt;/p&gt;
+
+&lt;p&gt;1&lt;br /&gt;
+The number is  78&lt;/p&gt;
+
+&lt;p&gt;2&lt;br /&gt;
+The number is  88&lt;/p&gt;
+
+&lt;p&gt;3&lt;br /&gt;
+The number is  35&lt;/p&gt;
+
+&lt;p&gt;4&lt;br /&gt;
+The number is  183&lt;/p&gt;
+
+&lt;p&gt;5&lt;br /&gt;
+The number is  161&lt;/p&gt;
+
+&lt;p&gt;6&lt;br /&gt;
+The number is  131&lt;/p&gt;
+
+&lt;p&gt;7&lt;br /&gt;
+The number is  256&lt;/p&gt;
+
+&lt;p&gt;8&lt;br /&gt;
+The number is  113&lt;/p&gt;
+
+&lt;p&gt;9&lt;br /&gt;
+The number is  255&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;range-can-have-an-alternative-format-wherein-range-start-stop-step-in-this-way-we-control-the-values-of-i-itself-including-control-the-number-of-times-it-is-repeated-and-the-values-that-will-be-taken-at-each-repeat&#34;&gt;range() can have an alternative format wherein range(start,stop,step). In this way, we control the values of i itself, including control the number of times it is repeated and the values that will be taken at each repeat.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in range(200,250,5): #notice how start value is included in the output, but the stop value is excluded.
+    print (i)
+
+200
+205
+210
+215
+220
+225
+230
+235
+240
+245
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-program-printing-letters-of-a-word&#34;&gt;Test program - printing letters of a word&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;word = &#39;Welcome!&#39;
+for i in range(len(word)):
+    print (word[i],&#39;\n&#39;)
+for i in word: #shorter and cleaner method than above.
+    print (i,&#39;\n&#39;)
+
+W 
+
+e 
+
+l 
+
+c 
+
+o 
+
+m 
+
+e 
+
+! 
+
+W 
+
+e 
+
+l 
+
+c 
+
+o 
+
+m 
+
+e 
+
+! 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a id=&#34;org0fe143e&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;test-program-printing-random-choice-from-a-list-of-strings&#34;&gt;Test program - printing random choice from a list of strings&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;import random
+fortunes = [&#39;You will have very good luck today.&#39;,
+            &#39;A secret admirer will soon show how they feel.&#39;,
+            &amp;quot;The more you give, the more you&#39;ll have.&amp;quot;,
+            &#39;Hard work pays off.&#39;,
+            &amp;quot;Don&#39;t give up.&amp;quot;]
+fortune=random.choice(fortunes)
+print (fortune)
+
+Hard work pays off.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-program-looping-within-a-list-and-appending-to-each-item-and-creating-a-new-list&#34;&gt;Test program, looping within a list and appending to each item and creating a new list&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;l1 = [&#39;idly&#39;, &#39;vada&#39;, &#39;sambhar&#39;]
+menu=[]
+for i in l1:
+    menu.append(i + &#39;- spam&#39;)
+print (menu)
+
+[&#39;idly- spam&#39;, &#39;vada- spam&#39;, &#39;sambhar- spam&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;to-get-the-list-of-keys-in-a-dictionary-dict-name-keys-and-for-the-values-dict-name-values&#34;&gt;To get the list of keys in a dictionary : dict_name.keys() and for the values dict_name.values()&lt;/h2&gt;
+
+&lt;h2 id=&#34;removing-the-space-separation-while-using-print-command-with-multiple-values&#34;&gt;removing the space separation while using print command with multiple values&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;print (&#39;name is&#39;,&#39;donkey&#39;,&#39;kang&#39;,sep=&#39;-&#39;) #sep has to be placed after the variables which are to be separated.
+
+name is-donkey-kang
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;possible-to-format-output-on-the-fly-within-the-print-command&#34;&gt;Possible to format output on the fly within the print command.&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;example format(price,&amp;lsquo;.2f&amp;rsquo;) - price formated to 2 decimal places, as a float.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;for-loops-loop-for-a-certain-number-of-times-while-loops-work-till-a-condition-is-fulfilled&#34;&gt;for loops loop for a certain number of times, while loops work till a condition is fulfilled.&lt;/h2&gt;
+
+&lt;h2 id=&#34;possible-to-run-a-while-loop-forever-and-include-a-conditional-break-condition-inside&#34;&gt;Possible to run a while loop forever, and include a conditional break condition inside.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;menu= [&#39;idly&#39;, &#39;vada&#39;, &#39;sambhar&#39;]
+order=[]
+while order !=&#39;q&#39;:
+    order = input(&#39;State your order from the items (q to quit)&#39;)
+    if menu.get(order)==&#39;none&#39;:
+        print (&#39;Item does not exist&#39;)
+    else:
+        print (&amp;quot;Order on it&#39;s way&amp;quot;)
+    order = input (&#39;Anything else? (q to quit)&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;continue-statement-within-the-while-loop-breaks-the-loop-but-then-goes-back-to-loop-starting&#34;&gt;Continue statement within the while loop : breaks the loop but then goes back to loop starting.&lt;/h2&gt;
+
+&lt;h1 id=&#34;level-3-functions-span-class-timestamp-wrapper-span-class-timestamp-lt-2017-08-20-sun-gt-span-span&#34;&gt;Level 3 Functions &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2017-08-20 Sun&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;function-name-input-data-to-the-function-and-output-data-to-the-function&#34;&gt;Function name, input data to the function and output data to the function&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;def lotto_number():
+    print (&#39;nutcase&#39;)
+lotto_number()
+
+nutcase
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-program&#34;&gt;Test program -&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;import random
+
+def lotto_numbers():
+    # code in the function goes here
+    lotto_nums=[]
+    for i in range(5):
+        lotto_nums.append(random.randint(1, 53))
+    print(lotto_nums)
+
+lotto_numbers()
+
+[40, 49, 48, 23, 52]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-concept-of-main-best-practise&#34;&gt;The concept of &amp;lsquo;main&amp;rsquo; - best practise.&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;once the function is defined, it is called using a set of variables which the function needs to perform and get the answers.&lt;/li&gt;
+&lt;li&gt;Therefore, these initial set of values or statements are called &amp;lsquo;main&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;therefore, often these initial set is included in a function called main()&lt;/li&gt;
+&lt;li&gt;Then only main() is called and it is not necessary to call all the variables.&lt;/li&gt;
+&lt;li&gt;This is a best practise in python.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;a-variable-defined-within-the-function-is-accessible-only-inside-the-function-variables-outside-the-function-are-global-and-can-be-accessed-anywhere-functions-have-global-scope&#34;&gt;A variable defined within the function is accessible only inside the function. Variables outside the function are global and can be accessed anywhere. Functions have global scope.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;def five():
+    num = 5
+    num = num + 1
+
+def main():
+    num = 1
+    five()
+    print(num)
+
+main()
+
+1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;level-4-reading-and-writing-from-files-span-class-timestamp-wrapper-span-class-timestamp-lt-2017-08-20-sun-gt-span-span&#34;&gt;Level 4 - Reading and writing from files &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2017-08-20 Sun&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;open-a-file-needs-the-open-function-file-name-and-the-mode&#34;&gt;open a file needs the open function, file name and the mode&lt;/h2&gt;
+
+&lt;h2 id=&#34;r-read-w-write-a-append&#34;&gt;&amp;lsquo;r&amp;rsquo; - read, &amp;lsquo;w&amp;rsquo; - write, &amp;lsquo;a&amp;rsquo; - append.&lt;/h2&gt;
+
+&lt;h2 id=&#34;write-mode-will-always-over-write-the-existing-contents-of-the-file&#34;&gt;write mode will always over-write the existing contents of the file.&lt;/h2&gt;
+
+&lt;h2 id=&#34;need-to-use-a-for-loop-to-store-the-lines-inside-a-file-after-reading-it-the-strip-can-be-used-for-stripping-leading-and-trailing-whitespaces&#34;&gt;need to use a for loop to store the lines inside a file after reading it. The strip() can be used for stripping leading and trailing whitespaces.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;fn = open(&#39;/home/shrysr/temp/schedule.txt&#39;,&#39;r&#39;)
+rl=[]
+for lines in fn:
+    line=lines.strip()
+    rl.append(line)
+print (rl)
+
+fn.close()
+
+[&#39;Ventriloquism-10:00am&#39;, &#39;Snake Charmer-12:00pm&#39;, &#39;Amazing Acrobatics-2:00pm&#39;, &#39;Enchanted Elephants-5:00pm&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;possible-to-add-parameters-in-the-line-split-to-store-the-split-into-two-variables-at-the-specified-character-like-split&#34;&gt;Possible to add parameters in the line.split() to store the split into two variables at the specified character, like .split(&amp;rsquo; - &amp;lsquo; ).&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-20 Sun 11:20] &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+Note that the charac in the .split(charac) parameter has to exactly
+match the string or line being passed, otherwise this will return an error.&lt;/p&gt;
+
+&lt;p&gt;l1 = &amp;lsquo;this is a nut-case in point is&amp;rsquo;
+(s1,s2)=l1.split( &amp;lsquo;-&amp;rsquo;)
+print (s1)
+print (s2)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;python-has-over-60-types-of-exceptions&#34;&gt;Python has over 60+ types of exceptions.&lt;/h2&gt;
+
+&lt;h2 id=&#34;using-try-and-except&#34;&gt;Using try and except&lt;/h2&gt;
+
+&lt;h3 id=&#34;it-is-possible-to-try-out-a-set-of-instructions-and-then-store-the-exceptions-that-crop-up&#34;&gt;it is possible to try out a set of instructions and then store the exceptions that crop up.&lt;/h3&gt;
+
+&lt;h3 id=&#34;the-exceptions-that-are-stored-in-python-also-have-specific-names-it-is-possible-to-use-an-exception-to-check-for-that-particular-name-and-store-it-in-a-variable&#34;&gt;The exceptions that are stored in python also have specific names. It is possible to use an exception to check for that particular name and store it in a variable.&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;try:
+    schedule_file = open(&#39;schedule.txt&#39;, &#39;r&#39;)
+
+except FileNotFoundError as err:
+    print (err)
+
+[Errno 2] No such file or directory: &#39;schedule.txt&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test&#34;&gt;test&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;guess = int(input(&#39;Guess a number between 1 and 10:&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;level-5-modules&#34;&gt;Level 5- Modules&lt;/h1&gt;
+
+&lt;h2 id=&#34;modules-are-code-libraries-that-contain-functions-that-can-be-called-to-be-used-in-our-code&#34;&gt;Modules are code libraries that contain functions, that can be called to be used in our code.&lt;/h2&gt;
+
+&lt;h2 id=&#34;pip-is-a-package-manager-to-install-modules&#34;&gt;pip is a package manager to install modules.&lt;/h2&gt;
+
+&lt;h2 id=&#34;json-format-looks-very-similar-to-a-list-of-dictionaries&#34;&gt;JSON format looks very similar to a list of dictionaries !&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Note taken on &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2017-08-20 Sun 11:41] &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+basically like dictionary items contained within a list.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;test-program-importing-from-code-school-as-json&#34;&gt;test program importing from code school as JSON&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;import requests as rq
+
+mrq=rq.get(&#39;http://go.codeschool.com/spamvanmenu&#39;)
+ml=mrq.json()
+print (ml)
+
+[{&#39;price&#39;: &#39;3.00&#39;, &#39;name&#39;: &#39;Omelet&#39;, &#39;desc&#39;: &#39;Yummy&#39;}, {&#39;price&#39;: &#39;5.75&#39;, &#39;name&#39;: &#39;Burrito&#39;, &#39;desc&#39;: &#39;Breakfast Burrito&#39;}, {&#39;price&#39;: &#39;4.50&#39;, &#39;name&#39;: &#39;Waffles&#39;, &#39;desc&#39;: &#39;Belgian waffles with syrup&#39;}]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-program-1&#34;&gt;Test program&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;import requests
+
+url = &amp;quot;http://api.openweathermap.org/data/2.5/weather?q=Orlando,fl&amp;amp;units=imperial&amp;amp;appid=2de143494c0b295cca9337e1e96b00e0&amp;quot;
+request = requests.get(url)
+
+weather_json = request.json()
+
+print (weather_json)
+weather_main = weather_json[&#39;main&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;a-script-containing-definitions-is-a-module-and-can-be-imported-by-other-scripts-or-modules&#34;&gt;A script containing definitions is a module and can be imported by other scripts or modules.&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>To record or not to record</title>
+      <link>/post/86236ce8-db7d-4c5c-ab87-c5d6a5837ab0/</link>
+      <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/86236ce8-db7d-4c5c-ab87-c5d6a5837ab0/</guid>
+      <description>
+
+&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;#orgcfabd61&#34;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#orgb1e0e02&#34;&gt;The direct benefits of recording as much as you can&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#org418b48f&#34;&gt;The indirect benefits of recording as much as you can&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#orgd510f3c&#34;&gt;Some musings on handwritten notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#org27d0210&#34;&gt;Concluding points&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a id=&#34;orgcfabd61&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;This is an outline of my thoughts on the benefits of maintaining a comprehensive record in your work life. While I&amp;rsquo;ve split my points into direct and indirect benefits of maintaining such a record - the distinguishment is much more an indication of the possibilities, rather than a strong demarcation.&lt;/p&gt;
+
+&lt;p&gt;I recall that a lot of kids used to take notes in school. Subsequently, I saw a lesser percentage of note-taking activities in college, mostly restricted to the high scoring sincere guys in the first few rows. However, I&amp;rsquo;ve hardly seen people take any notes in my 4+ years in the industry. Maybe a stronger ability to remember the major points is developed as you grow more experienced&amp;#x2026; or one could think that the major points will anyway recurr in the discussions until a solution is found. However, I&amp;rsquo;m disinclined to believe such ideas. There are simply too many things happening in today&amp;rsquo;s fast paced world and it&amp;rsquo;s not easy to remember absolutely all that you can, and more importantly, &lt;em&gt;at the time you need it the most&lt;/em&gt;. It would be fantastic to have a way to remember a particular aspect &lt;em&gt;accurately&lt;/em&gt;, which was discussed several months ago.&lt;/p&gt;
+
+&lt;p&gt;There is also an increasing focus on a data driven approach to self-improvement, which seems to makes a lot of sense. Our perception of the statistics of our own actions, idiosyncracies and behavior is rather vague and inaccurate without a concerted effort to observe and record our actions. I believe an accurate measure of our own statistics would not only suprise us, but also pave the way to erudition and improvement.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;orgb1e0e02&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-direct-benefits-of-recording-as-much-as-you-can&#34;&gt;The direct benefits of recording as much as you can&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In business meetings, there are often several aspects being discussed / disputed, all at once and at a great pace. If there is a problem being resolved, then there may be an exponential increase in the number of interesting points that bubble out. This exponential increase is further amplified when you have veterans of solid skills and experience participating in the discussion. An excellent note taking system is imperative to capture as much as you can.&lt;/li&gt;
+&lt;li&gt;Time has progressed to such an extent that there are several fields within which there are competitors who are more or less comparable in technology. In such cases, response speeed is one criteria (among many) which can serve as a differentiator. This is certainly facilitated by a streamlined system of records related to the project/client which can be called up at need.&lt;/li&gt;
+&lt;li&gt;One will often come across a lack of comprehension or listening ability in the industry, which serves to complicate matters by introducing new errors and subsequent delays in the process. An efficient method of comprehensive recording using a system that is ideally searchable, would create an excellent method to refer back to events or decisions made in the past. Such a well designed system will certainly improve cognitive and comprehension abilities in the long run. Additionally, imagine being able to answer any question related to the project you are working on, or the details discussed with a simple search&amp;#x2026; :)&lt;/li&gt;
+&lt;li&gt;It also happens that meetings with people are a way of forming relationships. In business, there is usually a symbiotic flow of information/knowledge that is of value. Such nuances are better recorded so that an advantage can be taken at an appropriate time in the future. Well, besides taking advantage, it&amp;rsquo;s always nice to know more about the person and remember specific details about him/her that emerge from a casual conversation. Remembering and referring to such details would certainly impress. Recording eliminates the risk of not being able to remember.&lt;/li&gt;
+&lt;li&gt;Other than the actual meetings and business being discussed, there are in parallel, several points raised which tend to be excellent nuggets of wisdom. In addition, discussions should ideally give rise to more questions. It would be great to be able to quickly note down these nuggets as well as questions, with special contexts, and be able to find the answers at an appropriate time. It goes without saying that being able to quickly refer back to the same in invaluable.&lt;/li&gt;
+&lt;li&gt;Minutes of Meetings(MOM) are extremely common, but not always done comprehensively. It&amp;rsquo;s hard to be concise without practise. A well designed &lt;a href=&#34;http://orgmode.org/&#34; target=&#34;_blank&#34;&gt;Org mode for Emacs&lt;/a&gt; template can do wonders in very quick and efficient creations of MOM&amp;rsquo;s especially with the multiple export possibilities. Granted, complex tables are much easier to create in excel. But at any rate depending on the need - such templates should be kept accessible with a click or two.&lt;/li&gt;
+&lt;li&gt;Whether in an interview, or a meeting with somebody, it&amp;rsquo;s likely that you would be talking about relevant work that you&amp;rsquo;ve done in the past. A comprehensive, searchable record like one created with orgmode can help in remembering all those 100&amp;rsquo;s of little details that will definitely elude you after several years of the project&amp;rsquo;s completion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&#34;org418b48f&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-indirect-benefits-of-recording-as-much-as-you-can&#34;&gt;The indirect benefits of recording as much as you can&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The more I&amp;rsquo;ve written down and searched backwards for references and notes : the more I&amp;rsquo;ve actually taken efforts to be efficient in my note taking, right at the onset.
+
+&lt;ul&gt;
+&lt;li&gt;It&amp;rsquo;s never easy to note down stuff when you are in a particular flow. However, not noting down things only makes it all the more harder when the work is completed and you need to look up something related to that job in a couple of days when you&amp;rsquo;ve forgotten the details. The more immersed I am in the flow, the less I remember the stuff that I actually did to fix a problem, or the pending points and status at which the project was put on hold as I moved on to another task.
+
+&lt;ul&gt;
+&lt;li&gt;I&amp;rsquo;ve found that one remedy is to simply filter out the most important points and gradually build a habit of
+
+&lt;ul&gt;
+&lt;li&gt;noting down stuff, step by step, as I go, or&lt;/li&gt;
+&lt;li&gt;starting work only after I&amp;rsquo;ve noted down and outline of all I have to do (in orgmode), with as many details as available. I would then quickly add points to specific headings.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s also inevitable that you miss out points during this note taking. After all the effort taken - these will haunt you when search backwards for specific information, only to find that you never noted down that particular point. Once my fingers were burnt, I&amp;rsquo;ve started taking even more efforts to systematically streamline both my note taking and the ability to search these notes. This has helped me ask more relevant questions on the spot, rather than later.&lt;/li&gt;
+&lt;li&gt;I&amp;rsquo;ve found that regularly practising the above over time, has improved my speed of thinking, absorption rate, and enhanced my ability to analyse issues or compose documents or respond to email faster.. with more lucidity. Being able to remember or organise information is about being able to formulate a logical structure into which available information is fit into. Writing down stuff is like practising the organisation of thoughts in our head, real time.&lt;/li&gt;
+&lt;li&gt;It is said that a better memory is developed by repeated revision, at intervals that are specific. By using a single system to store all my notes and tasks and religiously using it to search through it to the exact detail I need - I am in fact getting faster and more efficient at what I do. Since the information I need is available at a moment&amp;rsquo;s notice - there is more likelihood that I actually search and go through the material as well.&lt;/li&gt;
+&lt;li&gt;A sense of achievement and confidence is born, when I look back at detailed project progress waypoints, the little snippets of information and knowledge, critical points to remember in subsequent actions and more&amp;#x2026; stuff that I&amp;rsquo;ve gathered over each project. Self motivation is the best kind of motivation, and detailed notes help in this direction as well.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&#34;orgd510f3c&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;some-musings-on-handwritten-notes&#34;&gt;Some musings on handwritten notes&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There are definitely several occassions when handwritten notes are absolutely the best or even the only recourse to noting things down or hashing out the details. The bullet journal is one excellent technique to organise your handwritten notes such that you know what you are doing. The only way to be able to find information in handwritten notes, without any scanning software, is to have a superlative organisation that is absolutely customised to your workflow and needs. Even with scanning software, organisation is key to being able to find the notes you need.&lt;/li&gt;
+&lt;li&gt;Handwritten notes and sketches like &lt;a href=&#34;http://sachachua.com/blog/&#34; target=&#34;_blank&#34;&gt;sacha chua&amp;rsquo;s&lt;/a&gt; are also shown to improve cognitive abilities.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://evernote.com/?var=4&#34; target=&#34;_blank&#34;&gt;Evernote&lt;/a&gt; has the capability to search through handwritten notes, as long as the handwriting is not too illegible. While it does work in many cases, it is not utterly reliable, and would still require tagging or adding in decriptions to the handwritten notes within Evernote, to be reliable. Scanning several pages of such handwritten notes is also a pain. Sometimes a single meeting has created almost 10-20 pages of notes for me, and I would hate scanning them one or two pages at a time.&lt;/li&gt;
+&lt;li&gt;While emacs and orgmode do have ways where you can focus on the content being written - nothing can beat handwritten notes in speed, for stuff like a quick sketch or annotating an existing engineering drawing. What does help, is taking the effort to recapture these handwritten notes in emacs, which serves as a filtering system. It could be a lot more efficient to scan such handwritten notes in Evernote, and create a reference or description in orgmode. THis means that orgmode can be searchced for that reference, and that reference will direct you to the particular handwritten note within Evernote.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&#34;org27d0210&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;concluding-points&#34;&gt;Concluding points&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The aspects mentioned above are anything but comprehensive. They are derived from my own humble observations in trying to integrate orgmode completely into my life. The effort involved in creating a progressive system that adapts and evolves is certainly daunting. There are &lt;a href=&#34;https://www.quora.com/How-accurate-do-you-think-these-text-editor-learning-curves-are&#34; target=&#34;_blank&#34;&gt;popular illustrations&lt;/a&gt; of the difficulties encounteres in using emacs, where it is common to spend a lifetime in customisation. Orgmode and emacs may thus not be a solution for everybody. Personally, I believe in taking the effort to create a customised system, tuned to your workflow, enabling you to save minutes that can accumulate to a lot over the years -  and therefore emacs works for me.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;People swear by the different systems that worked for them. There are several Task management, Outlining and Life/Habit management tools out there, like &lt;a href=&#34;https://todoist.com/&#34; target=&#34;_blank&#34;&gt;Todoist&lt;/a&gt; | &lt;a href=&#34;https://asana.com/&#34; target=&#34;_blank&#34;&gt;Asana&lt;/a&gt; | &lt;a href=&#34;https://workflowy.com/&#34; target=&#34;_blank&#34;&gt;WorkFlowy&lt;/a&gt;. I&amp;rsquo;ve tried almost all of them. That stuff is for a another upcoming blog post&amp;#x2026;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Org mode was created with an understanding of needs as described above and allows you create customised approaches to resolve them. If you don&amp;rsquo;t have a database of project information - you are then obviously looking through individual files for a particular information that you need. THis is extremely inefficient if there&amp;rsquo;s frequent look-ups to be done. Orgmode can help create a text based database that can be searched very, very quickly.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Example Talk</title>
+      <link>/talk/example-talk/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 -0500</pubDate>
+      
+      <guid>/talk/example-talk/</guid>
+      <description>&lt;p&gt;Embed your slides or video here using &lt;a href=&#34;https://sourcethemes.com/academic/post/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;. Further details can easily be added using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>External Project</title>
+      <link>/project/example-external-project/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/project/example-external-project/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Academic: the website designer for Hugo</title>
+      <link>/post/getting-started/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 -0400</pubDate>
+      
+      <guid>/post/getting-started/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Academic&lt;/strong&gt; is a framework to help you create a beautiful website quickly. Perfect for personal sites, blogs, or business/project sites. &lt;a href=&#34;https://themes.gohugo.io/theme/academic/&#34; target=&#34;_blank&#34;&gt;Check out the latest demo&lt;/a&gt; of what you&amp;rsquo;ll get in less than 10 minutes. Then head on over to the &lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Quick Start guide&lt;/a&gt; or take a look at the &lt;a href=&#34;https://sourcethemes.com/academic/updates/&#34; target=&#34;_blank&#34;&gt;Release Notes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png&#34; alt=&#34;Screenshot&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Key features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Easily manage various content including homepage, blog posts, publications, talks, and projects&lt;/li&gt;
+&lt;li&gt;Extensible via &lt;strong&gt;color themes&lt;/strong&gt; and &lt;strong&gt;widgets/plugins&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Write in &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;Markdown&lt;/a&gt; for easy formatting and code highlighting, with &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX/Mathematics&#34; target=&#34;_blank&#34;&gt;LaTeX&lt;/a&gt; for mathematical expressions&lt;/li&gt;
+&lt;li&gt;Social/academic network linking, &lt;a href=&#34;https://analytics.google.com&#34; target=&#34;_blank&#34;&gt;Google Analytics&lt;/a&gt;, and &lt;a href=&#34;https://disqus.com&#34; target=&#34;_blank&#34;&gt;Disqus&lt;/a&gt; comments&lt;/li&gt;
+&lt;li&gt;Responsive and mobile friendly&lt;/li&gt;
+&lt;li&gt;Simple and refreshing one page design&lt;/li&gt;
+&lt;li&gt;Multilingual and easy to customize&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;color-themes&#34;&gt;Color Themes&lt;/h2&gt;
+
+&lt;p&gt;Academic is available in different color themes and font themes.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;Default&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;Ocean&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;Dark&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;Default&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;Coffee theme with Playfair font&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  &lt;a data-fancybox=&#34;gallery-1&#34; data-caption=&#34;1950s&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png&#34;&gt;
+    &lt;img alt=&#34;&#34; src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png&#34;&gt;
+  &lt;/a&gt;
+  
+&lt;/div&gt;
+
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+
+&lt;p&gt;You can choose from one of the following four methods to install:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;one-click install using your web browser (recommended)&lt;/li&gt;
+&lt;li&gt;install on your computer using Git with the Command Prompt/Terminal app&lt;/li&gt;
+&lt;li&gt;install on your computer by downloading the ZIP files&lt;/li&gt;
+&lt;li&gt;install on your computer with RStudio&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;quick-install-using-your-web-browser&#34;&gt;Quick install using your web browser&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart&#34; target=&#34;_blank&#34;&gt;Install Academic with Netlify&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Netlify will provide you with a customizable URL to access your new site&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;On GitHub, go to your newly created &lt;code&gt;academic-kickstart&lt;/code&gt; repository and edit &lt;code&gt;config.toml&lt;/code&gt; to personalize your site. Shortly after saving the file, your site will automatically update&lt;/li&gt;
+&lt;li&gt;Read the &lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Quick Start Guide&lt;/a&gt; to learn how to add Markdown content. For inspiration, refer to the &lt;a href=&#34;https://github.com/gcushen/hugo-academic/tree/master/exampleSite&#34; target=&#34;_blank&#34;&gt;Markdown content&lt;/a&gt; which powers the &lt;a href=&#34;https://themes.gohugo.io/theme/academic/&#34; target=&#34;_blank&#34;&gt;Demo&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;install-with-git&#34;&gt;Install with Git&lt;/h3&gt;
+
+&lt;p&gt;Prerequisites:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://git-scm.com/downloads&#34; target=&#34;_blank&#34;&gt;Download and install Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gohugo.io/getting-started/installing/#quick-install&#34; target=&#34;_blank&#34;&gt;Download and install Hugo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/sourcethemes/academic-kickstart#fork-destination-box&#34; target=&#34;_blank&#34;&gt;Fork&lt;/a&gt; the &lt;em&gt;Academic Kickstart&lt;/em&gt; repository and clone your fork with Git:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/sourcethemes/academic-kickstart.git My_Website
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note that if you forked Academic Kickstart, the above command should be edited to clone your fork, i.e. replace &lt;code&gt;sourcethemes&lt;/code&gt; with your GitHub username.&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Initialize the theme:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd My_Website
+git submodule update --init --recursive
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;install-with-zip&#34;&gt;Install with ZIP&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sourcethemes/academic-kickstart/archive/master.zip&#34; target=&#34;_blank&#34;&gt;Download&lt;/a&gt; and extract &lt;em&gt;Academic Kickstart&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gcushen/hugo-academic/archive/master.zip&#34; target=&#34;_blank&#34;&gt;Download&lt;/a&gt; and extract the &lt;em&gt;Academic theme&lt;/em&gt; to the &lt;code&gt;themes/academic/&lt;/code&gt; folder from the above step&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;install-with-rstudio&#34;&gt;Install with RStudio&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-rstudio&#34; target=&#34;_blank&#34;&gt;View the guide to installing Academic with RStudio&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;quick-start&#34;&gt;Quick start&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;If you installed on your computer, view your new website by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now visit &lt;a href=&#34;http://localhost:1313&#34; target=&#34;_blank&#34;&gt;localhost:1313&lt;/a&gt; and your new Academic powered website will appear. Otherwise, if using Netlify, they will provide you with your URL.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Read the &lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Quick Start Guide&lt;/a&gt; to learn how to add Markdown content, customize your site, and deploy it. For inspiration, refer to the &lt;a href=&#34;https://github.com/gcushen/hugo-academic/tree/master/exampleSite&#34; target=&#34;_blank&#34;&gt;Markdown content&lt;/a&gt; which powers the &lt;a href=&#34;https://themes.gohugo.io/theme/academic/&#34; target=&#34;_blank&#34;&gt;Demo&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Build your site by running the &lt;code&gt;hugo&lt;/code&gt; command. Then &lt;a href=&#34;https://georgecushen.com/create-your-website-with-hugo/&#34; target=&#34;_blank&#34;&gt;host it for free using Github Pages&lt;/a&gt; or Netlify (refer to the first installation method). Alternatively, copy the generated &lt;code&gt;public/&lt;/code&gt; directory (by FTP, Rsync, etc.) to your production web server (such as a university&amp;rsquo;s hosting service).&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;updating&#34;&gt;Updating&lt;/h2&gt;
+
+&lt;p&gt;Feel free to &lt;em&gt;star&lt;/em&gt; the project on &lt;a href=&#34;https://github.com/gcushen/hugo-academic/&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt; to help keep track of updates and check out the &lt;a href=&#34;https://sourcethemes.com/academic/updates&#34; target=&#34;_blank&#34;&gt;release notes&lt;/a&gt; prior to updating your site.&lt;/p&gt;
+
+&lt;p&gt;Before updating the framework, it is recommended to make a backup of your entire website directory (or at least your &lt;code&gt;themes/academic&lt;/code&gt; directory) and record your current version number.&lt;/p&gt;
+
+&lt;p&gt;By default, Academic is installed as a Git submodule which can be updated by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git submodule update --remote --merge
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/update/&#34; target=&#34;_blank&#34;&gt;Check out the update guide&lt;/a&gt; for full instructions and alternative methods.&lt;/p&gt;
+
+&lt;h2 id=&#34;feedback-contributing&#34;&gt;Feedback &amp;amp; Contributing&lt;/h2&gt;
+
+&lt;p&gt;Please use the &lt;a href=&#34;https://github.com/gcushen/hugo-academic/issues&#34; target=&#34;_blank&#34;&gt;issue tracker&lt;/a&gt; to let me know about any bugs or feature requests, or alternatively make a pull request.&lt;/p&gt;
+
+&lt;p&gt;For support, head over to the &lt;a href=&#34;http://discuss.gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo discussion forum&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
+
+&lt;p&gt;Copyright 2016-present &lt;a href=&#34;https://georgecushen.com&#34; target=&#34;_blank&#34;&gt;George Cushen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Released under the &lt;a href=&#34;https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md&#34; target=&#34;_blank&#34;&gt;MIT&lt;/a&gt; license.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Person Re-Identification System For Mobile Devices</title>
+      <link>/publication/person-re-identification/</link>
+      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/publication/person-re-identification/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mobile visual clothing search</title>
+      <link>/publication/clothing-search/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/publication/clothing-search/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Simulation job scheduler</title>
+      <link>/project/cfd-simulation-scheduler/</link>
+      <pubDate>Mon, 27 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/project/cfd-simulation-scheduler/</guid>
+      <description>
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;/img/scheduler-algo.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Scheduler Psuedo-Algorithm&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/shrysr/jobscheduler&#34; target=&#34;_blank&#34;&gt;Code On Github&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a Python script for a portable, scalable job scheduler with
+multiple priorities - for ANSYS CFX simulations. The script was
+designed to be called every minute by an external scheduler
+program.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the practical case, the free version of the software
+&lt;a href=&#34;https://www.splinterware.com/products/scheduler.html&#34; target=&#34;_blank&#34;&gt;System
+Scheduler&lt;/a&gt; was
+used to deploy the script successfully, for over 3 years, managing 2
+computing clusters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once called, the program basically loops through pre designated
+folders and lists .def files based on the &lt;em&gt;last modified&lt;/em&gt; date
+available in Windows. The system interaction is via BASH scripts
+created via the Python code, as well as the python OS library. There
+are several in-built flags to support priority, pausing a particular
+cluster, logging data and troubleshooting.&lt;/p&gt;
+
+&lt;p&gt;The idea behind the project was to create a multi-platform job
+scheduler for ANSYS CFX that has a balance between sophistication and
+ease of deployment (and management). Typically job schedulers and load
+balancing programs are relatively very sophisticated and complex to
+setup with several pre-requisites and constraints. Such complexity
+dictates expensive commercial support and licensing considerations.&lt;/p&gt;
+
+&lt;h1 id=&#34;problem-statement&#34;&gt;Problem Statement&lt;/h1&gt;
+
+&lt;p&gt;A job scheduler or simulation management system was required to address the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Optimum and continuous simulation solver license utilisation by all
+members of the team in a First-In-First-Out (FIFO) basis,&lt;/li&gt;
+&lt;li&gt;Provision for dynamic or urgent priority jobs, as well as an
+interface to submit simulations or view job history.&lt;/li&gt;
+&lt;li&gt;Optimisation and management of workload of simulation jobs
+facilitating overall project management and planning.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;what-the-program-accomplished&#34;&gt;What the program accomplished&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Allowed users to submit simulations by simply placing the input
+files in a particular folder location, which also served as a
+particular priority basket.&lt;/li&gt;
+&lt;li&gt;Removed the need of creating manual scripts to submit multiple
+simulations and resolved inefficient license utilisation approaches.&lt;/li&gt;
+&lt;li&gt;Facilitated a optimised approach to certain design cases, thus
+resulting in a 75% reduction in simulation time&lt;/li&gt;
+&lt;li&gt;Enabled the use of consistent solver and memory utilisation
+parameters and settings, allowing efficient deployment and reducing
+inefficiencies due to errors.&lt;/li&gt;
+&lt;li&gt;Allowed optimal or perfect utilisation of available licensing
+scheme, resulting in a significant increase in team output and
+productivity.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;tools-used-and-links&#34;&gt;Tools used and links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Written with Python 2.7, using portable python, Spyder, Notepad ++ and Sublime Text 3.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;See the &lt;a href=&#34;https://github.com/shrysr/jobscheduler/wiki/&#34; target=&#34;_blank&#34;&gt;Github Wiki&lt;/a&gt; for the project goals, algorithm and other details.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/shrysr/jobscheduler&#34; target=&#34;_blank&#34;&gt;Code On Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
