@@ -1,0 +1,13 @@
+[submodule "themes/ananke"]
+	path = themes/ananke
+	url = https://github.com/budparr/gohugo-theme-ananke.git
+[submodule "themes/future-imperfect"]
+	path = themes/future-imperfect
+	url = https://github.com/jpescador/hugo-future-imperfect.git
+[submodule "themes/hugo-initio"]
+	path = themes/hugo-initio
+	url = https://github.com/miguelsimoni/hugo-initio.git
+[submodule "public"]
+	path = public
+	url = git@github.com:shrysr/shrysr.github.io.git
+	branch = master
