@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Shreyas Ragavan</title>
+    <link>/categories/linux/</link>
+    <description>Recent content in Linux on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Contributions to the CFD-Online Wiki</title>
+      <link>/projects/cfd-online-wiki/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/cfd-online-wiki/</guid>
+      <description>View : CFD-Online Wiki page.
+Motivation During my initial foray into open source CFD and especially getting started with Linux - there was a lot of information that I had to collate from different sources in order to figure out each step. In addition, there were perspectives on performance that could be gained only through experience. Therefore, I plugged back the knowledge gained to the CFD-Online wiki with the idea that it would help any newbie get started a little quicker.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on Shreyas Ragavan</title>
+    <link>/categories/emacs/</link>
+    <description>Recent content in Emacs on Shreyas Ragavan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How Org-mode has significantly uplifted my life</title>
+      <link>/blog/c5b6d731-2722-4988-83e6-b55b84aaa405/</link>
+      <pubDate>Sun, 02 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/c5b6d731-2722-4988-83e6-b55b84aaa405/</guid>
+      <description>Table of Contents  Introduction Needs versus software&amp;rsquo;s development Everybody&amp;rsquo;s needs are unique Concluding points  
+Introduction There are several videos, articles, complex manuals, customisable code snippets, all borne on a long, rich history behind emacs, and Orgmode. I doubt I can add much to those articles, except to share my viewpoint on why I think org mode should be learnt and utilised by more people. It will probably also cover why it won&amp;rsquo;t be utilised by those people.</description>
+    </item>
+    
+  </channel>
+</rss>
