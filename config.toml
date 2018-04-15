@@ -3,7 +3,7 @@
 
 # The URL of your website.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
-baseurl = "/"
+baseurl = "https://shrysr.github.io/"
 
 # Title of your site
 title = "Shreyas Ragavan"
@@ -23,7 +23,7 @@ paginate = 10
 disqusShortname = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
-googleAnalytics = ""
+googleAnalytics = "UA-117504906-1"
 
 # Default language to use (if you setup multilingual support)
 defaultContentLanguage = "en"
@@ -60,7 +60,7 @@ defaultContentLanguageInSubdir = false
   gravatar = false  # Get your avatar from Gravatar.com? (true/false)
   avatar = "SR.jpg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
   email = "shreyas@fastmail.com"
-  address = "Richmond Hill, Ontario, Canada."
+  address = "Ontario, Canada."
   office_hours = ""
   phone = "+1 (647)-671-1851"
   skype = ""
@@ -115,7 +115,7 @@ defaultContentLanguageInSubdir = false
 
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
-  math = true
+  math = false
 
   # Highlight.js options
   #   highlight
@@ -246,22 +246,24 @@ defaultContentLanguageInSubdir = false
 [[menu.main]]
   name = "Home"
   url = "#about"
+  icon = "home"
+  icon_pack = "fa-home"
   weight = 1
 
 [[menu.main]]
-  name = "Publications"
+  name = "Reports"
   url = "#publications"
-  weight = 2
+  weight = 3
 
 [[menu.main]]
-  name = "Posts"
+  name = "Blog"
   url = "#posts"
-  weight = 3
+  weight = 4
 
 [[menu.main]]
   name = "Projects"
   url = "#projects"
-  weight = 4
+  weight = 2
 
 #[[menu.main]]
 #  name = "Teaching"
