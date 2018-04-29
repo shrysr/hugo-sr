@@ -1,0 +1,17 @@
+* This is the development of my personal website, currently based on hugo. 
+
+* Quick Links
+
+** [[file:config.toml][Config.toml]]
+
+** [[file:content/][Content Directory]]
+
+** [[file:content/project/][Projects]]
+** [[file:content/post/][Posts]]
+
+** [[file:static/img/][Static folder - img]]
+
+** [[file:content/publication/][Technical Reports and Publications]]
+
+** [[file:themes/hugo-academic/][Academic Theme directory]]
+

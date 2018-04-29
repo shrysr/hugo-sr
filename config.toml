@@ -220,9 +220,9 @@ defaultContentLanguageInSubdir = false
     link = "mailto:sr@eml.cc"
 
   [[params.social]]
-    icon = "twitter"
+    icon = "linkedin"
     icon_pack = "fa"
-    link = "//twitter.com/ShreyasRagavan"
+    link = "//linkedin.com/in/shreyasragavan/"
 
 #  [[params.social]]
 #    icon = "google-scholar"
@@ -233,6 +233,11 @@ defaultContentLanguageInSubdir = false
     icon = "github"
     icon_pack = "fa"
     link = "//github.com/shrysr"
+
+  [[params.social]]
+    icon = "twitter"
+    icon_pack = "fa"
+    link = "//twitter.com/ShreyasRagavan"
 
 
 # Navigation Links
