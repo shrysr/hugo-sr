@@ -10,12 +10,17 @@ weight = 5
 # List your academic interests.
 [interests]
   interests = [
-	"Data Science",
+	"Data Science & Analytics",
 	"Machine Learning",
-	"CFD",
-	"Design Engineering",
-	"Cloud computing"
+	"Building business intelligence",
+    "Product development",
+   	"Cloud computing",
+    "Computational Fluid Dynamics (CFD)",
+    "Combustion",
+    "Aerodynamics"
+
   ]
+
 
 # List your qualifications (such as academic degrees).
 [[education.courses]]
@@ -32,17 +37,11 @@ weight = 5
 
 # About me
 
-I am a post graduate mechanical engineer,  with 5+ years of work experience in several functions revolving around the areas of:
+I'm an **engineer**, **dreamer**, **hacker**, **data scientist** and **technophile** who enjoys performing in-depth research and analysis, as well as developing end-to-end solutions that drive Business Intelligence and Growth.
 
-- R&D
-- Design engineering, 
-- Computational Fluid Dynamics (CFD) simulations,
-- Combustion 
-- Aerodynamics. 
-- Application Engineering
-- Programming
+Possess a keen eye to comprehend the big picture along with a penchant towards implementing workflow automation.
 
-I also have a keen interest in the field of Data Science, and enjoy coding and automating workflows. My interest also extends to quantified self improvement and productivity techniques, writing, research and using [Emacs](https://www.gnu.org/software/emacs/) for all my workflows.
+I have a keen interest in the field of Data Science, and enjoy coding. My interest also extends to quantified self improvement and productivity techniques, writing, research and using [Emacs](https://www.gnu.org/software/emacs/) for all my workflows.
 
 ## About this site
 - This is a static website created using [hugo](https://gohugo.io/).

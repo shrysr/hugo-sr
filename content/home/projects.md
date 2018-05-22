@@ -33,6 +33,10 @@ filter_default = 0
   tag = "*"
 
 [[filter]]
+  name = "Certificates"
+  tag = ".Certificate"
+
+[[filter]]
   name = "Python"
   tag = ".python"
 
@@ -41,18 +45,15 @@ filter_default = 0
   tag = ".R"
 
 [[filter]]
+  name = "Courses"
+  tag = ".Course"
+
+[[filter]]
   name = "CFD"
   tag = ".CFD"
 
-[[filter]]
-  name = "Certificates"
-  tag = ".Certificate"
-#  tag = ".CAD"
 
-[[filter]]
-  name = "Courses"
-  tag = ".Course"
-#  tag = ".CAD"
+
 
 
 +++
