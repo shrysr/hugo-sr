@@ -34,6 +34,10 @@ caption = ":smile:"
 
 **[Code On Github](<https://github.com/shrysr/jobscheduler>)**
 
+**[Presentation](<https://shrysr.github.io/jobscheduler/index.html>)**
+
+**[Wiki on Github](<https://github.com/shrysr/jobscheduler/wiki>)**
+ 
 This is a Python script for a portable, scalable job scheduler with
 multiple priorities - for ANSYS CFX simulations. The script was
 designed to be called every minute by an external scheduler
@@ -90,10 +94,8 @@ A job scheduler or simulation management system was required to address the foll
 # Tools used and links
 
 - Written with Python 2.7, using portable python, Spyder, Notepad ++ and Sublime Text 3.
+- [System Scheduler](https://www.splinterware.com/products/scheduler.html)
 
-- See the [Github Wiki](https://github.com/shrysr/jobscheduler/wiki/) for the project goals, algorithm and other details.
-
-- [Code On Github](<https://github.com/shrysr/jobscheduler>)
 
 
 

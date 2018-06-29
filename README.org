@@ -1,3 +1,4 @@
+
 * This is the development of my personal website, currently based on hugo. 
 
 * Quick Links
@@ -14,4 +15,3 @@
 ** [[file:content/publication/][Technical Reports and Publications]]
 
 ** [[file:themes/hugo-academic/][Academic Theme directory]]
-

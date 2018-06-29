@@ -28,7 +28,6 @@ caption = ":smile:"
 
 +++
 
-
 It is possible (and prevalent) to create templates to post process CFD Simulation results in ANSYS CFD Post using session (.cse) files. Using Shell scripts, it would then be simple to apply these session files on multiple result files and extract the output dictated by the session file. 
 
 This python script that enables the user to set the location of:
@@ -40,7 +39,7 @@ This python script that enables the user to set the location of:
 
  [Code On Github](<https://github.com/shrysr/cfdpost_auto>)
 
-# How it helps
+# How it helped
 
 - While these operations could be done directly in python, it is
   easier and simpler to control ANSYS CFD post using a BASH
