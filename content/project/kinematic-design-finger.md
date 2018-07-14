@@ -13,7 +13,7 @@ image_preview = ""
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["CAD", "code", "MATLAB", "SIMULINK", "Solidworks", "Design"]
+tags = ["CAD", "code", "MATLAB", "SIMULINK", "Solidworks", "Design", "Research"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = ""
