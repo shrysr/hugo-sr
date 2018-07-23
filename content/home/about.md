@@ -26,7 +26,7 @@ weight = 5
 [[education.courses]]
   course = "MSc (Engg) Advanced Mechanical Engineering"
   institution = "University of Leeds, Leeds (UK)"
-  year = 2012
+  year = 2011
 
 [[education.courses]]
   course = "B.Tech Automotive Design Engineering"

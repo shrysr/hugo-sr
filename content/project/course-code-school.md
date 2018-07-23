@@ -6,7 +6,7 @@ date = "2011-02-15"
 title = "On-line Courses:   Code School"
 
 # Project summary to display on homepage.
-summary = "Several courses covering `python`, `git`, `SQL`,`regular expressions`. Most of these courses were completed during the occasional *Free Weekend* opportunities from [Code School](https://www.codeschool.com/), where the paid courses are available to be completed at no cost, for an entire weekend."
+summary = "Several courses covering `python`, `git`, `SQL`,`regular expressions`"
 
 # Optional image to display on homepage (relative to `static/img/` folder).
 image_preview = ""
@@ -30,7 +30,7 @@ caption = ":smile:"
 
 Completed several courses covering `python`, `git`, `SQL`,`regular expressions`. Most of these courses were completed during the occasional *Free Weekend* opportunities from [Code School](https://www.codeschool.com/), where the paid courses are available to be completed at no cost, for an entire weekend."
 
-## View my [Code School Report ](https://www.codeschool.com/users/shrysr)
+- My [Code School Report ](https://www.codeschool.com/users/shrysr) is no longer available, since Pluralsight seem to be revamping these courses. However, these were great introductory courses. 
 
 
 
