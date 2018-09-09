@@ -13,7 +13,7 @@ image_preview = ""
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["python", "R", "Data Science", "code", "Course", "Certificate","git"]
+tags = ["python", "R", "Data Science", "code", "Course", "Certificate","git", "finance"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = ""
@@ -35,7 +35,9 @@ Links to certificates of courses completed on [Datacamp](https://www.datacamp.co
 - [Data Science `R` basics](/files/Certificate-datacamp-R-basics.pdf). 
   - Completed as a part of [EdX HarvardX PH125.1x: Data Science: R Basics](/project/course-edx-harvard-r)
 
-- [Introduction to Tidyverse`](/files/Certificate-datacamp-tidyverse-introduction.pdf)
+- [Introduction to Tidyverse](/files/Certificate-datacamp-tidyverse-introduction.pdf)
+
+- [Introduction to `R` for Finance](/files/Certificate-datacamp-R-introduction-finance.pdf)
 
 
 
