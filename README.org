@@ -1,5 +1,6 @@
 
-* This is the development of my personal website, currently based on hugo. 
+* Introduction
+This is the development of my personal website, currently based on hugo. 
 
 * Quick Links
 
@@ -15,6 +16,12 @@
 ** [[file:content/publication/][Technical Reports and Publications]]
 
 ** [[file:themes/hugo-academic/][Academic Theme directory]]
+
+* Scripts
+#+BEGIN_SRC sh :tangle 
+cd ~/my_gits/hugo-sr/
+hugo serve
+#+END_SRC
 
 * Cloning Scripter theme from kaushal modi
 

@@ -3,7 +3,7 @@
 date = "2011-02-15"
 
 # Project title.
-title = "On-line Courses @ Dataquest"
+title = "Courses @ Dataquest"
 
 # Project summary to display on homepage.
 summary = "Course competition certificates from [Dataquest](https://www.dataquest.io)."

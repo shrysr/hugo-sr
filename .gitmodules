@@ -12,3 +12,9 @@
 	path = public
 	url = git@github.com:shrysr/shrysr.github.io
 	branch = master
+[submodule "themes/AllinOne"]
+	path = themes/AllinOne
+	url = https://github.com/orianna-zzo/AllinOne.git
+[submodule "themes/refined"]
+	path = themes/refined
+	url = https://gitlab.com/kaushalmodi/hugo-theme-refined

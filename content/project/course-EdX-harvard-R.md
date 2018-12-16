@@ -3,7 +3,7 @@
 date = "2011-02-15"
 
 # Project title.
-title = "On-line Certificate Course:   EdX HarvardX PH125.1x: Data Science: R Basics"
+title = "EdX HarvardX PH125.1x: Data Science: R Basics"
 
 # Project summary to display on homepage.
 summary = "The course covered an introduction to using `R` to extract, manipulate and thus analyse data. It basically lays the foundations to using `R` in data science."

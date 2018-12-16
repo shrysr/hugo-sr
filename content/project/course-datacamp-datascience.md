@@ -3,7 +3,7 @@
 date = "2011-02-15"
 
 # Project title.
-title = "On-line Courses @ Datacamp"
+title = "Courses @ Datacamp"
 
 # Project summary to display on homepage.
 summary = "Data Science related courses completed on [Datacamp](https://www.datacamp.com/)."
