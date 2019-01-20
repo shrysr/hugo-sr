@@ -1,5 +1,8 @@
 # Configuration of Academic
 # Documentation: https://sourcethemes.com/academic/
+#
+# This file is formatted using TOML syntax - learn more at https://learnxinyminutes.com/docs/toml/
+# Each configuration section is defined by a name in square brackets (e.g. `[outputs]`).
 
 # The URL of your website.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
@@ -20,7 +23,7 @@ preserveTaxonomyNames = true
 paginate = 10
 
 # Enable comments by entering your Disqus shortname
-disqusShortname = ""
+disqusShortname = "shreyasragavan"
 
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = "UA-117504906-1"
@@ -30,15 +33,16 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 
 [outputs]
-  home = [ "HTML", "CSS", "RSS" ]
+  home = [ "HTML", "CSS", "RSS", "JSON" ]
   section = [ "HTML", "RSS" ]
 
 # Configure BlackFriday Markdown rendering.
-#   See: https://gohugo.io/readfiles/bfconfig/
+#   See: https://gohugo.io/getting-started/configuration/#configure-blackfriday
 [blackfriday]
   hrefTargetBlank = true  # `true` opens external links in a new tab.
   fractions = true  # `false` disables smart fractions (e.g. 5/12 formatted as a fraction).
   smartypants = true  # `false` disables all smart punctuation substitutions (e.g. smart quotes, dashes, fractions).
+  extensions = ["backslashLineBreak"]
 
 [params]
   # Color theme.
@@ -47,20 +51,32 @@ defaultContentLanguageInSubdir = false
 
   # Font style.
   #   Choose from `default`, `classic`, or `playfair`.
-  font = "playfair"
+  font = "default"
+  # Enable users to switch between day and night mode?
+  day_night = true
 
-  # Your details.
-  name = "Shreyas Ragavan"
-  role = "Engineer -- Programmer -- Analyst -- Explorer"
+
+  # Description for social sharing and search engines. If undefined, author role is used in place.
+  description = ""
+
+  # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
+  sharing_image = ""
+
+  # Twitter username (without @). Used when a vistor shares your site on Twitter.
+  twitter = "ShreyasRagavan"
+
+# Your details.
+   name = "Shreyas Ragavan"
+   role = ""
 
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-  organizations = [ { name = "Leeds University", url = "https://www.leeds.ac.uk" } ]
+  #organizations = [ { name = "Leeds University", url = "https://www.leeds.ac.uk" } ]
 
   gravatar = false  # Get your avatar from Gravatar.com? (true/false)
-  avatar = "SR.jpg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
+  avatar = "SR-reduced.jpeg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
   email = "shreyas@fastmail.com"
-  address = "Canada."
+  address = "Canada"
   office_hours = ""
   phone = "+1 (647)-671-1851"
   skype = ""
@@ -145,11 +161,16 @@ defaultContentLanguageInSubdir = false
   #   For more info on the highlighting options, see:
   #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
   highlight = true
-  highlight_languages = ["lisp","python","R"]
-  # highlight_style = "github"
+  highlight_languages = ["lisp","python","R", "emacs-lisp"]
+  highlight_style = "monokai-sublime"
 
   # Enable native social sharing buttons?
   sharing = true
+
+  # Privacy pack
+  #   Show a cookie consent message to visitors
+  #   Anonymize IP in Google Analytics (if enabled)
+  privacy_pack = false
 
   # Link custom CSS and JS assets
   #   (relative to /static/css and /static/js respectively)
@@ -180,7 +201,7 @@ defaultContentLanguageInSubdir = false
 
   # Configuration of publication pages.
   [params.publications]
-    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
+    # Date format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
     #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
     date_format = "January, 2006"
 
@@ -189,39 +210,52 @@ defaultContentLanguageInSubdir = false
     # List publications and talks related to the project?
     list_children = true
 
+    # Post list format.
+    #   0 = Simple
+    #   1 = Detailed
+    #   2 = Stream
+    post_format = 0
+
     # Publication list format.
     #   0 = Simple
     #   1 = Detailed
     #   2 = APA
     #   3 = MLA
-    publication_format = 3
+    #   4 = Stream
+    publication_format = 4
+
+    # Talk list format.
+    #   0 = Simple
+    #   1 = Detailed
+    #   2 = Stream
+    talk_format = 2
 
   # Social/Academic Networking
   #
-  # Icon pack "fa" includes the following social network icons:
+  # Icon pack "fab" includes the following social network icons:
   #
   #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus,
   #   youtube, instagram, soundcloud
   #
-  #   For email icon, use "fa" icon pack, "envelope" icon, and
+  #   For email icon, use "fas" icon pack, "envelope" icon, and
   #   "mailto:your@email.com" as the link.
   #
-  #   Full list: https://fortawesome.github.io/Font-Awesome/icons/
+  #   Full list: https://fontawesome.com/icons
   #
-  # Icon pack "ai" includes the following academic network icons:
+  # Icon pack "ai" includes the following academic icons:
   #
-  #   google-scholar, arxiv, orcid, researchgate, mendeley
+  #   cv, google-scholar, arxiv, orcid, researchgate, mendeley
   #
   #   Full list: https://jpswalsh.github.io/academicons/
 
   [[params.social]]
     icon = "envelope"
-    icon_pack = "fa"
+    icon_pack = "fas"
     link = "mailto:sr@eml.cc"
 
   [[params.social]]
     icon = "linkedin"
-    icon_pack = "fa"
+    icon_pack = "fab"
     link = "//linkedin.com/in/shreyasragavan/"
 
 #  [[params.social]]
@@ -231,14 +265,20 @@ defaultContentLanguageInSubdir = false
 
   [[params.social]]
     icon = "github"
-    icon_pack = "fa"
+    icon_pack = "fab"
     link = "//github.com/shrysr"
 
   [[params.social]]
     icon = "twitter"
-    icon_pack = "fa"
+    icon_pack = "fab"
     link = "//twitter.com/ShreyasRagavan"
 
+  # Link to a PDF of your resume/CV from the About widget.
+  # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
+  # [[params.social]]
+  #   icon = "cv"
+  #   icon_pack = "ai"
+  #   link = "files/cv.pdf"
 
 # Navigation Links
 #   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
@@ -255,15 +295,15 @@ defaultContentLanguageInSubdir = false
   icon_pack = "fa-home"
   weight = 1
 
-[[menu.main]]
-  name = "Reports"
-  url = "#publications"
-  weight = 3
+#[[menu.main]]
+#  name = "Reports"
+#  url = "#publications"
+#  weight = 4
 
 [[menu.main]]
   name = "Blog"
   url = "#posts"
-  weight = 4
+  weight = 5
 
 [[menu.main]]
   name = "Projects"
@@ -275,16 +315,45 @@ defaultContentLanguageInSubdir = false
 #  url = "#teaching"
 #  weight = 5
 
+# Remove these comments to re-enable docs in the main menu
+#[[menu.main]]
+#  name = "Docs"
+#  url = "/docs/"
+#  weight = 3
+
+
 [[menu.main]]
   name = "Tag Cloud"
   url = "#tags"
-  weight = 5
+  weight = 6
 
 [[menu.main]]
   name = "Contact"
   url = "#contact"
-  weight = 6
-  
+  weight = 7
+
+# Link to a PDF of your resume/CV from the menu.
+# To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
+# [[menu.main]]
+#    name = "CV"
+#    url = "files/cv.pdf"
+#    weight = 7
+
+# Search.
+[params.search]
+  # Search provider:
+  #   0: No search engine
+  #   1: Built-in (Fuse)
+  #   2: Algolia (https://www.algolia.com)
+  engine = 1
+
+  # Configuration of Algolia search engine.
+  # Paste the values from your Algolia dashboard.
+  [params.search.algolia]
+    app_id = ""
+    api_key = ""
+    index_name = ""
+    show_logo = false
 
 # Taxonomies.
 [taxonomies]
@@ -294,7 +363,20 @@ defaultContentLanguageInSubdir = false
 
 # Languages
 #   Create a [languages.X] block for each language you want, where X is the language ID.
+#   Refer to https://sourcethemes.com/academic/docs/language/
 
 # Configure the English version of the website.
 [Languages.en]
   languageCode = "en-us"
+
+# Uncomment the lines below to configure your website in a second language.
+#[languages.zh]
+#  languageCode = "zh-Hans"
+#  title = "Chinese website title..."
+#  [languages.zh.params]
+#    name = "Your name in Chinese..."
+#    role = "Your role in Chinese..."
+#  [[languages.zh.menu.main]]
+#    name = "Wo"
+#    url = "#about"
+#    weight = 1

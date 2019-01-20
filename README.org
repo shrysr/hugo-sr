@@ -18,6 +18,8 @@ This is the development of my personal website, currently based on hugo.
 ** [[file:themes/hugo-academic/][Academic Theme directory]]
 
 * Scripts
+Serving Hugo
+
 #+BEGIN_SRC sh :tangle 
 cd ~/my_gits/hugo-sr/
 hugo serve

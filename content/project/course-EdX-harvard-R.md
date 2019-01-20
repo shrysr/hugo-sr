@@ -1,6 +1,6 @@
 +++
 # Date this page was created.
-date = "2011-02-15"
+date = "2018-03-28"
 
 # Project title.
 title = "EdX HarvardX PH125.1x: Data Science: R Basics"
