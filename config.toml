@@ -273,6 +273,13 @@ defaultContentLanguageInSubdir = false
     icon_pack = "fab"
     link = "//twitter.com/ShreyasRagavan"
 
+
+  [[params.social]]
+    icon = "rss"
+    icon_pack = "fas"
+    link = "index.xml"
+
+
   # Link to a PDF of your resume/CV from the About widget.
   # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
   # [[params.social]]
@@ -331,6 +338,13 @@ defaultContentLanguageInSubdir = false
   name = "Contact"
   url = "#contact"
   weight = 7
+
+
+[[menu.main]]
+  name = "RSS"
+  url = "index.xml"
+  weight = 7
+
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
