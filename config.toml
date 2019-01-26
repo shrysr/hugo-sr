@@ -161,7 +161,7 @@ defaultContentLanguageInSubdir = false
   #   For more info on the highlighting options, see:
   #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
   highlight = true
-  highlight_languages = ["lisp","python","R", "emacs-lisp"]
+  highlight_languages = ["lisp","python","R", "lisp"]
   highlight_style = "monokai-sublime"
 
   # Enable native social sharing buttons?
