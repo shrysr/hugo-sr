@@ -14,6 +14,6 @@ type = "docs"  # Do not modify.
   weight = 1
 +++
 
-This section contains my notes, tutorials and articles from courses and various topics related to programming, data science, Emacs and so on.
+This section contains my notes, tutorials and code snippets on various topics, as well as my literate Emacs configuation.
 
 Use the navigation bar on the left / right to jump to articles or sections and the  search bar to find specific keywords.

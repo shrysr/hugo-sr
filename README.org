@@ -1,9 +1,8 @@
 
 * Introduction
-This is the development of my personal website, currently based on hugo. 
+This is the development of my personal website, currently based on hugo.
 
 * Quick Links
-
 ** [[file:config.toml][Config.toml]]
 
 ** [[file:content/][Content Directory]]
@@ -20,7 +19,7 @@ This is the development of my personal website, currently based on hugo.
 * Scripts
 Serving Hugo
 
-#+BEGIN_SRC sh :tangle 
+#+BEGIN_SRC sh :tangle
 cd ~/my_gits/hugo-sr/
 hugo serve
 #+END_SRC

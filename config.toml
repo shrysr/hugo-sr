@@ -160,9 +160,9 @@ defaultContentLanguageInSubdir = false
   #
   #   For more info on the highlighting options, see:
   #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
-  highlight = true
-  highlight_languages = ["lisp","python","R", "lisp"]
-  highlight_style = "monokai-sublime"
+  highlight = false
+  #highlight_languages = ["lisp","python","R", "emacs-lisp"]
+  #highlight_style = "monokai-sublime"
 
   # Enable native social sharing buttons?
   sharing = true
@@ -323,10 +323,10 @@ defaultContentLanguageInSubdir = false
 #  weight = 5
 
 # Remove these comments to re-enable docs in the main menu
-#[[menu.main]]
-#  name = "Docs"
-#  url = "/docs/"
-#  weight = 3
+[[menu.main]]
+ name = "Docs"
+ url = "/docs/"
+ weight = 3
 
 
 [[menu.main]]
@@ -340,10 +340,10 @@ defaultContentLanguageInSubdir = false
   weight = 7
 
 
-[[menu.main]]
-  name = "RSS"
-  url = "index.xml"
-  weight = 7
+# [[menu.main]]
+#   name = "RSS"
+#   url = "index.xml"
+#   weight = 7
 
 
 # Link to a PDF of your resume/CV from the menu.
@@ -394,3 +394,9 @@ defaultContentLanguageInSubdir = false
 #    name = "Wo"
 #    url = "#about"
 #    weight = 1
+
+#pygmentsOptions = "linenos"
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
+#pygmentsUseClasses = true
+#pygmentsCodefencesGuessSyntax = true
