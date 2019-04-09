@@ -41,7 +41,7 @@ filter_default = 0
   tag = "*"
 
 [[filter]]
-  name = "Certificate Courses"
+  name = "Courses"
   tag = "Certificate"
 
 [[filter]]
@@ -61,4 +61,3 @@ filter_default = 0
 
 
 +++
-
