@@ -26,7 +26,7 @@ hugo serve
 
 * Cloning Scripter theme from kaushal modi
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
 cd themes
 pwd
 #+END_SRC
@@ -34,7 +34,7 @@ pwd
 #+RESULTS:
 : /Users/shreyas/my_gits/hugo-sr/themes
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
 cd themes
 git clone https://gitlab.com/kaushalmodi/hugo-theme-refined refined
 git clone https://github.com/kaushalmodi/hugo-atom-feed hugo-atom-feed
