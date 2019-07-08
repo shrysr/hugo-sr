@@ -14,6 +14,20 @@ type = "docs"  # Do not modify.
   weight = 1
 +++
 
-This section contains my notes, tutorials and code snippets primarily revolving around Emacs, R and Python.
+## My evolving Brain dump !
+This Documentation section contains :
+
+ - notes,
+ - quotes,
+ - summaries,
+ - tutorials,
+ - project documentation
+ - code snippets
+
+## Tools / Methodology:
+
+The above is maintained entirely with Org mode documents. Using the excellent [ox-hugo](https://ox-hugo.scripter.co/ "ox-hugo library for Emacs") library, the content is maintained in a mixture of stand-alone documents or sub-headings within larger topics. A lot of the content is now managed using the excellent [org brain](https://github.com/Kungsgeten/org-brain "org brain on github") package.
+
+## Navigation
 
 Use the navigation bar on the left / right to jump to articles or sections and the  search bar to find specific keywords.
