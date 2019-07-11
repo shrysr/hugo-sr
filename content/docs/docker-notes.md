@@ -1,7 +1,7 @@
 +++
 title = "Notes on Docker"
 author = ["Shreyas Ragavan"]
-lastmod = 2019-07-11T09:25:54-06:00
+lastmod = 2019-07-11T14:33:26-06:00
 tags = ["Docker", "Data-Science"]
 categories = ["Docker", "DataScience"]
 draft = false
@@ -30,6 +30,10 @@ A brief summary of what Docker is all about.
 5.  Docker images are stored in a registry. There are a number of registries, of which dockerhub is popular.
 
 These schematics provide a good refresher of the core concept of Docker:
+
+{{< figure src="ox-hugo/Container-vs-vm.png/" title="Containers versus VM" >}}
+
+{{< figure src="ox-hugo/engine-components-flow.png/" title="Docker Engine components" >}}
 
 [Containers versus VM](/ox-hugo/Container-vs-vm.png)
 
