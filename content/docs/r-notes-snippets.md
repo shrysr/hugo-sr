@@ -1,7 +1,7 @@
 +++
 title = "R notes and snippets"
 author = ["Shreyas Ragavan"]
-lastmod = 2019-07-10T14:02:06-06:00
+lastmod = 2019-07-11T11:21:36-06:00
 tags = ["R", "Data-Science"]
 categories = ["R", "Data-Science"]
 draft = false
@@ -12,13 +12,12 @@ toc = true
   weight = 2002
 +++
 
-## Lubridate {#lubridate}
+## Lubridate - introductory technical paper {#lubridate-introductory-technical-paper}
 
-Lubridate: dates and time made easy [link](https://vita.had.co.nz/papers/lubridate.pdf).
-This paper (Grolemund and Wickham) offers a good introduction and comparison between using lubridate and not using it, as well as several examples of using the library. It also offers some case studies which can serve as useful drill exercises.
+This [paper](https://vita.had.co.nz/papers/lubridate.pdf) (Grolemund and Wickham) offers a good introduction and comparison between using lubridate and not using it, as well as several examples of using the library. It also offers some case studies which can serve as useful drill exercises.
 
 
-## Importing multiple excel sheet from multiple excel files {#importing-multiple-excel-sheet-from-multiple-excel-files}
+## Importing multiple excel sheets from multiple excel files {#importing-multiple-excel-sheets-from-multiple-excel-files}
 
 This is one approach to importing multiple sheets from multiple excel files into a list of tibbles. The goal is that each sheet is imported as a separate tibble.
 

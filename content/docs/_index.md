@@ -26,7 +26,7 @@ This Documentation section contains :
 
 ## Tools / Methodology:
 
-The above is maintained entirely with Org mode documents. Using the excellent [ox-hugo](https://ox-hugo.scripter.co/ "ox-hugo library for Emacs") library, the content is maintained in a mixture of stand-alone documents or sub-headings within larger topics. A lot of the content is now managed using the excellent [org brain](https://github.com/Kungsgeten/org-brain "org brain on github") package.
+The above is maintained entirely with Org mode documents. Using the excellent [ox-hugo](https://ox-hugo.scripter.co/ "ox-hugo library for Emacs") library, the content is maintained in a mixture of stand-alone documents or sub-headings within larger topics. A lot of the content is now managed using the [org brain](https://github.com/Kungsgeten/org-brain "org brain on github") package.
 
 ## Navigation
 

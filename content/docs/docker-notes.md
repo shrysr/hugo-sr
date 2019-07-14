@@ -1,8 +1,8 @@
 +++
 title = "Notes on Docker"
 author = ["Shreyas Ragavan"]
-lastmod = 2019-07-10T13:02:35-06:00
-tags = ["Docker"]
+lastmod = 2019-07-11T14:33:26-06:00
+tags = ["Docker", "Data-Science"]
 categories = ["Docker", "DataScience"]
 draft = false
 linktitle = "Docker - notes"
@@ -12,26 +12,61 @@ toc = true
   weight = 2001
 +++
 
-Docker is a fascinating concept that could be potentially useful in many ways, especially in Data science, and making reproducible workflows / environments.
+Docker is a fascinating concept that could be potentially useful in many ways, especially in Data science, and making reproducible workflows / environments. There are [several](https://towardsdatascience.com/learn-enough-docker-to-be-useful-b7ba70caeb4b) [articles](https://towardsdatascience.com/docker-for-data-scientists-5732501f0ba4) which have great introductions and examples of using docker in data science
 
-This is an evolving summary of my exploration with Docker. It should prove to be a handy refresher of commands or concepts, and serve as a repository of knowledge gained related to Docker.
+This is an evolving summary of my exploration with Docker. It should prove to be a handy refresher of commands and concepts.
 
 
 ## <span class="org-todo todo TODO">TODO</span> What is Docker {#what-is-docker}
 
-1.  The main idea is that of disposable buckets of code that can do a specific task and exit.
-    1.  This could even be a single command. Like `pwd`, which is piped into another container.
+A brief summary of what Docker is all about.
+
+1.  The main idea: disposable buckets of code that can do a specific task and either exit or run indefinitely.
+    1.  The task / purpose of the container could even be a single command. Like `pwd`, which is piped into another container.
     2.  In a way this is an extension of the Unix philosophy of small tools that can do a single task well (i.e reliably).
 2.  These buckets of code can be connected with each other and also stacked on top of each other to form a pipeline.
 3.  These buckets of code are complete libraries
 4.  The buckets consist of images which can be launched as containers.
-5.  The images are stored in a registry. There are a number of registries, of which dockerhub is popular and allows the storage of images.
+5.  Docker images are stored in a registry. There are a number of registries, of which dockerhub is popular.
 
 These schematics provide a good refresher of the core concept of Docker:
+
+{{< figure src="ox-hugo/Container-vs-vm.png/" title="Containers versus VM" >}}
+
+{{< figure src="ox-hugo/engine-components-flow.png/" title="Docker Engine components" >}}
 
 [Containers versus VM](/ox-hugo/Container-vs-vm.png)
 
 [Engine Components](/ox-hugo/engine-components-flow.png)
+
+
+### Dive into Docker {#dive-into-docker}
+
+This is an excellent course run by Nick Janatakis ([link](https://diveintodocker.com/?r=devto)), which enabled me to tie together various bits and pieces of knowledge I had about Docker. I would recommend this course for anybody starting out with Docker. A lot of the notes in this document were gathered while going through the course.
+
+
+#### Biggest wins of Docker {#biggest-wins-of-docker}
+
+-   isolate and manage applications.
+-   eg:  12 apps with 12 dependency sets.
+-   VM : waste of resources.
+-   Vagrant : lets you manage VM's on the command line (including Docker)
+    -   Disk space occupied for each app is very high.
+    -   Overhead of system boot up and restart / killing is high.
+-   Docker can be used to manage common dependencies.
+    -   Example of time frame: 2 seconds for loading 8 services.
+    -   Spinning up an entire stack is very fast, compared to a VM.
+-   Docker: portability of applications and dev environment.
+-   Dozens of scenarios where something works for you but not for me.
+-   New dev environments can be discouraging. With all the libraries and dependencies already installed, it is possible to become aggressive with the actual development and experimenting with new technology.
+-   Multiple versions of a programming language can be installed within a single docker container.
+-   Smaller Microservices that talk to each other are not always good, but Docker enables this in a streamlined manner.
+-   LXC: raw linux containers. Existed long before docker.
+    -   uses runC
+    -   very complicated and brittle system.
+    -   runs only on Linux.
+    -   LXC's are still better than VM's for rapid build and deploy.
+-   ANSIBLE: what files and tools should be on a server (very basic definition)
 
 
 ## Easy ways to get documentation help {#easy-ways-to-get-documentation-help}
@@ -315,42 +350,14 @@ docker run -d ubuntu
 
 Docker image : result of stacking up individual layers. Only the parts or layers that have changed are downloaded for a newer version of a specific image.
 
-
-## <span class="org-todo todo TODO">TODO</span> Docker - up and running notes {#docker-up-and-running-notes}
-
-
-### Cloning docker-Hello locally {#cloning-docker-hello-locally}
-
-```shell
-cd ~/temp
-git clone https://github.com/spkane/docker-node-hello.git --config core.autocrlf=input
-```
+Scratch image: docker image with no base operating system
 
 
-### Building the Image from a local docker file {#building-the-image-from-a-local-docker-file}
+## Working with dockerfiles {#working-with-dockerfiles}
 
-This uses the `build` comand.
-
-```shell
-cd ~/temp/docker-node-hello
-docker build docker-node-hello
-```
-
-
-## <span class="org-todo todo TODO">TODO</span> Learning Rocker - Rick Fast {#learning-rocker-rick-fast}
-
-
-### Oreilly [link](https://learning.oreilly.com/videos/learning-docker/9781491956885) {#oreilly-link}
-
-
-## <span class="org-todo todo TODO">TODO</span> Dive into Docker [link](https://diveintodocker.com/?r=devto) {#dive-into-docker-link}
-
-
-### Why the author got started with docker and is Docker right {#why-the-author-got-started-with-docker-and-is-docker-right}
-
--   ANSIBLE: what files and tools should be on a server (very basic definition)
--   LXC: raw linux containers. Existed long before docker.
-    -   uses runC
-    -   very complicated and brittle system.
-    -   runs only on Linux.
-    -   LXC's are still better than VM's for rapid build and deploy.
+-   sample or reference docker files can be saved as "dockerfile.finished" or with some other useful extension.
+-   Dockerfiles are read top to bottom.
+-   the first non-comment instruction should be `FROM`
+    -   `FROM` allows you import a docker image.
+-   `RUN` : basically executes the specified commands
+-   `WORKDIR` : setting the desired working directory. This can be set or used multiple times in the same docker file.
