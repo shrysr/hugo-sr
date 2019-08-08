@@ -28,19 +28,21 @@ hugo serve
 
 #+BEGIN_SRC shell
 cd themes
-pwd
-#+END_SRC
-
-#+RESULTS:
-: /Users/shreyas/my_gits/hugo-sr/themes
-
-#+BEGIN_SRC shell
-cd themes
 git clone https://gitlab.com/kaushalmodi/hugo-theme-refined refined
 git clone https://github.com/kaushalmodi/hugo-atom-feed hugo-atom-feed
 git clone https://github.com/kaushalmodi/hugo-jf2 hugo-jf2
 git clone https://github.com/kaushalmodi/hugo-search-fuse-js hugo-search-fuse-js
 git clone https://github.com/kaushalmodi/hugo-debugprint hugo-debugprint
+#+END_SRC
+
+#+RESULTS:
+* Cloning the modified ghostwriter theme that is indiewebified
+
+See https://github.com/am1t/ghostwriter
+
+#+BEGIN_SRC shell
+cd themes
+git clone https://github.com/am1t/ghostwriter.git
 #+END_SRC
 
 #+RESULTS:
