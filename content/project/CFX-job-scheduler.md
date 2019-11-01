@@ -7,6 +7,8 @@ tags = ["CFD"]
 draft = false
 weight = 2001
 profile = false
+
+summary= "`python` script to manage multi-priority ANSYS CFX simulations on distributed computing clusters"
 +++
 
 {{< figure src="/img/scheduler-algo.png" title="Scheduler-Psuedo-Algorithm" >}}
