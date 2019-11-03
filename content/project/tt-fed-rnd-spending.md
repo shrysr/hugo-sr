@@ -7,7 +7,7 @@ tags = ["R", "EDA", "ggplot", "TidyTuesday", "DataScience"]
 categories = ["R", "project", "EDA", "DataScience"]
 draft = false
 profile = false
-summary = "An EDA using `R` of federal government data of thre R&D budget towards Climate Change."
+summary = "An EDA using `R` of federal government data of the R&D budget towards Climate Change."
 image_preview = "fed-rnd-spending-1.png"
 +++
 
