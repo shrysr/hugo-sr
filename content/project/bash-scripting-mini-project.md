@@ -2,7 +2,7 @@
 title = "Bash scripting to compare chat logs of an IRC channel"
 author = ["Shreyas Ragavan"]
 date = 2019-09-22T08:43:00-06:00
-lastmod = 2019-11-03T06:37:53-07:00
+lastmod = 2019-11-03T07:27:31-07:00
 tags = ["Linux", "bash", "project", "shell"]
 categories = ["Linux", "bash", "project"]
 draft = false
@@ -37,6 +37,8 @@ summary = "A BASH script to extract the raw text from different servers and comp
 ## Summary {#summary}
 
 This project is an exploration of BASH scripting utilising `cURL` and `diff` to extract chat logs of an IRC channel and quickly compare the contents to check for any discrepancies. Several new concepts were learned, including defining variables, for loops, conditionals and making temporary files. The gradual build up in complexity is shown and has the benefit that that report can serve as a simple tutorial in BASH scripting.
+
+[Download the script](/scripts/bash-log-compare.sh)
 
 
 ## Preliminary notes: {#preliminary-notes}
@@ -344,13 +346,11 @@ istart is 1001900 and iend is 1002399
 istart is 1002400 and iend is 1002899
 istart is 1002900 and iend is 1003399
 Last portion istart is 1003400
-Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-41.log1.6FVYRfcq
-Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-41.log2.N73Mng1q
-diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-41.difflog.DwaqbBgW
+Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-20.log1.yr48rDlW
+Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-20.log2.HyeiemV2
+diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-20.difflog.2wwXVY5v
 Diff file is not empty. Logs not equal
 ```
-
-{{< figure src="~/Desktop/CleanShot 2019-09-22 at 07.41.53@2x.png" >}}
 
 
 ## Comparing logs for range 9998683 to 1000000 {#comparing-logs-for-range-9998683-to-1000000}
@@ -369,9 +369,9 @@ Batches of 500 lines = 2. Remaining lines = 317
 istart is 998683 and iend is 999182
 istart is 999183 and iend is 999682
 Last portion istart is 999683
-Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-48.log1.dTY7wk3x
-Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-48.log2.LXpNkbWa
-diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_06-37-48.difflog.hKx9VdZf
+Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-26.log1.yPvV0Ioc
+Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-26.log2.dNQbsvXR
+diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-27-26.difflog.eN97q0Bv
 Diff file is not empty. Logs not equal
 ```
 

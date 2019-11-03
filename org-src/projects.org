@@ -693,8 +693,6 @@ diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_08-31-36
 Diff file is not empty. Logs not equal
 #+end_example
 
-[[file:~/Desktop/CleanShot%202019-09-22%20at%2007.41.53@2x.png]]
-
 ** Comparing logs for range 9998683 to 1000000
 :PROPERTIES:
 :ID:       DAA71B56-181F-4DD5-87F6-BFCDB0F2C44F
