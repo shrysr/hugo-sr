@@ -1,256 +1,568 @@
-#+OPTIONS: <:no
 #+OPTIONS: toc:nil
-#+OPTIONS: timestamp:nil
-#+OPTIONS: todo:nil
-#+OPTIONS: date:nil c:nil
-#+OPTIONS: toc:nil
-#+TITLE: 
 #+AUTHOR: Shreyas Ragavan
-#+export_file_name: ~/my_gits/hugo-sr/org-src/blog.org
-#+hugo_base_dir: ~/my_gits/hugo-sr/
+#+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
 #+hugo_auto_set_lastmod: t
 #+hugo_weight: auto
 
-* Emacs                                                        :@Emacs:Emacs:
+This is the Org source for all my blog articles
 
-** Rapidly accessing cheatsheets to learn data science with Emacs :@Data_Science:
-[[https://university.business-science.io/p/ds4b-101-r-business-analysis-r][Matt Dancho's course DSB-101-R]] is an awesome course to step into ROI driven business analytics fueled by Data Science. In this course, among many other things - he teaches methods to understand and use cheatsheets to gain rapid /level-ups/, especially to find information connecting various packages and functions and workflows. I have been hooked to this approach and needed a way to quickly refer to the different cheatsheets as needed. 
+* Emacs                                                        :@Emacs:emacs:
+
+** DONE Literate Org-mode configuration for Emacs is liberating :Org_mode:lisp:
+CLOSED: [2019-02-17 Sun 08:02]
+:PROPERTIES:
+:CREATED:  <2019-02-15 Fri 21:14>
+:ID:       D16CAA34-C2E2-439B-894F-D95BE5708160
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-02-17 Sun 08:01]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-02-15 Fri 11:56]
+:POSTID:   755
+:BLOG:     wordpress
+:END:
+:LOGBOOK:
+CLOCK: [2019-02-17 Sun 07:46]--[2019-02-17 Sun 08:02] =>  0:16
+:END:
+
+TLDR: [[https://shrysr.github.io/docs/sr-config][Check out the Docs section for my Emacs config in Org-mode]]
+
+#+BEGIN_QUOTE
+The literate programming paradigm, as conceived by Donald Knuth, represents a move away from writing programs in the manner and order imposed by the computer, and instead enables programmers to develop programs in the order demanded by the logic and flow of their thoughts. Literate programs are written as an uninterrupted exposition of logic in an ordinary human language, much like the text of an essay, in which macros are included to hide abstractions and traditional source code.
+
+[[https://en.wikipedia.org/wiki/Literate_programming][Wikipedia article on Literate Programming]]
+#+END_QUOTE
+
+
+I had graduated to using an Org-mode based configuration with vanilla Emacs, until discovering Scimax a few years ago. At this point, it seemed easier to switch back to using elisp script files in multiple files which were loaded in the desired / necessary order. The plan was to use a file for each major 'concept', for example one file each for hydras, Org-mode, mu4e, and so on.
+
+While it is not difficult to manage multiple script files with the projectile package, it does become cumbersome and inelegant to record notes and thoughts in the comment form along with code. Over time, it also becomes difficult to decide the placement of multi-package functions and snippets. As my configuration has evolved - I've felt an increasing need to shift back to a literate configuration using Org for Emacs, and also separate the personal parts of my configuration to enable sharing on Github.
+
+Using a literate configuration enables a live documentary of my Emacs configuration and also adding meaningful notes and snippets which are directly or indirectly related to configuring Emacs. For example, it is important to have IPython and Jupyter installed for Scimax to work correctly, and I can include notes and working scripts for the same.
+
+There are discussions on Emacs init time increasing by using a tangled org file. However, this is atleast partially remedied by including a function to tangle the config file whenever it is saved, and there are other methods [[http://www.holgerschurig.de/en/emacs-efficiently-untangling-elisp/][like the one described by Holger Schurig]], which I intend to try out soon. Personally, I have not found any degrade in Emacs init time via Scimax.
+
+** DONE Leverage recorded macros to learn =elisp= and hack together workflows in Emacs :lisp:Productivity:
+CLOSED: [2019-02-02 Sat 10:16]
+:PROPERTIES:
+:CREATED:  [2019-01-31 Thu 07:23]
+:ID:       7B7B94CA-2D77-4814-8CAE-C9E95D3F8BC4
+:EXPORT_DATE: [2019-02-02 Sat 10:04]
+:EXPORT_FILE_NAME: 7B7B94CA-2D77-4814-8CAE-C9E95D3F8BC4
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:POST_DATE: [2019-01-31 Thu 11:16]
+:POSTID:   735
+:BLOG:     wordpress
+:END:
+
+The primary power of Emacs is that you can create customised workflows to suit your needs. However, =lisp= is probably not a language that many learn as a typical requirement in the academic systems, perhaps even for a software engineer.
+
+How would one then start customisting Emacs? One way would be to hunt for snippets from forums like reddit and stack overflow, and customise them.
+
+Another easy way to learn a programming language, especially one that is intrinsic to a software is to record macros and edit these macros. Emacs is no different in this regard, and in fact makes it easy being a self-documenting text editor.
+
+[[https://github.com/Silex/elmacro][The elmacro package]] reduces some of the burden. The recorded macro does require a subsequent clean-up to be useful, which is still easier than coding lisp from scratch. In any case, exploring the recorded code will eventuall lead towards proficiency in writing lisp.
+
+[[https://emacsnotes.wordpress.com/2018/11/15/elmacro-write-emacs-lisp-snippet-even-when-you-arent-a-programmer/][This blog post]] provides a more detailed introduction, including creating a menu entry for elmacro. As highlighted by the blog, some commands do not register in Emacs, since external packages handle those functions.
+
+For example, I have 3 main repositories where I commit my work. This is a frequent, repetitive process that is often done till (and at) the last minute.
+
+These are snippets that were developed leveraging elmacro:
+
+#+BEGIN_SRC lisp
+;; Maximise current frame, open scimax user directory,
+;; call magit, switch window and open the scimax directory
+;; Scimax magit status and dired
+(defun sr/windows-magit-scimax ()
+  (interactive)
+  (ace-delete-other-windows)
+  (dired "~/scimax/user/")
+  (switch-window-then-split-right nil)
+  (magit-status "~/scimax/")
+  (switch-window)
+  (split-window-vertically)
+  (dired-up-directory)
+  (windmove-right)
+  )
+
+;; Maximise current frame, open org directory, call magit
+;; my_org magit status
+(defun sr/windows-magit-org ()
+  (interactive)
+  (ace-delete-other-windows)
+  (magit-status "~/my_org/")
+  )
+
+;; Maximise current frame, call magit for my_projects directory
+;; split buffer and call dired in case I need to navigate to a particular directory.
+;; the latter can also be done via magit itself if desired.
+(defun sr/windows-magit-projects ()
+  (interactive)
+  (ace-delete-other-windows)
+  (switch-window-then-split-right nil)
+  (magit-status "~/my_projects/")
+  (switch-window)
+  (dired "~/my_projects/")
+  (switch-window)
+  )
+
+#+END_SRC
+
+Another more complicated example, is using projectile to switch to a project, call a particular file in the project and then split the buffer and open the tasks of that particular project with a narrowed view.
+
+I capture each project's tasks and notes separately in an org file [[file:/post/8f702ce2-8bb7-40a3-b44b-a47222c02909/][using org-projectile]]. This is useful especially for coding projects so that the code is better separated from notes and yet linked.
+
+#+BEGIN_SRC lisp
+;; This is to rapidly switch between projects and have a similar window configuration,
+;; i.e. a main file, and a narrowed view of the tasks heading.
+
+(defun sr/windows-projects ()
+  (interactive)
+  (ace-delete-other-windows)
+  (switch-window-then-split-right nil)
+  (projectile-switch-project)
+  (switch-window)
+  (find-file "~/my_org/project-tasks.org")
+  (widen)
+  (helm-org-rifle-current-buffer)
+  (org-narrow-to-subtree)
+  (outline-show-children)
+  )
+
+#+END_SRC
+
+These are not perfect. For example, I'd rather have to select the project name only once and have that feed into =helm-org-rifle=. These are topics of future exploration.
+
+What then remained was being able call these functions with a few keypresses. Hydras enable this.
+
+#+BEGIN_SRC lisp
+
+(defhydra sr/process-window-keys ()
+  "
+Key^^   ^Workflow^
+--------------------
+o       org magit
+s       scimax magit
+p       projects magit
+w       select project and set window config
+SPC     exit
+"
+  ("o" sr/windows-magit-org )
+  ("p" sr/windows-magit-projects )
+  ("s" sr/windows-magit-scimax )
+  ("w" sr/windows-projects)
+  ("SPC" nil)
+  )
+
+(global-set-key (kbd "<f8> m") 'sr/process-window-keys/body)
+
+#+END_SRC
+
+With the above in place, now all I have to do is call the menu to choose the desired function by typing =F8= =m= and then type =o= or =p= and so on. The hydra exits with =Space=, which makes it easy to switch to another project in case there is nothing to commit in the current choice.
+
+Though simple and in many ways primitive - these functions have still saved me a lot of repetitive acrobatics on my keyboard and I enjoy using Them.
+
+** DONE Why bother with Emacs and workflows?       :Productivity:yasnippet:Emacs
+CLOSED: [2019-07-05 Fri 12:02]
+:PROPERTIES:
+:CREATED:  <2019-01-24 Thu 22:42>
+:ID:       11EF85E6-9EFC-4AF4-B5F3-7648F9EE9308
+:HUGO_TAGS: yasnippet Emacs
+:EXPORT_DATE: [2019-01-25 Fri 14:57]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-01-24 Thu 10:06]
+:POSTID:   719
+:BLOG:     wordpress
+:END:
+
+I've written [[https://shrysr.github.io/tags/emacs/][several posts]] on different ways and tools available to aid productivity, and probably a lot about Emacs. My background is in computational physics, and not in programming, and yet Emacs has been an indispensable driver of my daily workflow for the past 3 years.
+
+The fact is that knowing Emacs (or Vim), or having a custom configuration is [[https://www.reddit.com/r/emacs/comments/9ghpb4/was_anyone_ever_impressed_by_your_emacs_skills/][not a wildly marketable skill]], nor is it mandatory to achieve spectacular results. An Emacs configuration suits personal workflows and style, which may be borderline peculiar to another person. Such a dependence on customised tools would also drastically reduces your speed while using a new IDE or text editor.
+
+So : why add Emacs to the ever-growing to-do list? The question is more pertinent considering that mastery of a 'text editor' is not something you can freely talk about and frequently expect empathetic responses or even a spark like connection. Emacs would be considered by many to be an esoteric and archaic software with a steep learning curve that is not beginner friendly.
+
+However .....
+
+[[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][This article]] elucidates many points where Emacs can help PHB's (Pointy Haired Boss). The internet abounds with [[https://news.ycombinator.com/item?id=11386590][several]] [[https://news.ycombinator.com/item?id=6094610][examples]] on how org-mode and Emacs have changed lives for the better. Here is another [[http://www.howardism.org/Technical/Emacs/new-window-manager.html][cool article by Howard Abrams]] on using Emacs as his (only) window manager, in place of a desktop environment.
+
+Watching an experienced person handle his tools emphasises the potential art form behind it, especially when compared to the bumbling of an amateur. Yes, the amateur may get the job done given enough time, and depending on his capabilities - even match the experienced professional's output (eventually).
+
+However, as experience is gained, the workflows and steps to achieve an optimal result become more lucid. I've experienced an exponentially increasing and compelling need to implement specific preferences to achieve the required optimized results faster and with fewer mistakes.
+
+It is therefore obvious that the workflow and tools used must allow the provision to evolve, customise and automate. This is particularly true with respect to the world of data science and programming. I don't think there is anything better than Emacs with respect to customisation.
+
+Imagine the following:
+- having a combination of scripts or snippets in different languages to jumpstart a project, which is available with a few keypresses? (Yasnippet)[fn:14]
+- Maintaining a blog with a single document, with articles updated automatically on a status change. (ox-hugo)
+- working with multiple R environments in a single document. (Org-babel, ESS)[fn:4]
+- Different Window configurations and processes for different projects that can be called with a few keypresses (hint : keyboard macros)
+- An integrated git porcelain that can actually help you learn git so much faster (magit)
+- Intimately integrating email with tasks, projects, documentation and workflows (mu4e, Org-mode)
+- A customised text editor available right in your terminal (Use Emacsclient launched off a daemon within a terminal)
+- Not requiring to use the mouse for navigation![fn:15]
+
+Now : imagine the consolidated effect of having all the above at your disposal, in a reasonably streamlined state. Then, considering the cumulative effect over multiple projects! The above is just a shallow overview of the possibilities with Emacs.
+
+Investing in learning Emacs, has the serious potential to spawn exponential results in the long run.
+
+** DONE Rapidly accessing cheatsheets to learn data science with Emacs :DataScience:R:emacs:
+CLOSED: [2019-02-02 Sat 10:24]
+:PROPERTIES:
+:CREATED:  [2019-01-12 Sat 17:02]
+:ID:       E86E171E-CC0D-4957-B587-ED2BBF36A8CF
+:EXPORT_DATE: 2019-01-19
+:EXPORT_FILE_NAME: E86E171E-CC0D-4957-B587-ED2BBF36A8CF
+:EXPORT_HUGO_TAGS: Data-Science Emacs
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-01-12 Sat 23:27]
+:POSTID:   878
+:CATEGORY: Data Science, Emacs
+:BLOG:     wordpress
+:END:
+:LOGBOOK:
+CLOCK: [2019-01-12 Sat 17:14]--[2019-01-12 Sat 17:34] =>  0:20
+:END:
+
+[[https://university.business-science.io/p/ds4b-101-r-business-analysis-r][Matt Dancho's course DSB-101-R]] is an awesome course to step into ROI driven business analytics fueled by Data Science. In this course, among many other things - he teaches methods to understand and use cheatsheets to gain rapid /level-ups/, especially to find information connecting various packages and functions and workflows. I have been hooked to this approach and needed a way to quickly refer to the different cheatsheets as needed.
 
 [[https://github.com/FavioVazquez/ds-cheatsheets][Favio Vazquez's ds-cheatsheets repo]], akin to the One Ring to Rule them All (with respect to Cheatsheets of course), combined with Emacs ([[https://github.com/bbatsov/projectile][Projectile]] + [[https://github.com/emacs-helm/helm][Helm]] packages) make it almost a breeze to find a specific cheatsheet quickly, by just typing in a few words. [fn:13]
 
 The built-in Hydras in [[https://github.com/jkitchin/scimax][Scimax]] make it very easy to do the above with a few key presses. All I do is =F12= >> p >> ww, start typing in "ds-" and choose the project and then start typing in the name of the PDF file I'm looking for. Check out the animation below.
 
-{{< figure src="/img/Emacs-projectile-cheatsheet.gif" title="Rapidly switching to a cheatsheet PDF" >}}
+[[~/hugo-sr/static/img/Emacs-projectile-cheatsheet.gif]]
 
 The above concept applies to switching to any file in any git based project that is added to Projectile's lists.
 
-The next aspect to consider was switching between maximized buffer of the opened cheatsheet PDF and the current code buffer. As it goes in Emacs, "there's probably a package for that.." ! My solution was to use one of the various frame/window configuration packages in Emacs to save the position and orientation of the buffers and rapidly switch between the maximised PDF frame and the split code and interpreter frames. 
+The next aspect to consider was switching between maximized buffer of the opened cheatsheet PDF and the current code buffer. As it goes in Emacs, "there's probably a package for that.." ! My solution was to use one of the various frame/window configuration packages in Emacs to save the position and orientation of the buffers and rapidly switch between the maximised PDF frame and the split code and interpreter frames.
 
 Facilitating the above was in fact already available in Scimax, where a frame or window configuration can be saved into a register that is valid for that session. Persistent saving of window configuration across sessions (i.e Emacs restarts) is a little more complex, but it is still possible with some tweaking. Winner-mode is also an interesting option to switch rapidly between window configurations.
 
-[fn:13] To some extent, it is also possible that launchers like the Alfred app could be set or programmed to search in particular locations. This is a decent, less /hacky/ option for Mac users.
+# /Users/shrysr/hugo-sr/static/img/Emacs-projectile-cheatsheet.gif https://s.ragavan.co/wp-content/uploads/Emacs-projectile-cheatsheet.gif
+** DONE Archaic text based email clients rock!                       :emacs:
+CLOSED: [2019-07-13 Sat 19:33]
+:PROPERTIES:
+:EXPORT_HUGO_TAGS: mu4e Emacs Productivity lisp Orgmode
+:ID:       E4E7EBB1-4C0C-41D6-B7E4-1C1C09E48C80
+:EXPORT_OPTIONS: toc:2
+:EXPORT_HUGO_CATEGORIES: Emacs Productivity Org-mode
+:CATEGORY: Emacs, mu4e, mbsync
+:EXPORT_DATE: [2019-07-12 Fri 20:36]
+:EXPORT_FILE_NAME: E4E7EBB1-4C0C-41D6-B7E4-1C1C09E48C80
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-07-12 Fri 16:45]
+:POSTID:   998
+:BLOG:     wordpress
+:END:
 
-** Using 'Archaic' Email clients improved my productivity :mu4e:@Productivity:Org_mode:
-Text and terminal based email clients offer a speed and integrity that
-is extremely pleasing. Imagine being engrossed with your code or
-engineering notebook and the need for shooting off an urgent email
-arises. What if this could be done with a few keypresses on such an email
-client, right from the terminal or the code editor that you are engrossed in?
+This [[https://dev.to/myterminal/how-i-unified-my-email-accounts-in-2019-1pji][dev.to blog post]] inspired me to complete this languishing draft of my current email setup, and the benefits I've gained from using a text based email client in Emacs.
 
-This is possible with Emacs. 
+Hope you find it entertaining. In any case, the links and reference section will certainly prove useful.
 
-In addition to mu4e, there are popular options like [[https://notmuchmail.org/][notmuch]] and
-[[http://www.mutt.org/][mutt]]. I have briefly experimented with mutt, which has a fast email
-search capability, but has to be coupled with another front-end to be
-used within Emacs or elsewhere. The philosophy and system behind
-notmuch (leveraging the Gmail tag based approach) differ from
-mu4e. Overall, mu4e has worked rather well for me.
+*** TLDR - for the busy folks
+**** Goals:
 
-The [[id:6B67FAC1-7F24-47B6-A8CA-7563849EB4A7][Links and References]] section provide several articles and
-resources with information, especially on setting up with ~mu4e~.
+- Unification of email accounts while preserving separate individual components.
+- Local backup of email.
+- Potential to extend system to a personal server
+- Email access from Emacs !
+- Hopefully improve overall productivity with reduced context switching.
 
+**** Summary:
 
-*** What is ~mu4e~
-[[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] is an Emacs based email client, which uses the indexer mu as it's
-backend. ~mu4e~ is essentially a text based email interface in Emacs.
+1. Started with 2 Gmail accounts and 1 MSN account.
+2. Switched to a paid account with Fastmail.
+3. Used Fastmail's tools to transfer email from both Gmail and MSN accounts.
+4. Setup forwarding for all new emails from to Fastmail.
+5. Decided between retaining copies of emails in Gmail/MSN or deleting them once forwarded.
+6. Used customised settings in mu4e to manage Email from within Emacs.
+7. Occasionally rely on web browser / iOS app. Fastmail's interface is clean and very fast.
+8. Goals Achieved !! Live with the quirks and enjoy the perks.
 
-*** Switching to Fastmail
+Look at the [[id:6B67FAC1-7F24-47B6-A8CA-7563849EB4A7][Links and References]] section for almost all the resources I relied on.
 
-Fastmail allows for a variety of interesting features like aliases,
-easy email transfer (from a different email provider like Gmail or
-MSN), responsive technical support, which barely scratch the
-surface. 
+A portion of my mu4e configuration is available [[https://shrysr.github.io/docs/sr-config/#mu4e][on my website]]. The personal filters and configuration are placed in an encrypted file.
 
-Currently, I forward all my emails to a single Fastmail account and
-thus deal only with a single account.
+My mbsync configuration is posted as a [[https://gist.github.com/shrysr/21676fc69d50337d94c5648b9d31f70a][public gist]].
 
-While there are many advantages in Gmail and many swear by it's search
-capabilities - it is worth noting that Fastmail's ad-free interface
-and search just feels a lot quicker than Gmail, and I can find my way
-around the settings better than I used to with Gmail. 
+*** Multiple email accounts. Lack of a unified interface.
 
-On my local desktop, the search is anyway ridiculously quick using ~mu4e~, and
-in particular using a SSD drive.
+Some years back, I found that I had 2 Gmail accounts, and an MSN account. I
+discarded age old Yahoo and rediffmail accounts which were luckily not used much
+(and God knows how many more I made as a kid).
 
-- It's worth noting that Fastmail is implemented in the conventional
-  IMAP fashion with conventional folder structures, unlike Gmail's
-  tag based system. This makes it easier to deal with email filtering
-  at the [[http://isync.sourceforge.net/][mbsync]] settings level.
-
-*** Conventional web and desktop clients are not conducive to streamlined task management.
-
-I've typically been overwhelmed by email. While the volume of unread
-email can rapidly grow into a gigantic mess, I've also been concerned
-about not being able to completely leverage search capabilities to
-extract every ounce of useful information available in my emails.
+Gmail's interface felt just about tolerable, but inconvenient. The idea of viewing ads tailored to the content of emails had become disconcerting. Their Inbox app was
+interesting, but did not work smooth enough. MSN's web interace and apps always
+felt cumbersome, though updates over the years, this has improved significantly.
 
 Useful emails could be email digests that contain a wealth of links,
-discussions, articles and information. Or perhaps email digests of
-product and technology news that are useful to retain as an archive of
-reference.
+discussions, articles and information. Or perhaps email digests of product and
+technology news that are useful to retain as an archive of reference.
 
-It would be nice to be able to process these links in a systematic
-manner, and have them available with a fast search system that is also
-linked to task management.
+It would be nice to be able to process these links in a systematic manner, and
+have them available with a fast search system that is also integrated with a task
+management system.
 
-Among desktop email clients, [[https://www.mozilla.org/en-US/thunderbird/][Thunderbird]] is a reasonably acceptable,
-with a bunch of useful plugins. The Airmail app on the Mac OS is an
-alternative as a paid app.
+#+BEGIN_QUOTE
+My solution was to switch to forwarding all my emails to a single Fastmail
+account. It's been an excellent experience over 2+ years.[fn:19],[fn:20]
+#+END_QUOTE
 
-*** Adopting different levels of organisation
+*** Creating sync channels via =mbsync=
 
-I believe the workflow of an email organisation and processing them
-into tasks is a process that needs room and a suitable framework to
-grow organically, especially as our tasks, priorities and outlook
-change in both quality and quantity with time.
+My mbsync configuration is posted as a [[https://gist.github.com/shrysr/21676fc69d50337d94c5648b9d31f70a][public gist]]. It is reasonably self explanatory, and shows how separate channels were made grouping together folders, by specifying a pattern. This took some time, but was finally very satisfying to know as a fine grained control technique.
 
-Using mu4e over the past few years has enabled me to master my email,
-like no other tool. Though on occasion - I do need to rely on the web
-based interface, or the mobile app.
+#+BEGIN_QUOTE
+I started out using offlineimap. I found mbsync to be significantly faster.
+#+END_QUOTE
 
-When I /do/ access my email on the web, I would prefer a basic level of
-organization available. This means a set of higher level filters are
-implemented at the Fastmail interface to facilitate a reasonably
-clutter free inbox.
+*** Text based email client! Speed + simplicity
 
-The Fastmail folders are synced locally to my Macbook using [[http://isync.sourceforge.net/][mbsync]],
-and finally bookmarks or saved searches are created within mu4e for
-easy access to any number of pre-set search patterns that I need for
-my workflow. The pre-set search patterns or filters are called
-[[https://www.djcbsoftware.nl/code/mu/mu4e/MV-Bookmarks.html][Bookmarks in mu4e]], and can be accessed with a few key strokes.
+Imagine being engrossed with your code or engineering notebook and the need for
+shooting off an urgent brief email arises. What if this could be done with a few
+key-presses on an email client, right from the terminal or the code editor that
+you are already engrossed in?
 
-*** Why Mu4e rocks [for me]
+How about adding an email as a task in your organiser with a deadline / planned date?
 
-Complete keyboard based control, and using it with Emacs means the
-ability to compose email from anywhere and any workflow. 
+What if I had the option to setup separate channels of mail transfer, such that I can sync the inbox or a custom group of folders alone when I am pressed for bandwidth or space?
 
-- I just hit Control+x and m (~C-x m~) in Emacs parlance, and I have a
+Practical solutions will need to cater to a lot more situations.
+
+#+BEGIN_QUOTE
+The good news is: usually anything you need is possible (or already implemented) using Emacs.
+#+END_QUOTE
+
+I use [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]], which uses the indexer mu as it's back-end. There are other popular
+options like [[https://notmuchmail.org/][notmuch]] and [[http://www.mutt.org/][mutt]]. I have briefly experimented with mutt, which has
+a fast email search capability, but has to be coupled with another front-end to
+be used within Emacs or elsewhere. The philosophy and system behind notmuch
+(leveraging the Gmail tag based approach) differ from mu4e.
+
+Over a few years of using this system, I have found that text and terminal based email clients offer a speed and integrity that is extremely pleasing.
+
+*** Why mu4e rocks [for me] - the perks
+
+The ability to create custom search filters that can be accessed with easy shortcuts. An example to demonstrate
+
+#+BEGIN_SRC emacs-lisp
+(setq mu4e-bookmarks
+      `( ,(make-mu4e-bookmark
+	   :name  "Unread messages"
+	   :query "flag:unread AND NOT flag:trashed"
+	   :key ?u)
+	 ,(make-mu4e-bookmark
+	   :name "Today's messages"
+	   :query "date:today..now"
+	   :key ?t)
+	 ,(make-mu4e-bookmark
+	   :name "Last 7 days"
+	   :query "date:7d..now"
+	   :key ?w)
+	 ,(make-mu4e-bookmark
+	   :name "Messages with images"
+	   :query "mime:image/*"
+	   :key ?p)
+	 ,(make-mu4e-bookmark
+	   :name "Finance News"
+	   :query (concat "from:etnotifications@indiatimes.com OR "
+			  "from:newsletters@valueresearchonline.net"
+			  "from:value research")
+	   :key ?f)
+	 ,(make-mu4e-bookmark
+	   :name "Science and Technology"
+	   :query (concat "from:googlealerts-noreply@google.com OR "
+			  "from:reply@email.engineering360.com OR "
+			  "from:memagazine@asme.org"
+			  "from:action@ifttt.com"
+			  "from:digitaleditions@techbriefs.info")
+	   :key ?S)
+         ))
+#+END_SRC
+
+This is how it looks:
+
+[[~/hugo-sr/static/img/mu4e-start.png]]
+
+Complete keyboard based control, and using it with Emacs means the ability to
+compose email from anywhere and build all kinds of workflows. Examples:
+
+- Hit Control+x and m (~C-x m~) in Emacs parlance, and I have a
   compose window open.
 
-- There are built-in workflows and functions in distributions like
+- There are built-in workflows and functions in starter-kits like
   [[https://github.com/jkitchin/scimax][Scimax]], which enable you to email an org-heading or buffer directly
-  into an email, with the formatting (largely) preserved, and as
+  into an email, with the formatting usually preserved, and as
   intended.
+
+I often use yasnippet to insert links to standard attachments like my
+resume. This essentially means being able to attach files with a 1-2 key
+strokes.
 
 While Mu4e may be a programmatic solution with no pleasing GUI - it
 allows one to search a large number of emails with glorious ease. This
 is particularly more effective on a SSD drive, rather than the
 conventional Hard disk.
 
-One has to experience the speed to know the dramatic impact it makes
-to be closer in speed to your thoughts using a customisable system
-that is as functional as it gets, and can be intimately connected to a
-task management system readily available in Emacs, [[https://orgmode.org/][Org mode]].
+One has to experience the above to /know/ the dramatic impact it makes in getting
+closer in speed to your thoughts, using a customisable system.  Emails can be
+easily captured or added as tasks into [[https://orgmode.org/][Org mode]] documents as a part of task and
+project management.
 
-Using the above, I've devised a 'sane inbox' which is bereft of the
-noise, like annoying digests, social media updates and so on. I can
+Using the mu4e and mbsync, I've devised a 'sane inbox' which is bereft of the
+noise, like annoying digests, social media updates and so on.  The idea was to
 dedicate focused blocks to rapidly process email, all within Emacs.
+
+I have tried using Todoist extensively in the past, along with their integration
+with Gmail. This approach is a reasonable solution, if one is open to using
+different applications.
 
 *** Quirks
 
-~mu4e~ is a text based email interface. It can be set such that the
-rendered ~HTML~ is displayed in the mu4e-view buffer for each email,
-which enables graphics and pictures (if any). However, the render is
-not perfect at times.  Thus Heavy ~HTML~ emails may not render
-correctly, and will surely be different than viewing it in a browser.
+~mu4e~ is a text based email interface. It can be set such that the rendered ~HTML~
+is displayed in the mu4e-view buffer for each email, which enables graphics and
+pictures (if any). However, the render is not perfect at all times.  The HTML
+parsing engine can be specified. Thus, heavy ~HTML~ emails are unlikely to
+render correctly, to the extent of being a nuisance.
 
-- Such emails can be viewed in the browser of your choice with merely
-  2 key presses. This could be Firefox, or [[http://w3m.sourceforge.net/][w3m]] or any other browser of
-  your choice.
-- I use w3m, and believe me when I say that you would be surprised to
-  see the ease in browsing websites on a text only mode. Besides the
-  added advantage of being within Emacs - a surprising number of
-  websites can be viewed functionally on w3m. It is very useful
-  for quick searches on Google [also possible with a few key strokes
-  within emacs].
+#+BEGIN_QUOTE
+Such emails can be viewed in the browser of your choice with merely 2 key presses, 'a' and then 'v', with cursor in the body of the email. This could be Firefox, or [[http://w3m.sourceforge.net/][w3m]] or any other browser of your choice.[fn:21]
+#+END_QUOTE
+
+Email syncing frequency is set in mu4e. This update process takes a few seconds, and it is not as seamless as a web app. Notifications for new email can be configured on the mode line or through pop-ups in Emacs. However, the experience with working synced emails is good.
+
+*** Multiple levels of filters are still necessary.
+
+Situations where I do not have access to Emacs will need me to use the iOS app or the web interface. Therefore the inbox in the web interface here cannot be 'insane'. Therefore a higher level of filters are implemented in Fastmail itself.
+
+For example all Linked in group and job updates have their own folders. These
+folders are all subfolders of the Archive. They never reach the inbox at
+all. These emails often remain unread, or if necessary, I can focus on bunches
+of them at a time.
+
+#+BEGIN_QUOTE
+By grouping all such incoming mails into subfolders within the Archive folder, I can use a single channel for all the /relatively/ unimportant mail.
+#+END_QUOTE
+
+*** Takeaways
+
+- Using an 'archaic' text based email client (mu4e) has significantly boosted the speed with which I can handle my emails and focus on tasks. The simple interface and speed enables better focus.
+
+- While there are many articles and plenty of guidance on this topic, it takes time and patience to get this working the way you need it to. However, once it is setup, it does become rather comfortable to use.
+
+- Context switching is expensive on the brain and dents productivity.
+
+- Integrating email with time and project management is important. mu4e integrates well with Org mode. Beyond tasks, it is also a good reference, and I can easily attach notes, summaries etc to these emails.
 
 *** Links and References
-**** [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][A Complete Guide to Email in Emacs using Mu and Mu4e]], <2017-03-08 Wed 10:04>
-**** [[http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html][Reading IMAP Mail in Emacs on OSX | Adolfo Villafiorita]], <2016-11-27 Sun 08:17>
-**** Excellent link talking about mu4e and notifications [[https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/][Handling Email with Emacs – malb::blog]], <2016-08-01 Mon 18:37>
-**** [[https://www.reddit.com/r/emacs/comments/3s5fas/which_email_client_mu4e_mutt_notmuch_gnus_do_you/][Which email client (mu4e, Mutt, notmuch, Gnus) do you use inside Emacs, and why? : emacs]]  <2016-05-31 Tue 07:32>
-**** [[http://emacs-fu.blogspot.in/2012/08/introducing-mu4e-for-email.html][emacs-fu: introducing mu4e, an e-mail client for emacs]] - Emacs and mu4e stuff  <2016-04-20 Wed 13:02>
-**** [[http://www.kirang.in/2014/11/13/emacs-as-email-client-with-offlineimap-and-mu4e-on-osx/][Emacs as email client with offlineimap and mu4e on OS X // KG // Hacks. Thoughts. Writings.]] - nice blog related to Emacs and linux  <2016-04-21 Thu 22:44>
-**** [[http://writequit.org/eos/eos-mail.html][EOS: Mail (Email) Module]] - explaining multiple email setup in mu4e  <2016-04-27 Wed 07:56>
-**** [[http://tech.memoryimprintstudio.com/the-ultimate-emailing-agent-with-mu4e-and-emacs/][The Ultimate Emailing Agent with Mu4e and Emacs – Emacs, Arduino, Raspberry Pi, Linux and Programming etc]], <2016-08-17 Wed 13:19>
-**** [[http://varunbpatil.github.io/2013/08/19/eom/#.VxXTtM7hXCs][Varun B Patil | EOM a.k.a End of Mail a.k.a Emacs + offlineimap + mu4e]] - multiple accounts  <2016-04-19 Tue 12:19>
-**** [[http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/][Master your inbox with mu4e and org-mode | Pragmatic Emacs]]  <2016-03-26 Sat 14:56>
-**** [[https://lwn.net/Articles/705856/][A year with Notmuch mail {LWN.net}]] <2018-04-17 Tue 01:21>
-**** notmuch - email setup  [[https://wwwtech.de/articles/2016/jul/my-personal-mail-setup][My personal mail setup — Articles — WWWTech]] <2017-06-13 Tue 16:09> :link:
-**** [[http://www.kmjn.org/notes/unix_style_mail_tools.html][Search-oriented tools for Unix-style mail | Mark J. Nelson]], <2017-05-10 Wed 16:29>
-- interesting comparison of mu and notmuch, going beyond superficial
-  differences, but not too much depth either.
-**** [[https://lukespear.co.uk/mutt-multiple-accounts-mbsync-notmuch-gpg-and-sub-minute-updates][Mutt with multiple accounts, mbsync, notmuch, GPG and sub-minute updates | French to English translator]], <2017-04-28 Fri 07:19>
-- interesting link, author profile and content available on-line.
-**** [[https://bostonenginerd.com/posts/notmuch-of-a-mail-setup-part-2-notmuch-and-emacs/][Assorted Nerdery - Notmuch of a mail setup Part 2 - notmuch and Emacs]], <2017-04-27 Thu 18:41>
-**** Mutt and mu4e links - email in text versus html   <2016-11-27 Sun 08:10>
-- [[https://stackoverflow.com/questions/6805783/send-html-page-as-email-using-mutt][bash - Send Html page As Email using "mutt" - Stack Overflow]]
-- [[https://fiasko-nw.net/~thomas/projects/htmail-view.html.en][Reading html email with mutt]]
-- [[https://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/][Prefer plain text format over HTML in mutt]]
-- [[http://foivos.zakkak.net/tutorials/using_emacs_and_notmuch_mail_client.html][Using emacs and notmuch as a mail client - Foivos . Zakkak . net]]
-- [[https://www.reddit.com/r/emacs/comments/4jqyzu/help_with_mu4e_multiple_accounts/][Help with mu4e multiple accounts : emacs]]
-**** [[https://www.reddit.com/r/linux/comments/3kj6v4/using_mutt_offlineimap_and_notmuch_to_wrangle/][Using Mutt, OfflineIMAP and Notmuch to wrangle your inbox. : linux]]  <2016-06-16 Thu 15:23>
-**** mu4e Links  <2016-04-19 Tue 21:48>
-- [[http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration][Mu4e 0.9.16 user manual: Gmail configuration]]
-- [[https://www.google.co.in/search?q=mu4e+tutorials&ie=utf-8&oe=utf-8&gws_rd=cr&ei=4IwVV5jkC8fd0ATZ3q2gDA][mu4e tutorials - Google Search]]
-- [[https://www.reddit.com/r/emacs/comments/3junsg/tutorial_email_in_emacs_with_mu4e_and_imapssl/][Tutorial: email in Emacs with mu4e and IMAP+SSL : emacs]]
-- [[http://pragmaticemacs.com/mu4e-tutorials/][mu4e tutorials | Pragmatic Emacs]]
-- [[http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html][Drowning in Email; mu4e to the Rescue.]]
-- [[http://standardsandfreedom.net/index.php/2014/08/28/mu4e/][Emacs & the obsessive email mongerer | Moved by Freedom – Powered by Standards]]
-- [[https://groups.google.com/forum/#!topic/mu-discuss/NzQmkK4qo7I][Mu4e + nullmailer - Google Groups]]
-- [[http://nullprogram.com/blog/2013/09/03/][Leaving Gmail Behind « null program]]
-- [[https://www.google.co.in/search?q=view+html+mails+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=e74VV__iOMPM0ASlsq2ACg][view html mails in mu4e - Google Search]]
-- [[http://www.djcbsoftware.nl/code/mu/mu4e/Reading-messages.html][Mu4e 0.9.16 user manual: Reading messages]]
-- [[https://www.reddit.com/r/emacs/comments/1xad11/in_mu4e_is_this_how_your_htmlheavy_emails_render/][In mu4e, is this how your HTML-heavy emails render? : emacs]]
-- [[http://varunbpatil.github.io/2013/08/19/eom/#.VxXTtM7hXCs][Varun B Patil | EOM a.k.a End of Mail a.k.a Emacs + offlineimap + mu4e]]
-- [[http://www.djcbsoftware.nl/code/mu/mu4e/Marking-messages.html#Marking-messages][Mu4e 0.9.16 user manual: Marking messages]]
-- [[https://www.google.co.in/search?q=change+the+date+column+view+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=TDgWV8zEBIOLuwTXk5uYAw#q=change+the+date+column+format+in+mu4e][change the date column format in mu4e - Google Search]]
-- [[http://www.djcbsoftware.nl/code/mu/mu4e/HV-Overview.html][Mu4e 0.9.16 user manual: HV Overview]]
-- [[https://www.google.co.in/search?q=increase+column+size+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=ZjsWV7TDLJW3uQT6qZEY][increase column size in mu4e - Google Search]]
-- [[http://www.djcbsoftware.nl/code/mu/mu4e/HV-Custom-headers.html][Mu4e 0.9.16 user manual: HV Custom headers]]
-- [[https://ftp.fau.de/gentoo/distfiles/mu4e-manual-0.9.9.pdf][mu4e-manual-0.9.9.pdf]]
-- [[https://www.google.co.in/search?q=do+mu4e+folders+sync+with+gmail+%3F&ie=utf-8&oe=utf-8&gws_rd=cr&ei=7DsWV7-NHIyXuASgtJ44#q=do+mu4e+folders+sync+with+gmail+folders][do mu4e folders sync with gmail folders - Google Search]]
-- [[https://www.reddit.com/r/emacs/comments/3r8dr3/mu4e_send_mail_with_custom_smtp_and_archive_in/][mu4e Send mail with custom SMTP and archive in Gmail "Sent" folder : emacs]]
-- [[http://www.brool.com/post/using-mu4e/][Using mu4e · Brool ]]
-- [[https://www.google.co.in/search?q=are+maildir+folders+synced+back+to+gmail+%3F&ie=utf-8&oe=utf-8&gws_rd=cr&ei=RlwWV5TKKI62uASltLz4Ag][are maildir folders synced back to gmail ? - Google Search]]
-- [[http://www.offlineimap.org/doc/use_cases.html][Some real use cases]]
-- [[http://deferred.io/about/][About]]
-- [[https://bluishcoder.co.nz/2013/04/30/backing_up_gmail_messages_with_offlineimap.html][Backing up Gmail messages with offlineimap]]
-- [[https://www.google.co.in/search?q=notmuch+email+versus+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=zmcWV8eVEIqdugTzkIpo][notmuch email versus mu4e - Google Search]]
-- [[https://www.reddit.com/r/emacs/comments/3s5fas/which_email_client_mu4e_mutt_notmuch_gnus_do_you/][Which email client (mu4e, Mutt, notmuch, Gnus) do you use inside Emacs, and why? : emacs]]
-- [[http://irreal.org/blog/?p=2897][A Followup on Leaving Gmail | Irreal]]
-- [[http://cscorley.github.io/2014/01/19/sup/][Sup?]]
-- [[https://pbrisbin.com/posts/mutt_gmail_offlineimap/][Mutt + Gmail + Offlineimap]]
-- [[http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e/][Migrating from offlineimap to mbsync for mu4e | Pragmatic Emacs]]
+:PROPERTIES:
+:ID:       6B67FAC1-7F24-47B6-A8CA-7563849EB4A7
+:END:
 
-** Using R and ESS with Emacs                                             :R:
-RStudio seems to be an impressive IDE, especially in terms of startup speed, ease of documentation access, customisation options, project management options and key-bindings that can be made close to Emacs. RStudio is certainly a good starting for a beginner. 
+These are the links and references I've used in setting up and troubleshooting my email setup.
 
-However, the ESS package for Emacs provides an excellent platform to implement R scripts, especially in conjunction with Org mode. 
+#+BEGIN_QUOTE
+These could be organized better, and some links may be repeated. All put together, these should give you all you need to get hooked up!
+#+END_QUOTE
 
-The R Markdown method of introducing sections with headings / comments using the "----" with headings is quite excellent to jump to sections of code. However, this does not reach the functionality possible with Org mode and Org Babel, combined with Org Projectile and Org Capture which make it simplicity itself to capture tasks or notes specific to a project, without excessively polluting the code snippets. 
+#+BEGIN_QUOTE
+Some of the links have additional comments, and many are tagged with dates, as a reference to when I collected the link. Sometimes, this is fun to reflect on!
+#+END_QUOTE
 
-** Deploying Hydras in Emacs for commonly used functions             :hydras:
-There are way too many commands to remember in Emacs. However, a bunch of these commands will be used very repetitively to get things done. While keyboard shortcuts can be devised, it also becomes cumbersome to remember the combinations. This is where Hydras are very useful, and also provide the base for progressively evolving workflows.
+- [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][A Complete Guide to Email in Emacs using Mu and Mu4e]], <2017-03-08 Wed 10:04>
+- [[http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html][Reading IMAP Mail in Emacs on OSX | Adolfo Villafiorita]], <2016-11-27 Sun 08:17>
+- [ ] Excellent link talking about mu4e and notifications [[https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/][Handling Email with Emacs – malb::blog]], <2016-08-01 Mon 18:37>
+- [[https://www.reddit.com/r/emacs/comments/3s5fas/which_email_client_mu4e_mutt_notmuch_gnus_do_you/][Which email client (mu4e, Mutt, notmuch, Gnus) do you use inside Emacs, and why? : emacs]]  <2016-05-31 Tue 07:32>
+- [[http://emacs-fu.blogspot.in/2012/08/introducing-mu4e-for-email.html][emacs-fu: introducing mu4e, an e-mail client for emacs]] - Emacs and mu4e stuff  <2016-04-20 Wed 13:02>
+- [[http://www.kirang.in/2014/11/13/emacs-as-email-client-with-offlineimap-and-mu4e-on-osx/][Emacs as email client with offlineimap and mu4e on OS X // KG // Hacks. Thoughts. Writings.]] - nice blog related to Emacs and linux  <2016-04-21 Thu 22:44>
+- [[http://writequit.org/eos/eos-mail.html][EOS: Mail (Email) Module]] - explaining multiple email setup in mu4e  <2016-04-27 Wed 07:56>
+- [[http://tech.memoryimprintstudio.com/the-ultimate-emailing-agent-with-mu4e-and-emacs/][The Ultimate Emailing Agent with Mu4e and Emacs – Emacs, Arduino, Raspberry Pi, Linux and Programming etc]], <2016-08-17 Wed 13:19>
+- [[http://varunbpatil.github.io/2013/08/19/eom/#.VxXTtM7hXCs][Varun B Patil | EOM a.k.a End of Mail a.k.a Emacs + offlineimap + mu4e]] - multiple accounts  <2016-04-19 Tue 12:19>
+- [[http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/][Master your inbox with mu4e and org-mode | Pragmatic Emacs]]  <2016-03-26 Sat 14:56>
+- notmuch - email setup  [[https://wwwtech.de/articles/2016/jul/my-personal-mail-setup][My personal mail setup — Articles — WWWTech]] <2017-06-13 Tue 16:09>
+- [[http://www.kmjn.org/notes/unix_style_mail_tools.html][Search-oriented tools for Unix-style mail | Mark J. Nelson]], <2017-05-10 Wed 16:29>
+  - interesting comparison of mu and notmuch, going beyond superficial
+    differences, but not too much depth either.
+- [[https://lukespear.co.uk/mutt-multiple-accounts-mbsync-notmuch-gpg-and-sub-minute-updates][Mutt with multiple accounts, mbsync, notmuch, GPG and sub-minute updates | French to English translator]], <2017-04-28 Fri 07:19>
+  - interesting link, author profile and content available on-line.
+- [[https://bostonenginerd.com/posts/notmuch-of-a-mail-setup-part-2-notmuch-and-emacs/][Assorted Nerdery - Notmuch of a mail setup Part 2 - notmuch and Emacs]], <2017-04-27 Thu 18:41>
+- Mutt,  mu4e and notmuch links
+  - [[https://stackoverflow.com/questions/6805783/send-html-page-as-email-using-mutt][bash - Send Html page As Email using "mutt" - Stack Overflow]]
+  - [[https://fiasko-nw.net/~thomas/projects/htmail-view.html.en][Reading html email with mutt]]
+  - [[https://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/][Prefer plain text format over HTML in mutt]]
+  - [[http://foivos.zakkak.net/tutorials/using_emacs_and_notmuch_mail_client.html][Using emacs and notmuch as a mail client - Foivos . Zakkak . net]]
+  - [[https://www.reddit.com/r/emacs/comments/4jqyzu/help_with_mu4e_multiple_accounts/][Help with mu4e multiple accounts : emacs]]
+  - [[https://www.reddit.com/r/linux/comments/3kj6v4/using_mutt_offlineimap_and_notmuch_to_wrangle/][Using Mutt, OfflineIMAP and Notmuch to wrangle your inbox. : linux]]  <2016-06-16 Thu 15:23>
+  - [[https://lwn.net/Articles/705856/][A year with Notmuch mail {LWN.net}]] <2018-04-17 Tue 01:21>
+- mu4e specific Links  <2016-04-19 Tue 21:48>
+  - [[http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration][Mu4e 0.9.16 user manual: Gmail configuration]]
+  - [[https://www.google.co.in/search?q=mu4e+tutorials&ie=utf-8&oe=utf-8&gws_rd=cr&ei=4IwVV5jkC8fd0ATZ3q2gDA][mu4e tutorials - Google Search]]
+  - [[https://www.reddit.com/r/emacs/comments/3junsg/tutorial_email_in_emacs_with_mu4e_and_imapssl/][Tutorial: email in Emacs with mu4e and IMAP+SSL : emacs]]
+  - [[http://pragmaticemacs.com/mu4e-tutorials/][mu4e tutorials | Pragmatic Emacs]]
+  - [[http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html][Drowning in Email; mu4e to the Rescue.]]
+  - [[http://standardsandfreedom.net/index.php/2014/08/28/mu4e/][Emacs & the obsessive email mongerer | Moved by Freedom – Powered by Standards]]
+  - [[https://groups.google.com/forum/#!topic/mu-discuss/NzQmkK4qo7I][Mu4e + nullmailer - Google Groups]]
+  - [[http://nullprogram.com/blog/2013/09/03/][Leaving Gmail Behind « null program]]
+  - [[https://www.google.co.in/search?q=view+html+mails+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=e74VV__iOMPM0ASlsq2ACg][view html mails in mu4e - Google Search]]
+  - [[http://www.djcbsoftware.nl/code/mu/mu4e/Reading-messages.html][Mu4e 0.9.16 user manual: Reading messages]]
+  - [[https://www.reddit.com/r/emacs/comments/1xad11/in_mu4e_is_this_how_your_htmlheavy_emails_render/][In mu4e, is this how your HTML-heavy emails render? : emacs]]
+  - [[http://varunbpatil.github.io/2013/08/19/eom/#.VxXTtM7hXCs][Varun B Patil | EOM a.k.a End of Mail a.k.a Emacs + offlineimap + mu4e]]
+  - [[http://www.djcbsoftware.nl/code/mu/mu4e/Marking-messages.html#Marking-messages][Mu4e 0.9.16 user manual: Marking messages]]
+  - [[https://www.google.co.in/search?q=change+the+date+column+view+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=TDgWV8zEBIOLuwTXk5uYAw#q=change+the+date+column+format+in+mu4e][change the date column format in mu4e - Google Search]]
+  - [[http://www.djcbsoftware.nl/code/mu/mu4e/HV-Overview.html][Mu4e 0.9.16 user manual: HV Overview]]
+  - [[https://www.google.co.in/search?q=increase+column+size+in+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=ZjsWV7TDLJW3uQT6qZEY][increase column size in mu4e - Google Search]]
+  - [[http://www.djcbsoftware.nl/code/mu/mu4e/HV-Custom-headers.html][Mu4e 0.9.16 user manual: HV Custom headers]]
+  - [[https://ftp.fau.de/gentoo/distfiles/mu4e-manual-0.9.9.pdf][mu4e-manual-0.9.9.pdf]]
+  - [[https://www.google.co.in/search?q=do+mu4e+folders+sync+with+gmail+%3F&ie=utf-8&oe=utf-8&gws_rd=cr&ei=7DsWV7-NHIyXuASgtJ44#q=do+mu4e+folders+sync+with+gmail+folders][do mu4e folders sync with gmail folders - Google Search]]
+  - [[https://www.reddit.com/r/emacs/comments/3r8dr3/mu4e_send_mail_with_custom_smtp_and_archive_in/][mu4e Send mail with custom SMTP and archive in Gmail "Sent" folder : emacs]]
+  - [[http://www.brool.com/post/using-mu4e/][Using mu4e · Brool ]]
+  - [[https://www.google.co.in/search?q=are+maildir+folders+synced+back+to+gmail+%3F&ie=utf-8&oe=utf-8&gws_rd=cr&ei=RlwWV5TKKI62uASltLz4Ag][are maildir folders synced back to gmail ? - Google Search]]
+  - [[http://www.offlineimap.org/doc/use_cases.html][Some real use cases]]
+  - [[http://deferred.io/about/][About]]
+  - [[https://bluishcoder.co.nz/2013/04/30/backing_up_gmail_messages_with_offlineimap.html][Backing up Gmail messages with offlineimap]]
+  - [[https://www.google.co.in/search?q=notmuch+email+versus+mu4e&ie=utf-8&oe=utf-8&gws_rd=cr&ei=zmcWV8eVEIqdugTzkIpo][notmuch email versus mu4e - Google Search]]
+  - [[https://www.reddit.com/r/emacs/comments/3s5fas/which_email_client_mu4e_mutt_notmuch_gnus_do_you/][Which email client (mu4e, Mutt, notmuch, Gnus) do you use inside Emacs, and why? : emacs]]
+  - [[http://irreal.org/blog/?p=2897][A Followup on Leaving Gmail | Irreal]]
+  - [[http://cscorley.github.io/2014/01/19/sup/][Sup?]]
+  - [[https://pbrisbin.com/posts/mutt_gmail_offlineimap/][Mutt + Gmail + Offlineimap]]
+  - [[http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e/][Migrating from offlineimap to mbsync for mu4e | Pragmatic Emacs]]
 
-An excellent example of using Hydras to speed up workflow is detailed in this blog article, which focuses on refiling headings rapidly. As the number of headings in the Org agenda files increases, it takes a longer time to compile a list of the headings. 
+# /Users/shrysr/hugo-sr/static/img/mu4e-start.png https://s.ragavan.co/wp-content/uploads/mu4e-start.png
 
-** Blogging with Emacs and Hugo                                        :hugo:
-** Juggling multiple projects and leveraging org-projectile :Org_mode:productivity:
+
+
+** DONE Juggling multiple projects and leveraging org-projectile :Productivity:emacs:orgmode:
+CLOSED: [2019-01-25 Fri 14:44]
+:PROPERTIES:
+:CREATED:  <2018-12-15 Sat 20:07>
+:ID:       8F702CE2-8BB7-40A3-B44B-A47222C02909
+:CATEGORY: Emacs
+:EXPORT_HUGO_TAGS: Org-mode Emacs
+:EXPORT_DATE: [2019-01-19 Sat 18:56]
+:EXPORT_FILE_NAME: 8F702CE2-8BB7-40A3-B44B-A47222C02909
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-12-15 Sat 16:48]
+:POSTID:   1003
+:BLOG:     wordpress
+:END:
+:LOGBOOK:
+CLOCK: [2018-12-16 Sun 07:07]--[2018-12-16 Sun 07:51] =>  0:44
+:END:
 [[https://github.com/jkitchin/scimax][Scimax]] has a convenient feature of immediately creating projects (=M-x nb-new=). The location of the project directory is defined by the setting =(setq nb-notebook-directory "~/my_projects/")=, which has to be set in your Emacs config. Once the name of the project is chosen, a Readme.org buffer is immediately opened and one can start right away. It is an awesome, friction-free method to get started with a project.
 
 These projects are automatically initialised as git repositories, to which it is trivial to add a new remote using Magit. Therefore individual folders and git repos are automatically created for each project in the specified project directory. This enables the convenient possibility of keeping the data, folder structures, tasks, notes and scripts of each project separate.
 
-Different projects can be switched to using =M-x nb-open= and typing in a few words that denote the title of the project. Choosing a project automatically provides the option to open the Readme.org files created earlier. Therefore it would be convenient to include relevant links to different locations / scripts and etc in the Readme file. 
+Different projects can be switched to using =M-x nb-open= and typing in a few words that denote the title of the project. Choosing a project automatically provides the option to open the Readme.org files created earlier. Therefore it would be convenient to include relevant links to different locations / scripts and etc in the Readme file.
 
-Using the above technique resulted in me creating a huge number of projects over a period of time. Especially while working on multiple computers, it is worth inculcating the discipline of adding a remote on github/bitbucket and regularly pushing to the remote. 
+Using the above technique resulted in me creating a huge number of projects over a period of time. Especially while working on multiple computers, it is worth inculcating the discipline of adding a remote on github/bitbucket and regularly pushing to the remote.
 
 The advantage of using a separate repo for each project is the alignment with the space constraints imposed by the free tier repos on bitbucket or github. However, it is also useful to have the entire project folder as a git repo. This can be resolved by adding each project as a sub-module. In this way, all the projects are available with a single clone of the project foder, and then specific sub-modules or projects can be initialized as required. Having separate repos for each project also enables more streamlined collaboration or publishing of a particular project, rather than the entire project folder and allowing separate gitignore lists for each project.Using a single file for all the projects will also enable adding notes pertaining to the content of each project, which can be searched before intialising the entire project repo. Scripts for initializing and commit can also be included in this file for convenience.
 
 Once the above is done, the [[https://github.com/IvanMalison/org-projectile/blob/master/org-projectile.el][org-projectile]] package can be leveraged to plan the tasks and manage the notes for each project. It is possible to have all the tasks for a project within a separate file within each project, or specify a single file as the task management for all the projects. This file is then appended to the org-agenda files for tasks to show up in the agenda. As mentioned in the Readme of the org-projectile package the settings would look like the following (for a single file pertaining to all the projects):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 ;; Setting up org-projectile
 (require 'org-projectile)
 (setq org-projectile-projects-file
@@ -258,126 +570,156 @@ Once the above is done, the [[https://github.com/IvanMalison/org-projectile/blob
 (push (org-projectile-project-todo-entry) org-capture-templates)
 (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
 (global-set-key (kbd "C-c n p") 'org-projectile-project-todo-completing-read)
-#+end_src
+#+END_SRC
 
 The above snippet adds a TODO capture template activated by the letter 'p', and also adds the =project-tasks= file to the agenda files. Inside a project, it is then possible to capture using =C-cc p= and add a task which will create a top level heading linked to the project, and the task or note as a sub-heading.
 
-{{< figure src="/img/screenshot-org-projectile.png" title="org-projectile task capture" >}}
+** DONE Jupyter notebooks to Org source + Tower of Babel :DataScience:Jupyter:Python:orgmode:
+CLOSED: [2019-01-25 Fri 14:44]
+:PROPERTIES:
+:CREATED:  <2018-04-28 Sat 23:31>
+:ID:       0B63F316-6F6B-4EC2-84A4-5FF287ECF7A7
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:HUGO_DATE: [2018-08-07 Tue 17:35]
+:EXPORT_FILE_NAME: 0B63F316-6F6B-4EC2-84A4-5FF287ECF7A7
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-04-28 Sat 16:28]
+:POSTID:   74
+:BLOG:     srwp01
+:END:
+:LOGBOOK:
+CLOCK: [2018-08-07 Tue 17:33]--[2018-08-07 Tue 17:38] =>  0:05
+CLOCK: [2018-08-05 Sun 23:51]--[2018-08-06 Mon 00:41] =>  0:50
+CLOCK: [2018-08-05 Sun 03:48]--[2018-08-05 Sun 04:01] =>  0:13
+:END:
 
-** Jupyter notebooks to Org source + Tower of Babel :@Datascience:Jupyter:Python:Org_mode:
-This post provides a simple example demonstrating how a shell script can be called with appropriate variables from any Org file in Emacs. The script essentially converts a Jupyter notebook to Org source, and [[https://orgmode.org/worg/org-contrib/babel/][Babel]] is leveraged to call the script with appropriate variables from any Org file. This [[https://news.ycombinator.com/item?id=11296843][reddit thread]] and [[https://lepisma.github.io/2016/11/02/org-babel/][blog post]] elucidate the advantages of using Babel and Org mode over Jupyter notebooks. 
+This post provides a simple example demonstrating how a shell script can be called with appropriate variables from any Org file in Emacs. The script essentially converts a Jupyter notebook to Org source, and [[https://orgmode.org/worg/org-contrib/babel/][Babel]] is leveraged to call the script with appropriate variables from any Org file. This [[https://news.ycombinator.com/item?id=11296843][reddit thread]] and [[https://lepisma.github.io/2016/11/02/org-babel/][blog post]] elucidate the advantages of using Babel and Org mode over Jupyter notebooks.
 
 Directly editing code in a Jupyter notebook in a browser is not an attractive long term option and is inconvenient even in the short term. My preference is to have it all in Emacs, leveraging a versatile Org file where it is easy to encapsulate code in notebooks or projects within Org-headings. Thus, projects are integrated with the in-built task management and calendar of Org mode.
 
-However, it may be a frequent necessity to access an external Jupyter notebook for which there is no Org source. 
+However, it may be a frequent necessity to access an external Jupyter notebook for which there is no Org source.
 
 One solution is to start up a Jupyter server locally, open the file and then File >> save as a markdown file, which can be converted to an Org file using pandoc. Remarkably, the output code seems similar to the code blocks used in the R-markdown notebooks, rather than pure markdown markup. Therefore this markdown export should work fine in RStudio as well. However, unless the Jupyter server is always running on your machine, this is a relatively slow, multi-step process.
 
 [[https://emacs.stackexchange.com/questions/5465/how-to-migrate-markdown-files-to-emacs-org-mode-format][This SO discussion]] provided my answer, which is a 2 step script via the versatile [[https://pandoc.org/][pandoc]]. A workable solution, as a test conversion revealed. The headings and subheadings and code are converted into Org markup along with Org source blocks.
 
-#+begin_src sh
+#+BEGIN_SRC shell
 jupyter nbconvert notebook.ipynb --to markdown
 pandoc notebook.md -o notebook.org
-#+end_src
+#+END_SRC
 
 The next consideration was to have the above script or recipe handy for converting any Jupyter notebook to an Org file quickly.[fn:11] For the script to be referenced and called from any other location,  the source block needs to be defined with a name and the necessary arguments, and also added into the org-babel library.
 
 In this example the path to the Jupyter notebook, markdown file and resulting org file are specified as variables or arguments. Note that the absolute path to any file is required. Save the following in an Org file, named appropriately, like my-recipes.org
 
-#+begin_src emacs-lisp
-,#+NAME: jupyter-to-org-current
-,#+HEADER:  :var path_ipynb="/Users/xxx/Jupyter_notebook" 
-,#+HEADER: :var path_md = "Jupyter_notebook-markdown" 
-,#+HEADER: :var path_org = "Jupyter-notebook-org"
-,#+BEGIN_SRC sh :results verbatim
+#+BEGIN_SRC emacs-lisp
+#+NAME: jupyter-to-org-current
+#+HEADER:  :var path_ipynb="/Users/xxx/Jupyter_notebook"
+#+HEADER: :var path_md = "Jupyter_notebook-markdown"
+#+HEADER: :var path_org = "Jupyter-notebook-org"
+#+BEGIN_SRC sh :results verbatim
 cwd=$(pwd)
 jupyter nbconvert --to markdown $path_ipynb.ipynb --output $cwd/$path_md.md
 pandoc $cwd/$path_md.md -o $cwd/$path_org.org
 cp $path_ipynb.ipynb $cwd
 ls
-#+end_src
+#+END_SRC
 
 The =path_ipynb= variable can be changed as required to point to the Jupyter notebook.[fn:12]
 
-All such blocks above can be stored in Org files and added to the Library of Babel (LOB) by including the following in the Emacs init configuration. 
+All such blocks above can be stored in Org files and added to the Library of Babel (LOB) by including the following in the Emacs init configuration.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 (org-babel-lob-ingest "/Users/shreyas/my_projects/my-recipes.org")
-#+end_src
+#+END_SRC
 
-The named shell script source block can now be called from any Org file, with specified arguments and have the notebook. The script is called using the =#+CALL= function and using the name and arguments of the source block above. 
+The named shell script source block can now be called from any Org file, with specified arguments and have the notebook. The script is called using the =#+CALL= function and using the name and arguments of the source block above.
 
-#+begin_src emacs-lisp
-,#+CALL: jupyter-to-org-current(path_md="Jup-to-markdown", path_org="Markdown-to-org")
-#+end_src
+#+BEGIN_SRC lisp
+#+CALL: jupyter-to-org-current(path_md="Jup-to-markdown", path_org="Markdown-to-org")
+#+END_SRC
 
 Therefore, the snippet above will convert a Jupyter notebook to a markdown file named =Jup-to-markdown= and then an Org file called =Markdown-to-org=. If an argument is not specified, the default value of the paths specified in the original source block will be used.
 
 Of course, the =#+CALL= function used above is also too lengthy to remember and reproduce without headaches. This is also bound to happen as the number of such named code snippets increase. One solution (though not ideal) is to store the =#+CALL= as a snippet using =M-x= =yas-new-snippet=, and load it when needed using the excellent =ivy-yasnippet= package (see MELPA), with minimal exertions.
 
-[fn:11] In [[https://github.com/jkitchin/scimax][Scimax]] - it is possible to quickly start a new project using =M-x nb-new=, which creates a sub-folder in the specified projects folder and creates and opens a readme.org file for the project.
-
-[fn:12] The option =C-u-cl= is a messy way to quickly get the full file name path, the resulting path will need to be modified slightly.
-
 *** Further possibilities
-It would be nice to improve the options available for modifications on the fly. Python may be an 'easier' option to write up for such activities rather than a shell script. For example, a script with the working directory being an additional /optional argument could be considered. 
+It would be nice to improve the options available for modifications on the fly. Python may be an 'easier' option to write up for such activities rather than a shell script. For example, a script with the working directory being an additional /optional argument could be considered.
 
 Another desirable factor in the resulting Org file would be iPython blocks in place of python. As a temporary solution, the python blocks could be converted to ipython blocks via a search and replace throughout the document. A lisp macro / source block could run after the above source block to facilitate the search and replace. [fn:9]
 
-[fn:9] It is worth noting that a bunch of additional HTML blocks and hyperlinks are inserted via the above export procedure. It should be possible to add some hooks to clean up the org file after the export from pandoc. 
-
-** Emacs notes: Select paragraph and browse-kill-ring for effective content capture
+** DONE Emacs notes: Select paragraph and browse-kill-ring for effective content capture :lisp:emacs:
+CLOSED: [2019-01-25 Fri 14:45]
+:PROPERTIES:
+:CREATED:  <2018-07-27 Fri 23:25>
+:ID:       2D1B3227-28DE-4B30-93C8-AD5CBE276E44
+:HUGO_TAGS: Emacs, productivity
+:HUGO_CATEGORIES: Emacs, productivity, lisp
+:EXPORT_DATE: [2019-01-25 Fri 14:45]
+:EXPORT_FILE_NAME: 2D1B3227-28DE-4B30-93C8-AD5CBE276E44
+:CATEGORY: Emacs
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-08-18 Sun 00:43]
+:POSTID:   898
+:BLOG:     wordpress
+:END:
 I like to have any reading material and my notes side by side[fn:8]. This is easily done with Emacs by splitting the buffer vertically (=C-x 3=)[fn:7]
 
-For example: Once a link has been opened via w3m, I hit org-capture (=C-c=) with a preset template that grabs the URL to the article along with the created date in the properties, with the cursor in position ready to take notes. 
+For example: Once a link has been opened via w3m, I hit org-capture (=C-c=) with a preset template that grabs the URL to the article along with the created date in the properties, with the cursor in position ready to take notes.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 (setq org-capture-templates
 '(("l" "Link + notes" entry (file+headline "~/my_org/link_database.org" ".UL Unfiled Links")
 	 "** %? %a ")))
-#+end_src
+	#+END_SRC
 
-The snippet above is activated by the command 'l' and is listed with the title Link + notes in the agenda. It captures the link of the file being viewed as the heading and allows further notes to be inserted below. This is stored into the file =link_database= and under the specified heading =.UL Unfiled Links=. 
+The snippet above is activated by the command 'l' and is listed with the title Link + notes in the agenda. It captures the link of the file being viewed as the heading and allows further notes to be inserted below. This is stored into the file =link_database= and under the specified heading =.UL Unfiled Links=.
 
-It is also possible to capture a highlighted chunk of text to be added under the heading mentioned above. That would look something like: 
+It is also possible to capture a highlighted chunk of text to be added under the heading mentioned above. That would look something like:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 (setq org-capture-templates
 	'(("e" "Snippet + Notes" entry ;; 'w' for 'org-protocol'
 	 (file+headline "~/my_org/link_database.org" ".UL Unfiled Links")
 	 "*** %a, %T\n %:initial")))
-#+end_src
+#+END_SRC
 
-Now I have the capture buffer and the viewing content side by side, by calling =C-c l=. I can browse through the article use the mark-paragraph function (conveniently set to =M-h=) can be used to select and copy (=M-w=) entire paragraphs or alternately use =C-spc= to select lines of interest from the article them to the kill ring. The figure below depicts how it looks for me: 
+Now I have the capture buffer and the viewing content side by side, by calling =C-c l=. I can browse through the article use the mark-paragraph function (conveniently set to =M-h=) can be used to select and copy (=M-w=) entire paragraphs or alternately use =C-spc= to select lines of interest from the article them to the kill ring. The figure below depicts how it looks for me:
 
-{{< figure src="/img/capture-content-emacs.png" title="Emacs content capture and buffer split" >}}
+[[~/hugo-sr/static/img/capture-content-emacs.png]]
 
-It is now possible to continue highlighting interesting lines / paragraphs and copy them, which adds them to the kill-ring. Once the article is done with, I switch over to the capture buffer and hit =M-x= browse-kill-ring, which brings up a pop-up buffer with all the items in the kill-ring[fn:3]. Once called, I can hit n to move to the next item, and hit 'i' to insert the current item at the cursor location. It is also possible to append / prepend/ edit the item before yanking. All the available shortcuts can be found using '?', while in the browse-kill-ring buffer. 
+It is now possible to continue highlighting interesting lines / paragraphs and copy them, which adds them to the kill-ring. Once the article is done with, I switch over to the capture buffer and hit =M-x= browse-kill-ring, which brings up a pop-up buffer with all the items in the kill-ring[fn:3]. Once called, I can hit n to move to the next item, and hit 'i' to insert the current item at the cursor location. It is also possible to append / prepend/ edit the item before yanking. All the available shortcuts can be found using '?', while in the browse-kill-ring buffer.
 
 The above methodology curiously enables me to ensure capturing atleast some details of interest from an article / source, and also serve as a quick revision of the read content before filing it away.
 
 One issue with the above workflow is that while reading multiple articles, there is a chance of mixing up the content being captured from different articles. This could be solved by using 'x' in order to pop items out of the kill ring in the selection process above. However, it seems excessive to clear the entire kill ring for each article read. On the other hand, it could promote a focused workflow.
 
-Additional possibilities: 
+Additional possibilities:
 - To view pdf files side by side and capture notes is via the [[https://github.com/rudolfochrist/interleave][Interleave package]].
 - The org-web-clipper concept outlined [[http://www.bobnewell.net/publish/35years/webclipper.html][here]] is also very convenient to rapidly capture entire webpages being browsed in w3m.
 
-Further reading: 
+Further reading:
 - Howard Abrams has [[http://www.howardism.org/Technical/Emacs/capturing-intro.html][some great tips]] on customising the org-capture mechanism,
 - [[http://doc.norang.ca/org-mode.html][Bernt Hansen's comprehensive documentation]].
 
-[fn:8] Sometimes, this procedure has to be set specifically. Some good discussions on SO : [[https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal][link1]], [[https://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction][link2]]. However, at times horizontal splitting is useful. Therefore, I would rather not set a 0 width-threshold enabling only vertical splitting.
+# /Users/shrysr/hugo-sr/static/img/capture-content-emacs.png https://s.ragavan.co/wp-content/uploads/capture-content-emacs-1.png
+** DONE Iosevka - an awesome font for Emacs :writing:font:Linux:Productivity:Emacs:
+CLOSED: [2019-01-25 Fri 14:44]
+:PROPERTIES:
+:ID:       951004CE-ADD0-4E7E-B6E2-2932E0DEE429
+:CREATED:  <2019-04-22 Mon 18:52>
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-01-19 Sat 19:21]
+:EXPORT_FILE_NAME: 951004CE-ADD0-4E7E-B6E2-2932E0DEE429
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:CATEGORY: Emacs
+:POST_DATE: [2019-01-25 Fri 00:50]
+:POSTID:   910
+:BLOG:     wordpress
+:END:
 
-#+begin_src emacs-lisp
-(setq split-width-threshold 75)
-(setq split-height-threshold nil)
-#+end_src
-
-[fn:7] =C-x= essentially means Control + x. =M-x= or Meta-x is Alt + x 
-
-[fn:3] The browse-kill-ring package can be installed via MELPA. (=M-x= install package)
-
-** Iosevka - an awesome font for Emacs     :writing:font:Linux:@Productivity:
 Before my foray into Emacs, I purchased applications like [[https://ia.net/writer][IAWriter]]
 (classic)[fn:5], [[http://brettterpstra.com/2017/08/01/long-form-writing-with-marked-2-plus-2-dot-5-11-teaser/][Marked2]], [[http://www.texts.io/][Texts]] (cross platform Mac/Windows), and have
 also tried almost all the recommended apps for longer form writing. I
@@ -390,16 +732,16 @@ Zen writing apps are called so because they have a unique combination
 of fonts, background color, including line spacing and overall
 text-width - all of which enable a streamlined and focused flow of
 words onto the screen. Any customisation required towards this end is
-possible in Emacs. 
+possible in Emacs.
 
 The Texts app has some nifty features (besides being cross platform),
 but the font and appearance is not as beautiful as IAWriter. Both
 IAWriter (classic) and Texts have minimal settings for further
 customisation. See the comparison below:
 
-{{< figure src="/img/emacs-texts.png" title="Emacs (writeroom-mode + Iosevka font) || Texts (Sepia theme)" >}}
+[[~/hugo-sr/static/img/emacs-texts.png]]
 
-{{< figure src="/img/emacs-iawriter.png" title="Emacs (writeroom-mode, Iosevka font) || IAWriter(Classic)" >}}
+[[~/hugo-sr/static/img/emacs-iawriter.png]]
 
 While everybody's style and approach vary, there are many authors who
 swear by archaic text editors and tools that enable distraction free
@@ -422,7 +764,7 @@ but this is certainly a workable result. My nascent configuration for
 writeroom-mode in emacs is as follows (munged off the internet!). It's
 remarkable how much was achieved with a few lines of code!
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 (with-eval-after-load 'writeroom-mode
   (define-key writeroom-mode-map (kbd "C-s-,") #'writeroom-decrease-width)
   (define-key writeroom-mode-map (kbd "C-s-.") #'writeroom-increase-width)
@@ -430,14 +772,26 @@ remarkable how much was achieved with a few lines of code!
 
 (advice-add 'text-scale-adjust :after
 	    #'visual-fill-column-adjust)
-#+end_src
+#+END_SRC
 
-[fn:5] The latest version of IAWriter has a truck load of features and
-advantages over over the Classic version. I did consider purchasing
-it, but Emacs won the day. Nevertheless, as a plain vanilla writing
-app - IAWriter offers much right out of the box.
+# /Users/shrysr/hugo-sr/static/img/emacs-texts.png https://s.ragavan.co/wp-content/uploads/emacs-texts.png
+# /Users/shrysr/hugo-sr/static/img/emacs-iawriter.png https://s.ragavan.co/wp-content/uploads/emacs-iawriter.png
+** DONE Searching the awesome-lists on Github                :Productivity:
+CLOSED: [2019-01-25 Fri 14:38]
+:PROPERTIES:
+:CREATED:  <2018-04-26 Thu 18:06>
+:ID:       03133C10-709E-4D06-9F3D-C00FFEAE64A7
+:HUGO_TAGS: github Emacs
+:HUGO_CATEGORIES: Emacs
+:HUGO_DATE: [2018-04-26 Thu 19:32]
+:EXPORT_FILE_NAME: 03133C10-709E-4D06-9F3D-C00FFEAE64A7
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-04-26 Thu 16:54]
+:CATEGORY: Emacs
+:POSTID:   1012
+:BLOG:     wordpress
+:END:
 
-** Searching the awesome-lists on Github                      :@Productivity:
 Discovered the glorious awesome lists today on Github. They are
 available through a [[https://github.com/search?utf8=%25E2%259C%2593&q=awesome+list&type=][simple search on github]], and contain curated
 lists of resources of all kinds on a multitude of topics.
@@ -451,7 +805,7 @@ my Emacs configuration files, or in other files in a particular
 location. This is especially to verify if a bit of code or note is
 already available, in another location. Something that looks like this ;):
 
-{{< figure src="/img/emacs-helm-ag-anim.gif" title="Searching for 'datascience' with emacs-helm-ag through a bunch of awesome-lists and other local repositories." >}}
+[[~/hugo-sr/static/img/emacs-helm-ag-anim.gif]]
 
 An answer had been available in [[http://www.howardism.org/Technical/Emacs/why-emacs.html][Howard's cool blog post]] on why one
 should learn Emacs - in a footnote (!), in which he's mentioned ~ack~
@@ -459,26 +813,20 @@ and ~ag~ ([[https://github.com/ggreer/the_silver_searcher][the silver searcher]]
 edit in line with each search.
 
 The silver searcher github page provides clear examples of how it's
-significantly faster than ack (and similar). Further exploration led
+significantly faster than ack (and similar tools). Further exploration led
 me to the [[https://github.com/syohex/emacs-helm-ag][emacs-helm-ag]] package, which is a helm interface to [[https://github.com/ggreer/the_silver_searcher][the
 silver searcher]]. Implementing emacs-helm-ag was as simple as adding it
 to my list of packages, and adding a basic setup to my helm
 configuration.[fn:add-emacs-package-helm-ag]
 
-Sweet !! 
+As of now, I add packages to [[https://github.com/jkitchin/scimax][Scimax]] using this bit of code that I've obviously borrowed from the internet, and this case - I'm afraid I did not note the source.
 
-{{< figure src="/img/helm-ag-emacs.png" title="Notice the search across multiple files. So I've called ~require org capture~ perhaps more times than necessary." >}}
-
-[fn:first-gif] This is my first animated gif in a blog post! It was tricky! I used the free [[https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984?mt=12][GIPHY capture app]] on the Mac store.
-
-[fn:add-emacs-package-helm-ag] As of now, I add packages to [[https://github.com/jkitchin/scimax][Scimax]] using this bit of code that I've obviously borrowed from the internet, and this case - I'm afraid I did not note the source.
-
-#+begin_src emacs-lisp
+#+BEGIN_SRC lisp
 ;; Setting up use packages
 ;; list the packages you want
 (setq package-list '(diminish org-journal google-this ztree org-gcal w3m org-trello org-web-tools ox-hugo auto-indent-mode ob-sql-mode dash org-super-agenda ox-hugo workgroups2 switch-window ess ess-R-data-view interleave deft org-bookmark-heading writeroom-mode evil evil-leader polymode helm-ag))
 
-;;fetch the list of packages available 
+;;fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -493,84 +841,384 @@ Sweet !!
  '(helm-follow-mode-persistent t))
 
 (require 'helm-ag)
-#+end_src
 
-** Literate Programming - Emacs, Howard Abrams and Library of Babel :@Productivity:
+#+END_SRC
+
+This is how it looks in action >> Sweet !!
+
+[[~/hugo-sr/static/img/helm-ag-emacs.png]]
+
+# /Users/shrysr/hugo-sr/static/img/emacs-helm-ag-anim.gif https://s.ragavan.co/wp-content/uploads/emacs-helm-ag-anim.gif
+# /Users/shrysr/hugo-sr/static/img/helm-ag-emacs.png https://s.ragavan.co/wp-content/uploads/helm-ag-emacs.png
+** DONE Literate Programming - Emacs, Howard Abrams and Library of Babel :Productivity:emacs:
+CLOSED: [2019-01-25 Fri 14:44]
+:PROPERTIES:
+:CREATED:  <2018-07-24 Tue 12:49>
+:ID:       6953C104-A8B3-4779-AAD3-C33032BEB111
+:EXPORT_HUGO_TAGS: Emacs
+:HUGO_DATE: [2018-07-24 Tue 14:13]
+:HUGO_CATEGORIES:
+:EXPORT_FILE_NAME: 6953C104-A8B3-4779-AAD3-C33032BEB111
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-07-24 Tue 10:08]
+:POSTID:   723
+:CATEGORY: Emacs
+:BLOG:     wordpress
+:END:
+
 I'm an admirer of [[https://www.linkedin.com/in/howardeabrams/][Howard Abrams]], especially because his posts and videos show the awesome power of doing things in Emacs, and the importance of writing clean and logical code. Watching his videos and reading his posts make me feel like I was born yesterday and I am just getting started. But more importantly, they also fire up my imagination regarding the possibilities out there and the potential to create glorious workflows.
 
 Howard's tutorial on [[Http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html][Literate Programming]], combined with his [[https://www.youtube.com/watch?v=dljNabciEGg][Literate Devops with Emacs video]] are among the best ways to get started with understanding the power of using Org Mode and Org-Babel to create complex, inter-connected, multi-language programs / documents / research that are of course well documented (this being one basic tenet of literate programming). Essentially, Org Mode and Org-Babel enable a high quality programming environment in a single Org mode buffer or document. The said environment is significantly more feature rich compared to Jupyter notebooks, especially being supported by it's foundation in Emacs.
 
-Though I've been using Org files for a while now for all my programming explorations, I've been bothered about my sub-par workflows. I could not easily reference other code blocks and snippets and recipes for a new document or project. It was inefficient and time consuming to locate the necessary snippet and re-write or re-paste the code in the new source blocks. I was not making much progress plodding through the vast documentation of org-babel. 
+Though I've been using Org files for a while now for all my programming explorations, I've been bothered about my sub-par workflows. I could not easily reference other code blocks and snippets and recipes for a new document or project. It was inefficient and time consuming to locate the necessary snippet and re-write or re-paste the code in the new source blocks. I was not making much progress plodding through the vast documentation of org-babel.
 
-Therefore, I was thrilled to discover the [[https://orgmode.org/worg/org-contrib/babel/library-of-babel.html][Library of Babel]] through Howard's tutorial, which can be used to add files to a global library that is accessible from anywhere! Did I mention that it involves hitting barely 3 keys, and any number of arguments can be passed to these source blocks? I'm not sure such a feature is available with any other IDE. 
+Therefore, I was thrilled to discover the [[https://orgmode.org/worg/org-contrib/babel/library-of-babel.html][Library of Babel]] through Howard's tutorial, which can be used to add files to a global library that is accessible from anywhere! Did I mention that it involves hitting barely 3 keys, and any number of arguments can be passed to these source blocks? I'm not sure such a feature is available with any other IDE.
 
 In addition, the above tutorial clearly elucidates how different languages can be combined together, and the video elucidates typical Devops procedures, which are easily taken care of with appropriate arguments and headers to the source code blocks. For example, all the source code blocks could be tangled into appropriately named and located script files using a single argument. These tutorials tied up bits and pieces of info in my head from various sources and was invaluable in enhancing my understanding of using Emacs and Org-Babel
 
-The Library of Babel can be made persistent across sessions by loading a specified org-file from which the named source code blocks are automatically read in. It is surprising that the internet does not seem to contain more references and examples using the Library of Babel. Perhaps there are some caveats that I am yet to encounter. One question that arises is whether the Library of Babel is automatically updated when the source code block is updated. 
+The Library of Babel can be made persistent across sessions by loading a specified org-file from which the named source code blocks are automatically read in. It is surprising that the internet does not seem to contain more references and examples using the Library of Babel. Perhaps there are some caveats that I am yet to encounter. One question that arises is whether the Library of Babel is automatically updated when the source code block is updated.
+
+# //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
+
+* Data Science                                     :@DataScience:DataScience:
+
+** DONE Some notes on research-compendium                    :R:DataScience:
+CLOSED: [2019-09-01 Sun 23:23]
+:PROPERTIES:
+:ID:       308FA974-9427-40A8-96B6-CCC9C5A32F37
+:CATEGORY: Data Science, R
+:POST_DATE: [2019-09-01 Sun 23:23]
+:POSTID:   1082
+:BLOG:     wp01
+:END:
+
+These are my notes while studying the research-compendium concept, which is essentially a bunch of guidelines to produce research that is 'easily' reproducible.
+
+The notes are mostly based on https://peerj.com/preprints/3192/, which is recommended as a canonical reading on the concept. Other references are mentioned throughout the text. These notes were prepared a few weeks ago during a foray into Docker. They are neither complete not comprehensive - but will serve as a good refresher of the principle concepts.
+
+- [[https://research-compendium.science/][Landing page]] : contains several references explaining research-compendium.
+- Principles
+  - stick with the prevailing conventions of your peers / scholarly community
+  - Keep data, methods and outputs separate, but make sure to unambiguously express the connections between them. The result files should be treated disposable (can be regenerated).
+  - Specify computational environment as clearly as possible. Minimally, a text file specifying the version numbers of the software and other critical tools being used.
+- R's package structure is conducive to organise and share a compendium, for any project.
+- Dynamic documents : essentially like org files or Rmarkdown files i.e. literate programming. Sweave was originally introduced around 2002. However, around 2015 : knittr and rmarkdown made substantial progress and are in general more preferred than using sweave.
+- Shipping data with the packages
+  - CRAN : generally less than 5MB. A large percentage of the packages have some form of data. Data should be included if a methods package is being shipped with the analysis.
+  - use the [[https://github.com/ropensci/piggyback][piggyback]] package for attaching large datafiles to github repos.
+    - It is convenient to be able to upload a new dataset to be associated with thep package, and this can be accessed with =pb_download()=.
+  - "medium' sized data files can be attached using [[https://github.com/ropensci/arkdb][arkdb]]
+- Adding a Dockerfile to the compendium
+  - containerit    : o2r/containerit
+  - repo to docker : jupyter/repo2docker
+  - Binder         : https://mybinder.org
+  - Use the [[https://github.com/karthik/holepunch][holepunch]] package to make the setup easier.
+- Summarising the folder structure for R packages esque
+  - Readme file : self-explanatory and should be as detailed as possible, and preferably include a graphical connection between various components.
+  - =R/= : Script files with resusable functions go here. If roxygen is used to generate the documentation, then =man/= dicrectory is automatically populated with this.
+  - =analysis/= : analysis scripts and reports. Considering using ascending names in the file names to aid clarity and order eg 001-load.R, 002 -... and so on.
+  - The above does not capture the dependencies. Therefore an .Rmd  or =Makefile= (or =Makefile.R=) can be included to capture the full tree of dependencies. These files control the order of execution.
+  - =DESCRIPTION= file in the project root provides formally structured, machine and human-readable information on authors / project license, software dependenceis and other meta data.
+    - when this file is included, the project becomes an installable R package.
+  - =NAMESPACE=: autogenerated file that exports R functions for repeated use.
+  - =LICENSE= : specifying conditions for use /reuse
+- [ ] Drone : CI service that operates on Docker containers. This can be used as a check.
+- =Makefiles=
+  - uses the make language.
+  - specifies the relationship between data, the output and the code generating the output.
+  - Defines outputs (targets) in terms of inputs (dependencies) and the code necessary to produce them (recipes).
+  - Allows rebuilding only the parts that are out of date.
+  - the =remake= package enables write Make like instructions in R.
+- Principles to consider before sharing a research compendium
+  - Licensing, Version control, persistence, metadata : main aspects to consider.
+  - Archive a specific commit at a repository that issues persistent URL's eg DOI which are designed to be more persistent than other URL's. Refere re3data.org for discipline-specific DOI issuing repositories. Using a DOI simplifies citations by allowing the transfer of basic metadata to a central registry (eg CrossRef and Datacite). Doing this ensures that a publicly available snapshot of code exists that can match the results published.
+  - CRAN is generally not recommended for research-compendium packages, because it is strict about directory structures and contents of the R packages. It also has a 5MB limit for package data and documentation.
+- Tools and templates
+  - =devtools=
+  - =rrtools= : extends devtools
+
+Reference list
+
+- https://ropensci.org/commcalls/2019-07-30/?eType=EmailBlastContent&eId=2d18a2f6-57ef-4d15-8c52-84be5c49e039 | rOpenSci | Reproducible Research with R
+- https://github.com/annakrystalli/rrtools-repro-research | annakrystalli/rrtools-repro-research: Tutorial on Reproducible Research in R with rrtools
+- https://karthik.github.io/holepunch/ | Configure Your R Project for binderhub • hole punch
+- https://github.com/karthik/holepunch | karthik/holepunch: Make your R project Binder ready
+- https://peerj.com/preprints/3192/ | Packaging data analytical work reproducibly using R (and friends) [PeerJ Preprints]
+- https://github.com/alan-turing-institute/the-turing-way/tree/master/workshops/build-a-binderhub | the-turing-way/workshops/build-a-binderhub at master · alan-turing-institute/the-turing-way
+- https://github.com/alan-turing-institute/the-turing-way/tree/master/workshops | the-turing-way/workshops at master · alan-turing-institute/the-turing-way
+- https://research-compendium.science/ | Research Compendium
+- http://inundata.org/talks/rstd19/#/0/33 | reproducible-data-analysis
+- https://github.com/benmarwick/rrtools | benmarwick/rrtools: rrtools: Tools for Writing Reproducible Research in R
+- https://github.com/shrysr/correlationfunnel | shrysr/correlationfunnel: Speed Up Exploratory Data Analysis (EDA)
+- https://github.com/cboettig/nonparametric-bayes | cboettig/nonparametric-bayes: Non-parametric Bayesian Inference for Conservation Decisions
+- https://lincolnmullen.com/blog/makefiles-for-writing-data-analysis-ocr-and-converting-shapefiles/#fnref2 | Makefiles for Writing, Data Analysis, OCR, and Converting Shapefiles | Lincoln Mullen
+- https://github.com/lmullen/civil-procedure-codes/blob/master/Makefile | civil-procedure-codes/Makefile at master · lmullen/civil-procedure-codes
+
+** TODO Dabbling with Linux helps you become better at data science
+
+My first real introduction to Linux was when I had to run CFD (Computational Fluid Dynamics) simulations on a Linux based computing cluster during my Master's thesis. Upto this point, I was aware of Linux and Open Source, but had never taken the time to dabble in it.
+
+The only way to access it was via SSH and that was when I was introduced to the =tail -f= command to monitor the logs of the simulation file.
+
+This was utterly fascinating to me: so much information could be obtained just from a terminal, using the command line.
+
+Over the years, I've managed to gather a lot more expertise in using Linux in vaguely related bits and pieces. The journey was certainly not easy, so much so that I captured as much information as I could on the CFD-Online Wiki and as you can see, that is focused more on open source CFD applications.
+
+The above was accelerated significantly when I started my foray into Emacs, around 4 years ago. Emacs works great on Linux machines, and it was so easy to install libraries and applications using the command line.
+
+** TODO Function to search a column and flag columns
+:PROPERTIES:
+:CREATED:  [2019-06-16 Sun]
+:PLANNED:
+:END:
+
+This is a function I wrote to extract component dimensions from an irregularly formatted inventory and sales database.
+
+One thing I would like to improve in the code is that the mutate is automatically mapped to any number of specified columns, instead of the manual specification of =str_detect= for each column.
 
 
-* Data Science                                    :@Data_Science:datascience:
+#+BEGIN_SRC R :session
+##' Dimension extraction
+##' @param data, first_cat, cat_match, search, value, dimx, col1 , col2
+##' @return
+##' @description Matches a specified category (cat_match) with an existing category (first_cat). Searches for a term (search) through col1 and col2, and if there is a match, the function will mutate the speified column (dimx) with a =value=.
 
-** Nteract : An interactive computing environment                     :Emacs:
-A [[https://slides.com/villetuulos/human-centric-machine-learning-infrastructure-qcon-2018/#/][slide deck from Netflix]], mentions using Nteract as their programming notebook, and prompted a mini exploration.
+dim_extract <- function(data,
+                        first_cat,
+                        cat_match,
+                        search,
+                        value,
+                        dimx = dim_1,
+                        col1 = ItemName,
+                        col2 = ItemDescription) {
+  dimx <- enquo(dimx)
+  dimx_name <-  quo_name(dimx)
+  first_cat <- enquo(first_cat)
+  col1 <- enquo(col1)
+  col2 <- enquo(col2)
+  data %>%
+    mutate(!!dimx_name := case_when(
+    ((!!first_cat) == cat_match) & (str_detect((!!col1), search)) ~ value,
+    ((!!first_cat) == cat_match) & (str_detect((!!col2), search)) ~ value,
+    TRUE ~ !!dimx
+    )
+  )
+}
 
-This [[https://moderndata.plot.ly/nteract-revolutionizing-notebook-experience/][blog post by Safia Abdalla]], (a maintainer/ developer of Nteract) introduces Nteract as an open source, desktop-based, interactive computing application that was designed to overcome a bunch of limitations in Jupyter Notebook's design philosophy. One key difference (among many others) is the ability to execute code in a variety of languages within a single notebook, and it also appears that that the electron based desktop app should make it easier for beginners to start coding.
+purchase_order_filtered_tbl  %>%
+filter(!duplicated(ItemName))
+  dim_extract(ini_category, "reducer", "((?i)(x|to)1/4|(?i)x 1/4)\"", "250", dimx = dim_2) %>%
 
-Along similar lines, this [[https://blog.nteract.io/nteract-building-on-top-of-jupyter-9cfbccdd4c1d][blog post]] is a nice primer to the evolution of Ipython, Jupyter Notebooks and Nteract, from the plain vanilla Python console, which was the starting point. Beyond the illuminating definition that the Jupyter notebook is an 'establishment of well-defined protocols and formats', and is not just a console or a programming notebook, the blog post provides a deeper insight into how these protocols are implemented and communicate with interpreters or Jupyter kernels.
+#+END_SRC
 
-This [[https://www.reddit.com/r/Python/comments/6w1zh3/nteract_vs_jupyter_notebook/][reddit discussion]] has a few interesting pros and cons regarding using nteract.
-
-While I can see the value of computing notebooks like Jupyter and Nteract, I do think that these do not come close to the functionality and ease that can be achieved with Org mode and Emacs, which have been in existence a lot longer. I was able to intuitively transition to using multiple language code 'notebooks' using Org mode. This [[https://news.ycombinator.com/item?id=11296843][reddit thread]] and [[https://lepisma.github.io/2016/11/02/org-babel/][blog post]] elucidate the advantages of using Babel and Org mode over Jupyter notebooks. 
-
-** Technical notes : Research paper on learning/teaching data science :Paper_review:
-Title: Navigating Diverse Data Science Learning: Critical Reflections Towards Future Practice
-
-Author: Yehia Elkhatib
-
-[[https://arxiv.org/pdf/1807.03750v1.pdf][Download link]]
-
-This are my notes on the above paper, which mainly deals with detailing the methods explored and implemented to impart a high quality of education in data science. The paper also provides an interesting breakup of the different roles in data science workflows. 
-
-- The importance of being able to work in a team is highlighted. Working in isolation for a data scientist almost renders the results meaningless.
-
-- Considering the typically diverse backgrounds of DS practitioners, it is difficult to devise a curriculum that caters to everybody. This factor is certainly critical to consider before taking up any formal university courses. I would not want to spend a great deal of time and money in learning obsolete techniques or technologies.
-
-- There are differences in learning rates based on the background, and past academic environments. In particular, most students do not seem to realize that the best learning takes place in a 'social' manner. Besides addressing the above, several aspects of effective learning and aligning the curriculum and teaching methodology to the typical industrial workflows are explored in this paper.
-
-- The literature references of past studies and research would certainly make interesting reads. However, they are more relevant to those in the teaching line. An interesting approach would be to read between the lines to extract the best practices for students to learn rapidly and effectively. However, there are many direct resources and techniques to approach the latter.
-
-- DS Roles :- Core.
-  - *Janitor*
-    - data cleaning, pre-processing
-  - *Scout*
-    - EDA, early insights
-  - *Analyst*
-    - identifying patterns, initial hypothesis, evidence of unforeseen narratives)
-  - *Decision* *Builder*
-    - automate decision making, ML, DL
-  - *Curator*
-    - storage formats across interfaces, data governance
-  - *Engineer*
-    - Manage the interface between development and production products, efficiency and reliability of data interaction.
-
-- Auxiliary roles : these roles come into the picture as the DS team grows.
-  - *Domain specialist*
-    - data significance, sources of bias
-  - *Infrastructure manager*
-    - support to build and operate, beyond the data engineer
-  - *Communicator*
-    - Communicating explanatory and confirmatory analyses, setting up systems to interact with the audiences outside the DS team
-  - *Facilitator*
-    - A/B experiments, additional support to the communicator.
+Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
 
 
-* General                                                          :@General:
 
-** Incremental improvements can lead to significant gains :@Productivity:Emacs:Org_mode:
-While reading the book [[https://jamesclear.com/atomic-habits][Atomic Habits by James Clear]], I was reflecting that my choice of embracing [[https://www.gnu.org/software/emacs/][Emacs]] and progressively gaining mastery over it was intimately connected with the philosophy preached in the book. 
+* General
 
-My efforts initially started out with a craving for a system to quantify and manage my tasks, habits, notes, blog writing, job applications and projects in a custom environment, and to be able to build toolkits of code to perform repetitive tasks. As mentioned in an [[file:../2b0b2c79-3f6e-4079-a07d-9e382fda8954][earlier blog post]]
-, I tried several approaches before settling on Emacs. The idea was to find or create a single system to track everything of importance in my life (with ease and efficiency). This was instead of a fragmented approach of using multiple tools and techniques, for example, Sublime Text / Atom as a text editor and [[https://todoist.com/?lang=en][Todoist]] as a task management tool. 
+** DONE Implementing HTTPS : Let's Encrypt
+CLOSED: [2019-07-24 Wed 16:13]
+:PROPERTIES:
+:CREATED:  [2019-07-24 Wed]
+:ID:       o2b:d06ae170-950d-477c-aec7-d641e84c9025
+:POST_DATE: [2019-07-24 Wed 16:27]
+:POSTID:   113
+:BLOG:     srwp01
+:EXPORT_HUGO_TAGS: https encryption
+:EXPORT_HUGO_CATEGORIES: https
+:EXPORT_DATE: [2019-11-03 Sun 06:11]
+:EXPORT_FILE_NAME: implementing-https-lets-encrypt
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:END:
+
+*** What is Let's Encrypt?
+
+Let's Encrypt is a Certificate Authority (CA). A certificate from a CA is required to enable HTTPS.
+
+Certbot's documentation summarises it well:
+
+#+BEGIN_QUOTE
+Certbot is part of EFF’s effort to encrypt the entire Internet. Secure communication over the Web relies on HTTPS, which requires the use of a digital certificate that lets browsers verify the identity of web servers (e.g., is that really google.com?). Web servers obtain their certificates from trusted third parties called certificate authorities (CAs).
+#+END_QUOTE
+
+*** How Let's Encrypt works
+
+- To certify my domain, I need to demonstrate control over my domain. i.e one has to run a software tool to generate this certificate (periodically) on the server. being able to do this demonstratesa  control over the domain.
+  - Similar to domain control, there are other certificates for different purposes as well. See the excerpt from the ACME protocol below:
+
+#+BEGIN_QUOTE
+ Different types of certificates reflect different kinds of CA verification of information about the certificate subject.  "Domain Validation" (DV) certificates are by far the most common type.  For DV validation, the CA merely verifies that the requester has effective control of the web server and/or DNS server for the domain, but does not explicitly attempt to verify their real-world identity. (This is as opposed to "Organization Validation" (OV) and "Extended Validation" (EV) certificates, where the process is intended to also verify the real-world identity of the requester.)
+#+END_QUOTE
+
+- Let's Encrypt's [[https://letsencrypt.org/getting-started/][documentation]] mentions that the software above will use the [[https://ietf-wg-acme.github.io/acme/draft-ietf-acme-acme.txt][ACME]] protocols to generate the cert, and there are different approaches to do so, depending on the availability of shell access (or not) to the server.
+- ACME stands for Automatic Certificate Management Environment : The [[https://tools.ietf.org/html/draft-ietf-acme-acme-03#section-1][introduction]] in the RFC demonstrates how ACME automates a significantly manual procedure combining ad-hoc protocols.
+
+#+BEGIN_QUOTE
+...protocol that a certificate authority (CA) and an applicant can use to automate the process of verification and certificate issuance.  The protocol also provides facilities for other certificate management functions, such as certificate revocation.
+#+END_QUOTE
+
+- Since I have shell access to my VPS, I will focus on this approach.
+- There are [[https://letsencrypt.org/docs/client-options/][multiple ACME clients]] to choose from, and [[https://certbot.eff.org/][Certbot]] is 'recommended' (by the EFF). On a superficial glance, [[https://github.com/srvrco/getssl/tree/APIv2][GetSSL]] looks  interesting as an alternative.
+
+#+BEGIN_QUOTE
+At this point, I will proceed with Certbot, because I've not yet found any particular reason not to.
+#+END_QUOTE
+
+*** On Certbot [0/1]
+
+The [[https://certbot.eff.org/all-instructions][Certbot website]] provides customized instructions for the OS and server. The main requirement(s) is having an online HTTP website with an open port 80, hosted on a server. I can go ahead since I've got these.
+
+#+BEGIN_QUOTE
+Certbot will run on the web server (not locally) periodically and will help in automating the process of certificate management.
+#+END_QUOTE
+
+Setting up Certbot (on debian)
+
+#+BEGIN_SRC shell :dir "/sudo::" :eval no
+wget https://dl.eff.org/certbot-auto
+sudo mv certbot-auto /usr/local/bin/certbot-auto
+sudo chown root /usr/local/bin/certbot-auto
+sudo chmod 0755 /usr/local/bin/certbot-auto
+#+END_SRC
+
+Checking that the above was actually done with a simple:
+
+#+BEGIN_SRC shell :eval no
+ls -al /usr/local/bin/cert*
+#+END_SRC
+
+Next, a one-command certificate setup is possible (with nginx)
+
+#+BEGIN_QUOTE
+Note that this command may require additional dependencies to be installed, and will need a bunch of user input as well, and so should not be run in a dumb terminal.
+#+END_QUOTE
+
+#+BEGIN_SRC shell :dir "/sudo::" :eval no
+sudo /usr/local/bin/certbot-auto --nginx
+#+END_SRC
+
+This will:
+- Install necessary dependencies and the certbot plugins (authenticator, installer) for nginx.
+
+
+#+BEGIN_QUOTE
+Noted the option of =--no-boostrap= for debian. I'm not sure, but this probably has to do with addressing the dependencies for different debian versions.
+#+END_QUOTE
+
+For reference, the following packages were checked/installed:
+
+#+BEGIN_EXAMPLE
+ca-certificates is already the newest version (20190110).
+ca-certificates set to manually installed.
+gcc is already the newest version (4:8.3.0-1).
+libffi-dev is already the newest version (3.2.1-9).
+libffi-dev set to manually installed.
+libssl-dev is already the newest version (1.1.1c-1).
+openssl is already the newest version (1.1.1c-1).
+openssl set to manually installed.
+python is already the newest version (2.7.16-1).
+python-dev is already the newest version (2.7.16-1).
+python-virtualenv is already the newest version (15.1.0+ds-2).
+virtualenv is already the newest version (15.1.0+ds-2).
+virtualenv set to manually installed.
+
+Suggested packages:
+
+augeas-doc augeas-tools
+The following NEW packages will be installed:
+  augeas-lenses libaugeas0
+#+END_EXAMPLE
+
+An email address has to be entered for 'urgent' communication regarding the certificate, and optionally can be shared with the EFF (which was a trifle annoying (as a part of an installation process), though I said yes).
+
+#+BEGIN_QUOTE
+I had to enable https with UFW to complete the test successfully. =sudo ufw allow https=. Earlier, only HTTP had been enabled.
+#+END_QUOTE
+
+
+Automatic certificate renewal by setting up a cron job.
+
+#+BEGIN_SRC shell :eval no
+echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && /usr/local/bin/certbot-auto renew" | sudo tee -a /etc/crontab > /dev/null
+#+END_SRC
+
+- [ ] deciphering the cron job, and verifying it is as expected. For now, I've not run this command because I want to know what it is doing first.
+
+As an alternative to a 'one-step' installation, getting just the certificate will mean nginx's configuration will have to done manually. This is probably a good choice to 'learn more'.
+
+#+BEGIN_SRC shell :eval no
+sudo /usr/local/bin/certbot-auto certonly --nginx
+#+END_SRC
+
+#+BEGIN_QUOTE
+I need to verify this, but it appears nginx's main configuration is at =/etc/nginx/nginx.conf= , and a quick peek showed me that the user was still set as 'www-data', which was used as the initial setup of the nginx test website. This was changed subsequently. Perhaps this is why I am unable to get Wordpress plugins write access.
+#+END_QUOTE
+
+At the end of it all, I received a [[https://www.ssllabs.com/ssltest/analyze.html?d=s.ragavan.co][link]], through which it appears I can get a detailed 'SSL Report'.
+
+#+BEGIN_EXAMPLE
+Congratulations! You have successfully enabled https://s.ragavan.co
+
+You should test your configuration at:
+https://www.ssllabs.com/ssltest/analyze.html?d=s.ragavan.co
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+This report appears to be quite important, but I could not make much sense of it, and it needs to be re-visited. As such, I see that the [[https://tools.ietf.org/html/draft-ietf-acme-acme-03#section-7][ACME]] challenges need to be understood to comprehend these results.
+#+END_QUOTE
+
+*** Short Peek under the hood.
+
+A skim of the extensive [[https://certbot.eff.org/docs/][documentation of Certbot]] shows that certbot relies on [[https://certbot.eff.org/docs/using.html#plugins][2 types of plugins]] to function.
+1. authenticators: plugins to obtain a certificate, but not install (i.e edit the server configuration). Used with the =certonly= command.
+2. Installers: used to modify the server's configuration. Used with the =install= command.
+3. Authenticators + installers : can be used with the =certbot run= command.
+
+These plugins use '[[https://tools.ietf.org/html/draft-ietf-acme-acme-03#section-7][ACME Protocol challenges]]' to prove domain ownership. Section 7 (as of today) of the internet draft of the standard provides an overview, and the challenges are described in detail in the draft.
+
+#+BEGIN_QUOTE
+There are few types of identifiers in the world for which there is a standardized mechanism to prove possession of a given identifier.  In
+all practical cases, CAs rely on a variety of means to test whether
+an entity applying for a certificate with a given identifier actually
+ controls that identifier.
+
+Challenges provide the server with assurance that an account key
+holder is also the entity that controls an identifier.  For each type
+of challenge, it must be the case that in order for an entity to
+successfully complete the challenge the entity must both:
+
+-  Hold the private key of the account key pair used to respond to
+      the challenge
+
+-  Control the identifier in question
+#+END_QUOTE
+
+*** Conclusions
+
+- HTTPS via Let's Encrypt is setup for my website. Come visit at https://s.ragavan.co
+- Had a brief introduction into the methodology/philosophy behind Let's Encrypt.
+- Brief exploration of ACME and it was quite interesting to go through the draft standard, though it will take a lot more effort to fully comprehend all the tests. I think it is likely that I have visit this in more detail as I make progress in learning about encryption.
+- Learned about the existence of '[[https://en.wikipedia.org/wiki/Internet_Standard][Internet Standards]]'. These are documented by one or more documents called RFC's (Request for Comments) and revised until deemed satisfactory to become a standard.
+
+
+** DONE Incremental improvements can lead to significant gains :Productivity:Emacs:Orgmode:
+CLOSED: [2019-01-19 Sat 19:33]
+:PROPERTIES:
+:CREATED:  <2018-11-12 Mon 17:17>
+:ID:       32266F09-C9B9-48FF-9C48-E2348EEDA33D
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-11-12 Fri 09:31]
+:POSTID:   711
+:BLOG:     wordpress
+:END:
+:LOGBOOK:
+CLOCK: [2018-11-18 Sun 09:03]--[2018-11-18 Sun 10:18] =>  1:15
+:END:
+
+While reading the book [[https://jamesclear.com/atomic-habits][Atomic Habits by James Clear]], I was reflecting that my choice of embracing [[https://www.gnu.org/software/emacs/][Emacs]] and progressively gaining mastery over it was intimately connected with the philosophy preached in the book.
+
+My efforts initially started out with a craving for a system to quantify and manage my tasks, habits, notes, blog writing, job applications and projects in a custom environment, and to be able to build toolkits of code to perform repetitive tasks. As mentioned in an [[https://s.ragavan.co/2019/08/getting-productive-an-exploration-into-holistic-task-management/][earlier blog post]], I tried several approaches before settling on Emacs. The idea was to find or create a single system to track everything of importance in my life (with ease and efficiency). This was instead of a fragmented approach of using multiple tools and techniques, for example, Sublime Text / Atom as a text editor and [[https://todoist.com/?lang=en][Todoist]] as a task management tool.
 
 I started with a vanilla configuration of Emacs and painstakingly borrowed (and eventually) modified lisp snippets to implement desired 'features' or behaviors. It was a just a couple of features every week, initially focused on Org mode's behavior alone. That was nearly 3 years ago. As of now, I am able to manage my blog [hugo], view my email [mu4e], browse the web [w3m], seamlessly capture notes / ideas / tasks from (almost) anywhere [Org mode], chat on IRC, build multi-language code notebooks with ease [Org babel]. All the above provide me significant advantages in speed and efficiency which still have plenty of potential to improve.
 
@@ -580,7 +1228,19 @@ Choosing Emacs had unexpected rewards as well. For example, the need of synchron
 
 My journey with Emacs is testament that an incremental, compounding improvement over time can ultimately result in significant gains. It is also important to acknowledge that I am standing on the shoulder of giants and the awesome [[https://github.com/jkitchin/scimax][Scimax]] is a cornerstone in my toolkit.
 
-** Getting productive - an exploration into holistic task management :@Productivity:Org_mode:@Emacs:
+** DONE Getting productive - an exploration into holistic task management :Productivity:Orgmode:Emacs:
+CLOSED: [2019-01-19 Sat 19:37]
+:PROPERTIES:
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:HUGO_DATE: [2017-04-02 Sun 18:21]
+:ID:     2B0B2C79-3F6E-4079-A07D-9E382FDA8954
+:EXPORT_FILE_NAME: exploration-holistic-task-management
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2017-04-02 Sun 09:34]
+:POSTID:   703
+:BLOG:     wordpress
+:END:
 *** Introduction
 
 To integrate tasks, reminders, notes, coding workflow into a single
@@ -592,7 +1252,7 @@ for your buck, especially with it's natural language parsing ability,
 smooth and reliable sync as well as its multi-platform
 availability. Many describe [[https://www.omnigroup.com/omnifocus][Omnifocus]] to be the king of task
 management tools, with dedicated apps for different purposes and
-probably well integrated. 
+probably well integrated.
 
 My journey veered away from Omnifocus since it is limited to the Apple
 platform and this is obviously a serious handicap for people (like me)
@@ -653,7 +1313,7 @@ be completely customised as required.
 
 *** Can it be achieved?
 
-Short answer: Yes. Through Emacs. 
+Short answer: Yes. Through Emacs.
 
 Sure, several of the above points can be done in Todoist and other tools, in
 one way or via combining different services.
@@ -667,11 +1327,6 @@ stark reminder of Todoist's specific expertise in only task
 management. Additionally, the above points can be done in orgmode,
 /very/, /very/ quickly. Evernote has a great system, but is not as fast,
 because it indexes a huge variety of content. [fn:1]
-
-[fn:1] While Org mode is optimised for text, it is possible to attach
-any kind of file to a 'heading', and use interleave and other
-techniques to browse and annotate PDF's. The possibilities are too
-numerous to be covered in a blog post or a single google search.
 
 *** Examples of workflows
 
@@ -709,7 +1364,7 @@ Included in project / productivity /relationship management are
 several subsets of activities like Minutes of Meetings (MOM's),
 summaries of travel/visits to the customer, telephonic discussions,
 indications of future projects as well as generic or specific
-problems. 
+problems.
 
 Using Org mode, it is possible create customised workflows and
 templates to manage all the above aspects, more than any other note
@@ -720,7 +1375,7 @@ comprehensive overview can be found in [[http://doc.norang.ca/org-mode.html][Ber
 
 Eventually, I guess we all come to realise the fact that each human
 being is truly unique. Each one of us have our own ways of thinking, being
-and approaching problems. 
+and approaching problems.
 
 While Todoist worked very well for me - I was still bothered by being
 constrained by it's proprietary format and the lack of a lifetime
@@ -743,13 +1398,6 @@ box. However, this /is/ Org mode and Emacs.... there are ways to sync
 your iOS / outlook calendar with orgmode's calendar, or with
 wunderlist or Toodledo. Anything is possible, but it just won't be via
 some classy GUI..
-
-[fn:2] On iOS - I've found [[http://agiletortoise.com/drafts/][Drafts]] is a great app for writing
-fast and appending the notes to an org file, which can be refiled
-later, using emacs. One problem I'm yet to resolve is that
-appending to an org file in dropbox, requires a network/internet
-connection. There should be a way to deal with situations without
-handy internet available.
 
 *** Concluding points
 
@@ -785,7 +1433,23 @@ efficient workflow.
 Deliberate practise towards improvement is certainly boosted when one
 is able to work consistently in a environment customised to needs and
 workflows. Using Org mode and Emacs is a firm step in this direction.
-** Switching from Evernote to DEVONtechnologies products      :@Productivity:
+
+** DONE Switching from Evernote to DEVONtechnologies products
+CLOSED: [2019-01-19 Sat 19:37]
+:PROPERTIES:
+:CREATED:  <2018-06-02 Sat 22:08>
+:TAGS:  productivity, tools, software
+:ID:       EC354A8E-A276-4C89-8560-CE82B1693744
+:HUGO_TAGS:
+:CATEGORIES: productivity, tools, software
+:EXPORT_DATE: [2019-01-19 Sat 19:34]
+:EXPORT_FILE_NAME: evernote-to-devonthink
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-06-22 Fri 15:51]
+:POSTID:   65
+:BLOG:     srwp01
+:END:
+
 I've used [[https://evernote.com/][Evernote]] since 2014, with over 3k notes of all kinds stored
 in it. Though I did try to capture everything of interest - the
 procedure was never fast or streamlined enough for me. The Evernote
@@ -844,7 +1508,7 @@ and script automated workflows.
 For most of the part, I found the speed and response of Evernote to be
 frustrating. It hindered a streamlined workflow. There are also
 additional irritations with respect to the .enex format and being able
-to encrypt information. 
+to encrypt information.
 
 No doubt, the ubiquity of Evernote in almost all the platforms (except
 Linux[fn:6]) works in its favor. However, the search response with DTP
@@ -859,10 +1523,6 @@ been prompt and helpful.
 The best place to find up to date information is on the
 [[https://forum.devontechnologies.com/][DEVONtechnologies forum]]. Even a deep search on the internet does not
 lead to many articles about the DEVONthink technologies products.
-
-[fn:6] Nixnote is one solution. I've seen it in action and it is
-useful, and probably even closer to DEVONthink. However, I could never
-get it working in Arch Linux reliably.
 
 *** Some caveats of DTP
 - DTP does offer all the flexibility above. However the quality of the
@@ -912,33 +1572,42 @@ ability to capture Linked in posts as web archives. Though not
 optimal, in terms of the format - it is still extremely useful to
 rapidly build up a reference database of web resources.
 
-** Back to RSS                                          :@Productivity:Emacs:
+** DONE Back to RSS                                    :@Productivity:Emacs:
+CLOSED: [2019-01-26 Sat 07:51]
+:PROPERTIES:
+:CREATED:  <2018-07-07 Sat 19:41>
+:TITLE:    Back to RSS
+:ID:       C641A230-37C9-46AA-84EB-E78CC00D0C7E
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-01-19 Sat 19:36]
+:EXPORT_FILE_NAME: back-to-rss
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:END:
 
 *** Why use RSS?
 
-Off late, I had been relying more on email based content consumption. The phenomenally fast search and filtering capabilities that can be leveraged with [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] make this easy. 
+Off late, I had been relying more on email based content consumption. The phenomenally fast search and filtering capabilities that can be leveraged with [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] make this easy.
 
-However, even with all these filters, it is quite difficult to keep on top of news from different sources. At times it is inconvenient to mix important emails and correspondence with newsletters and the like, which arrive by the dozen(s) everyday. 
+Even with all these filters, it is quite difficult to keep on top of news and information from different sources. It is actually inconvenient to mix important emails and correspondence with newsletters and the like, which arrive by the dozen(s) everyday.
 
-There's also a nagging feeling that relevant and 'up to date' information is better searched through Google, with a fresh search each time. However, this approach invites distractions. 
+There's also a nagging feeling that relevant and 'up to date' information is better searched through Google, with a fresh search each time. This approach invites distractions. One remedy is to link a google news feed of a search term into your RSS.
 
-The above made me realise that a dedicated [[https://en.m.wikipedia.org/wiki/RSS][RSS]] reader could inspire focused reading and aid in retention of information, and could be a better option than flooding my inbox.
+I've always liked [[https://en.m.wikipedia.org/wiki/RSS][RSS]], however, the exploration made me actually realise that a dedicated RSS reader could inspire focused reading and aid in retention of information, and could be a better option than flooding my inbox.
 
 An all-in-one solution for reading RSS feeds with a capable in-built browser to view images/webpages/videos would be excellent, along with the ability to sync with multiple services and facilitate capturing notes.
 
 *** Exploration:
 
-Within Emacs - [[https://github.com/skeeto/elfeed][Elfeed]] (along with [[https://github.com/algernon/elfeed-goodies][Elfeed-goodies]]) is a good option to read feeds and is strongly integrated with Emacs and org-mode. A single keypress can be programmed to store a link as a note. Unfortunately, (perhaps due to my age old machine) activating elfeed makes Emacs lag to the extent of being useless. An alternative was necessary for me.
+Within Emacs - [[https://github.com/skeeto/elfeed][Elfeed]] (along with [[https://github.com/algernon/elfeed-goodies][Elfeed-goodies]]) is a good option to read feeds and is strongly integrated with Emacs and org-mode. A single keypress can be programmed to store a link as an org-heading with a note. This would really be my first choice as I've found it to work rather well. I can use an org file to easily organise my feeds !
 
-Side note: As I set up all the feeds on Planet Emacsen, I felt a profound happiness in being able to selectively glance at and process a lot of information quickly and was also able to implement a few configuration tricks found through the feeds. On the contrary, with email - I've felt somewhat overwhelmed. This prompted me to explore further.
+Unfortunately, there seems no easy way to sync completed feeds to my iOS devices, though [[https://github.com/areina/elfeed-cljsrn][solutions exist for Android]]. I do spend a lot of time on my computer, however, it seems I can just read better and faster on my iPad and therefore a sync to mobile devices is still important.
 
-Though it does not seem to be a mainstream recommendation on reviews like [[https://thesweetsetup.com/apps/best-rss-reader-os-x/][the sweet setup]] : [[http://www.vienna-rss.com/][Vienna]] is a reliable solution (open source!) to consider using to browse RSS feeds on the Mac OS. This comes with a caveat - some tinkering is required to get it to sync with a service.
-
-Vienna has inbuilt share options to share via Buffer or Twitter. Side note: I would recommend using [[https://buffer.com/][Buffer]] to manage posts on multiple social media sites in a seamless manner. Buffer's free tier should be sufficient for moderate, personal purposes. I use it to post on Twitter and Linked in simultaneously.
+Though it does not seem to be a mainstream recommendation on reviews like [[https://thesweetsetup.com/apps/best-rss-reader-os-x/][the sweet setup]] : [[http://www.vienna-rss.com/][Vienna]] is a reliable solution (open source!) to consider using to browse RSS feeds on the Mac OS. This comes with a caveat - some tinkering is required to get it to sync with a service.Vienna has inbuilt share options to share via Buffer or Twitter. Side note: I would recommend using [[https://buffer.com/][Buffer]] to manage posts on multiple social media sites in a seamless manner. Buffer's free tier should be sufficient for moderate, personal purposes. I use it to post on Twitter and Linked in simultaneously.
 
 **** Harvesting information
 
-The next consideration was harvesting information of interest from the RSS feeds. If not Emacs, the information has to go to [[https://www.devontechnologies.com/products/devonthink/overview.html][DEVONThink Pro]] (DTP), which has a handy pull out drawer into which content can be dragged. I was able to just drag and drop the article or text selection into the DTP drawer. This appears as a URL / bookmark in DTP, and can be converted to a formatted note or web archive subsequently. A script could probably accomplish this automatically. That's for a future project.
+The next consideration was harvesting notable information of interest from the RSS feeds. If not Emacs, the information has to go to [[https://www.devontechnologies.com/products/devonthink/overview.html][DEVONThink Pro]] (DTP), which has a handy pull out drawer into which content can be dragged. I was able to just drag and drop the article or text selection into the DTP drawer. This appears as a URL / bookmark in DTP, and can be converted to a formatted note or web archive subsequently. A script could probably accomplish this automatically. That's for a future project.[fn:16]
 
 {{< figure src="/img/vienna-dtp-drawer.png" title="Screenshot - Vienna + DTP drawer" >}}
 
@@ -946,13 +1615,15 @@ Granted, an application external to Emacs (especially without a customisable key
 
 **** Opting for Feedly as a susbcription service and RSS app
 
-In the next step, Vienna had to be abandoned as it felt more sensible to opt for a [[https://feedly.com/][Feedly]] subscription (in order to get going quickly with syncing across devices). The Feedly app turned out to run surprisingly well on my ancient iPad and I can still drag and drop entire articles into DTP which come out to be formatted RTFD files which could be read and highlighted in leisure. While it may be nice to opt for a standalone app in the Mac for RSS feeds, the Feedly app satisfies my needs and is also available cross-platform. Note: I use the excellent [[https://www.goldenhillsoftware.com/unread/][Unread app]] to read RSS on my newer iPhone. 
+Unfortunately, Vienna had to be abandoned as it felt more sensible to opt for a [[https://feedly.com/][Feedly]] subscription to enable a seamless mobile experience. The Feedly app turned out to run surprisingly well on my ancient iPad and I can still drag and drop entire articles into DTP which come out to be formatted RTFD files which could be read and highlighted in leisure. While it may be nice to opt for a standalone app in the Mac for RSS feeds, the Feedly app satisfies my needs and is also available cross-platform. Note: I use the excellent [[https://www.goldenhillsoftware.com/unread/][Unread app]] to read RSS on my newer iPhone.
 
-Besides the numerous sync options, [[https://feedly.com/][Feedly]] provides other interesting features in their pro subscription, like setting up Google keyword searching and organising multiple feeds into 'boards'. This will certainly help in enabling some level of filtering. The method of organising sources and opml imports in the mac app is a little clunky and not that intuitive, but it is usable. 
+Besides the numerous sync options, [[https://feedly.com/][Feedly]] provides other interesting features in their pro subscription, like setting up Google keyword searching and organising multiple feeds into 'boards'. This will certainly help in enabling some level of filtering. The method of organising sources and OPML imports in the mac app is a little clunky and not comfortably intuitive, but it is usable.
+
+There's [[https://emacs.stackexchange.com/questions/4138/how-do-i-use-emacs-as-a-feedly-com-client][no easy way to use Elfeed as a feedly client]] either.
 
 **** How to cover them all?
 
-With numerous sources available on most topics - a technique to read is of even more importance. Besides leveraging custom boards, it seems the best way to consume content is to rapidly sweep through the titles and the short descriptions, and in parallel skim through articles of interest. If the article (even slightly) feels worth recording and reading in detail, I select the entire article and drag it into DTP via the drawer for a future session. 
+With numerous sources available on most topics - a technique to read is of even more importance. Besides leveraging custom boards, it seems the best way to consume content is to rapidly sweep through the titles and the short descriptions, and in parallel skim through articles of interest. If the article (even slightly) feels worth recording and reading in detail, I select the entire article and drag it into DTP via the drawer for a future session.
 
 I try to deploy DTP as my primary reading app, because of the ability to highlight lines (which are generally available across devices). Besides aiding in skimming the article in the future, it helps me know I've actually read the article. This is in addition to the core ability to use DTP's AI algorithms in searching through my notes and forming connections between ideas. I also use smart groups that show me the articles captured in the last 1 week, 2 weeks, 3 weeks, which helps me re-visit them in a structured method. The latter works rather well as a memory aid.
 
@@ -960,9 +1631,24 @@ I try to deploy DTP as my primary reading app, because of the ability to highlig
 
 *** Future plans?
 
-It would be ideal to setup my own server which will process the RSS feeds. Perhaps a Raspberry Pi or something else could be employed. This would be a cost efficient approach for the long term. The DEVONAgent Pro app could be leveraged for deep searches. Web scraping could be performed regularly from a set of links for deeper insight. 
+It would be ideal to setup my own server which will process the RSS feeds. Perhaps a Raspberry Pi or something else could be employed. This would be a cost efficient approach for the long term. Such a setup would enable using Elfeed to source articles from the server and thus sync with my mobile devices.
 
-** An SSD can breathe life into old computers     :@Productivity:Emacs:Linux:
+For now, I guess I will have to rely on Feedly.
+
+** DONE An SSD can breathe life into old computers :Productivity:Emacs:Linux:
+CLOSED: [2019-01-19 Sat 19:37]
+:PROPERTIES:
+:CREATED:  <2018-07-10 Tue 11:16>
+:ID:       01252410-853F-4570-858F-F3D609F5DEF5
+:HUGO_DATE: [2018-07-10 Tue 11:32]
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2018-07-10 Tue 09:34]
+:POSTID:   701
+:BLOG:     wordpress
+:END:
+
 It's a well known trick that installing a [[https://www.storagereview.com/ssd_vs_hdd][SSD]] in place of the
 conventional Hard disk can breathe new life into very old machines. My
 mid 2010 Macbook Pro is one such example, being over 8 years old.
@@ -997,42 +1683,59 @@ the compromises would mean using Electron or Web based versions of
 apps, which are often not as powerful as the desktop app, not to
 mention inconvenient. A prime example would be Evernote, on Arch
 Linux. Some other examples are apps like Word, Pages, Outlook and Excel and
-so on, which are more critical. 
+so on, which are more critical.
 
 Ultimately, my preference would be to use a Mac as my daily driver and
 play around with Linux on a back up computer. In any case, multiple
-Linux distros can be run on [[https://www.virtualbox.org/][Virtual Box]] within the Mac. 
+Linux distros can be run on [[https://www.virtualbox.org/][Virtual Box]] within the Mac.
 
-** Notes from the movie Whiplash                     :Movie_notes:excellence:
-[[https://en.m.wikipedia.org/wiki/Whiplash_%25282014_film%2529][Whiplash: Wikipedia]] 
+** DONE Notes from the movie Whiplash               :Movie_notes:excellence:
+CLOSED: [2019-01-19 Sat 19:37]
+:PROPERTIES:
+:ID:       5fc69e19-e330-4dd9-9317-7280a9c93966
+:HUGO_DATE: [2017-08-11 Fri 14:48]
+:HUGO_TAGS:
+:HUGO_CATEGORIES:
+:EXPORT_FILE_NAME: 5fc69e19-e330-4dd9-9317-7280a9c93966
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2017-08-11 Fri 16:17]
+:POSTID:   71
+:BLOG:     srwp01
+:END:
+
+[[https://en.m.wikipedia.org/wiki/Whiplash_%25282014_film%2529][Whiplash: Wikipedia]]
 
 Whiplash is a fascinating movie on many levels regarding a topic that interests me deeply... How to progressively perform, and strive to become the very best in a chosen field. Personally, I found each step of the movie riveting and would recommend it to anybody who would find the above question even mildly interesting. The movie's climax  was immensely interesting, inspiring and supported by great acting.  At any rate, the movie induced a blog post !
 
 The story revolves around the mind and life of a student who wants to be among the greats in his field, and the way he deals with an abrasive, abusive and unorthodox teacher whose intentions are to bring out the best in a student. No movie is perfect - while some points in Whiplash do appear extreme and therefore relatively unrealistic - the overriding message and theme conveyed certainly rings out clearly, in an engaging plot.
 
-I could relate to the following pointers from the movie: 
+I could relate to the following pointers from the movie:
 
 *** Leverage stress to achieve new levels of insight and performance
-The belief of the teacher, that the best performance or attributes hidden inside a person can come out only via repeated, unexpected and  stressful prodding. I'm not sure if this works as shown in the movie, but I have found unexpected insights at times of extreme stress, that have were taken forward to habits that changed my life.
+
+The belief of the teacher, that the best performance or attributes hidden inside a person can come out only via repeated, unexpected and  stressful prodding. I'm not sure if this works as shown in the movie, but I have found unexpected insights at times of extreme stress, that have were taken forward to habits that changed my life. I've even used extreme stress to 'plunge' into habits like regular physical workouts.
+
+#+BEGIN_QUOTE
+On the other hand, the best teachers I've had were extremely intelligent and kind, and had a 'knack' of getting things across without stressful prodding. I mean to convey that stress - is not entirely a harmful thing, and can be manipulated to achieve things that may not be normally possible.
+#+END_QUOTE
 
 *** Weathering criticism
-The mental conditioning required to weather and beat intense, sharp,
-depressing criticism along with verbal and physical abuse from a
-mentor or teacher and use the same as a motive force for
-self-improvement and eventually superlative performance. Though there
-are examples of extreme abrasiveness in leaders like Steve Jobs - such
-an approach would not be tolerated by most people today.
+The mental conditioning required to weather and beat intense, sharp, depressing
+criticism along with verbal and physical abuse from a mentor or teacher and use
+the same as a motive force for self-improvement and eventually superlative
+performance. Though there are known examples of extreme abrasiveness in leaders
+like Steve Jobs - such an approach would not be tolerated by most people today.
 
-- I know other stories of people working under such mentors,
-  striving to learn and gain their approval and eventually winning
-  the same. These efforts paid off by resulting in skills, thinking
-  patterns and a superior mental conditioning. Finding such a mentor
-  at the formative stage is probably the best thing to happen to
-  anybody.
+  - I know other stories of people working under such mentors,
+    striving to learn and gain their approval and eventually winning
+    the same. These efforts paid off by resulting in skills, thinking
+    patterns and a superior mental conditioning. Finding such a mentor
+    at the formative stage is probably the best thing to happen to
+    anybody.
 
-- An effective strategy to find mentors is to shadow people on Linked in and learn from their profiles and activity. Some of them may be willing to connect and invest time in mentoring.
+  - An effective strategy to find mentors is to shadow people on Linked in and learn from their profiles and activity. Some of them may be willing to connect and invest time in mentoring.
 
-- Another possibility to find like minded people and mentors would be to join the communities of on-line courses, like Datacamp and Dataquest, who have lively channels in Slack for paid members.
+  - Another possibility to find like minded people and mentors would be to join the communities of on-line courses, like Datacamp and Dataquest, who have lively channels in Slack for paid members.
 
 *** Getting back up after a fall
 
@@ -1040,7 +1743,7 @@ Everybody breaks. Just as the promising student in Whiplash
 breaks. But the champions among us rally, to stage a comeback and
 performance that make history.
 
-Regularly surpassing the level of deliberate knowledge of your own performance, and thus improvement by exactly being able to measure your performance and pinpoint mistakes. This point is portrayed in a very interesting manner in Whiplash, where the teacher expects the student to know exactly what mistake is being made. 
+Regularly surpassing the level of deliberate knowledge of your own performance, and thus improvement by exactly being able to measure your performance and pinpoint mistakes. This point is portrayed in a very interesting manner in Whiplash, where the teacher expects the student to know exactly what mistake is being made.
 
 *** Be Great, not Good
 Rejecting the 'Good' or 'Good enough' feedback from anybody. The goal is to be /Great/, not good. The goal should be to strive to set the precedent and not just follow a beaten track. The pinpoint focus should be on progressive improvement to become the best, and that entails never being satisfied and to be ruthless in rooting out flaws.
@@ -1049,7 +1752,7 @@ Rejecting the 'Good' or 'Good enough' feedback from anybody. The goal is to be /
 Great performance is about that perfect balance between the body, mind and environment to leverage the best result possible. I view the scene where the student survives a car crash, just to reach a performance and then not being able to perform, as a good example of overreaching, without strengthening the core, and thus inviting instability.
 
 *** Go off the beaten track and Lose yourself
-It was the ending of Whiplash that truly drove me to comprehend the points so far. It is twisted, unexpected and led me to truly enjoy the movie and appreciate that: despite the above points being reasonably discernible - the human mind and nature is exceedingly complex. Stability and reasoning are not the only keystones to the foundation of greatness. There has to be a /healthy/ mix of some form of abnormal obsession thrown in, to make a stellar performance what it is. However, can this be practically repeated on a regular basis? 
+It was the ending of Whiplash that truly drove me to comprehend the points so far. It is twisted, unexpected and led me to truly enjoy the movie and appreciate that: despite the above points being reasonably discernible - the human mind and nature is exceedingly complex. Stability and reasoning are not the only keystones to the foundation of greatness. There has to be a /healthy/ mix of some form of abnormal obsession thrown in, to make a stellar performance what it is. However, can this be practically repeated on a regular basis?
 
 *** Learning velocity and Flow
 There are several bodies of research work available today that can be studied to get closer to consciously stimulating a great performance. One such example is:
@@ -1064,6 +1767,180 @@ There are several bodies of research work available today that can be studied to
 
 That point sems to be an amalgamation of several factors, that are typically present when someone is in 'flow'. Perhaps this flow can be described as a heightened sense of what is, and what should be and the energy to strive and achieve what should be.. It certainly does feel logical to think that we become better by pushing that boundary.
 
+** TODO A history of my websites
+
+This blog post enumerates my journey in creating a web presence. Most of this was written long ago as a summary to myself, and is now updated to October 2019.
+
+*** v5.0 - Discovered *Jekyll* recently (05/2015).
+  [[http://www.jekyllnow.com][Jekyll Now]] is /the/ thing to check out!
+
+  - Hosting on Github is pretty easy and very comfortable to develop an
+    efficient workflow.
+  - Some of the websites achieved by people are really superb (See
+    link). And everything being open source - I can actually learn how
+    they've created their websites. This may raise issues of privacy.
+    However, I suppose you can clearly specify what's personal and needs
+    permission (like your blog notes). Git hub after all is meant for
+    sharing code easily.
+  - Though I'm not a web developer by profession - my interest in being
+    able to setup a customised platform to express myself - makes Jekyll
+    and [[http://octopress.org][Octopress]] very interesting. In fact
+    these two are called blogs for Hackers ! Very cool :)
+
+*** v4.0 of my website was set up using *Google Sites* in 2015 -
+  [[https://sites.google.com/site/shreyasragavan/][link]]. There seemed
+  to be a lot of improvement in Google sites, since I tried it last
+  somewhere in 2012. However, there are limitations like a very small
+  space allotment (100 MB) and it also appears that it's complicated to
+  get a custom domain name. The themes are also quite lacking, and the
+  blog facility is very basic, called Announcements (though it does
+  serve the purpose).
+
+  - I'd recommend Google Sites over Weebly at the moment to very quickly
+    set up a website and blog. The integration with Google services is
+    pretty good. Just remember the 100MB space limit !
+
+*** v3.0 of my website was created created using *Wordpress with custom
+  hosting*.
+
+  - I found this relatively complicated to maintain and develop further.
+    Of course there are plugins to achieve more or less anything that
+    you need in Wordpress. I'd even purchased the Ultimatum Framework to
+    be able to construct page layouts. But my workflow was far from
+    streamlined in the limited time available.
+  - At this point, I formulated some basic guidelines for myself in this
+    quest of setting up a web presence and web site: 1. It must be easy
+    to maintain and deploy and shouldn't be costly. 1. The website
+    should have a minimal, sophisticated (eventually) design that
+    focusses on content. It should also load very quickly. 1. Must be
+    possible to work on blog articles anywhere, anytime the inspiration
+    strikes. 1. Must be easy to add interesting links and to continue my
+    collation of interesting web resources. 1. The possibility must
+    exist to easily transfer the existing posts and website without much
+    work to another site. In short - it should be future proof. 1. In
+    this context - markdown and text files are the best things I've
+    discovered in 2015. 1. Recently I've combined the above with Jekyll,
+    a static website generator, which is really fantastic, and seems to
+    encompass all that I've written above.
+
+*** v2.0 was done using *Weebly*, and is still the link I use often
+  (started 2012) -[[http://cfdrevolutions.weebly.com][Link]].
+
+  - Weebly is certainly very very easy to use and I've had no complaints
+    whatsoever with their service/performance, despite being a free
+    user. I'd recommend Weebly for anybody who wants to set up a website
+    quickly. In my opinion - their free package was the best at the
+    time.
+  - At this point, I'd started using Storify (and have continued till
+    date)
+
+*** v1.0 created using *Tiddlywiki*, (started 2011) -
+  [[http://cfdrev.tiddlyspot.com][Link]] The original goal was to find a
+  common platform and efficient technique to blog and collate good
+  quality online resources easily.
+
+  - There are still several advantages and novelties in using Tiddlers.
+    It can also be converted to some sort of a intranet of
+    blogs/information in an organisation and there are simply many
+    possibilities. The entire website can be downloaded in a single html
+    file and is thus automatically portable.
 
 
-* Documentation
+* Footnotes
+
+[fn:21] You may be surprised to see the ease in browsing a good number of
+websites on a text based web browser. Besides the added advantage of being
+within Emacs - a surprising number of websites can be viewed functionally on
+w3m. It works fine for quick searches on Google (which like anything else, can
+be done within a few key strokes in Emacs).
+
+[fn:19] Fastmail allows for a variety of interesting features like aliases, easy
+email transfer (from a different email provider like Gmail or MSN), responsive
+technical support, and many more aspects, and much more. They have their own
+implementation of the IMAP protocol, [[https://www.fastmail.com/help/guides/interfaceupdate-2018.html#what-is-jmap][called JMAP]], which is significantly faster.
+
+[fn:20] While there are many advantages in Gmail and many swear by it's search
+capabilities - it is worth noting that Fastmail's ad-free interface and search
+just feels a lot quicker than Gmail, and I can find my way around the settings
+better than I used to with Gmail.
+
+[fn:6] Nixnote is one solution. I've seen it in action and it is useful, and
+probably even closer to DEVONthink. However, I could never get it working in
+Arch Linux reliably.
+
+
+[fn:18] However, subsequently, I've had no problems with jam packed org files a
+little over 2MB. Even so, the rapid increase in size would only cause problems.
+
+[fn:17] Atleast a basic knowledge of the latter areas is necessary for
+customisation of the app, and advanced fine tuning.
+
+[fn:2] On iOS - I've found [[http://agiletortoise.com/drafts/][Drafts]] is a great app for writing fast and appending
+the notes to an org file, which can be refiled later, using emacs. One problem
+I'm yet to resolve is that appending to an org file in dropbox, requires a
+network/internet connection. There should be a way to deal with situations
+without handy internet available.
+
+[fn:1] While Org mode is optimised for text, it is possible to attach any kind
+of file to a 'heading', and use interleave and other techniques to browse and
+annotate PDF's. The possibilities are too numerous to be covered in a blog post
+or a single google search.
+
+[fn:16]It is probably worth noting that Feedly pro has several 3rd party
+integrations available out of the box including Evernote.
+
+[fn:15] See this [[http://rss.slashdot.org/~r/Slashdot/slashdot/~3/7iykh9HdS5U/i-stopped-using-a-computer-mouse-for-a-week-and-it-was-amazing][article of a non-technical user's experiment]] with not using the
+mouse, reporting significant gains in speed and productivity. I've experienced
+this myself after gaining basic proficiency in moving around Emacs.
+
+[fn:14] Articles on using Yasnippet: --- [[http://blog.refu.co/?p=1355][Using Emacs Yasnippet against
+repetitive boileplate code]] || [[https://jpace.wordpress.com/2012/10/20/tweaking-emacs-snippets/][Tweaking Emacs Yasnippet]] || [[https://joaotavora.github.io/yasnippet/snippet-expansion.html][Expanding snippets]]
+
+
+[fn:4] Links to using R with Emacs: [[https://www.r-bloggers.com/using-r-with-emacs-and-ess/][Using R with Emacs and ESS]] || [[https://lucidmanager.org/using-r-with-emacs/][Using R with
+Emacs]] || [[https://www.reddit.com/r/emacs/comments/8gr6jt/looking_for_tips_from_r_coders_who_use_ess/][Tips from R Coders who use ESS]] || [[https://thescientificshrimper.wordpress.com/2018/12/12/soapbox-rant-why-i-use-emacs-for-r-programming/][Why I use Emacs for R programming]]
+
+[fn:13] To some extent, it is also possible that launchers like the Alfred app
+could be set or programmed to search in particular locations. This is a less
+/hacky/ and still a functional option for Mac users.
+
+[fn:11] In [[https://github.com/jkitchin/scimax][Scimax]] - it is possible to quickly start a new project using =M-x
+nb-new=, which creates a sub-folder in the specified projects folder and creates
+and opens a readme.org file for the project.
+
+[fn:9] It is worth noting that a bunch of additional HTML blocks and hyperlinks
+are inserted via the above export procedure. It should be possible to add some
+hooks to clean up the org file after the export from pandoc.
+
+[fn:12] The option =C-u-cl= is a messy way to quickly get the full file name path,
+the resulting path will need to be modified slightly.
+
+[fn:8] Sometimes, this procedure has to be set specifically. Some good
+discussions on SO : [[https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal][link1]], [[https://stackoverflow.com/questions/7997590/how-to-change-the-default-split-screen-direction][link2]]. However, at times horizontal splitting is
+useful. Therefore, I would rather not set a 0 width-threshold enabling only
+vertical splitting.
+
+#+BEGIN_SRC lisp
+(setq split-width-threshold 75)
+(setq split-height-threshold nil)
+#+END_SRC
+
+[fn:7] =C-x= essentially means Control + x. =M-x= or Meta-x is Alt + x
+
+[fn:3] The browse-kill-ring package can be installed via MELPA. (=M-x= install
+package)
+
+[fn:5] The latest version of IAWriter has a truck load of features and
+advantages over over the Classic version. I did consider purchasing it, but
+Emacs won the day. Nevertheless, as a plain vanilla writing app - IAWriter
+offers much right out of the box.
+
+[fn:first-gif] This is my first animated gif in a blog post! It was tricky! I
+used the free [[https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984?mt=12][GIPHY capture app]] on the Mac store.
+
+[fn:add-emacs-package-helm-ag]
+
+[fn:10] Not to mention the added load on computer processing, and lags for stuff
+like agenda generation. In general, I've found that the very first agenda
+generation take a wee bit longer. However, subsequent agenda generations are
+much quicker.

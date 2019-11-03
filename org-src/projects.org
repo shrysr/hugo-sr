@@ -1,0 +1,900 @@
+#+hugo_base_dir: ~/hugo-sr/
+#+hugo_section: project
+#+hugo_auto_set_lastmod: t
+#+hugo_weight: auto
+#+OPTIONS: toc:t
+
+
+* DONE Federal R&D Spending on climate change
+CLOSED: [2019-11-01 Fri 14:27]
+:PROPERTIES:
+:ID:       875A2F42-EF95-43E2-96A3-9CAE594DB1BE
+:EXPORT_HUGO_TAGS: R EDA ggplot TidyTuesday Data-Science
+:EXPORT_HUGO_CATEGORIES: R project EDA Data-Science
+:EXPORT_HUGO_SECTION: project
+:EXPORT_DATE: [2019-11-01 Fri 13:29]
+:EXPORT_FILE_NAME: tt-fed-rnd-spending
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:header-args: :session tt :mkdirp yes :results output :exports both :tangle ~/hugo-sr/static/scripts/tt1-fed-rnd.R
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary An EDA using `R` of federal government data of thre R&D budget towards Climate Change.
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image_preview fed-rnd-spending-1.png
+:END:
+
+** Summary
+
+This is a short exploration into the tidy tuesday dataset focused on the Federal R&D budget towards global climate change. The data has been extracted from a TidyTuesday dataset, which in return is moderately cleaned dataset from publicly available data. The analysis will show that NASA's budget dwarfs the money going into other departments, and that the median spend towards climate change has been increasing since the year 2000.
+
+Useful links:
+- [[https://github.com/shrysr/sr-tidytuesday][Github Repo]] of Tidy Tuesday explorations
+- Tidy tuesday dataset: [[https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-12][link]]
+- Data Dictionary [[https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-12#data-dictionary][link]]
+- Viz [[https://twitter.com/ShreyasRagavan/status/1100765886892265472][posted on Twitter]] to participate in TidyTuesday.
+- Tools used: ESS, Org mode
+
+[[file:/scripts/tt1-fed-rnd.R][Download R script]] : this is the entire script below.
+
+** Loading libraries
+:PROPERTIES:
+:ID:       B012CADE-9C78-4D1F-9C92-460D8E5C3036
+:END:
+
+The =easypackages= library allows quickly installing and loading multiple packages. /Note: Uncomment the appropriate line if this library needs to be installed./
+
+#+BEGIN_SRC R :exports source :results output org
+                                        # Loading libraries
+                                        # install.packages("easypackages")
+library("easypackages")
+libraries("tidyverse", "tidyquant", "DataExplorer")
+#+END_SRC
+
+#+RESULTS:
+#+begin_src org
+
+All packages loaded successfully
+#+end_src
+
+** Reading in the data
+:PROPERTIES:
+:ID:       282BDDBA-2926-4807-92C9-7D94F446BB11
+:END:
+
+Since this is a small dataset, the data can be read in directly from Github into memory.
+
+#+BEGIN_SRC R  :results verbatim
+                                        # Reading in data directly from github
+climate_spend_raw  <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-12/climate_spending.csv", col_types = "cin")
+
+#+END_SRC
+
+#+RESULTS:
+
+** Exploring the data
+:PROPERTIES:
+:ID:       43A8924D-3C19-406B-93C1-AF07AB117F42
+:END:
+
+We have 6 departments, and the remaining departments are lumped together as 'All Other'.
+
+The data is available for the years 2000 to 2017.
+
+The above can be found using the =unique= function.
+
+#+BEGIN_SRC R  :results verbatim
+climate_spend_raw$department %>% unique()
+climate_spend_raw$year %>% unique()
+#+END_SRC
+
+#+RESULTS:
+: [1] "NASA"            "NSF"             "Commerce (NOAA)" "Energy"
+: [5] "Agriculture"     "Interior"        "All Other"
+:
+:  [1] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+: [16] 2015 2016 2017
+
+Some Notes on the data:
+- We have the following columns:
+  - name of the department. (chr)
+  - year (int)
+  - spending (double)
+- The data is relatively clean. However some manipulation is required to summarise the department wise spending.
+
+An overview of missing data can be easily scrutinised using the =plot_intro= command, and actual numbers can be extracted using =introduce=. These functions are from the =DataExplorer= package.
+
+#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/plot-intro.png :res 100 :width 800 :height 500
+##plot_str(climate_spend_raw, type = 'r')
+plot_intro(climate_spend_raw)
+##introduce(climate_spend_raw)
+#+END_SRC
+
+#+RESULTS:
+[[file:~/hugo-sr/static/img/plot-intro.png]]
+
+There are no missing values or NA's.
+
+For a quick look at the outliers, we can use a boxplot, using DataExplorer's functions.
+
+
+#+BEGIN_SRC R :results graphics :file ~/hugo-sr/static/img/variance-spend.png :res 100 :width 800 :height 500
+variance_climate_spend <- plot_boxplot(climate_spend_raw, by = "year")
+#+END_SRC
+
+#+CAPTION: It can be seen above that there are not many outliers. Subsequent visualisations will show that NASA is the most significant outlier. The median spending has been increasing over the years.
+#+RESULTS:
+[[file:~/hugo-sr/static/img/variance-spend.png]]
+** Data Conditioning
+:PROPERTIES:
+:ID:       20B7F29F-B310-4E86-979A-4741DB1DAA06
+:END:
+
+/Note: this initial conditioning need not have involved the date manipulation, as the year extracted from a date object is still a double./
+
+#+BEGIN_SRC R
+climate_spend_conditioned <- climate_spend_raw %>%
+  mutate(year_dt = str_glue("{year}-01-01")) %>%
+  mutate(year_dt = as.Date(year_dt)) %>%
+  mutate(test_median = median(gcc_spending)) %>%
+  mutate(gcc_spending_txt = scales::dollar(gcc_spending,
+                                           scale = 1e-09,
+                                           suffix = "B"
+                                           )
+         )
+#+END_SRC
+
+#+RESULTS:
+
+Applying some summary statistics to calculate the total spend per department, per year.
+
+#+BEGIN_SRC R
+                                        # Total spend per department per year
+climate_spend_dept_y <- climate_spend_conditioned %>%
+  group_by(department, year_dt = year(year_dt)) %>%
+  summarise(
+    tot_spend_dept_y = sum(gcc_spending)) %>%
+  mutate(tot_spend_dept_y_txt = tot_spend_dept_y %>%
+           scales::dollar(scale = 1e-09,
+                          suffix = "B")
+         ) %>%
+  ungroup()
+
+#+END_SRC
+
+#+RESULTS:
+
+Lets see how much money has been budgeted in each department towards R&D in climate change from 2000 to 2017.
+
+#+BEGIN_SRC R  :results verbatim :exports code
+climate_spend_conditioned %>%
+  select(-c(gcc_spending_txt, year_dt)) %>%
+  group_by(department) %>%
+  summarise(total_spend_y = sum(gcc_spending)) %>%
+  arrange(desc(total_spend_y)) %>%
+  mutate(total_spend_y = total_spend_y %>% scales::dollar(scale = 1e-09,
+                                                        suffix = "B",
+                                                        prefix = "$")
+       )
+
+#+END_SRC
+
+| Department      | Total Spend from 2000-2017 |
+|-----------------+----------------------------|
+| NASA            | $25.77B                    |
+| Commerce (NOAA) | $5.28B                     |
+| NSF             | $5.26B                     |
+| Energy          | $3.32B                     |
+| Agriculture     | $1.63B                     |
+| All Other       | $1.54B                     |
+| Interior        | $0.86B                     |
+
+It is clear from here that the outlier department is NASA. Further exploration would be needed to understand the function of each department and the justification of this expenditure and the skew. /For example, one might think the Interior department would not be able to produce R&D superior to NASA/NSF./
+
+** Function to plot a facet grid of the department spending
+:PROPERTIES:
+:ID:       C2BF0EF2-B2F9-411A-ABC7-6C20165B22CC
+:END:
+
+By using a function to complete the plot, the plot can be easily repeated for any range of years. It can also work for a single year.
+
+The function below takes the following arguments:
+1. The range of the years we want to look into , example 2005-2010
+2. The number of columns in the facet wrap plot.
+3. The caption that consititues the observation from the plots and anything else.
+
+The title of the plot includes the year range that is input above.
+
+#+BEGIN_SRC R
+climate_spend_plt_fn <- function(
+                                 data,
+                                 y_range_low = 2000,
+                                 y_range_hi  = 2010,
+                                 ncol = 3,
+                                 caption = ""
+                                 )
+{
+
+  plot_title  <- str_glue("Federal R&D budget towards Climate Change: {y_range_low}-{y_range_hi}")
+
+  data %>%
+  filter(year_dt >= y_range_low & year_dt <= y_range_hi) %>%
+  ggplot(aes(y = tot_spend_dept_y_txt, x = department, fill = department ))+
+  geom_col() +
+  facet_wrap(~ year_dt,
+             ncol = 3,
+             scales = "free_y"
+             ) +
+  #scale_y_continuous(breaks = scales::pretty_breaks(10)) +
+  theme_tq() +
+  scale_fill_tq(theme = "dark") +
+  theme(
+    axis.text.x = element_text(angle = 45,
+                               hjust = 1.2),
+    legend.position = "none",
+    plot.background=element_rect(fill="#f7f7f7"),
+    ) +
+  labs(
+    title = plot_title,
+    x = "Department",
+    y = "Total Budget $ Billion",
+    subtitle = "NASA literally dwarfs all the other departments, getting to spend upwards of 1.1 Billion dollars every year since 2000.",
+    caption = caption
+  )
+
+}
+#+END_SRC
+
+#+RESULTS:
+
+** Visualizing department-wise spending over the years
+:PROPERTIES:
+:ID:       0351F748-D5CC-479D-A03F-FE0FA23A549E
+:END:
+
+Calling the function and passing in the entire date (year) range of 2000-2010. Note that for a single year, have both the arguments =y_range_low= and =y_range_high= equal to the same year.
+
+#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/fed-rnd-spending-1.png :width 800 :height 900 :res 100
+climate_spend_plt_fn(climate_spend_dept_y,
+                     y_range_low = 2000,
+                     y_range_hi = 2010,
+                     caption = "#TidyTuesday:\nDataset 2019-02-12\nShreyas Ragavan"
+                       )
+#+END_SRC
+
+#+CAPTION: R&D Budget towards Climate Change from year 2000-2010 across departments.
+#+RESULTS:
+[[file:~/hugo-sr/static/ox-hugo/fed-rnd-spending-1.png]]
+
+
+#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/fed-rnd-spending-2.png :width 800 :height 900 :res 100
+climate_spend_plt_fn(climate_spend_dept_y,
+                     y_range_low = 2011,
+                     y_range_hi = 2017,
+                     caption = "#TidyTuesday:\nDataset 2019-02-12\nShreyas Ragavan"
+                       )
+#+END_SRC
+
+#+CAPTION: R&D Budget towards Climate Change from year 2011-2017 across departments.
+#+RESULTS:
+[[file:~/hugo-sr/static/ox-hugo/fed-rnd-spending-2.png]]
+
+** Some Concluding statements
+
+NASA has the highest R&D budget allocation towards climate change, and one that is significantly higher than all the other departments put together. The median spending on R&D towards climate change has been increasing over the years, which is a good sign considering the importance of the problem. Some further explorations could be along the lines of the percentage change in spending per department every year, and the proportion of each department in terms of percentage for each year.
+
+** Code                                                           :noexport:
+:PROPERTIES:
+:ID:       98c9efcc-2e81-4649-b474-2cdcab0b4c3d
+:END:
+#+BEGIN_SRC R :mkdirp yes :tangle ./00_scripts/p1_climate_spending.R :results graphics output :file ./99_img/climate_spend_fed.png
+glimpse(climate_spend_dept_y)
+
+## The remaining code is partially complete and is in place for further exploration planned in the future.
+
+## Code to download all the data.
+## fed_rd <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-12/fed_r_d_spending.csv")
+## energy_spend <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-12/energy_spending.csv")
+## climate_spend <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-12/climate_spending.csv")
+
+## climate_spend_pct_all <- climate_spend_conditioned %>%
+##   group_by(year_dt = year(year_dt)) %>%
+##   summarise(
+##     tot_spend_all_y = sum(gcc_spending)
+##   ) %>%
+##   mutate(tot_spend_all_y_txt = tot_spend_all_y %>%
+##            scales::dollar(scale = 1e-09,
+##                           suffix = "B"
+##                           )
+##          )%>%
+##   ungroup() %>%
+##   mutate(tot_spend_all_lag = lag(tot_spend_all_y, 1)) %>%
+##   tidyr::fill(tot_spend_all_lag ,.direction = "up") %>%
+##   mutate(tot_spend_all_pct = (tot_spend_all_y - tot_spend_all_lag)/ tot_spend_all_y,
+##          tot_spend_all_pct_txt = scales::percent(tot_spend_all_pct, accuracy = 1e-02)
+##          )
+
+#+END_SRC
+
+#+BEGIN_SRC R :session
+library(ggplot2)
+diamonds2 <- subset(diamonds, !(cut == "Fair" & price > 5000))
+
+my_breaks <- function(x) { if (max(x) < 6000) seq(0, 5000, 1000) else seq(0, 15000, 5000) }
+
+ggplot(data = diamonds2, aes(x = carat, y = price)) +
+  facet_wrap(~ cut, scales = "free_y") +
+  geom_point() +
+  scale_y_continuous(breaks = my_breaks)
+#+END_SRC
+
+#+RESULTS:
+
+** Notes and further improvements [0/5]                           :noexport:
+
+- [ ] Add a median line to the facet plot
+- [ ] Find out how to add a median line to the box plot from Data Explorer.
+- [ ] Add more statistics about the difference in percentage in spending between departments
+- [ ] Fix the table output to being code output
+- [ ] Create pie chart of the proportion of each department, for each year.
+
+*** Header arguments for markdown
+summary = "An EDA using `R` of federal government data of thre R&D budget towards Climate Change."
+image_preview = "fed-rnd-spending-1.png"
+
+* DONE Bash scripting to compare chat logs of an IRC channel
+CLOSED: [2019-09-22 Sun 08:43]
+:PROPERTIES:
+:CREATED:  [2019-09-19 Thu]
+:ID:       C672B994-39E2-4956-A5E6-420B7489EE67
+:EXPORT_HUGO_TAGS: Linux bash project shell
+:EXPORT_HUGO_CATEGORIES: Linux bash project
+:EXPORT_DATE: [2019-11-02 Sat 19:28]
+:EXPORT_FILE_NAME: bash-scripting-mini-project
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:header-args: :tangle ~/hugo-sr/static/scripts/bash-log-compare.sh
+:END:
+
+** Summary
+
+This project is an exploration of BASH scripting utilising =cURL= and =diff= to extract chat logs of an IRC channel and quickly compare the contents to check for any discrepancies. Several new concepts were learned, including defining variables, for loops, conditionals and making temporary files. The gradual build up in complexity is shown and has the benefit that that report can serve as a simple tutorial in BASH scripting.
+
+[[file:/scripts/bash-log-compare.sh][Download the script]]
+
+** Preliminary notes:
+- The raw knob can be used to extract the text of the logs. The raw mechanism will spit out a maximum of 500 lines.
+  - i.e if a user provides a large range of id's - this will have to be split into batches of 500 lines.
+- W.r.t diff the focus will be on id < 1000,000.
+- My initial idea to use R and connect to the db snapshot was an example of an unnecessarily bloated solution when readily available bash + curl + diff can do the job.
+
+** Plan
+1. Create a simple case:
+   1. Use curl on raw knob links from each box > write this to a text file.
+   2. Use diff to compare the text files.
+2. Include variables to substitute start id and end id.
+3. Strategy for a id range above 500
+4. Enable providing arguments (url(s), startid and endid) to supply to the bash script so it can be invoked easily from the command line.
+
+** Simple case
+:PROPERTIES:
+:ID:       5e182b0c-db5d-4700-a758-5186ac357d81
+:END:
+
+Beginning with manually using curl.
+
+#+BEGIN_SRC bash :tangle ~/temp/log-compare.sh
+#!bin/bash
+
+curl "http://logs.ossasepia.com/log-raw/ossasepia?istart=999600&iend=999700" > ~/temp/log-test.txt
+
+curl "http://logs.nosuchlabs.com/log-raw/ossasepia?istart=999600&iend=999700" > ~/temp/log2-test.txt
+
+diff -uNr ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/hololo.txt
+#+END_SRC
+
+#+RESULTS:
+
+Quick test of diffing post 1,000,000 id's.
+
+#+BEGIN_SRC shell
+#!bin/bash
+
+curl "http://logs.ossasepia.com/log-raw/ossasepia?istart=1000000&iend=1000400" > ~/temp/log-test.txt
+
+curl "http://logs.nosuchlabs.com/log-raw/ossasepia?istart=1000000&iend=1000400" > ~/temp/log2-test.txt
+
+diff -uNr ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/hololo.txt
+
+#+END_SRC
+
+** Including variables for url prefix, start id and end id
+:PROPERTIES:
+:ID:       BF893843-38AE-4F9D-AF4E-7507FE1B8C67
+:END:
+/After a few hours of head-banging using istart= 995000 and iend= 995500 - I realised that these do not exist in the ossasepia log, and I had the syntax right in my first attempt./
+
+#+BEGIN_SRC shell
+#!bin/bash
+urlPrefix1="logs.ossasepia.com/log-raw/ossasepia"
+urlPrefix2="logs.nosuchlabs.com/log-raw/ossasepia"
+startid=1001700
+endid=1001900
+
+curl "${urlPrefix1}?istart=${startid}&iend=${endid}" > ~/temp/log-test.txt
+
+curl "${urlPrefix2}?istart=${startid}&iend=${endid}" > ~/temp/log2-test.txt
+#+END_SRC
+
+#+BEGIN_SRC shell
+diff -uNr ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/log-diff.txt
+#+END_SRC
+
+So far, so good. Now comes the /relatively/ tricky part: extending the above to cover more than 500 lines. This will need some conditionals and a for loop thrown in for dealing with a large range.
+
+** Figuring out a larger range
+
+Strategy:
+1. Obtain a startid and endid (i.e =istart= and =iend=)
+2. If (endid-startid <= 500) - go ahead with directly using curl and diff.
+3. If endid-startid > 500
+   1. divide the number of lines by 500. Obtain the quotient and remainder.
+   2. Use the quotient in a for loop as the number of times the internal startidi is incremented by 500.
+   3. the internal endidi is subtracted by 1 to account for duplication of lines.
+   4. Subtract the remainder from original endid to extract the last portion.
+
+*** Implementing a simple conditional statement
+:PROPERTIES:
+:ID:       BF668D4B-7B42-468A-A67D-2C8B59F137DB
+:END:
+
+#+BEGIN_SRC shell :results verbatim
+#!bin/bash
+urlPrefix1="logs.ossasepia.com/log-raw/ossasepia"
+urlPrefix2="logs.nosuchlabs.com/log-raw/ossasepia"
+startid=999700
+endid=999900
+rangelimit=500
+
+let subtrid=endid-startid
+
+if [ "$subtrid" -le "$rangelimit" ]
+then
+
+    echo "Lines <= 500. Proceeding to curl and diff."
+    curl "${urlPrefix1}?istart=${startid}&iend=${endid}" > ~/temp/log-test.txt
+    curl "${urlPrefix2}?istart=${startid}&iend=${endid}" > ~/temp/log2-test.txt
+    diff ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/log-diff.txt
+else
+    echo "Lines > 500. Additional calcs required."
+fi
+#+END_SRC
+
+#+RESULTS:
+: Lines <= 500. Proceeding to curl and diff.
+
+*** Implementing the for loop for a range > 500
+:PROPERTIES:
+:ID:       AA53F42F-BED4-444F-9DF7-9871E65BAE81
+:END:
+
+#+BEGIN_SRC shell :results verbatim
+#!bin/bash
+urlPrefix1="logs.ossasepia.com/log-raw/ossasepia"
+urlPrefix2="logs.nosuchlabs.com/log-raw/ossasepia"
+startid=1001900
+endid=1002900
+rangelimit=500
+
+let subtrid=endid-startid
+
+if [ "$subtrid" -le "$rangelimit" ]
+then
+
+    echo "Lines <= 500. Proceeding to curl and diff."
+    curl "${urlPrefix1}?istart=${startid}&iend=${endid}" > ~/temp/log-test.txt
+    curl "${urlPrefix2}?istart=${startid}&iend=${endid}" > ~/temp/log2-test.txt
+    diff ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/log-diff.txt
+else
+    echo "Lines > 500. Entering Loop to split the range into batches of 500 lines."
+    let quotient=$subtrid/$rangelimit
+    let remainder=$subtrid%$rangelimit
+    echo $quotient
+    echo $remainder
+    for (( c=0; c <$quotient; c++ ))
+    do
+	let "startidi=$startid + $c * $rangelimit"
+	let "endidi=$startidi + $rangelimit -1"
+	echo $startidi
+	echo $endidi
+	curl "${urlPrefix1}?istart=${startidi}&iend=${endidi}" >> ~/temp/log-test.txt
+	curl "${urlPrefix2}?istart=${startidi}&iend=${endidi}" >> ~/temp/log2-test.txt
+    done
+    let "portionstartid=$endid - $remainder"
+    echo $portionstartid
+    curl "${urlPrefix1}?istart=${portionstartid}&iend=${endid}" >> ~/temp/log-test.txt
+    curl "${urlPrefix2}?istart=${portionstartid}&iend=${endid}" >> ~/temp/log2-test.txt
+    diff ~/temp/log-test.txt ~/temp/log2-test.txt > ~/temp/log-diff.txt
+fi
+#+END_SRC
+
+The above has been tested to work across a range of start and end ID's.
+
+*** Adding some functions and other minor streamlining
+:PROPERTIES:
+:ID:       A44FB720-EAF0-4908-873C-95350E430206
+:END:
+- function to check the output of curl as well as diff if empty.
+- curl operations put into a function since repeated.
+- Streamlined echo outputs to be more neat.
+
+#+BEGIN_SRC shell :results verbatim
+#!bin/bash
+urlPrefix1="logs.ossasepia.com/log-raw/ossasepia"
+urlPrefix2="logs.nosuchlabs.com/log-raw/ossasepia"
+startid="1001900"
+endid="1003700"
+log1_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").log1")
+log2_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").log2")
+diff_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").difflog")
+rangelimit=500
+
+let subtrid=endid-startid
+
+function check_output {
+    echo "Log1 curl output is at $log1_file"
+    echo "Log2 curl output is at $log2_file"
+    echo "diff output is at $diff_file"
+
+    if [ ! -s $1 ] || [ ! -s $2 ]
+    then
+	echo "Atleast One curl output returned nothing."
+    fi
+
+    if [ -s $3 ]
+    then
+	echo "Diff file is not empty. Logs not equal"
+    else
+	echo "Diff file is empty."
+    fi
+}
+
+function curler {
+    curl "${1}?istart=${3}&iend=${4}" >> $log1_file
+    curl "${2}?istart=${3}&iend=${4}" >> $log2_file
+}
+
+if [ "$subtrid" -le "$rangelimit" ]
+then
+
+    echo "Lines <= $rangelimit. Proceeding to curl and diff."
+    curler $urlPrefix1 $urlPrefix2 $startid $endid
+    diff -uNr $log1_file $log2_file > $diff_file
+    check_output $log1_file $log2_file $diff_file
+
+else
+    echo "Lines > $rangelimit. Looping to split the range into batches."
+    let quotient=$subtrid/$rangelimit
+    let remainder=$subtrid%$rangelimit
+    echo "Batches of $rangelimit lines = $quotient. Remaining lines = $remainder"
+    for (( c=0; c <$quotient; c++ ))
+    do
+	let "startidi=$startid + $c * $rangelimit"
+	let "endidi=$startidi + $rangelimit -1"
+	echo "istart is $startidi and iend is $endidi"
+	curler $urlPrefix1 $urlPrefix2 $startidi $endidi
+    done
+    let "portionstartid=$endid - $remainder"
+    echo "Last portion istart is $portionstartid"
+    curler $urlPrefix1 $urlPrefix2 $portionstartid $endid
+    diff -uNr $log1_file $log2_file > $diff_file
+    check_output $log1_file $log2_file $diff_file
+fi
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Lines > 500. Looping to split the range into batches.
+Batches of 500 lines = 3. Remaining lines = 300
+istart is 1001900 and iend is 1002399
+istart is 1002400 and iend is 1002899
+istart is 1002900 and iend is 1003399
+Last portion istart is 1003400
+Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-00-18.log1.vqUV1Ohc
+Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-00-18.log2.pesOQnLD
+diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-00-18.difflog.vwakAwjw
+Diff file is not empty. Logs not equal
+#+end_example
+
+** Enabling the script to be called with parameters
+:PROPERTIES:
+:ID:       3250E3D3-0443-4894-906E-30F08139793F
+:END:
+
+#+BEGIN_SRC shell :results verbatim :tangle ~/temp/log-bash-curl-diff.sh
+#!bin/bash
+urlPrefix1=$1
+urlPrefix2=$2
+startid=$3
+endid=$4
+log1_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").log1")
+log2_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").log2")
+diff_file=$(mktemp -t "$(date +"%Y_%H-%M-%S").difflog")
+rangelimit=500
+
+let subtrid=endid-startid
+
+function check_output {
+    echo "Log1 curl output is at $log1_file"
+    echo "Log2 curl output is at $log2_file"
+    echo "diff output is at $diff_file"
+
+    if [ ! -s $1 ] || [ ! -s $2 ]
+    then
+	echo "Atleast One curl output returned nothing."
+    fi
+
+    if [ -s $3 ]
+    then
+	echo "Diff file is not empty. Logs not equal"
+    else
+	echo "Diff file is empty."
+    fi
+}
+
+function curler {
+    curl "${1}?istart=${3}&iend=${4}" >> $log1_file
+    curl "${2}?istart=${3}&iend=${4}" >> $log2_file
+}
+
+if [ "$subtrid" -le "$rangelimit" ]
+then
+
+    echo "Lines <= $rangelimit. Proceeding to curl and diff."
+    curler $urlPrefix1 $urlPrefix2 $startid $endid
+    diff -uNr $log1_file $log2_file > $diff_file
+    check_output $log1_file $log2_file $diff_file
+
+else
+    echo "Lines > $rangelimit. Looping to split the range into batches."
+    let quotient=$subtrid/$rangelimit
+    let remainder=$subtrid%$rangelimit
+    echo "Batches of $rangelimit lines = $quotient. Remaining lines = $remainder"
+
+    for (( c=0; c <$quotient; c++ ))
+    do
+	let "startidi=$startid + $c * $rangelimit"
+	let "endidi=$startidi + $rangelimit -1"
+	echo "istart is $startidi and iend is $endidi"
+	curler $urlPrefix1 $urlPrefix2 $startidi $endidi
+    done
+
+    let "portionstartid=$endid - $remainder"
+    echo "Last portion istart is $portionstartid"
+    curler $urlPrefix1 $urlPrefix2 $portionstartid $endid
+    diff -uNr $log1_file $log2_file > $diff_file
+    check_output $log1_file $log2_file $diff_file
+fi
+#+END_SRC
+
+The above script, if saved as =~/temp/log-bash-curl-diff.sh= can be called as:
+
+#+BEGIN_SRC shell :results verbatim :exports both
+sh ~/temp/log-bash-curl-diff.sh "logs.ossasepia.com/log-raw/ossasepia" "logs.nosuchlabs.com/log-raw/ossasepia" 1001900 1003700
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Lines > 500. Looping to split the range into batches.
+Batches of 500 lines = 3. Remaining lines = 300
+istart is 1001900 and iend is 1002399
+istart is 1002400 and iend is 1002899
+istart is 1002900 and iend is 1003399
+Last portion istart is 1003400
+Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_08-31-36.log1.GATDGr6j
+Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_08-31-36.log2.tiPldwjW
+diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_08-31-36.difflog.5WfHEFEL
+Diff file is not empty. Logs not equal
+#+end_example
+
+[[file:~/Desktop/CleanShot%202019-09-22%20at%2007.41.53@2x.png]]
+
+** Comparing logs for range 9998683 to 1000000
+:PROPERTIES:
+:ID:       DAA71B56-181F-4DD5-87F6-BFCDB0F2C44F
+:END:
+
+- 998683 is the beginning of the ossasepia log.
+
+#+BEGIN_SRC shell :results verbatim :exports both
+sh ~/temp/log-bash-curl-diff.sh "logs.ossasepia.com/log-raw/ossasepia" "logs.nosuchlabs.com/log-raw/ossasepia" "998683" "1000000"
+#+END_SRC
+
+#+RESULTS:
+: Lines > 500. Looping to split the range into batches.
+: Batches of 500 lines = 2. Remaining lines = 317
+: istart is 998683 and iend is 999182
+: istart is 999183 and iend is 999682
+: Last portion istart is 999683
+: Log1 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-47-56.log1.LDXQXheQ
+: Log2 curl output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-47-56.log2.4nLSpAfS
+: diff output is at /var/folders/39/l1557gl175s593l7zjj9kd640000gn/T/2019_07-47-56.difflog.TNbRHuwG
+: Diff file is empty.
+
+** Concluding remarks
+- a neat little bash script is constructed which will retrieve content from 2 specified URL's and diff the output. Particularly, the script was constructed to compare the #o logs on logs.ossasepia.com and logs.nosuchlabs.com
+- functions, conditionals, loops, for bash were learned and deployed, along with using curl and diff.
+- Retrieving a large number of lines will take some time and is also dependent on the internet speed. The curl/diff files will be empty if the lines are non-existent.
+- Diff results of the logs from line 9998683 to 1000000 indicates there are no missing lines.
+- the =check_output= function only checks if the files are empty. It does not account for curl retrieving error messages.
+- In a batch retrieval - the final curl output is checked whether empty. It does not account for empty retrievals for a particular batch.
+- overflow/underflow is not accounted for in this script.
+
+** References
+- [[https://unix.stackexchange.com/questions/181937/how-create-a-temporary-file-in-shell-script][Unix SE discussion on making temporary files in bash]]
+- [[https://stackoverflow.com/questions/10982911/creating-temporary-files-in-bash][SO discussion on making temporary files in bash]]
+- Some general references for the bash syntax used above.
+* CFX Job scheduler                                                  :Python:
+:PROPERTIES:
+:ID:       0602d9da-48fe-4eb0-9bd3-3ad531c59a6b
+:EXPORT_HUGO_TAGS: CFD python
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-08-08 Thu 10:46]
+:EXPORT_FILE_NAME: CFX-job-scheduler
+:EXPORT_HUGO_SECTION: project
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-08-11 Sun 14:41]
+:POSTID:   369
+:END:
+
+[[file:~/hugo-sr/static/img/scheduler-algo.png][Scheduler : pseudo algorithm]]
+
+** Introduction
+  :PROPERTIES:
+  :CUSTOM_ID: introduction
+  :END:
+
+*[[https://github.com/shrysr/jobscheduler][Code On Github]]*
+
+*[[https://shrysr.github.io/jobscheduler/index.html][Presentation]]*
+
+*[[https://github.com/shrysr/jobscheduler/wiki][Wiki on Github]]*
+
+This is a Python script for a portable, scalable job scheduler with
+multiple priorities - for ANSYS CFX simulations. The script was designed
+to be called every minute by an external scheduler program.
+
+- In the practical case, the free version of the software [[https://www.splinterware.com/products/scheduler.html][System
+  Scheduler]] was used to deploy the script successfully, for over 3
+  years, managing 2 computing clusters.
+
+Once called, the program basically loops through pre designated folders
+and lists .def files based on the /last modified/ date available in
+Windows. The system interaction is via BASH scripts created via the
+Python code, as well as the python OS library. There are several
+in-built flags to support priority, pausing a particular cluster,
+logging data and troubleshooting.
+
+The idea behind the project was to create a multi-platform job scheduler
+for ANSYS CFX that has a balance between sophistication and ease of
+deployment (and management). Typically job schedulers and load balancing
+programs are relatively very sophisticated and complex to setup with
+several pre-requisites and constraints. Such complexity dictates
+expensive commercial support and licensing considerations.
+
+** Problem Statement
+  :PROPERTIES:
+  :CUSTOM_ID: problem-statement
+  :END:
+
+A job scheduler or simulation management system was required to address
+the following:
+
+- Optimum and continuous simulation solver license utilisation by all
+  members of the team in a First-In-First-Out (FIFO) basis,
+- Provision for dynamic or urgent priority jobs, as well as an interface
+  to submit simulations or view job history.
+- Optimisation and management of workload of simulation jobs
+  facilitating overall project management and planning.
+
+** What the program accomplished
+  :PROPERTIES:
+  :CUSTOM_ID: what-the-program-accomplished
+  :END:
+
+- Allowed users to submit simulations by simply placing the input files
+  in a particular folder location, which also served as a particular
+  priority basket.
+- Removed the need of creating manual scripts to submit multiple
+  simulations and resolved inefficient license utilisation approaches.
+- Facilitated a optimised approach to certain design cases, thus
+  resulting in a 75% reduction in simulation time
+- Enabled the use of consistent solver and memory utilisation parameters
+  and settings, allowing efficient deployment and reducing
+  inefficiencies due to errors.
+- Allowed optimal or perfect utilisation of available licensing scheme,
+  resulting in a significant increase in team output and productivity.
+
+** Tools used and links
+  :PROPERTIES:
+  :CUSTOM_ID: tools-used-and-links
+  :END:
+
+- Written with Python 2.7, using portable python, Spyder, Notepad ++ and
+  Sublime Text 3.
+- [[https://www.splinterware.com/products/scheduler.html][System Scheduler]]
+
+* CFD-Online wiki page on open source
+:PROPERTIES:
+:ID:       6dc8833f-a20c-41dc-ad35-8c790091937b
+:EXPORT_HUGO_TAGS: CFD documentation
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-08-08 Thu 11:46]
+:EXPORT_FILE_NAME: cfd-online-wikipage
+:EXPORT_HUGO_SECTION: project
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-08-11 Sun 15:30]
+:POSTID:   382
+:END:
+
+View : [[https://www.cfd-online.com/Wiki/What_is_Open_Source%253F][CFD-Online Wikipage]].
+
+** Motivation
+
+During my initial foray into open source CFD and especially getting
+started with Linux - there was a lot of information that I had to
+collate from different sources in order to figure out each step. In
+addition, there were perspectives on performance that could be gained
+only through experience. Therefore, I plugged back the knowledge gained
+to the CFD-Online wiki with the idea that it would help any newbie get
+started a little quicker.
+
+In the last few years, the number of courses and the material available on-line
+on CFD, Linux and applying Numerical techniques has increased
+substantially. This is somewhat supported by the increasing trend of page views
+[[https://www.cfd-online.com/About/][shown on the CFD-Online Wiki]]. Nevertheless, this document still serves as a
+useful overview and getting started guide.
+
+The documentation explores the idea of Open Source software, and the
+basic techniques to get started with the exploration. Eg: the different
+options of running Linux on your current machine as well as the pros and
+cons of each approach, and the software options available, as well as
+links to useful and high quality information and tutorials.
+
+* Current trends of Emission reduction technology in diesel engines
+:PROPERTIES:
+:ID:       ccfa91cc-1fd5-4844-bd90-f1a7a1606f39
+:EXPORT_HUGO_TAGS: combustion research emission
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-08-08 Thu 14:32]
+:EXPORT_FILE_NAME: emission-reduction-tech-diesel
+:EXPORT_HUGO_SECTION: project
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-08-11 Sun 15:30]
+:POSTID:   385
+:END:
+
+*Abstract*
+
+Combustion is the primary source of vehicular pollution. The Euro countries recently agreed on the goal that would reduce current vehicular emission , in particular carbon emissions by 85% by 2050. This would mean a 95% reduction in the carbonisation of the transportation sector, which is one of the accepted prolific contributors to pollution. As will be seen, de-carbonisation is a key issue with vehicular light duty diesel engine emissions, along with reduction in NOx, with the latter being highlighted. Two constituents of diesel emissions, Particulate Matter (PM) and NOx are contradictory in the conditions of their formation and hence require a combination of technologies to solve the problem satisfactorily. Consequently, emission reduction technologies are of extreme importance. The most stringent norms are those of Super Ultra Low Emission Vehicles (SULEV) formed by the Environmental Protection Agency (EPA) and the Euro 6 has been proposed and awaiting approval. The author’s opinion of a balanced solution being a combination of several technologies is established. The logical path to this conclusion is presented, duly referenced.
+
+[[/files/Emission-technology-diesel.pdf"][Download PDF]]
+
+* Electro-mechanical prosthetic finger with a PID controller (virtual)
+:PROPERTIES:
+:ID:       6c5980e7-70c7-4127-b028-a9f337c7b3e1
+:EXPORT_HUGO_TAGS: CAD MATLAB SIMULINK Solidworks Design
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2019-08-08 Thu 14:22]
+:EXPORT_FILE_NAME: prosthetic-finger-pid
+:EXPORT_HUGO_SECTION: project
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:POST_DATE: [2019-08-11 Sun 15:30]
+:POSTID:   388
+:END:
+
+*Design of an Electro-mechanical Anthropometric finger, and a PID controller for the wrist for applications in Prosthetics*
+
+*Abstract*
+
+The design of the finger to be attached to a modular prosthetic hand and a controller solution for the wrist are explored in this effort. A novel design of a sliding body has been proposed using a Solidworks model where the outershell, providing form to the finger can be slid in or out off a of a light weight chassis and tightened with a screw. In addition to this the end effector is removabl. This provides an easy method to inspect the mechanism especially as the wiring and the motors are embedded inside.The report deals with key aspects such as the using the forward kinematics (Denavit-Hartenberg equations (DHE)) to component selection for building the model. The wrist is treated as as separate design issue and a Proportional Integral Derivative (PID) controller has been designed and manually tuned to control the rotation of the wrist, using Simulink. Though these continuous equations applied, are assuming ideal conditions, a saturation of the output provides realistic limits and conditions and a more realistic view of what occurs. The results obtained and the tuning process are explained and the conclusions are reached."
+
+Index Terms: Denavit Hartenberg equations (DHE), Forward Kinematics, Prosthetic hands, PID controller
+
+[[/files/Kinematic-design-finger.pdf][Download PDF]]
