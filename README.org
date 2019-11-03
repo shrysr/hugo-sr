@@ -2,6 +2,8 @@
 * Introduction
 This is the development of my personal website, currently based on hugo. This repository is pulled every 5 minutes with a cron job on my VPS. After the pull, the hugo command is used to serve the files into a specified folder and the website is served via Apache.
 
+Visit my website at https://shreyas.ragavan.co
+
 * Quick Links
 ** [[file:config.toml][Config.toml]]
 
