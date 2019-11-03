@@ -8,6 +8,7 @@ categories = ["Linux", "bash", "project"]
 draft = false
 weight = 1002
 profile = false
+summary = "A BASH script to extract the raw text from different servers and compare them."
 +++
 
 <div class="ox-hugo-toc toc">
