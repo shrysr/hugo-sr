@@ -95,15 +95,3 @@ climate_spend_plt_fn(climate_spend_dept_y,
                      y_range_hi = 2017,
                      caption = "#TidyTuesday:\nDataset 2019-02-12\nShreyas Ragavan"
                        )
-
-library(ggplot2)
-diamonds2 <- subset(diamonds, !(cut == "Fair" & price > 5000))
-
-my_breaks <- function(x) { if (max(x) < 6000) seq(0, 5000, 1000) else seq(0, 15000, 5000) }
-
-ggplot(data = diamonds2, aes(x = carat, y = price)) +
-  facet_wrap(~ cut, scales = "free_y") +
-  geom_point() +
-  scale_y_continuous(breaks = my_breaks)
-
-All packages loaded successfully
