@@ -1,6 +1,7 @@
 +++
 # Project title.
 title = "Course Certificates"
+draft = true
 
 # Date this page was created.
 date = "2017-02-15"
