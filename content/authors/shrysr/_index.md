@@ -81,15 +81,13 @@ Along with a strong background in analytics and a wide domain exposure, I posses
 
 I'm frequently available on IRC with the nickname shrysr on a bunch of channels, especially #emacs. I'm active on Linked in and Github, and occassionally on Twitter.
 
+-----------------
 
-## Overview of site contents
-- [Projects](/#projects "Project portfolio"): my growing portfolio of my projects.
-- Hop over to [Experience](/#experience "Work Experience") for a timeline of my work experience.
-- The [documentation section](https://shreyas.ragavan.co/docs/ "Documentation, tutorials, project reports, notes on various topics.") contains a growing brain dump on various topics, mostly technical.
-- My [Blog](/#posts "Recent blog posts") contains more structured articles about productivity, Emacs, software tools and other general topics.
-- [Project Reports](/publication) contains detailed reports from past projects.
-- The [Tag Cloud](/#tags "Tag cloud of the website") may be a good place to browse.
+### [Projects](/#projects "Project portfolio")   | <small> a portfolio of my projects.</small>
+### [Experience](/#experience "Work Experience") | <small> Skills, Commendations, Work Experience timeline and Course Certificates.</small>
+### [Documentation section](/docs/ "Documentation, tutorials, project reports, notes on various topics.")  | <small> growing brain dump on various topics, mostly technical.</small>
+### [My Blog](/post/ "Blog posts") | <small> opinionated articles on productivity, Emacs, software tools and other general topics. </small>
+### [Project Reports](/publication)  | <small> some detailed reports from past projects. </small>
+### [Tag Cloud](/#tags "Tag cloud of the website") | <small> for general browsing. </small>
 
-- Technical details:
-  - Static website powered by [hugo](https://gohugo.io/), built on a customised [academic theme](https://themes.gohugo.io/theme/academic/).
-  - [Hugo setup and source files](https://github.com/shrysr/hugo-sr) - repo containing the configuration of this website and the source of all the content.
+------------------
