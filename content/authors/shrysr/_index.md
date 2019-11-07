@@ -84,7 +84,7 @@ I'm frequently available on IRC with the nickname shrysr on a bunch of channels,
 -----------------
 
 ### [Projects](/#projects "Project portfolio")   | <small> a portfolio of my projects.</small>
-### [Experience](/#experience "Work Experience") | <small> Skills, Commendations, Work Experience timeline and Course Certificates.</small>
+### [Experience](/experience/ "Work Experience") | <small> Skills, Commendations, Work Experience timeline and Course Certificates.</small>
 ### [Documentation section](/docs/ "Documentation, tutorials, project reports, notes on various topics.")  | <small> growing brain dump on various topics, mostly technical.</small>
 ### [My Blog](/post/ "Blog posts") | <small> opinionated articles on productivity, Emacs, software tools and other general topics. </small>
 ### [Project Reports](/publication)  | <small> some detailed reports from past projects. </small>
