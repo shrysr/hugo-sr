@@ -34,7 +34,7 @@
   weight = 3
 
 [[main]]
-  name = "Docs"
+  name = "Notes"
   url = "docs/"
   weight = 50
 

@@ -22,7 +22,7 @@ date_format = "Jan 2006"
   company = "Self-Employed"
   company_url = ""
   location = "Canada"
-  date_start = "2019-08-01"
+  date_start = "2019-11-01"
   date_end = ""
   description = """
 
