@@ -8,6 +8,7 @@ categories = ["DataScience", "R"]
 draft = false
 weight = 2001
 profile = false
+toc = true
 +++
 
 These are my notes while studying  the research-compendium concept, which is essentially a bunch of guidelines to produce research that is 'easily' reproducible.

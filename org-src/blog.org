@@ -2,7 +2,7 @@
 #+AUTHOR: Shreyas Ragavan
 #+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
-#+hugo_auto_set_lastmod: t
+#+hugo_auto_set_lastmod: f
 #+hugo_weight: auto
 
 This is the Org source for all my blog articles
@@ -246,12 +246,11 @@ CLOSED: [2019-07-13 Sat 19:33]
 :PROPERTIES:
 :EXPORT_HUGO_TAGS: mu4e Emacs Productivity lisp Orgmode
 :ID:       E4E7EBB1-4C0C-41D6-B7E4-1C1C09E48C80
-:EXPORT_OPTIONS: toc:2
 :EXPORT_HUGO_CATEGORIES: Emacs Productivity Org-mode
 :CATEGORY: Emacs, mu4e, mbsync
 :EXPORT_DATE: [2019-07-12 Fri 20:36]
 :EXPORT_FILE_NAME: E4E7EBB1-4C0C-41D6-B7E4-1C1C09E48C80
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile true :toc true
 :POST_DATE: [2019-07-12 Fri 16:45]
 :POSTID:   998
 :BLOG:     wordpress
@@ -883,7 +882,7 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 * Data Science                                     :@DataScience:DataScience:
 
 ** DONE Some notes on research-compendium                    :R:DataScience:
-CLOSED: [2019-09-01 Sun 23:23]
+CLOSED: [2019-11-08 Fri 22:48]
 :PROPERTIES:
 :ID:       308FA974-9427-40A8-96B6-CCC9C5A32F37
 :CATEGORY: Data Science, R
@@ -1018,18 +1017,15 @@ Method:  regex search for a pattern in a specified column or columns  and popula
 * General
 
 ** DONE Implementing HTTPS : Let's Encrypt
-CLOSED: [2019-07-24 Wed 16:13]
+CLOSED: [2019-11-09 Sat 07:41]
 :PROPERTIES:
 :CREATED:  [2019-07-24 Wed]
 :ID:       o2b:d06ae170-950d-477c-aec7-d641e84c9025
 :POST_DATE: [2019-07-24 Wed 16:27]
-:POSTID:   113
-:BLOG:     srwp01
 :EXPORT_HUGO_TAGS: https encryption
 :EXPORT_HUGO_CATEGORIES: https
-:EXPORT_DATE: [2019-11-03 Sun 06:11]
 :EXPORT_FILE_NAME: implementing-https-lets-encrypt
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
 :END:
 
 *** What is Let's Encrypt?
@@ -1200,7 +1196,6 @@ successfully complete the challenge the entity must both:
 - Had a brief introduction into the methodology/philosophy behind Let's Encrypt.
 - Brief exploration of ACME and it was quite interesting to go through the draft standard, though it will take a lot more effort to fully comprehend all the tests. I think it is likely that I have visit this in more detail as I make progress in learning about encryption.
 - Learned about the existence of '[[https://en.wikipedia.org/wiki/Internet_Standard][Internet Standards]]'. These are documented by one or more documents called RFC's (Request for Comments) and revised until deemed satisfactory to become a standard.
-
 
 ** DONE Incremental improvements can lead to significant gains :Productivity:Emacs:Orgmode:
 CLOSED: [2019-01-19 Sat 19:33]
