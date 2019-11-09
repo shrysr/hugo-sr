@@ -1,7 +1,8 @@
 +++
 title = "Notes on Docker"
 author = ["Shreyas Ragavan"]
-lastmod = 2019-07-11T14:33:26-06:00
+date = 2019-08-17T15:31:00-06:00
+lastmod = 2019-11-08T22:57:05-07:00
 tags = ["Docker", "Data-Science"]
 categories = ["Docker", "DataScience"]
 draft = false
@@ -31,13 +32,9 @@ A brief summary of what Docker is all about.
 
 These schematics provide a good refresher of the core concept of Docker:
 
-{{< figure src="ox-hugo/Container-vs-vm.png/" title="Containers versus VM" >}}
+{{< figure src="/ox-hugo/Container-vs-vm.png" caption="Figure 1: Container Vs VM" >}}
 
-{{< figure src="ox-hugo/engine-components-flow.png/" title="Docker Engine components" >}}
-
-[Containers versus VM](/ox-hugo/Container-vs-vm.png)
-
-[Engine Components](/ox-hugo/engine-components-flow.png)
+{{< figure src="/ox-hugo/engine-components-flow.png" caption="Figure 2: Docker Engine components" >}}
 
 
 ### Dive into Docker {#dive-into-docker}
@@ -107,7 +104,7 @@ This is an excellent course run by Nick Janatakis ([link](https://diveintodocker
 ## <span class="org-todo todo TODO">TODO</span> Introduction to Rocker - Technical paper [link](https://arxiv.org/pdf/1710.03675.pdf) {#introduction-to-rocker-technical-paper-link}
 
 
-## Installation {#installation}
+## Docker installation {#docker-installation}
 
 
 ### Note on Docker Toolbox versus Native apps {#note-on-docker-toolbox-versus-native-apps}
@@ -120,6 +117,9 @@ Note that any performance lag depends on the application and as a thumb rule it 
 
 
 ### Installing Docker on debian {#installing-docker-on-debian}
+
+-   Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2019-08-05 Mon 22:18] </span></span> <br />
+    Used these instructions to install docker on the VPS. The code was directly copied to a temporary org file on an Emacsclient on the VPS and some of the commands were run on Eshell.
 
 The docker repository has to be added first for being able to install docker. Detailed instructions are available at <https://docs.docker.com/install/linux/docker-ce/debian/>.
 
@@ -337,6 +337,8 @@ docker run -ti alpine /bin/bash
 
 -   use the `-d` flag
 
+<!--listend-->
+
 ```shell
 docker container ls -al
 docker run -d ubuntu
@@ -361,3 +363,390 @@ Scratch image: docker image with no base operating system
     -   `FROM` allows you import a docker image.
 -   `RUN` : basically executes the specified commands
 -   `WORKDIR` : setting the desired working directory. This can be set or used multiple times in the same docker file.
+
+
+## Running Rstudio via rocker/tidyverse {#running-rstudio-via-rocker-tidyverse}
+
+Running a self-hosted Rstudio IDE is actually simple using rocker containers. I've chosen rocker/tidyverse because it would be a good base to build off on.
+
+The initiation has to include a password for the default user, which is rstudio.
+
+The below command will start a docker container that is served at port 8787 on the host.
+
+The rocker/tidyverse image can be pulled first
+
+```shell
+docker image pull rocker/tidyverse
+```
+
+```shell
+docker run -itd --name tidy1 -v $(pwd):/home/rstudio --user rstudio -p 8787:8787 -e PASSWORD=ABCD rocker/tidyverse
+```
+
+
+## docker image rm <repo id> or <tag> {#docker-image-rm-repo-id-or-tag}
+
+
+## docker writes out a config file ~/.docker/config.json {#docker-writes-out-a-config-file-dot-docker-config-dot-json}
+
+This will contain auth details.
+
+
+## docker image before pushing should be tagged with username {#docker-image-before-pushing-should-be-tagged-with-username}
+
+
+## appears there is no way to rename a tag {#appears-there-is-no-way-to-rename-a-tag}
+
+One solution is to create a new container based on an existing tag, and rename it as desired.
+
+Say there is an existing image named shrysr/web1, and I want to remove 'shrysr' from the repository name. The method would be:
+
+```text
+docker image build tag shrysr/web1 web1:latest
+```
+
+After this the old repository shrysr/web1 can be deleted.
+
+
+## Adding flags while running a container <code>[0/1]</code> {#adding-flags-while-running-a-container}
+
+`docker container run` allows access to management commands in docker.
+
+-   `-i` : interactive
+-   `-t` : terminal, on which bash can be initiated with `/bin/bash`
+-   `-t` : terminal
+-   `-p` : port
+-   `-e` : environment variable
+-   `--name` : naming the container.
+-   `-d` : running a detached container in the background.
+-   `--rm` : remove/delete a container once it is stopped.
+-   `--restart` `on-failure` is an option. The `--rm` flag has to be removed. This will re-start if say, the docker daemon itself is restarted. It will not restart if manually stopped using `docker container stop`.
+-   `-v` : attach a volume from the local host.
+
+<!--listend-->
+
+-   along with `p` - 2 ports are to be provided :- host:container
+-   each port can be bound only once. It is also possible to specify a single port number, which will correspond to the hosts port number.
+
+<!--listend-->
+
+```shell
+docker container run -it -p 5000:5000 web1
+
+# Alternately, specifying a different port
+# docker container run -it -p 5001 --name web01_c2 web1
+```
+
+-   container names have to be unique.
+-   `-e` can take single / multiple arguments.
+-   another flag can also take in a file containing environment variables.
+-   [ ] presume that this means that the port number has to be remembered when running a container? Is this the way to run multiple docker apps, or even shin apps?
+-   `interactive` as in : providing commands and interacting with the container.
+-   depending on the image size, not usin the `--rm` flag could eat up disk space.
+
+Example of running a container with several flags:
+
+```shell
+# navigate to the directory where the flask app exists, since the paths in the docker file are relative to the current directory.
+
+# the web1 at the end, after the -e argument is the name of the image that is to be used. A container is an instance of an image.
+
+#  This command is essentially running an image named web1, in a container named web1_cont on the port 5000 ( host :docker container) and passing in the argument specifying the name of a file containing the flask app. This is similar to calling a shiny app.
+
+# cd
+docker container run -it -p 5000:5000 --rm --name web1_cont  -d -e FLASK_APP=app.py web1
+
+# Example of using restart on failire
+docker container run -it -p 5001 --name web1_c2 -d --restart on-failure -e FLASK_APP=app.py web1
+```
+
+
+## Finding the docker IP {#finding-the-docker-ip}
+
+This is needed while using the docker toolbox. I am yet to figure this out or use it.
+
+```shell
+docker-machine ip web1
+```
+
+
+## Viewing the log of a container {#viewing-the-log-of-a-container}
+
+Logs of a stopped container can also be viewed.
+
+```shell
+docker container logs web1
+```
+
+-   tail the log file of a container using the `-f` flag. This is similar to the unix concept of tailing log files.
+-   For exmaple, a window configuration could be devised in tmux tailing different files for real time updates.
+
+<!--listend-->
+
+```shell
+docker container logs -f web1
+```
+
+
+## Attaching a volume with the -v {#attaching-a-volume-with-the-v}
+
+```shell
+docker container run -it -p 5002 --name web_c3 -e FLASK_DEBUG=1 -v $PWD:/app web1
+```
+
+
+## Connecting to an existing container {#connecting-to-an-existing-container}
+
+Presuming that this container is connected to a volume with the -v flag.
+
+```shell
+# Obtain the container name or the ID
+docker container ls
+docker container exec -it web1 sh
+
+# creating a temporary file
+docker container exec -it web1 touch "t1.txt"
+
+```
+
+If running docker on a linux machine - any files created, on a linux system will be owned by the root user. This can be remedied by using the `--user` flag. However, this requires the arguments of the user and the group that the user belongs in.
+
+Environment variables can be used for making this generic argument :
+`"$(id -u):$(id -g)"` which translates to "current user id: current user group".
+
+```shell
+docker container exec -it --user "$(id -u):$(id -g)" web_c6 touch "t2.txt"
+```
+
+
+## Linking multiple docker containers {#linking-multiple-docker-containers}
+
+Simplified definition: 2 computers need to be on the same network to communicate with each other, irrespective of being virtual or physical.
+
+-   [ ] 0.0.0.0" : is a special address that any computer on your network can connect to.
+
+Docker creates some networks by default. These can be found with
+
+```shell
+docker network ls
+```
+
+To inspect a specific docker network:
+
+```shell
+docker network inspect bridge
+```
+
+The bridge network will contain the details of the currently running containers.
+
+To find the network details:  `ifconfig` on linux/ Mac OS and `ipconfig` on Windows. This command can be `exec` on a container. The `-it` flags are not required, since we just want the output.
+
+```shell
+docker container ps
+```
+
+172.17.0.4- web2
+3 - redis\_r
+
+```shell
+docker container exec redis_r2 ping 172.17.0.4
+```
+
+The container's IP address can also be found by inspecting the container.
+
+```shell
+docker container inspect redis_r2
+```
+
+In particular, the redis container's IP address can be found from /etc/hosts
+
+```shell
+docker exec redis_r2 cat /etc/hosts
+```
+
+| ff02::1    | ip6-allnodes   |
+|------------|----------------|
+| ff02::2    | ip6-allrouters |
+| 172.17.0.3 | 561402b7afe8   |
+
+However for linking these containers, the IP addresses need not be hard coded, and extracted each time in the above method. This is resolved by allowing an automatic DNS set by docker.
+
+
+### Creating a network and adding containers to it {#creating-a-network-and-adding-containers-to-it}
+
+This creates a network named firstnetwork.
+
+```shell
+docker network create --driver bridge firstnetwork
+# alternately use -d instead of --driver
+# Access docs with:  docker network create --help
+```
+
+Verify that it is listed in the docker network list.
+
+```shell
+docker network ls
+```
+
+Running a container on a specified network means an additional `-net` flag, which will specify in this case firstnetwork.  To switch a container to a network, it has to be stopped and run again.
+
+```shell
+docker container run -itd --name web2 --rm --net firstnetwork -p 5000:5000 -e FLASK_APP=app.py -e FLASK_DEBUG=1 -v $PWD:/app web2
+```
+
+Running the redis container, with data persisting in the container.
+
+```shell
+docker container run -itd --name redis --rm --net firstnetwork -p 6379:6379 -v web2_redis:/data redis:latest
+```
+
+```shell
+docker network inspect firstnetwork
+```
+
+By assigning both containers to the same network - we can ping them and execute commands from one on the other by using the hostname, instead of a cumbersome ip address that has be to verified each time.
+
+
+#### Notes on Redis <code>[0/3]</code> {#notes-on-redis}
+
+the `redis-cli` command can be used to access the command line on redis images. This does not appear to work on eshell. A normal terminal had to be used.
+
+-   [ ] KEYS \* - command used to list the counter in the redis cli
+-   [ ] INCRBY <variable> <value> : used to increment the redis containers counter.
+
+-   <span class="org-todo todo TODO">TODO</span>  check out the modified app.py
+
+
+## Persisting data in containers {#persisting-data-in-containers}
+
+The flask app requires Redis to run. Therefore it is better to run the redis container first and have that available for the flask app for the first run.
+
+Be cautious while storing data on containers. They are better left stateless and portable.
+
+
+### <span class="org-todo todo TODO">TODO</span> Quick check: containers are running on the network {#quick-check-containers-are-running-on-the-network}
+
+Checking that the containers are running in the firstnetwork. Obtain the container ID's from
+
+```shell
+docker container ps
+```
+
+Verify either the names or the container ID's from the `inspect` of firstnetwork.
+
+```shell
+docker network inspect firstnetwork
+```
+
+
+### `docker volume` : Named volumes to persist data in containers {#docker-volume-named-volumes-to-persist-data-in-containers}
+
+A named volume can be created by
+
+```shell
+docker volume create web2_redis
+```
+
+This volume can be inspected and listed using the usual commands:
+
+```shell
+docker volume ls  >> ~/temp/docker-output.txt
+cat >> ~/temp/docker-output.txt << EOF
+# =================================================== Volume inspect
+EOF
+docker volume inspect web2_redis >> ~/temp/docker-output.txt
+cat >> ~/temp/docker-output.txt << EOF
+# =================================================== redis container inspect
+EOF
+docker container inspect redis >> ~/temp/docker-output.txt
+```
+
+
+## <span class="org-todo todo TODO">TODO</span> Accessing the docker volume {#accessing-the-docker-volume}
+
+One way to do this is to run a shell on the redis container and and inspect the contents.
+
+```shell
+docker container exec -it redis redis-cli sh
+```
+
+
+## Sharing data between containers `--volume-from` <container name> {#sharing-data-between-containers-volume-from-container-name}
+
+Recap on types of volumes seen so far:
+
+1.  Named volume - to create a docker volume. Here docker will take care of the logistics of storing that data.
+2.  `-v` : using the hosts file to mount a volume
+3.  `--volume-from` : add this argument while running a container.
+
+
+## Sample docker file {#sample-docker-file}
+
+Steps:
+
+1.  Create a directory, and set it as the working directory.
+2.  Copy a text file containing library lists that have to be installed.
+3.  Run pip to install sourcing from the said list.
+4.  Copy the entire folder contents into the current working directory.
+5.  Apply a label to the image.
+6.  Attach a volume - specifying the public folder. Notice the volume command which references the folder public (containing a simple css file `main.css`, which is present in the same working folder, as is app.py, which was already copied in.
+7.  Finally a _command_ is given, which is run after building the image. The _run_ command executes commands while the image is being built.
+
+<!--listend-->
+
+```text
+FROM python:2.7-alpine
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
+
+LABEL maintainer="Shreyas Ragavan <sr@eml.cc>" \
+      version="1.0"
+
+VOLUME ["/app/public"]
+
+CMD flask run --host=0.0.0.0 --port=5000
+
+```
+
+
+## `.dockerignore` file {#dot-dockerignore-file}
+
+1.  docker wil check whether dockerignore files exists. If so, the specified patterns will be ignored.
+2.  create a file and add .dockerignore as the first line.
+3.  All the contents in a specific folder, but include the folder .foo/\*
+4.  All files with the extension `**/*.swp`
+5.  Ignore all text files, except `special_me.txt`.
+
+<!--listend-->
+
+```text
+.dockerignore
+
+.git/
+.foo/*
+**/*.swp
+**/*.txt
+!special_me.txt
+```
+
+
+### Converting a blacklist to a whitelist {#converting-a-blacklist-to-a-whitelist}
+
+A blacklist can be converted into a whitelist by including a `*` as the very first character in the file, before `.dockerignore`.
+
+```text
+*
+.dockerignore
+
+.git/
+.foo/*
+**/*.swp
+**/*.txt
+!special_me.txt
+```
