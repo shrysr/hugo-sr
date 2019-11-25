@@ -60,7 +60,7 @@ subtitle = "<small>*Of course, I have more skills than the number of icons avail
 [[feature]]
   icon = "database"
   icon_pack = "fas"
-  name = "MYSQL | PostgreSQL"
+  name = "MySQL | PostgreSQL | MongoDB"
   description = ""
 
 

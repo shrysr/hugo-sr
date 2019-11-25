@@ -103,4 +103,18 @@ date_format = "Jan 2006"
   date_end = ""
   description = "Took this course to solidify my fluency in using `SQL`"
 
+
+
+
+[[item]]
+  organization = "MongoDB"
+  organization_url = "https://www.mongodb.com"
+  title = "`MongoDB` basics - M001"
+  url = "https://university.mongodb.com/courses/M001/about/"
+  certificate_url = "https://university.mongodb.com/course_completion/1ab2a1cf-6141-4521-88fa-5560605a514f/printable/"
+  date_start = "2019-11-23"
+  date_end = ""
+  description = "Fundamentals of using `mongoDB` query language while using the mongo shell, querying multiple datasets on multiple clusters on MongoDB's Atlas as well as using their GUI client Compass"
+
+
 +++
