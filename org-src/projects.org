@@ -1,5 +1,4 @@
 #+hugo_base_dir: ~/hugo-sr/
-#+hugo_section: project
 #+hugo_auto_set_lastmod: t
 #+hugo_weight: auto
 #+OPTIONS: toc:t
@@ -9,16 +8,16 @@
 CLOSED: [2019-11-01 Fri 14:27]
 :PROPERTIES:
 :ID:       875A2F42-EF95-43E2-96A3-9CAE594DB1BE
+:EXPORT_HUGO_SECTION: project/goiyale
 :EXPORT_HUGO_TAGS: R EDA ggplot TidyTuesday Data-Science
 :EXPORT_HUGO_CATEGORIES: R project EDA DataScience
-:EXPORT_HUGO_SECTION: project
 :EXPORT_DATE: [2019-11-01 Fri 13:29]
-:EXPORT_FILE_NAME: tt-fed-rnd-spending
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :profile false
 :header-args: :session tt :mkdirp yes :results output :exports both :tangle ~/hugo-sr/static/scripts/tt1-fed-rnd.R
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary An EDA using `R` of federal government data of thre R&D budget towards Climate Change.
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image_preview fed-rnd-spending-1.png
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :profile false
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :summary "An EDA using `R` of federal government data of thre R&D budget towards Climate Change."
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :image_preview fed-rnd-spending-1.png
 :END:
 
 ** Summary
