@@ -2,7 +2,7 @@
 #+AUTHOR: Shreyas Ragavan
 #+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
-#+hugo_auto_set_lastmod: f
+#+hugo_auto_set_lastmod: nil
 #+hugo_weight: auto
 
 This is the Org source for all my blog articles
@@ -1029,6 +1029,92 @@ Method:  regex search for a pattern in a specified column or columns  and popula
 
 
 * General
+** DONE mosh - for better access to my VPS                        :vps:mosh:
+CLOSED: [2019-08-01 Thu 08:42]
+:PROPERTIES:
+:ID:       33616360-e81c-4c51-a856-d2ebc15bc246
+:POST_DATE: [2019-08-01 Thu 08:42]
+:POSTID:   196
+:BLOG:     srwp01
+:EXPORT_HUGO_TAGS: mosh linux vps ufw
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2020-01-18 Sat 20:44]
+:EXPORT_FILE_NAME: mosh-vps-note
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:END:
+
+[[https://mosh.org/][Mosh]] is short for mobile shell, and is useful as an alternative to SSH, especially for poor network conditions, and where one has to frequently switch networks. It works via the UDP port, which has to be specifically enabled. I learnt of mosh through the guys in the #emacs.
+
+I've faced frequent trouble due to network issues over SSH connections, with the lag hampering my ability to type, in general, and it is particularly inconvenient to respond on IRC/Weechat. I'm hoping mosh will alleviate the issue.
+
+UDP needs to be enabled for mosh to work. I used UFW on the ports 60000:61000 for this.
+
+#+BEGIN_SRC shell
+sudo ufw allow 60000:61000/udp
+#+END_SRC
+
+- Essentially, a mosh server runs on both the machines (VPS and local machine), and these perform the background job of syncing commands and output with each other. This reduces the lag in typing, among other advantages. The initial connection of Mosh, including authentication is via SSH, after which the UDP protocol is used.
+
+Installing Mosh:
+
+On debian - mosh is directly available as a package. Run =apt-get update= and then install mosh.
+
+#+BEGIN_SRC shell :dir "/sudo::"
+apt-get install "mosh"
+#+END_SRC
+
+The =mosh-server= has to be run on both the machines. It may be a good idea to include this in =.bashrc=, or in the list of start-up programs. This command will start up the mosh-server and detach the process (into the background).
+
+#+BEGIN_SRC shell
+mosh-server
+#+END_SRC
+
+This is where I ran into trouble. A UTF-8 environment has to be specified for mosh to run, and it appears that the locales of the two connecting machines have to match (?). On Debian, this is relatively easy with =dpkg=
+
+#+BEGIN_SRC shell :dir "/sudo::"
+sudo dpkg-reconfigure locales
+#+END_SRC
+
+I chose the =en_USA.UTF-8= option. The existing locale configuration can be viewed with =locale=.
+
+#+BEGIN_SRC shell :results verbatim :exports both
+locale
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+LANG=en_US.UTF-8
+LANGUAGE=en_CA:en
+LC_CTYPE=en_US.UTF-8
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+#+end_example
+
+Sometimes, additional settings for the locale are defined in locations like =~/.bashrc=. This should be something like :
+
+#+BEGIN_SRC shell
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
+#+END_SRC
+
+The above can be used for explicitly setting the preference. The [[https://wiki.debian.org/Locale][Debian wiki]] dissuades end-users from using =LC_ALL=, but that is easiest way. My initial settings were with =en_CA.UTF-8=. While this is also UTF-8, for some reason, mosh still threw out locale errors. In any case, I wanted all my computers to uniformly use the =en_US= version.
+
+*** Did mosh make a difference?
+
+It's only been a few hours, but the difference can already be felt. Mosh clearly indicates when the connection has been lost and there is no lag in typing. Further experimentation is necessary to understand its behavior, but atleast, I can type out a message in peace without lag.
+
+[2019-07-31 Wed] After 3+ days of using mosh, I am happy to note that the experience of engaging with my vps over a terminal has significantly improved. There were few instances of really poor network connection, and mosh would clearly indicate the disconnection, and also allow a safe exit if required. I can switch computers and jump right in, without bothering to restore the SSH connection.
 
 ** DONE Implementing HTTPS : Let's Encrypt
 CLOSED: [2019-11-09 Sat 07:41]
