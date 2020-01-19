@@ -893,7 +893,7 @@ Recently there was a question as to what a Binary is, building off a question [[
 
 In this process, I was able to remember [[http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/][One of the first]] documents I really enjoyed reading when I started learning how to use Linux. I would recommend that article for anybody starting out. The document is meant for people with a non-technical background, but I think it is technical enough.
 
-[[file:~/binaries-source-code-11.jpg]]
+[[~/hugo-sr/static/img/binaries-source-code-11.jpg]]
 
 ** DONE Some notes on research-compendium                    :R:DataScience:
 CLOSED: [2019-11-08 Fri 22:48]

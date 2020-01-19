@@ -13,4 +13,4 @@ Recently there was a question as to what a Binary is, building off a question [p
 
 In this process, I was able to remember [One of the first](http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/) documents I really enjoyed reading when I started learning how to use Linux. I would recommend that article for anybody starting out. The document is meant for people with a non-technical background, but I think it is technical enough.
 
-{{< figure src="~/binaries-source-code-11.jpg" >}}
+{{< figure src="/img/binaries-source-code-11.jpg" >}}
