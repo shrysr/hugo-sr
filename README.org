@@ -48,3 +48,10 @@ git clone https://github.com/am1t/ghostwriter.git
 #+END_SRC
 
 #+RESULTS:
+* Script to pull and deploy the hugo site to the webserver location
+
+#+BEGIN_SRC sh :dir "/sudo::~/hugo-sr" :cache no
+git pull
+hugo -d ~/hugo-pub
+cp -r ~/hugo-pub/* /var/www/html/shreyas.ragavan.co/public_html/
+#+END_SRC
