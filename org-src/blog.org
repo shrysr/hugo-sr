@@ -880,6 +880,19 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 # //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
 
 * Data Science                                     :@DataScience:DataScience:
+** TODO A graphic overview of the 'binary' with respect to R packages
+:PROPERTIES:
+:EXPORT_HUGO_TAGS: DataScience R
+:EXPORT_DATE: [2020-01-18 Sat 20:20]
+:EXPORT_FILE_NAME: graphic-overview-binary
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
+:END:
+
+Recently there was a question as to what a Binary is, building off a question [[https://community.rstudio.com/t/meaning-of-common-message-when-install-a-package-there-are-binary-versions-available-but-the-source-versions-are-later/2431][posted on the Rstudio community forum]]. I've always found these aspects interesting, and a little hard to keep track of the connections and flow - So I've made a flowchart that will help me remember and hopefully explain what is happening to a noob.
+
+In this process, I was able to remember [[http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/][One of the first]] documents I really enjoyed reading when I started learning how to use Linux. I would recommend that article for anybody starting out. The document is meant for people with a non-technical background, but I think it is technical enough.
+
+[[file:~/binaries-source-code-11.jpg]]
 
 ** DONE Some notes on research-compendium                    :R:DataScience:
 CLOSED: [2019-11-08 Fri 22:48]
