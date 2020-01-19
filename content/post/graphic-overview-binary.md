@@ -13,4 +13,8 @@ Recently there was a question as to what a Binary is, building off a question [p
 
 In this process, I was able to remember [One of the first](http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/) documents I really enjoyed reading when I started learning how to use Linux. I would recommend that article for anybody starting out. The document is meant for people with a non-technical background, but I think it is technical enough.
 
+So: Lets pretend the binary is a capsule to be swallowed by the computer to gain superpowers :D : The capsule is in a sense off-the-shelf and made for your System. When the capsule is not available, it has to be manufactured (compiled) by your machine locally for which it needs certain tools and dependencies, etc and this varies from package to package, and possibly between hardware architectures as well and more. Please feel free to let me know if there are any discrepancies in the flowchart !
+
+Binaries can be built and maintained if you desire. There should be people maintaining their own binaries or frozen versions as well. The question is - who is going to maintain them and how many binaries can you build.
+
 {{< figure src="/img/binaries-source-code-11.jpg" >}}

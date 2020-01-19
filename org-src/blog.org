@@ -880,6 +880,27 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 # //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
 
 * Data Science                                     :@DataScience:DataScience:
+
+** TODO tmux and mosh - two excellent tools that any terminal friendly person should be aware of
+:PROPERTIES:
+:CREATED:  [2020-01-19 Sun]
+:PLANNED:  <2020-01-19 Sun 00:21>
+:END:
+I wrote recently about getting started with using mosh for interacting with my VPS. Thankfully, I was directed to such solutions from the excellent folks in the #emacs IRC channel.
+
+mosh is short for mobile shell. Essentially what mosh does is create a server that interfaces with the remote system's shell and synchronizes itself with a mosh server running on your local computer. The benefit of doing this is that even if your internet is patchy and disconnects - the mosh sync will make the process significantly smoother. There will be a clear indication of a disconnect. The prime benefit occurs over spotty internet connections where one experiences a lot of lag between typing and seeing the characters appear.
+
+Using mosh is essentially like having a terminal on your remote server that is always running and you can connect to it.
+
+Now let's say I have multiple running processes on my server that I want to monitor. One thing I want to monitor is the system itself. Enter htop. Next I would like to tail some log files of perhaps shiny apps or the NGINX webserver. Perhaps I'd ever like an RSS ticker :) In fact, I would like one window open connected to IRC on my server.[fn:22]
+
+How can one manage all the above? Enter tmux. This stands for terminal multiplexer. By using tmux you can not only have multiple shells connected to the same mosh instance, but also configure the window positioning and keyboard shortcuts
+
+Here's a picture of my terminal tab. So this is a single tab open on my local computer. Note the tabs at the bottom which show you that I have multiple tabs open.  I connect to the mosh server simply by replacing the usual =ssh= with =mosh=.
+
+
+
+
 ** DONE A graphic overview of the 'binary' with respect to R packages
 CLOSED: [2020-01-18 Sat 20:28]
 :PROPERTIES:
@@ -892,6 +913,10 @@ CLOSED: [2020-01-18 Sat 20:28]
 Recently there was a question as to what a Binary is, building off a question [[https://community.rstudio.com/t/meaning-of-common-message-when-install-a-package-there-are-binary-versions-available-but-the-source-versions-are-later/2431][posted on the Rstudio community forum]]. I've always found these aspects interesting, and a little hard to keep track of the connections and flow - So I've made a flowchart that will help me remember and hopefully explain what is happening to a noob.
 
 In this process, I was able to remember [[http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/][One of the first]] documents I really enjoyed reading when I started learning how to use Linux. I would recommend that article for anybody starting out. The document is meant for people with a non-technical background, but I think it is technical enough.
+
+So: Lets pretend the binary is a capsule to be swallowed by the computer to gain superpowers :D : The capsule is in a sense off-the-shelf and made for your System. When the capsule is not available, it has to be manufactured (compiled) by your machine locally for which it needs certain tools and dependencies, etc and this varies from package to package, and possibly between hardware architectures as well and more. Please feel free to let me know if there are any discrepancies in the flowchart !
+
+Binaries can be built and maintained if you desire. There should be people maintaining their own binaries or frozen versions as well. The question is - who is going to maintain them and how many binaries can you build.
 
 [[~/hugo-sr/static/img/binaries-source-code-11.jpg]]
 
@@ -1942,6 +1967,8 @@ This blog post enumerates my journey in creating a web presence. Most of this wa
 
 
 * Footnotes
+
+[fn:22]IRC by the way is a treasure trove for particular areas of tech and interfacing with serious developers. I'm currently using the IRC client Weechat, which can also connect to Slack by the way. Yes. Slack on the terminal. It is surprisingly functional and fast, but yes, it does take a bit of maneuvering.
 
 [fn:21] You may be surprised to see the ease in browsing a good number of
 websites on a text based web browser. Besides the added advantage of being
