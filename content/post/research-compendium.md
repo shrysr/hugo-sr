@@ -5,7 +5,6 @@ date = 2019-09-01T23:23:00-06:00
 tags = ["R", "Data-Science"]
 categories = ["DataScience", "R"]
 draft = false
-weight = 2001
 profile = false
 toc = true
 +++
