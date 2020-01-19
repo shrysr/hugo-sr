@@ -880,7 +880,8 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 # //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
 
 * Data Science                                     :@DataScience:DataScience:
-** TODO A graphic overview of the 'binary' with respect to R packages
+** DONE A graphic overview of the 'binary' with respect to R packages
+CLOSED: [2020-01-18 Sat 20:28]
 :PROPERTIES:
 :EXPORT_HUGO_TAGS: DataScience R
 :EXPORT_DATE: [2020-01-18 Sat 20:20]
