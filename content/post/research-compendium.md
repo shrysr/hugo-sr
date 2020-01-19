@@ -2,7 +2,6 @@
 title = "Some notes on research-compendium"
 author = ["Shreyas Ragavan"]
 date = 2019-09-01T23:23:00-06:00
-lastmod = 2019-10-14T15:19:00-06:00
 tags = ["R", "Data-Science"]
 categories = ["DataScience", "R"]
 draft = false

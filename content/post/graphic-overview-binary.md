@@ -2,7 +2,6 @@
 title = "A graphic overview of the 'binary' with respect to R packages"
 author = ["Shreyas Ragavan"]
 date = 2020-01-18T20:28:00-08:00
-lastmod = 2020-01-18T20:28:16-08:00
 tags = ["DataScience", "R"]
 categories = ["DataScience"]
 draft = false

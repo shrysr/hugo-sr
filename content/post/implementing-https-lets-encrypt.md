@@ -2,7 +2,6 @@
 title = "Implementing HTTPS : Let's Encrypt"
 author = ["Shreyas Ragavan"]
 date = 2019-11-09T07:41:00-07:00
-lastmod = 2019-11-09T07:42:42-07:00
 tags = ["https", "encryption"]
 categories = ["https"]
 draft = false
