@@ -101,6 +101,10 @@ The source option can be set to a named branch or a tag and the docker tag must 
 
 Note also below that Environment variables can be specified thus enabled a more customised deployment of the image. The variable can be used to specify things like the username and password,  Rstudio version or r-base version, etc. Docker image tags are typically used to demarcate these more easily.
 
+Here's how the build activity looks like on Dockerhub:
+
+{{< figure src="/img/build-activity-dockerhub.png" >}}
+
 
 ## General notes {#general-notes}
 

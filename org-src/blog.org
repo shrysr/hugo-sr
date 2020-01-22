@@ -1176,7 +1176,7 @@ filter(!duplicated(ItemName))
 Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
 
 
-** DONE Setting up Continuous Integration (CI) for docker containers
+** DONE [#C] Setting up Continuous Integration (CI) for docker containers
 CLOSED: [2020-01-21 Tue 22:30]
 :PROPERTIES:
 :CREATED:  [2020-01-19 Sun]
@@ -1278,6 +1278,10 @@ Note the option Enable for Base Image for the Repository Links. This can be set 
 The source option can be set to a named branch or a tag and the docker tag must also be specified. The build context helps if you have [[https://github.com/shrysr/sr-ds-docker][multiple docker configurations stored together]].
 
 Note also below that Environment variables can be specified thus enabled a more customised deployment of the image. The variable can be used to specify things like the username and password,  Rstudio version or r-base version, etc. Docker image tags are typically used to demarcate these more easily.
+
+Here's how the build activity looks like on Dockerhub:
+
+[[file:~/hugo-sr/static/img/build-activity-dockerhub.png]]
 
 *** General notes
 
