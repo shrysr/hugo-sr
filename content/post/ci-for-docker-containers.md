@@ -105,6 +105,8 @@ Here's how the build activity looks like on Dockerhub:
 
 {{< figure src="/img/build-activity-dockerhub.png" >}}
 
+{{< figure src="/img/dockerhub-build-time.png" >}}
+
 
 ## General notes {#general-notes}
 
