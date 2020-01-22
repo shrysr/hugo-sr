@@ -11,11 +11,13 @@ toc = true
 
 This blog post takes you through the process of setting up Continuous Integration for building docker images via Dockerhub and Github, and via Github Actions. It also contains a condensed summary of important notes from the documentation.
 
-Goal: Gain an overview of CI and actually use it to get automated builds of the docker images that I have built for my datascience toolbox.
+Goal: Gain an overview of CI and actually use it to get automated builds of the docker images that built for my datascience toolbox.
 
 Essentially I want to be able to  a status check the docker containers that I am maintaining. Eventually I want to setup a series of checks that the libraries and software tools that I use are working as expected. Though dockerhub enables containers to be built on a commit, I would also like a CI/CD pipeline to be setup in order to understand how it actually works.
 
 > Pre-requisites : a dockerhub account and some dockerhub image to work off with. The dockerfile and related source code should be available in a github repository.
+
+The github repository I will use is [shrysr/sr-ds-docker](https://github.com/shrysr/sr-ds-docker) and the dockerhub image [shrysr/shiny](https://hub.docker.com/r/shrysr/shiny). Within the github repository, the shiny folder contains all the files needed to build the shiny image. Note here that the rbase image is required for the shiny image to build.
 
 
 ## Plan <code>[3/3]</code> {#plan}
