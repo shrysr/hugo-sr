@@ -6,8 +6,75 @@
 #+hugo_weight: auto
 
 This is the Org source for all my blog articles
-
 * Emacs                                                        :@Emacs:emacs:
+
+** DONE Oddmuse-curl exploration                                      :blog:
+CLOSED: [2020-01-20 Mon 09:11]
+:PROPERTIES:
+:ID:       50ECAE8E-DEAC-45AF-8697-CFCFF2815A03
+:EXPORT_HUGO_TAGS: oddmuse wiki blog
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2020-01-20 Mon 09:15]
+:EXPORT_FILE_NAME: 50ECAE8E-DEAC-45AF-8697-CFCFF2815A03
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:END:
+
+[[https://www.google.com/url?q=https://github.com/kensanata/oddmuse-curl/][oddmuse-curl]] is kensanata's tool to use Emacs to edit oddmuse wikis. I think it works rather well for my needs. Alternatively, I can also use the org exporter to export org mode content and manually copy this into a wiki page via the web browser. CLI options also exist to update the wiki, but I don't think I need that functionality.
+
+Borrowing off the documentation of oddmuse-curl, I was able to set this up, with some additional settings. It always helps to read the source code, and I'm finding of late that elisp code often seem to have a detailed explanation, comments and etc that make the code a pleasure to read.
+
+One always hears - keep the code well commented, and to use caution in describing the idea rather than the syntax. However, it is not often to find such examples. It is probably also worth noting that most of them also seem to prefer to not have their readme's tangling the source code. The .el files are probably edited directly in Emacs. This is not surprising because the lispy mode (and etc) provide very good support for writing lisp in Emacs.
+
+So to begin with : Clone kensanata's package from github to the desired location:
+
+#+BEGIN_SRC sh
+git clone https://github.com/kensanata/oddmuse-curl.git ~/scimax/user/external_packages/
+#+END_SRC
+
+Next here is my config. There are some additional options that kensanata's readme does not mention, however all these options can be found by reading the source code.
+
+#+BEGIN_SRC emacs-lisp
+(use-package oddmuse-curl
+:load-path "~/scimax-personal/external_packages/oddmuse-curl/"
+:defer nil
+:ensure t
+:config
+;; user name
+(setq oddmuse-username "shrysr")
+
+;; Wiki names
+(setq oddmuse-wikis
+      '(("EmacsWiki" "https://www.emacswiki.org/emacs" utf-8 "abcd" nil)
+	("sr" "https://shrysr.ragavan.co" utf-8 nil nil)))
+
+;; Directory where files will be downloaded from the wiki for editing.
+(setq oddmuse-directory "~/my_org/01_wiki/oddmuse/")
+
+;; adding an oddmuse-odd for files in the fiki directory
+(add-to-list 'auto-mode-alist '("~/my_org/01_wiki/oddmuse" . oddmuse-mode))
+
+;; autoload modes
+(autoload 'oddmuse-edit "oddmuse-curl"
+  "Edit a page on an Oddmuse wiki." t)
+
+;; Not yet sure what this does and how it related to version control.
+(add-to-list 'vc-handled-backends 'oddmuse)
+(defun vc-oddmuse-registered (file)
+  "Handle files in `oddmuse-directory'."
+  (string-match (concat "^" (expand-file-name oddmuse-directory))
+                (file-name-directory file)))
+
+;; Since I work primarily with org before the wiki - I would rather note have the mode initialised.
+;; (oddmuse-mode-initialize)
+
+;; I would like to be able to call the wiki when desired and so the curl package is initialised.
+(require 'oddmuse-curl)
+)
+
+
+#+END_SRC
+
+All I have to do is use =M-x= =oddmuse-go= to select the wiki I want and then start editing the page required. In the beginning it is a little intimidating to consider that a page has to be selected. However the search option can be easily used for anything relevant. It might also make sense to place useful links within a single page like the page which can be visited as a bookmark.
 
 ** DONE Literate Org-mode configuration for Emacs is liberating :Org_mode:lisp:
 CLOSED: [2019-02-17 Sun 08:02]
@@ -879,7 +946,65 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 
 # //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
 
+
 * Data Science                                     :@DataScience:DataScience:
+
+** DONE Notes - What they forgot to teach you about R
+CLOSED: [2020-01-20 Mon 09:08]
+:PROPERTIES:
+:ID:       2829E495-7601-4A69-A7AC-9F81654A9B4B
+:EXPORT_HUGO_TAGS: R Data-Science programming
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2020-01-21 Tue 23:03]
+:EXPORT_FILE_NAME: notes-what-they-forgot-r
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
+:END:
+
+The [[https://rstats.wtf/][book]], 'What they forgot to teach you about R' being co-authored by [[https://twitter.com/JennyBryan @JennyBryan]] is not yet completed, however I was still compelled to go through the existing material as it was an engaging read.
+
+These are some notes captured from the book. Verbatim quotes from the book are encapsulated. My notes and observations are added in plain text.
+
+#+BEGIN_QUOTE
+I recommend you cultivate a workflow in which you treat R processes (a.k.a. “sessions”) like livestock. Any individual R process and the associated workspace is disposable.
+#+END_QUOTE
+
+The general recommendation is not to rely on Rdata or RDS objects to load the environment each time the code has to be resumed. Every important object or source code relevant to the project should be amenable to being built from source whenever required.
+
+#+BEGIN_QUOTE
+All important objects or figures should be explicitly saved to file, in a granular way. This is in contrast to storing them implicitly or explicitly, as part of an entire workspace, or saving them via the mouse.
+#+END_QUOTE
+
+Happily enough the mouse is strict no-no for people for Emacs + ESS nerds, which is mentioned as a popular IDE choice (yay!).
+
+#+BEGIN_QUOTE
+Sometimes people resist advice because it’s hard to incorporate into their current workflow and dismiss it as something “for experts only”. But this gets the direction of causality backwards: long-time and professional coders don’t do these things because they use an IDE. They use an IDE because it makes it so much easier to follow best practices.
+#+END_QUOTE
+
+This is an interesting quote talking about the developer driving the process using tools like an IDE.
+
+#+BEGIN_QUOTE
+Restart R often during development - timeless troubleshooting wisdom
+#+END_QUOTE
+
+Indeed. This has solved problems many times for many people, including myself. Somehow I fancy that using ESS is actually more stable than using Rstudio because I do not seem to face the problem of needing to restart R often at all.
+
+#+BEGIN_QUOTE
+The problem with =rm(list = ls())= is that, given the intent, it does not go far enough. All it does is delete user-created objects from the global workspace.
+#+END_QUOTE
+
+Several reasons and provided supporting further scenarios including the problems caused by using the above approach which should be avoided. Removing a user made object does not remove the underlying libraries and other meta objects that R has created in the background.
+
+#+BEGIN_QUOTE
+The solution is to write every script assuming it will be run in a fresh R process. The best way to do that is … develop scripts in a fresh R process!
+#+END_QUOTE
+
+Note: Use object storage for the objects that take a long time to develop. Have the controlling R script to use a new process each time it is run. This is good to note because my controlling document is usually the Org mode based Readme, and it is usually easy to re-run bunched of source blocks as described/recommended.
+
+- [ ] Article on project oriented workflow [[https://www.tidyverse.org/blog/2017/12/workflow-vs-script/][link]]
+- [ ] Mention is made of Drake. I need to restart my earlier efforts in mastering Drake.
+- [ ] The book will be updated with an example of an API. This should be checked down the line.
+
+Bookmark:  This article covers upto Section 1.8 as of today [2020-01-19 Sun].
 
 ** TODO tmux and mosh - two excellent tools that any terminal friendly person should be aware of
 :PROPERTIES:
@@ -897,7 +1022,6 @@ Now let's say I have multiple running processes on my server that I want to moni
 How can one manage all the above? Enter tmux. This stands for terminal multiplexer. By using tmux you can not only have multiple shells connected to the same mosh instance, but also configure the window positioning and keyboard shortcuts
 
 Here's a picture of my terminal tab. So this is a single tab open on my local computer. Note the tabs at the bottom which show you that I have multiple tabs open.  I connect to the mosh server simply by replacing the usual =ssh= with =mosh=.
-
 
 
 
@@ -1052,6 +1176,234 @@ filter(!duplicated(ItemName))
 Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
 
 
+** DONE Setting up Continuous Integration (CI) for docker containers
+CLOSED: [2020-01-21 Tue 22:30]
+:PROPERTIES:
+:CREATED:  [2020-01-19 Sun]
+:PLANNED:  <2020-01-19 Sun 09:44>
+:ID:       0DD6CF5C-33B0-4779-A571-620184F5412D
+:EXPORT_HUGO_TAGS: docker CI Data-Science
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2020-01-21 Tue 22:28]
+:EXPORT_FILE_NAME: ci-for-docker-containers
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
+:END:
+
+This blog post takes you through the process of setting up Continuous Integration for building docker images via Dockerhub and Github, and via Github Actions. It also contains a condensed summary of important notes from the documentation.
+
+Goal: Gain an overview of CI and actually use it to get automated builds of the docker images that I have built for my datascience toolbox.
+
+Essentially I want to be able to  a status check the docker containers that I am maintaining. Eventually I want to setup a series of checks that the libraries and software tools that I use are working as expected. Though dockerhub enables containers to be built on a commit, I would also like a CI/CD pipeline to be setup in order to understand how it actually works.
+
+#+BEGIN_QUOTE
+Pre-requisites : a dockerhub account and some dockerhub image to work off with. The dockerfile and related source code should be available in a github repository.
+#+END_QUOTE
+
+The github repository I will use is [[https://github.com/shrysr/sr-ds-docker][shrysr/sr-ds-docker]] and the dockerhub image [[https://hub.docker.com/r/shrysr/shiny][shrysr/shiny]]. Within the github repository, the shiny folder contains all the files needed to build the shiny image. Note here that the rbase image is required for the shiny image to build.
+
+*** Plan [3/3]
+1. [X] Complete reading the [[https://help.github.com/en/actions][Github documentation on github actions]].
+   1. [X] setup a github hosted runner
+   2. [-] Setup a self-hosted runner  : +Lower priority+ Postponed because it is better to understand how a runner works with github code before allowing any github code to run on my VPS.
+2. [X] Create a CI integration between Dockerhub and Github
+3. [X] Expand the CI setup to the datascience docker containers.
+
+*** Setting up a Github Runner [0/1]
+
+A github runner is essentially creatd by using the Actions tab. There is a marketplace of Actions that can be used for free. Actions already exist for many popular workflows like building a docker image and pushing it to some registry.
+
+Apparently the first action has to be a checkout of the repository. Without this step, the process will not work. I spent a long time in
+
+Specify build context to a specific folder. i.e do not use =build .= because then the context and paths will not work, thus the =COPY= type functions won't work.
+
+Apparently Github will reocognise yaml files only within the =.github/workflows= location, though I may be wrong. If their autosuggestion for the action setup is used, the folder is created automatically. However, thankfully,any YAML file created in this folder will be run by Github actions. Refer to the notes below regarding the API limitations. Since it appears that this YAML file cannot be used for say Travis or CircleCI, it may be good to have these within the github folder anyhow.
+
+Getting started was as simple as using the actions tab when the repository is opened. A basic YAML template is offered and was actually sufficient for me to quickly get started.
+
+The build context is specified by the location of the file in this case, and the tag can be specified. Currently, I'm using an ephemeral container.
+
+- [ ] An idea for a test would be like : run an ubuntu docker container, and then call the shiny container within it. Get the container running, and then also devise some output via R scripts. One way could be load a bunch of packages. Another way could be to get a shiny app to run and provide some kind of temporary output. This has to be refined further.
+
+#+BEGIN_SRC yaml
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: shiny
+      run:  docker build . --file /shiny/Dockerfile --tag my-image-name:$(date +%s)q
+
+#+END_SRC
+
+The build details can be found by clicking on the individual jobs. The raw log can be downloaded for verbose logs to enable a good text search. During a live build process, there is some lag between the log update and the webpage refresh, however it seems within tolerable limits as of now.
+
+[[~/hugo-sr/static/img/github-actions-list-of-builds.png]]
+
+[[~/hugo-sr/static/img/detailed-build-info-github-actions.png]]
+
+**** Notes about build and queue
+
+The free build time is rather long and the configuration of the servers is unknown. It is probably a lot faster to build the images locally and push them to dockerhub. However, minor image updates and small image builds are quite quick to take place. The key is getting a single successful build off a github commit after which the context is established and new layers need not take the same amount of time.
+
+All this being said, the queue time in dockerhub is very long compared to the queue time of builds via actions on Github. The free tier is actually quite generous for a lot of room to play and experiment. It would also appear that the github computer servers are faster than Dockerhub.
+
+*** Setting up CI via Dockerhub and Github
+:PROPERTIES:
+:ID:       991462C3-325B-49E8-96AD-EF2A43832751
+:END:
+
+The pre-requisite is of course that you have a docker image in your repository.
+
+This process is relatively simple. Login to your Dockerhub account and click on the fingerprint like icon to reach the account settings. Use the linked accounts tab and setup github with your login credentials.
+
+[[~/hugo-sr/static/img/account-settings-dockerhub.png]]
+
+Next, select your docker image repository and click on the Builds tab and click on setup automated builds.
+
+[[~/hugo-sr/static/img/configure-automated-build-dockerhub.png]]
+
+Now you have the option to select a github repository and settings are available to point to a particular branch or a particular Dockerfile as well.
+
+[[~/hugo-sr/static/img/autobuild-configuration-github.png]]
+
+Note the option Enable for Base Image for the Repository Links. This can be set enabled if your image depends on another image. Suppose that base image is updated, then a build will be triggered for your image.
+
+The source option can be set to a named branch or a tag and the docker tag must also be specified. The build context helps if you have [[https://github.com/shrysr/sr-ds-docker][multiple docker configurations stored together]].
+
+Note also below that Environment variables can be specified thus enabled a more customised deployment of the image. The variable can be used to specify things like the username and password,  Rstudio version or r-base version, etc. Docker image tags are typically used to demarcate these more easily.
+
+*** General notes
+
+**** Overview of components
+
+For any code to run, there has to be a server or a computer to run it. This is called a runner and one can be created on a self-hosted platform or there are services with different tiers on which the runners can be placed.
+
+#+BEGIN_QUOTE
+Reference: [[https://help.github.com/en/actions/automating-your-workflow-with-github-actions/about-github-actions][Github docs]]
+
+GitHub Actions enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository. GitHub Actions is available with GitHub Free, GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub One
+
+Workflows run in Linux, macOS, Windows, and containers on GitHub-hosted machines, called 'runners'. Alternatively, you can also host your own runners to run workflows on machines you own or manage. For more information see, "About self-hosted runners."
+
+You can create workflows using actions defined in your repository, open source actions in a public repository on GitHub, or a published Docker container image. Workflows in forked repositories don't run by default.
+
+You can create a workflow file configured to run on specific events. For more information, see "Configuring a workflow" and "Workflow syntax for GitHub Actions".
+
+GitHub Marketplace is a central location for you to find, share, and use actions built by the GitHub community.
+#+END_QUOTE
+
+**** On API limits
+
+Most of these limits are *not applicable* to self-hosted runners.
+Exception to the above : "You can execute up to 1000 API requests in
+an hour across all actions within a repository."
+
+#+BEGIN_QUOTE
+There are some limits on GitHub Actions usage. Unless specified, the following limits apply only to GitHub-hosted runners, and not self-hosted runners. These limits are subject to change.
+
+- You can execute up to 20 workflows concurrently per repository. If exceeded, any additional workflows are queued.
+
+- Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails to complete.
+
+- The number of concurrent jobs you can run across all repositories in your account depends on your GitHub plan. If exceeded, any additional jobs are queued.
+
+- You can execute up to 1000 API requests in an hour across all actions within a repository. This limit also applies to self-hosted runners. If exceeded, additional API calls will fail, which might cause jobs to fail.
+
+  In addition to these limits, GitHub Actions should not be used for:
+
+- Content or activity that is illegal or otherwise prohibited by our Terms of Service or Community Guidelines.
+- Cryptomining
+- Serverless computing
+- Activity that compromises GitHub users or GitHub services.
+- Any other activity unrelated to the production, testing, deployment,
+  or publication of the software project associated with the repository where GitHub Actions are used. In other words, be cool, don’t use GitHub Actions in ways you know you shouldn’t.
+
+You can execute up to 1000 API requests in an hour across all actions within a repository. This limit also applies to self-hosted runners. If exceeded, additional API calls will fail, which might cause jobs to fail.
+#+END_QUOTE
+
+    | GitHub plan | Total concurrent jobs | Maximum concurrent macOS jobs |
+    |-------------+-----------------------+-------------------------------|
+    | Free        |                    20 |                             5 |
+    | Pro         |                    40 |                             5 |
+    | Team        |                    60 |                             5 |
+    | Enterprise  |                   180 |                            15 |
+
+**** Self-hosted runners versus github hosted runners
+
+#+BEGIN_QUOTE
+Self-hosted runners can be physical, virtual, container, on-premises, or in a cloud. You can use any machine as a self-hosted runner as long at it meets these requirements:
+
+- You can install and run the GitHub Actions runner application on the machine. For more information, see "Supported operating systems for self-hosted runners."
+- The machine can communicate with GitHub Actions. For more
+  information, see "Communication between self-hosted runners and GitHub."
+
+GitHub-hosted runners offer a quicker, simpler way to run your workflows, while self-hosted runners are a highly configurable way to run workflows in your own custom environment.
+
+- GitHub-hosted runners:
+  - Are automatically updated.
+  - Are managed and maintained by GitHub.
+  - Provide a clean instance for every job execution.
+
+- Self-hosted runners:
+  - Can use cloud services or local machines that you already pay for.
+  - Are customizable to your hardware, operating system, software, and security requirements.
+  - Don't need to have a clean instance for every job execution.
+  - Depending on your usage, can be more cost-effective than GitHub-hosted runners.
+#+END_QUOTE
+
+Notes on setting up :Using an .env file
+
+#+BEGIN_QUOTE
+If setting environment variables is not practical, you can set the proxy configuration variables in a file named .env in the self-hosted runner application directory. For example, this might be necessary if you want to configure the runner application as a service under a system account. When the runner application starts, it reads the variables set in .env for the proxy configuration.
+
+An example .env proxy configuration is shown below:
+
+https_proxy=http://proxy.local:8080
+no_proxy=example.com,myserver.local:443
+
+#+END_QUOTE
+
+*Self-hosted runner security* : With respect to public repos - essentially, this means that some repo of code on github is able to run on your computer. Therefore unless the code is trusted and vetted, it is dangerous to allow this. Forks can cause malicious workflows to run by opening a pull request.
+
+It is safer to use public repositories with a github hosted runner.
+
+#+BEGIN_QUOTE
+We recommend that you do not use self-hosted runners with public repositories.
+
+Forks of your public repository can potentially run dangerous code on your self-hosted runner machine by creating a pull request that executes the code in a workflow.
+
+This is not an issue with GitHub-hosted runners because each GitHub-hosted runner is always a clean isolated virtual machine, and it is destroyed at the end of the job execution.
+
+Untrusted workflows running on your self-hosted runner poses significant security risks for your machine and network environment, especially if your machine persists its environment between jobs. Some of the risks include:
+
+- Malicious programs running on the machine.
+- Escaping the machine's runner sandbox.
+- Exposing access to the machine's network environment.
+- Persisting unwanted or dangerous data on the machine.
+#+END_QUOTE
+
+**** CI
+
+Continuous Integration: enables commits to trigger builds and thereby enhances error discovery and rectification process.
+
+The CI server can run on the same server as the runner. Therefore it can be github hosted or a self-hosted CI server.
+
+Github analyses a repository when CI is setup and recommends basic templates depending on the language used.
+
+#+BEGIN_QUOTE
+When you commit code to your repository, you can continuously build and test the code to make sure that the commit doesn't introduce errors. Your tests can include code linters (which check style formatting), security checks, code coverage, functional tests, and other custom checks.
+
+Building and testing your code requires a server. You can build and test updates locally before pushing code to a repository, or you can use a CI server that checks for new code commits in a repository.
+
+You can configure your CI workflow to run when a GitHub event occurs (for example, when new code is pushed to your repository), on a set schedule, or when an external event occurs using the repository dispatch webhook.
+#+END_QUOTE
 
 * General
 ** DONE mosh - for better access to my VPS                        :vps:mosh:
