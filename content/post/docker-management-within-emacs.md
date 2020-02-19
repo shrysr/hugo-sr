@@ -1,11 +1,11 @@
 +++
 title = "Docker container and image management within Emacs"
 author = ["Shreyas Ragavan"]
-date = 2020-02-19T13:46:00-08:00
+date = 2020-02-19T14:09:00-08:00
 tags = ["docker", "Data-Science"]
 categories = ["Emacs"]
 draft = false
-weight = 2001
+weight = 0
 profile = true
 toc = false
 +++

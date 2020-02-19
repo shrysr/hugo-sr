@@ -4,12 +4,12 @@
 #+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
 #+hugo_auto_set_lastmod: nil
-#+hugo_weight: auto
+#+hugo_weight: nil
 
 This is the Org source for all my blog articles
 * Emacs                                                        :@Emacs:emacs:
 ** DONE Docker container and image management within Emacs
-CLOSED: [2020-02-19 Wed 13:46]
+CLOSED: [2020-02-19 Wed 14:09]
 :PROPERTIES:
 :ID:       1A0137C6-5035-4992-88FA-5BA54F14E5A3
 :EXPORT_HUGO_TAGS: docker Data-Science
