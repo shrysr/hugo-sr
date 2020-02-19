@@ -1,3 +1,4 @@
+#+ATTR_ORG: :width 500
 #+OPTIONS: toc:nil
 #+AUTHOR: Shreyas Ragavan
 #+hugo_base_dir: ~/hugo-sr/
@@ -7,6 +8,45 @@
 
 This is the Org source for all my blog articles
 * Emacs                                                        :@Emacs:emacs:
+** DONE Docker container and image management within Emacs
+CLOSED: [2020-02-19 Wed 13:46]
+:PROPERTIES:
+:ID:       1A0137C6-5035-4992-88FA-5BA54F14E5A3
+:EXPORT_HUGO_TAGS: docker Data-Science
+:HUGO_CATEGORIES:
+:EXPORT_DATE: [2020-01-23 Thu 11:09]
+:EXPORT_FILE_NAME: docker-management-within-emacs
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile true :toc false
+:END:
+
+As my Emacs configuration will indicate, I have installed the package [[https://github.com/Silex/docker.el][docker.el]] with it the =dockerfile= and =docker-compose= minor mode packages. The main docker package enables me to list, view, launch and generally manage containers from within Emacs instead of using vebose Shell commands and possibly constructing aliases for common commands. The latter 2 packages are more useful for developing and editing docker files (including within Org source blocks) with syntax highlighting.
+
+I have =M-x docker= mapped to =M-s d= and this gives me instant access to all the images and containers on my system. It is invariably handy to run containers with specific commands as well and I intend to use it simplify my workflows. I believe this capability of docker container launch via an interface ia a premium feature in Rstudio.
+
+- [ ] It would be worthwhile again to add this shortcut to the Scimax hydra. This would come under the apps section, and would probably be the easiest to add as it is the least crowded menu at the moment.
+
+So this has been setup with a minimal configuration, not different from the instructions on the package website.
+
+The best part of this bargain is running the docker package within Emacs on the terminal on a VPS. Therefore I have an overview of all the docker containers right within the terminal, with one press access to actions. This is how it looks:
+
+#+ATTR_ORG: :width 500
+#+CAPTION: Screenshot: docker containers on terminal Emacs
+[[file:~/hugo-sr/static/img/docker-container-list-vps-terminal.png]]
+
+#+ATTR_ORG: :width 500
+#+CAPTION: List of docker images available on my machine (GUI Emacs)
+[[file:~/hugo-sr/static/img/dockcer-image-list-emacs.png]]
+
+There are a host of other possibilities, including controlling builds, using =docker-compose= and so on. The desired options can be set with single key-presses, similar to the magit porcelain.
+
+#+ATTR_ORG: :width 500
+#+CAPTION: Accessing common commands to be run on containers (Terminal Emacs)
+[[file:~/hugo-sr/static/img/one-press-actions-docker-containers.png]]
+
+
+Using the docker package has saved several minutes of my time (for each command) and just as important - a tonne of effort involved in hunting for docker container names, command history, copying the container ID's and so on that are very typical steps of messing around with docker. Anybody learning docker will know that these commands are used so frequently that it becomes rather annoying quickly.
+
+The next step will be to find a way to interact with remote docker containers from my local Emacs setup. This would be super cool and convenient. Apparently the =docker-tramp= package can help with this. Maybe it's my poor googline skills but - though here are some discussions around in Reddit on this topic - I was expecting many more blog posts or material on the web talking about workflows in using Docker and Emacs, especially considering the amount of effort being saved.
 
 ** DONE Oddmuse-curl exploration                                      :blog:
 CLOSED: [2020-01-20 Mon 09:11]
@@ -1024,7 +1064,6 @@ How can one manage all the above? Enter tmux. This stands for terminal multiplex
 Here's a picture of my terminal tab. So this is a single tab open on my local computer. Note the tabs at the bottom which show you that I have multiple tabs open.  I connect to the mosh server simply by replacing the usual =ssh= with =mosh=.
 
 
-
 ** DONE A graphic overview of the 'binary' with respect to R packages
 CLOSED: [2020-01-18 Sat 20:28]
 :PROPERTIES:
@@ -1174,7 +1213,6 @@ filter(!duplicated(ItemName))
 #+END_SRC
 
 Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
-
 
 ** DONE [#C] Setting up Continuous Integration (CI) for docker containers
 CLOSED: [2020-01-21 Tue 22:30]
@@ -1411,7 +1449,67 @@ Building and testing your code requires a server. You can build and test updates
 You can configure your CI workflow to run when a GitHub event occurs (for example, when new code is pushed to your repository), on a set schedule, or when an external event occurs using the repository dispatch webhook.
 #+END_QUOTE
 
+** TODO Travis CI notes
+:PROPERTIES:
+:ID:       0661BE77-F4B7-44C6-9BE4-74F3497456F8
+:EXPORT_HUGO_TAGS: CI,
+:HUGO_CATEGORIES: DataScience, CI
+:EXPORT_DATE: [2020-01-25 Sat 23:50]
+:EXPORT_FILE_NAME: travis-ci-notes
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
+:END:
+
+*** The Travis YAML file
+
+Setting up for a docker related Travis CI service simply means including service.docker in the yaml file. This will enable starting the docker service on the travis runner. Subsequent commands are similar to shell commands mashed together using YAML syntax. A travis CI process is recognised by simply including a .travil.yml file in the repository.
+
+*** Use stages to group and set parallel and sequential jobs
+
+Stages can be used to group together parallel jobs within sequential jobs. Building of open source projects is free. The cost for a single concurrent private repostory is 63$/month. Drone is an open source option that can be self-hosted. The build is then limited by the computing resources available.
+
+*** Comparing Travis CI with Github actions
+
+As of today -  Travis CI is significantly more preferable to Github Actions for a number of reasons. Travis has a significantly more functional and  smoother interface, along with a number of settings to improve efficiency. For example, there is an auto-cancel build option, in case new commits come in during a build process. Dockerhub apparently does not have this in their system. This is a strange waste of free resources.
+
+Ignoring
+
+*** Encryption methodology
+
+To provide sensitive environment variables to intended third party build processes, without exposing the content to the public would mean a method of encryption is required to hash the content. Travis employs symmetric encryption with an RSA keypair.
+
+For travis to be able to decrypt such content - it would mean that the private key will be held with travis. The environment variable will be encrypted using the public key part of the pair and can be done via the Travis command line tool.
+
+This essentially means placing an enormous amount of faith in travis. One should carefully evaluate the meaning of this burden.
+
+Anybody with access to the repository and the public key via the travis command line will be able to provide updated environment variables.
+
+If the travis tools fails to encrypt larger files, then the file can be encrypted with a passphrase locally (say using gpg), and the travis tool will be used to encrypt only the passphrase.
+
+#+BEGIN_QUOTE
+The Command Line Client overrides encrypted entries if you use it to encrypt multiple files.
+
+If you need to encrypt multiple files, first create an archive of sensitive files, then decrypt and expand it during the build.
+
+Automated Encryption Assumptions:
+
+- The repository is set up on Travis CI
+- You have version 1.7.0 or later of the Travis CI Command Line Client installed and set up (you are logged in)
+- You have a local copy of the repository and a terminal open where your current working directory is said copy
+- In the repository is a file, called super_secret.txt, that you need on Travis CI but you don’t want to publish its content on GitHub.
+- Encrypting another file later will overwrite the secure variable, rendering the old file unusable.
+
+Manual Encryption Assumptions:
+
+- The repository is set up on Travis CI
+- You have the recent version of the Travis CI Command Line Client installed and setup up (you are logged in)
+- You have a local copy of the repository and a terminal open where your current working directory is said copy
+- In the repository is a file, called super_secret.txt, that you need on Travis CI but you don’t want to publish its content on GitHub.
+
+The file might be too large to encrypt it directly via the travis encrypt command. However, you can encrypt the file using a passphrase and then encrypt the passphrase. On Travis CI, you can use the passphrase to decrypt the file again.
+#+END_QUOTE
+*** TODO Adding dockerhub credentials using travis CLI
 * General
+
 ** DONE mosh - for better access to my VPS                        :vps:mosh:
 CLOSED: [2019-08-01 Thu 08:42]
 :PROPERTIES:
@@ -2322,6 +2420,36 @@ This blog post enumerates my journey in creating a web presence. Most of this wa
     blogs/information in an organisation and there are simply many
     possibilities. The entire website can be downloaded in a single html
     file and is thus automatically portable.
+
+** TODO Setting up a self hosted git repository with CI/CD : Gitea and Drone :blog:
+:PROPERTIES:
+:ID:       52E08139-EDA8-4557-BFCE-F9717797C06A
+:END:
+
+An awesome [[https://sysadmins.co.za/self-hosted-git-and-cicd-platform-with-gitea-and-drone-on-docker/][blog post by Ruan]] is the reference blue print to setup my own git repositories on the VPS hosting all my websites, using Docker containers running on a virtual docker network.
+
+Justification for choosing Gitea for myself: Org mode markup support, as shown on this [[https://sysadmins.co.za/self-hosted-git-and-cicd-platform-with-gitea-and-drone-on-docker/][comparison page]]. It is also worth noting that none of them have a built-in CI/CD service. Therefore an additional service like a travis CI/ Jenkins or Derone needs to be running to enable this.
+
+The only general concern I have is regarding the CPU and RAM utilisation in constructing the larger images. However, It think it is worth checking out, just to get an idea of the capabilities of the Linode VPS.
+
+Perhaps eventually, as a redundancy, I can have the entire server clone to Digital Ocean or as an S3 object on a daily basis. This could also be handled by Drone.
+
+Thus the above above are some justifications, besides the excitement of owning my own git repositories. Eventually, when I am able to own my hardware, instead of using a VPS - these set ups will help in shifting platforms more easily.
+
+Here goes: Note that I am running a Debian OS on Linode.
+
+As described, I want a separate port for the SSH so that I can communicate with the git repository via SSH. Editing =/etc/ssh/sshd_config=, all I did was to add an additional =PORT 2222=, leaving the commented skeleton as it was.
+
+The next step was to allow the 2222 port for TCP via UFW, which is a simple firewall manager that works well for non-technical folk. this is simply done with:
+
+#+BEGIN_SRC sh
+sudo ufw allow 2222/tcp
+#+END_SRC
+
+Note that all the current ports open can be listed with the command =ufw status=.
+
+*** TODO The oauth and secret setup process for drone to gitea
+
 
 
 * Footnotes
