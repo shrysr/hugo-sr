@@ -48,7 +48,7 @@ description = ""
 
 # Display a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
-logo = "SR_bw_first.jpeg"
+logo = "SR.jpg"
 
 ############################
 ## Site Features
@@ -56,7 +56,7 @@ logo = "SR_bw_first.jpeg"
 
 # Enable source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
-highlight = true
+highlight = false
 highlight_languages = ["r", "python", "lisp","emacs-lisp", "bash"]  # Add support for highlighting additional languages
 highlight_style = "codepen-embed"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 
@@ -121,7 +121,7 @@ contact_links = [
 ############################
 
 # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
-sharing_image = "SR_bw_first.jpeg"
+sharing_image = "icon.png"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
 twitter = "ShreyasRagavan"
@@ -136,9 +136,13 @@ date_format = "Jan 2, 2006"
 #   Examples: "3:04 pm" or "15:04"
 time_format = "3:04 PM"
 
-# List delimiter (separates parts of an address)
-# Popular separators are ", " (comma), "<br>" (new line), " " (space)
-list_delimiter = ", "
+# Address format (choose from the [address_formats] list below or add you own to the list).
+address_format = "en-us"
+
+
+# # List delimiter (separates parts of an address)
+# # Popular separators are ", " (comma), "<br>" (new line), " " (space)
+# list_delimiter = ", "
 
 ############################
 ## Advanced
@@ -166,6 +170,26 @@ link_authors = true
 # Load JS plugins
 #   E.g. To load `/assets/js/custom.js`, set `plugins_js = ["custom"]`.
 plugins_js  = []
+
+
+# Avatars.
+# An avatar is an image that appears next to a user's name.
+# An avatar can be uploaded as an image named `avatar` to each user's profile or fetched from Gravatar.com.
+[avatar]
+  # Get user avatars from Gravatar.com? (true/false)
+  gravatar = false
+
+  # Choose a shape for avatar images. Options: circle, square.
+  shape = "circle"
+
+# Available address formats.
+[address_formats]
+  en-us = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ' ', '']}
+  en-gb = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ', ', '']}
+  de = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
+  fr-fr = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
+  zh = {order = ['postcode', 'region', 'city', 'street'], delimiters = [' ', ' ', ' ', '']}
+
 
 # Configuration of publication pages.
 [publications]

@@ -58,6 +58,10 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/ShreyasRagavan
+- icon: rss
+  icon_pack: fas
+  link: https://shreyas.ragavan.co/index.xml
+
 
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
@@ -77,7 +81,7 @@ email: "shreyas@fastmail.com"
 
 I'm an **engineer**, **dreamer**, **hacker**, **data scientist** and **technophile** who enjoys performing in-depth research and analysis, as well as developing end-to-end solutions that drive Business Intelligence and Growth.
 
-Along with a strong background in analytics and a wide domain exposure, I possess a keen eye to comprehend the big picture with a penchant towards implementing workflow automation. I've worked in R&D, helped sales engineering and have implemented ERP systems (among other things).
+Armed with a strong background in **analytics** that started in computational physics along with a wide domain exposure - I'm constantly honing a keen eye to comprehend the big picture. I possess a penchant towards implementing workflow automation and have worked with multi-functional and multi-national teams. I've executed, as well as managed projects revolving around R&D, Analytics, Sales, ERP systems, and more.
 
 I'm frequently available on IRC with the nickname shrysr on a bunch of channels, especially #emacs. I'm active on Linked in and Github, and occassionally on Twitter.
 
