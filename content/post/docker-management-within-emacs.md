@@ -8,7 +8,6 @@ draft = false
 weight = 0
 profile = true
 toc = false
-weight = "auto"
 +++
 
 -   Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2020-02-24 Mon 07:21] </span></span> <br />

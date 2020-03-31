@@ -30,7 +30,7 @@ CLOSED: [2020-02-24 Mon 07:29]
 :EXPORT_HUGO_CATEGORIES: Docker Emacs DataScience
 :EXPORT_DATE: [2020-01-23 Thu 11:09]
 :EXPORT_FILE_NAME: docker-management-within-emacs
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile true :toc false :weight auto
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile true :toc false 
 :END:
 
 - Note taken on [2020-02-24 Mon 07:21] \\
