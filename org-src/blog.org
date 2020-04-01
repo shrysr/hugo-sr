@@ -1529,7 +1529,34 @@ Manual Encryption Assumptions:
 The file might be too large to encrypt it directly via the travis encrypt command. However, you can encrypt the file using a passphrase and then encrypt the passphrase. On Travis CI, you can use the passphrase to decrypt the file again.
 #+END_QUOTE
 *** TODO Adding dockerhub credentials using travis CLI
-* General
+* General                                                          :@General:
+** Some thoughts on hosting your own blog
+:PROPERTIES:
+:EXPORT_HUGO_TAGS: writing self-hosting hugo wordpress 
+:EXPORT_FILE_NAME: hosting-your-own-blog
+:END:
+
+#+BEGIN_QUOTE
+This is an expansion to my response to [[https://www.linkedin.com/posts/tylerfolkman_datascience-blogs-machinelearning-activity-6650773761777897472-mK0G][a query on Linked in]] about getting off medium for publishing data science blog posts.
+#+END_QUOTE
+
+To begin with, I believe the experience of setting up a self-hosted publishing platform including a LAMP stack for Wordpress, or to serve up a static website is worth the effort due to the lateral knowledge gained in tinkering with the command line and a remote server and the final satisfaction of having a system under your own control. 
+
+I think the pros outweigh the cons of getting off Medium and similar platforms for the purpose of blogging. Linked in for example offers a publishing feature, but it is extremely cumbersome to post code and follow specific people and thus (eventually) read self-curated content as there is almost no control over the 'feed'. 
+
+I am not discounting the benefit of a collection of articles (a digital magazine) like that of [[https://towardsdatascience.com/][Towards Data Science]], and many other interesting digital magazine on Medium. Undoubtedly (and sadly), there /are/ a treasure trove of interesting articles on Medium (along with many others who are not worth the time spent). However, I am loathe to marry myself to a specific platform for my reading purposes or pay for the privilege of reading content that is not edited or curated to the extent of the quality of The Economist or NYT. It is also rather disconcerting to be continuously reminded that I have '5 free articles left'. While the concept of getting paid for the content you produce based on the appreciation of readers is certainly not without merit - I've come to believe that this potentially detracts from the experience of expressing for the sake of expressing, and detracts from internal development and refining of the thought process. Of late, I have preferred subscribing to newsletters, email updates of specific blogs, mailing lists and using Elfeed to read RSS based feeds of the content I want to keep track of. In short, I've come to value choice and control.
+
+Self-hosting comes bundled  with atleast some initial effort till things are set up. The traditional CMS route using WordPress et al undoubtedly have their benefits, but I prefer static frameworks like Hugo because I like working via git and also think a DB based approach for a personal site is excessive, unwieldy and not conducive to focus on content. IaaS providers like Linode use Hugo for their documentation base and it is proven to be fast. In any case I believe there are exporters that help with migration if necessary. One caveat with static sites is that it is relatively difficult to setup a commenting system, unless you are happy with disqus. However, with some effort, it is quite possible to setup an alternative open source commenting system, or even choose a paid version of the same. Hugo's documentation provides several options to begin with. 
+
+The most important aspect about posting content on your own blog or domain is that you have much better ownership of the content, not to mention the ability to hack the appearance or functionality to reach a result conforming to your purpose. See for example the [[https://indieweb.org/][IndieWeb]] concept. One can optionally drive traffic to the website by syndicating content or excerpts to other portals with your site being the source of truth. Dev.to for example allows automatic re-posting based on RSS feeds. R-blogger has this facility as well if I remember correctly. Beyond this, when I can - I try to tailor what I read by following content posted by people I follow rather than a giant feed. This could mean mailing lists / RSS feeds and so on. An excellent and relatively recent example is [[https://drkeithmcnulty.com/][drkeithmcnulty.com – Blogging on Data, Tech, Math and Psych]]. 
+
+The advantage of using a git based setup would be that you can share code and information. without the hideous, frequent image based code sharing on medium. Atleast a few read- it-later services like Instapaper and pinboard don’t seem to work well with medium either.
+
+There are a large number of Hugo themes out there but the academic theme, in fact created by a data scientist is quite excellent. George Cushen has an overview of his own journey to hugo ([[https://georgecushen.com/create-your-website-with-hugo/][Why you should create your website with Academic and Hugo | George Cushen]]). The hugo academic theme is well suited to publishing code driven content, especially that of R and IMHO has a lot of useful configurations out of the box, and the ability to create custom templates, and integrated Google Analytics. though some further tweaking may be needed for proper GDPR compliance if it is enabled. This website and blog is yet another example of using the academic theme.
+
+On the other end of the spectrum, it is also instructive to start from scratch with things like Makesite - [[https://github.com/sunainapai/makesite][GitHub - sunainapai/makesite: Simple, lightweight, and magic-free static site/blog generator for Python coders]]. I've been hacking on this just for fun of late in order to understand the inner workings of a static publishing engine. As expressed in the readme of the repo, I've found it is actually delightful to use a simple system which only involves writing posts in markdown, and then building the CSS and other things from scratch, only as required.
+
+With respect to clean and functional UI, I've enjoyed Kaushal Modi's website [[https://scripter.co/][A Scripter's Notes ❚]]. One can even select text on blog posts and link to it, which is an invaluable method to refer to portions of an article. It is an indieweb enabled Hugo powered website. I use Kaushal's ox-hugo package in Emacs to export my posts from Org mode in Emacs to a git repo of this website. Kaushal's theme and site setup details are available on Gitlab.
 
 ** TODO Pinboard + Instapaper for actually processing useful content from the web
 
