@@ -3,8 +3,8 @@
 #+AUTHOR: Shreyas Ragavan
 #+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
-#+hugo_auto_set_lastmod: nil
-#+hugo_weight: nil
+#+hugo_auto_set_lastmod: t
+#+hugo_weight: auto
 
 This is the Org source for all my blog articles
 * Emacs                                                        :@Emacs:emacs:@Docker:
