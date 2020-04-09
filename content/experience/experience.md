@@ -19,16 +19,30 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
   title = "Data Science Consultant"
-  company = "Self-Employed"
+  company = "(Freelance)"
   company_url = ""
-  location = "Canada"
+  location = "Vancouver, Canada"
   date_start = "2019-11-01"
   date_end = ""
   description = """
 
-I'm actively in search of suitable employment and consulting opportunities.
+**I'm actively in search of suitable employment and consulting
+opportunities.**
+
+-----------------------------------
+
+* Developed a dashboard (R, Flexdashboard, Shiny) for the mortgage data
+  product of a client. This provided an interface to explore lead
+  quality information related to mortgage applications and predict lead
+  scores indicative of the potential of conversion into a
+  customer. Deployed an initial Linear regression model, improved to a
+  Generalized Linear Model (GLM) with tuned hyper-parameters that
+  reduced the Mean Absolute Error (MAE) by 25%. The dashboard can
+  potentially save at least 30 minutes of analysis time per lead
+  translating to ~700 hours per month in analyzing high quality leads.
 
 """
+
 [[experience]]
   title = "Engineer - Design and Applications"
   company = "Black Gold Rush Industries"
@@ -39,14 +53,18 @@ I'm actively in search of suitable employment and consulting opportunities.
   description = """
 * Proposed and established a proof-of-concept Enterprise Resource Planning (ERP) system replacing manual workflows with significantly enhanced and efficient setups.
 
-	- The system facilitated a data centric management and overview of the end-to-end workflow including CRM, sales, purchase, manufacturing; with potentially enhanced customer engagement through an online store for the entire product line.
+	- The system facilitated a data centric management and overview of
+      the end-to-end workflow including CRM, sales, purchase,
+      manufacturing; with potentially enhanced customer engagement
+      through an online store for the entire product line.
+	  
 * Leveraged hands-on product experience to develop material codification master lists of products and inventory.
 * Used `R` for an Extract-Transform-Load (ETL) process on data from an `SQL` database to the ERP system.
 """
 
 [[experience]]
   title = "Application Engineer"
-  company = "Zeeco"
+  company = "Zeeco Inc"
   company_url = "www.zeeco.com"
   location = "Mumbai, India"
   date_start = "2015-08-01"
@@ -63,23 +81,32 @@ I'm actively in search of suitable employment and consulting opportunities.
 
   """
 
+
 [[experience]]
-  title = "Sr. Executive Engineer"
+  title = "Sr. Executive"
   company = "Wilo Mather and Platt Pumps"
   company_url = "https://wilo.com/in/en/"
   location = "Pune, India"
   date_start = "2012-04-26"
   date_end = "2015-07-31"
   description = """
-* Designed and optimised the hydraulic components of centrifugal water pumps developing and analyzing distributed numerical simulations of fluid flow i.e. Computational Fluid Dynamics (CFD).
-* Developed a simulation scheduler program in Python which managed 2 distributed computing clusters of 32 cores each, 24/7 for 2+ years.
-	- Enabled multi-priority job submission with streamlined project and resource management.
-	- Increased software capacity utilisation to 100%, saving 40min (75%) in a critical design step.
+* Designed and optimised the hydraulic components of centrifugal water
+  pumps developing and analyzing distributed numerical simulations of
+  fluid flow, applied Computational Fluid Dynamics (CFD).
 
-- Automated the post processing of large simulation results (~4GB) with macros that extracted functional performance snapshots (3% ~ 100MB). The approach eliminated hours of delay between assessing simulation results on remote clusters.
+	- Enabled multi-priority job submission with streamlined project and
+      resource management. 
+	- The system increased software capacity utilisation to 100%, saving
+      40min (75%) in a critical design step.
 
-- Developed templates automating pipelined simulation setups that eliminated complex, repetitive manual steps.
+* Automated the post processing of large simulation results (~4GB) with
+  macros that extracted functional performance snapshots (3% ~
+  100MB). The approach eliminated hours of delay between assessing
+  simulation results on remote clusters.
 
-  """
+* Developed templates automating pipelined simulation setups that
+  eliminated complex, repetitive manual steps.
+
+"""
 
 +++
