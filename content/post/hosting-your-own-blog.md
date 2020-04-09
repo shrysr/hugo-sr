@@ -1,11 +1,10 @@
 +++
 title = "Some thoughts on hosting your own blog"
 author = ["Shreyas Ragavan"]
-lastmod = 2020-04-01T09:07:24-07:00
+date = 2020-04-01T12:10:00-07:00
 tags = ["writing", "self-hosting", "hugo", "wordpress"]
 categories = ["General"]
 draft = false
-weight = 2001
 +++
 
 > This is an expansion to my response to [a query on Linked in](https://www.linkedin.com/posts/tylerfolkman%5Fdatascience-blogs-machinelearning-activity-6650773761777897472-mK0G) about getting off medium for publishing data science blog posts.

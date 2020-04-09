@@ -1,10 +1,9 @@
 #+AUTHOR: Shreyas Ragavan
 #+hugo_base_dir: ~/hugo-sr/
 #+hugo_section: post
-#+hugo_auto_set_lastmod: t
+#+hugo_auto_set_lastmod: nil
 #+hugo_weight: auto
-#+EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile true :toc true
-
+#+hugo_custom_front_matter: :profile true :toc true
 
 This is the Org source for all my blog articles
 * Emacs                                                        :@Emacs:emacs:
@@ -1125,7 +1124,6 @@ How can one manage all the above? Enter tmux. This stands for terminal multiplex
 
 Here's a picture of my terminal tab. So this is a single tab open on my local computer. Note the tabs at the bottom which show you that I have multiple tabs open.  I connect to the mosh server simply by replacing the usual =ssh= with =mosh=.
 
-
 ** DONE A graphic overview of the 'binary' with respect to R packages
 CLOSED: [2020-01-18 Sat 20:28]
 :PROPERTIES:
@@ -1618,10 +1616,10 @@ The file might be too large to encrypt it directly via the travis encrypt comman
 *** TODO Adding dockerhub credentials using travis CLI
 * General                                                          :@General:
 ** DONE Automating the deployment of my Hugo site
+CLOSED: [2020-04-09 Thu 12:09]
 :PROPERTIES:
-:EXPORT_HUGO_TAGS: hugo wordpress website emacs org-mode
+:EXPORT_HUGO_TAGS: hugo wordpress website emacs org-mode cron shell
 :EXPORT_FILE_NAME: website-setup-apr-2020
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: 
 :END:
 
 This website is based off [[https://gohugo.io][Hugo]]. The complete source is available as a
@@ -1683,20 +1681,21 @@ deploying changes.
    3. The cron job actually calls a script every 10 minutes, because it
       is easier to edit a script.
    4. The trick of exiting a background process started by the script is
-      to use a /trap/ as described in cite:nil-2017-scrip-start-stop.
+      to use a /trap/ as described in [[https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/,][A Script to Start (and Stop!)
+      Background Processes in Bash]].
    5. My understanding is that the /watch/ process builds the website,
       compares it with the destination and will sync only the updates in
       any case. If the =-d= flag was used alone, it means the website is
       essentially re-constructed from scratch and pushed each time.
 
-The cron job is created for root using =sudo crontab -e=, and it looks
-like this:
+The cron job is created for root using =sudo crontab -e=.
 
+#+caption: crontab entry
 #+BEGIN_SRC sh 
 */10 * * * * sh /home/username/src/hugo-pull-deploy.sh
 #+END_SRC
 
-#+caption: The script that is run by cron to pull in latest changes to the hugo repository and construct the website. This script is referred to as hugo-pull-deploy.sh
+#+caption: hugo-pull-deploy.sh
 #+BEGIN_SRC sh
 #!/usr/bin/env zsh
 
@@ -1726,9 +1725,8 @@ sleep 2m
 
 #+END_SRC
 
-Here's a picture of how my local setup looks right now in Emacs: 
 
-#+caption: The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows a nice Treemacs workspace (which is usually how I roll). 
+#+caption: A picture of how my my current Emacs setup looks like. The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows a nice Treemacs workspace (which is usually how I roll). 
 [[file:General/2020-04-09_09-28-19_CleanShot 2020-04-09 at 09.28.06.png]]
 
 #+BEGIN_QUOTE
@@ -1760,9 +1758,10 @@ process to check whether the site builds as expected or not.
 
 *** Conclusions
 
-I've tested the above and it works satisfactorily. The deployment is
-automated, and is reasonably efficient, though there is always scope to
-make it better.
+I've tested the above and it works satisfactorily. All I have to do at
+the moment is write my post in Org mode and export via ox-hugo. The
+deployment is automated, and is reasonably efficient, though there is
+always scope to make it better.
 
 - [ ] Perhaps introduce a pre-condition check for the hugo command to
   check whether there have been any changes in the pull at all. One way of
@@ -1770,13 +1769,13 @@ make it better.
   Stack Overflow]].
 
 - [ ] Enable website deployment with only the commit of an Org file,
-  along with appropriate tests and checks that the website does
+  along with appropriate tests and notifications that the website does
   build. Perhaps this will need the integration of a CI service, or I
   wonder if I could have a simple email or message dropped from my VPS,
   using something like [[https://gotify.net/docs/][Gotify]].
 
-bibliography:../../my_org/references/references.bib
 ** DONE Some thoughts on hosting your own blog
+CLOSED: [2020-04-01 Wed 12:10]
 :PROPERTIES:
 :EXPORT_HUGO_TAGS: writing self-hosting hugo wordpress 
 :EXPORT_FILE_NAME: hosting-your-own-blog

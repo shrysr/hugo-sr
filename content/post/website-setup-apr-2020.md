@@ -1,10 +1,12 @@
 +++
 title = "Automating the deployment of my Hugo site"
 author = ["Shreyas Ragavan"]
-lastmod = 2020-04-09T11:29:24-07:00
-tags = ["hugo", "wordpress", "website", "emacs", "org-mode"]
+date = 2020-04-09T12:09:00-07:00
+tags = ["hugo", "wordpress", "website", "emacs", "org-mode", "cron", "shell"]
 categories = ["General"]
 draft = false
+profile = true
+toc = true
 +++
 
 This website is based off [Hugo](https://gohugo.io). The complete source is available as a
@@ -63,26 +65,23 @@ deploying changes.
     3.  The cron job actually calls a script every 10 minutes, because it
         is easier to edit a script.
     4.  The trick of exiting a background process started by the script is
-        to use a _trap_ as described in <sup id="5aad1e5e2d44edaa5749175e011f528c"><a href="#nil-2017-scrip-start-stop" title="@misc{nil-2017-scrip-start-stop,
-          author =	 {nil},
-          howpublished =
-                          {https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/},
-          note =	 {Online; accessed 09 April 2020},
-          title =	 {A Script to Start (and Stop!) Background Processes in
-                          Bash},
-          year =	 2017,
-        }">nil-2017-scrip-start-stop</a></sup>.
+        to use a _trap_ as described in [A Script to Start (and Stop!)
+        Background Processes in Bash](https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/,).
     5.  My understanding is that the _watch_ process builds the website,
         compares it with the destination and will sync only the updates in
         any case. If the `-d` flag was used alone, it means the website is
         essentially re-constructed from scratch and pushed each time.
 
-The cron job is created for root using `sudo crontab -e`, and it looks
-like this:
+The cron job is created for root using `sudo crontab -e`.
 
 ```sh
 */10 * * * * sh /home/username/src/hugo-pull-deploy.sh
 ```
+
+<div class="src-block-caption">
+  <span class="src-block-number">Code Snippet 1</span>:
+  crontab entry
+</div>
 
 ```sh
 #!/usr/bin/env zsh
@@ -114,13 +113,11 @@ sleep 2m
 ```
 
 <div class="src-block-caption">
-  <span class="src-block-number">Code Snippet 1</span>:
-  The script that is run by cron to pull in latest changes to the hugo repository and construct the website. This script is referred to as hugo-pull-deploy.sh
+  <span class="src-block-number">Code Snippet 2</span>:
+  hugo-pull-deploy.sh
 </div>
 
-Here's a picture of how my local setup looks right now in Emacs:
-
-{{< figure src="/ox-hugo/2020-04-09_09-28-19_CleanShot 2020-04-09 at 09.28.06.png" caption="Figure 1: The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows a nice Treemacs workspace (which is usually how I roll)." >}}
+{{< figure src="/ox-hugo/2020-04-09_09-28-19_CleanShot 2020-04-09 at 09.28.06.png" caption="Figure 1: A picture of how my my current Emacs setup looks like. The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows a nice Treemacs workspace (which is usually how I roll)." >}}
 
 > I use the excellent ox-hugo package to maintain my entire blog in a
 > single Org file. Any screenshots or pictures are simply added via drag
@@ -151,9 +148,10 @@ Here's a picture of how my local setup looks right now in Emacs:
 
 ## Conclusions {#conclusions}
 
-I've tested the above and it works satisfactorily. The deployment is
-automated, and is reasonably efficient, though there is always scope to
-make it better.
+I've tested the above and it works satisfactorily. All I have to do at
+the moment is write my post in Org mode and export via ox-hugo. The
+deployment is automated, and is reasonably efficient, though there is
+always scope to make it better.
 
 -   [ ] Perhaps introduce a pre-condition check for the hugo command to
     check whether there have been any changes in the pull at all. One way of
@@ -161,18 +159,7 @@ make it better.
     Stack Overflow](https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git).
 
 -   [ ] Enable website deployment with only the commit of an Org file,
-    along with appropriate tests and checks that the website does
+    along with appropriate tests and notifications that the website does
     build. Perhaps this will need the integration of a CI service, or I
     wonder if I could have a simple email or message dropped from my VPS,
     using something like [Gotify](https://gotify.net/docs/).
-
-# Bibliography
-<a id="nil-2017-scrip-start-stop"></a>[nil-2017-scrip-start-stop] @miscnil-2017-scrip-start-stop,
-  author =	 nil,
-  howpublished =
-                  https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/,
-  note =	 Online; accessed 09 April 2020,
-  title =	 A Script to Start (and Stop!) Background Processes in
-                  Bash,
-  year =	 2017,
- [↩](#5aad1e5e2d44edaa5749175e011f528c)
