@@ -60,7 +60,7 @@ social:
   link: https://twitter.com/ShreyasRagavan
 - icon: rss
   icon_pack: fas
-  link: https://shreyas.ragavan.co/index.xml
+  link: https://shreyas.ragavan.co/post/index.xml
 
 
 # Link to a PDF of your resume/CV from the About widget.
