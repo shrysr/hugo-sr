@@ -7,7 +7,64 @@
 #+hugo_weight: auto
 
 This is the Org source for all my blog articles
-* Emacs                                                        :@Emacs:emacs:@Docker:
+* Emacs                                                        :@Emacs:emacs:
+** TODO A simple workflow for text and GUI based web browsing
+:PROPERTIES:
+:CREATED: [2020-04-06 Mon 20:56]
+:END:
+
+Though most modern web browsers are sadly RAM hogs, it seems impossible
+to not have a million tabs open while researching any
+topic. Unfortunately, there are many websites that do not play well with
+text based browsers and necessarily require a GUI. My older mac used to
+take a bit for the browser to launch (which improved with an SSD
+modification), but my Macbook Pro 2018 launches Firefox pretty much
+instantly.
+
+Using a text based browser has a surprising number of benefits. It
+reduces distractions and is somewhat akin to using the readability mode
+on Firefox or other browsers. It is usually also a lot faster to work
+with for common websites. The most important advantage is of course
+being able to browse from within Emacs itself. The latter leads to
+several benefits like being able to capture a URL, with personal notes
+as well as snippets from the web page. This capture mechanism is not
+very straightforward when using GUI based browsers and varies depending
+on the OS, however, the [[https://github.com/karlicoss/grasp][grasp.py package]] works rather well out of the
+box for this purpose with the only dependency being python.
+
+Particularly, specific links can eventually be identified as those that
+do not play well with eww or text based browsers. For example, the email
+[[https://mode.com/analytics-dispatch/][newsletter from Mode analytics]] has some weird tracking hits built in
+with the URL's that does not allow them to be opened on eww.
+
+Though this apparently needed a hack previously, it seems that in newer
+versions of Emacs, there is a handy function to support this. My current
+solution is to set eww as my default browser, and use Firefox as the
+browser for some specific links.
+
+I've noticed that as my experience has grown, I have become rather
+ruthless with what I want to spend my time reading, and so the number of
+links to be dealt with should hopefully be finite. In any case, any URL
+not rendering well on eww can be opened on the default browser with a
+single key press. The following list just saves that extra bit of time
+and frustration for known links that don't work and is easy to add to.
+
+Some other solutions which are useful to note are: 
+- [[http://blog.binchen.org/posts/open-url-in-emacs-with-external-browser.html][Open url in Emacs with external browser | Chen's blog]]
+- [[http://ergoemacs.org/emacs/elisp_browse_url.html][Elisp: View URL in Web Browser: browse-url]]
+
+#+BEGIN_SRC emacs-lisp
+(setq browse-url-browser-function 'eww-browse-url)
+
+;; use browser depending on url
+(setq
+ browse-url-browser-function
+ '(("wikipedia\\.org" . eww-browse-url)
+  ("github" . eww-browse-url)
+  ("thefreedictionary\\.com" . eww-browse-url)
+ ("mode\\.com" . browse-url-default-macosx-browser)
+  ("." . browse-url-default-browser)))
+#+END_SRC
 ** TODO My current publishing setup
 :PROPERTIES:
 :CREATED:  [2020-02-21 Fri]
@@ -22,7 +79,7 @@ This is the Org source for all my blog articles
 - [ ] cron versus constantly running hugo server
 - [ ]
 
-** DONE Docker container and image management within Emacs
+** DONE Docker container and image management within Emacs         :@Docker:
 CLOSED: [2020-02-24 Mon 07:29]
 :PROPERTIES:
 :ID:       1A0137C6-5035-4992-88FA-5BA54F14E5A3
@@ -653,7 +710,6 @@ Some of the links have additional comments, and many are tagged with dates, as a
 # /Users/shrysr/hugo-sr/static/img/mu4e-start.png https://s.ragavan.co/wp-content/uploads/mu4e-start.png
 
 
-
 ** DONE Juggling multiple projects and leveraging org-projectile :Productivity:emacs:orgmode:
 CLOSED: [2019-01-25 Fri 14:44]
 :PROPERTIES:
@@ -1235,7 +1291,7 @@ filter(!duplicated(ItemName))
 
 Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
 
-** DONE [#C] Setting up Continuous Integration (CI) for docker containers
+** DONE [#C] Setting up Continuous Integration (CI) for docker containers :@Docker:
 CLOSED: [2020-01-21 Tue 22:30]
 :PROPERTIES:
 :CREATED:  [2020-01-19 Sun]
@@ -1248,17 +1304,25 @@ CLOSED: [2020-01-21 Tue 22:30]
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
 :END:
 
-This blog post takes you through the process of setting up Continuous Integration for building docker images via Dockerhub and Github, and via Github Actions. It also contains a condensed summary of important notes from the documentation.
+This blog post goes through the process of setting up Continuous
+Integration for building docker images via Dockerhub and Github, and via
+Github Actions. It also contains a condensed summary of important notes
+from the documentation that will be handy as ready reference.
 
-Goal: Gain an overview of CI and actually use it to get automated builds of the docker images that built for my datascience toolbox.
-
-Essentially I want to be able to  a status check the docker containers that I am maintaining. Eventually I want to setup a series of checks that the libraries and software tools that I use are working as expected. Though dockerhub enables containers to be built on a commit, I would also like a CI/CD pipeline to be setup in order to understand how it actually works.
+Goal: Gain an overview of using Continuous Integration (CI) for
+automated builds of the docker images that built for a data science
+toolbox based on R (for now).
 
 #+BEGIN_QUOTE
-Pre-requisites : a dockerhub account and some dockerhub image to work off with. The dockerfile and related source code should be available in a github repository.
+Pre-requisites: a dockerhub account and some dockerhub image to work
+off with. The dockerfile and related source code should be available in
+a github repository.
 #+END_QUOTE
 
-The github repository I will use is [[https://github.com/shrysr/sr-ds-docker][shrysr/sr-ds-docker]] and the dockerhub image [[https://hub.docker.com/r/shrysr/shiny][shrysr/shiny]]. Within the github repository, the shiny folder contains all the files needed to build the shiny image. Note here that the rbase image is required for the shiny image to build.
+The github repository I will use is [[https://github.com/shrysr/sr-ds-docker][shrysr/sr-ds-docker]] and the
+dockerhub image [[https://hub.docker.com/r/shrysr/shiny][shrysr/shiny]]. Within the github repository, the shiny
+folder contains all the files needed to build the shiny image. Note here
+that the rbase image is required for the shiny image to build.
 
 *** Plan [3/3]
 1. [X] Complete reading the [[https://help.github.com/en/actions][Github documentation on github actions]].
@@ -1267,21 +1331,43 @@ The github repository I will use is [[https://github.com/shrysr/sr-ds-docker][sh
 2. [X] Create a CI integration between Dockerhub and Github
 3. [X] Expand the CI setup to the datascience docker containers.
 
-*** Setting up a Github Runner [0/1]
+*** Setting up a Github Runner 
 
-A github runner is essentially creatd by using the Actions tab. There is a marketplace of Actions that can be used for free. Actions already exist for many popular workflows like building a docker image and pushing it to some registry.
 
-Apparently the first action has to be a checkout of the repository. Without this step, the process will not work. I spent a long time in
+A github runner is essentially created by using the Actions tab. There is
+a marketplace of Actions that can be used for free. Actions already
+exist for many popular workflows like building a docker image and
+pushing it to some registry.
 
-Specify build context to a specific folder. i.e do not use =build .= because then the context and paths will not work, thus the =COPY= type functions won't work.
+Apparently the first action has to be a checkout of the
+repository. Without this step, the process will not work.
 
-Apparently Github will reocognise yaml files only within the =.github/workflows= location, though I may be wrong. If their autosuggestion for the action setup is used, the folder is created automatically. However, thankfully,any YAML file created in this folder will be run by Github actions. Refer to the notes below regarding the API limitations. Since it appears that this YAML file cannot be used for say Travis or CircleCI, it may be good to have these within the github folder anyhow.
+Specify build context to a specific folder. i.e do not use =build .=
+because then the context and paths will not work, thus the =COPY= type
+functions won't work.
 
-Getting started was as simple as using the actions tab when the repository is opened. A basic YAML template is offered and was actually sufficient for me to quickly get started.
+It seems Github will recognize yaml files only within the
+=.github/workflows= location. If their auto-suggestion for the action
+setup is used, the folder is created automatically. However,
+thankfully, any YAML file created in this folder will be run by Github
+actions. Refer to the notes below regarding the API limitations. Since
+it appears that this YAML file cannot be used for say Travis or
+CircleCI, it may be good to have these within the github folder anyhow.
 
-The build context is specified by the location of the file in this case, and the tag can be specified. Currently, I'm using an ephemeral container.
+Getting started was as simple as using the actions tab when the
+repository is opened. A basic YAML template is offered and was actually
+sufficient for me to quickly get started.
 
-- [ ] An idea for a test would be like : run an ubuntu docker container, and then call the shiny container within it. Get the container running, and then also devise some output via R scripts. One way could be load a bunch of packages. Another way could be to get a shiny app to run and provide some kind of temporary output. This has to be refined further.
+The build context is specified by the location of the file in this case,
+and the tag can be specified. Currently, I'm using an ephemeral
+container.
+
+- [ ] An idea for a test would be like : run an ubuntu docker container,
+  and then call the shiny container within it. Get the container
+  running, and then also devise some output via R scripts. One way could
+  be load a bunch of packages. Another way could be to get a shiny app
+  to run and provide some kind of temporary output. This has to be
+  refined further.
 
 #+BEGIN_SRC yaml
 name: Docker Image CI
@@ -1318,25 +1404,39 @@ All this being said, the queue time in dockerhub is very long compared to the qu
 :ID:       991462C3-325B-49E8-96AD-EF2A43832751
 :END:
 
-The pre-requisite is of course that you have a docker image in your repository.
+The pre-requisite is of course that you have a docker image in your
+repository.
 
-This process is relatively simple. Login to your Dockerhub account and click on the fingerprint like icon to reach the account settings. Use the linked accounts tab and setup github with your login credentials.
+This process is relatively simple. Login to your Dockerhub account and
+click on the fingerprint like icon to reach the account settings. Use
+the linked accounts tab and setup github with your login credentials.
 
 [[~/hugo-sr/static/img/account-settings-dockerhub.png]]
 
-Next, select your docker image repository and click on the Builds tab and click on setup automated builds.
+Next, select your docker image repository and click on the Builds tab
+and click on setup automated builds.
 
 [[~/hugo-sr/static/img/configure-automated-build-dockerhub.png]]
 
-Now you have the option to select a github repository and settings are available to point to a particular branch or a particular Dockerfile as well.
+Now you have the option to select a github repository and settings are
+available to point to a particular branch or a particular Dockerfile as
+well.
 
 [[~/hugo-sr/static/img/autobuild-configuration-github.png]]
 
-Note the option Enable for Base Image for the Repository Links. This can be set enabled if your image depends on another image. Suppose that base image is updated, then a build will be triggered for your image.
+Note the option Enable for Base Image for the Repository Links. This can
+be set enabled if your image depends on another image. Suppose that base
+image is updated, then a build will be triggered for your image.
 
-The source option can be set to a named branch or a tag and the docker tag must also be specified. The build context helps if you have [[https://github.com/shrysr/sr-ds-docker][multiple docker configurations stored together]].
+The source option can be set to a named branch or a tag and the docker
+tag must also be specified. The build context helps if you have [[https://github.com/shrysr/sr-ds-docker][multiple
+docker configurations stored together]].
 
-Note also below that Environment variables can be specified thus enabled a more customised deployment of the image. The variable can be used to specify things like the username and password,  Rstudio version or r-base version, etc. Docker image tags are typically used to demarcate these more easily.
+Note also below that Environment variables can be specified thus enabled
+a more customised deployment of the image. The variable can be used to
+specify things like the username and password, Rstudio version or r-base
+version, etc. Docker image tags are typically used to demarcate these
+more easily.
 
 Here's how the build activity looks like on Dockerhub:
 
@@ -1345,7 +1445,6 @@ Here's how the build activity looks like on Dockerhub:
 [[file:~/hugo-sr/static/img/dockerhub-build-time.png]]
 
 *** General notes
-
 **** Overview of components
 
 For any code to run, there has to be a server or a computer to run it. This is called a runner and one can be created on a self-hosted platform or there are services with different tiers on which the runners can be placed.
@@ -1470,6 +1569,9 @@ Building and testing your code requires a server. You can build and test updates
 You can configure your CI workflow to run when a GitHub event occurs (for example, when new code is pushed to your repository), on a set schedule, or when an external event occurs using the repository dispatch webhook.
 #+END_QUOTE
 
+
+- Note taken on [2020-04-08 Wed 21:43] \\
+  Edited for clarity, brevity, grammar and typos.
 ** TODO Travis CI notes
 :PROPERTIES:
 :ID:       0661BE77-F4B7-44C6-9BE4-74F3497456F8

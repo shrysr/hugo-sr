@@ -2,22 +2,31 @@
 title = "Setting up Continuous Integration (CI) for docker containers"
 author = ["Shreyas Ragavan"]
 date = 2020-01-21T22:30:00-08:00
+lastmod = 2020-04-08T21:53:28-07:00
 tags = ["docker", "CI", "Data-Science"]
-categories = ["DataScience"]
+categories = ["DataScience", "Docker"]
 draft = false
 profile = false
 toc = true
 +++
 
-This blog post takes you through the process of setting up Continuous Integration for building docker images via Dockerhub and Github, and via Github Actions. It also contains a condensed summary of important notes from the documentation.
+This blog post goes through the process of setting up Continuous
+Integration for building docker images via Dockerhub and Github, and via
+Github Actions. It also contains a condensed summary of important notes
+from the documentation that will be handy as ready reference.
 
-Goal: Gain an overview of CI and actually use it to get automated builds of the docker images that built for my datascience toolbox.
+Goal: Gain an overview of using Continuous Integration (CI) for
+automated builds of the docker images that built for a data science
+toolbox based on R (for now).
 
-Essentially I want to be able to  a status check the docker containers that I am maintaining. Eventually I want to setup a series of checks that the libraries and software tools that I use are working as expected. Though dockerhub enables containers to be built on a commit, I would also like a CI/CD pipeline to be setup in order to understand how it actually works.
+> Pre-requisites: a dockerhub account and some dockerhub image to work
+> off with. The dockerfile and related source code should be available in
+> a github repository.
 
-> Pre-requisites : a dockerhub account and some dockerhub image to work off with. The dockerfile and related source code should be available in a github repository.
-
-The github repository I will use is [shrysr/sr-ds-docker](https://github.com/shrysr/sr-ds-docker) and the dockerhub image [shrysr/shiny](https://hub.docker.com/r/shrysr/shiny). Within the github repository, the shiny folder contains all the files needed to build the shiny image. Note here that the rbase image is required for the shiny image to build.
+The github repository I will use is [shrysr/sr-ds-docker](https://github.com/shrysr/sr-ds-docker) and the
+dockerhub image [shrysr/shiny](https://hub.docker.com/r/shrysr/shiny). Within the github repository, the shiny
+folder contains all the files needed to build the shiny image. Note here
+that the rbase image is required for the shiny image to build.
 
 
 ## Plan <code>[3/3]</code> {#plan}
@@ -29,21 +38,42 @@ The github repository I will use is [shrysr/sr-ds-docker](https://github.com/shr
 3.  [X] Expand the CI setup to the datascience docker containers.
 
 
-## Setting up a Github Runner <code>[0/1]</code> {#setting-up-a-github-runner}
+## Setting up a Github Runner {#setting-up-a-github-runner}
 
-A github runner is essentially creatd by using the Actions tab. There is a marketplace of Actions that can be used for free. Actions already exist for many popular workflows like building a docker image and pushing it to some registry.
+A github runner is essentially created by using the Actions tab. There is
+a marketplace of Actions that can be used for free. Actions already
+exist for many popular workflows like building a docker image and
+pushing it to some registry.
 
-Apparently the first action has to be a checkout of the repository. Without this step, the process will not work. I spent a long time in
+Apparently the first action has to be a checkout of the
+repository. Without this step, the process will not work.
 
-Specify build context to a specific folder. i.e do not use `build .` because then the context and paths will not work, thus the `COPY` type functions won't work.
+Specify build context to a specific folder. i.e do not use `build .`
+because then the context and paths will not work, thus the `COPY` type
+functions won't work.
 
-Apparently Github will reocognise yaml files only within the `.github/workflows` location, though I may be wrong. If their autosuggestion for the action setup is used, the folder is created automatically. However, thankfully,any YAML file created in this folder will be run by Github actions. Refer to the notes below regarding the API limitations. Since it appears that this YAML file cannot be used for say Travis or CircleCI, it may be good to have these within the github folder anyhow.
+It seems Github will recognize yaml files only within the
+`.github/workflows` location. If their auto-suggestion for the action
+setup is used, the folder is created automatically. However,
+thankfully, any YAML file created in this folder will be run by Github
+actions. Refer to the notes below regarding the API limitations. Since
+it appears that this YAML file cannot be used for say Travis or
+CircleCI, it may be good to have these within the github folder anyhow.
 
-Getting started was as simple as using the actions tab when the repository is opened. A basic YAML template is offered and was actually sufficient for me to quickly get started.
+Getting started was as simple as using the actions tab when the
+repository is opened. A basic YAML template is offered and was actually
+sufficient for me to quickly get started.
 
-The build context is specified by the location of the file in this case, and the tag can be specified. Currently, I'm using an ephemeral container.
+The build context is specified by the location of the file in this case,
+and the tag can be specified. Currently, I'm using an ephemeral
+container.
 
--   [ ] An idea for a test would be like : run an ubuntu docker container, and then call the shiny container within it. Get the container running, and then also devise some output via R scripts. One way could be load a bunch of packages. Another way could be to get a shiny app to run and provide some kind of temporary output. This has to be refined further.
+-   [ ] An idea for a test would be like : run an ubuntu docker container,
+    and then call the shiny container within it. Get the container
+    running, and then also devise some output via R scripts. One way could
+    be load a bunch of packages. Another way could be to get a shiny app
+    to run and provide some kind of temporary output. This has to be
+    refined further.
 
 <!--listend-->
 
@@ -81,25 +111,39 @@ All this being said, the queue time in dockerhub is very long compared to the qu
 
 ## Setting up CI via Dockerhub and Github {#setting-up-ci-via-dockerhub-and-github}
 
-The pre-requisite is of course that you have a docker image in your repository.
+The pre-requisite is of course that you have a docker image in your
+repository.
 
-This process is relatively simple. Login to your Dockerhub account and click on the fingerprint like icon to reach the account settings. Use the linked accounts tab and setup github with your login credentials.
+This process is relatively simple. Login to your Dockerhub account and
+click on the fingerprint like icon to reach the account settings. Use
+the linked accounts tab and setup github with your login credentials.
 
 {{< figure src="/img/account-settings-dockerhub.png" >}}
 
-Next, select your docker image repository and click on the Builds tab and click on setup automated builds.
+Next, select your docker image repository and click on the Builds tab
+and click on setup automated builds.
 
 {{< figure src="/img/configure-automated-build-dockerhub.png" >}}
 
-Now you have the option to select a github repository and settings are available to point to a particular branch or a particular Dockerfile as well.
+Now you have the option to select a github repository and settings are
+available to point to a particular branch or a particular Dockerfile as
+well.
 
 {{< figure src="/img/autobuild-configuration-github.png" >}}
 
-Note the option Enable for Base Image for the Repository Links. This can be set enabled if your image depends on another image. Suppose that base image is updated, then a build will be triggered for your image.
+Note the option Enable for Base Image for the Repository Links. This can
+be set enabled if your image depends on another image. Suppose that base
+image is updated, then a build will be triggered for your image.
 
-The source option can be set to a named branch or a tag and the docker tag must also be specified. The build context helps if you have [multiple docker configurations stored together](https://github.com/shrysr/sr-ds-docker).
+The source option can be set to a named branch or a tag and the docker
+tag must also be specified. The build context helps if you have [multiple
+docker configurations stored together](https://github.com/shrysr/sr-ds-docker).
 
-Note also below that Environment variables can be specified thus enabled a more customised deployment of the image. The variable can be used to specify things like the username and password,  Rstudio version or r-base version, etc. Docker image tags are typically used to demarcate these more easily.
+Note also below that Environment variables can be specified thus enabled
+a more customised deployment of the image. The variable can be used to
+specify things like the username and password, Rstudio version or r-base
+version, etc. Docker image tags are typically used to demarcate these
+more easily.
 
 Here's how the build activity looks like on Dockerhub:
 
@@ -224,3 +268,6 @@ Github analyses a repository when CI is setup and recommends basic templates dep
 > Building and testing your code requires a server. You can build and test updates locally before pushing code to a repository, or you can use a CI server that checks for new code commits in a repository.
 >
 > You can configure your CI workflow to run when a GitHub event occurs (for example, when new code is pushed to your repository), on a set schedule, or when an external event occurs using the repository dispatch webhook.
+
+-   Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2020-04-08 Wed 21:43] </span></span> <br />
+    Edited for clarity, brevity, grammar and typos.
