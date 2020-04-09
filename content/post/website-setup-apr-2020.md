@@ -1,16 +1,21 @@
 +++
-title = "How this website is (currently) deployed"
+title = "Automating the deployment of my Hugo site"
 author = ["Shreyas Ragavan"]
-lastmod = 2020-04-09T10:29:11-07:00
-tags = ["hugo", "wordpress", "website", "emacs", "orgmode"]
+lastmod = 2020-04-09T11:29:24-07:00
+tags = ["hugo", "wordpress", "website", "emacs", "org-mode"]
 categories = ["General"]
-draft = true
+draft = false
 +++
 
-This website is based off Hugo. The entire source is available as a Git
-repo at shrysr/sr-hugo.
+This website is based off [Hugo](https://gohugo.io). The complete source is available as a
+Git repo at [shrysr/sr-hugo](https://github.com/shrysr/hugo-sr). Currently, my only actions are to make
+changes to an Org source file and export the same via ox-hugo.
 
-The website is hosted on a Linode VPS running Debian. Since I started
+> Even the export of the subtree or the file via [ox-hugo](https://ox-hugo.scripter.co/) can be automated
+> via the TODO/DONE states. I currently prefer not to do so, but intent to
+> gravitate to that soon.
+
+The website is hosted on a Linode VPS running a Debian OS. Since I started
 off with a self-hosted Wordpress setup, I have a LAMP stack set
 up.
 
@@ -45,15 +50,32 @@ deploying changes.
 3.  Once satisfied, the changes are consolidated in useful commits and
     pushed to the github repo. It makes no difference whether the repo is
     on github or any other git system.
-4.  A cron job is setup on the VPS, as _root_ to pull in the git changes
-    and deploy the website to the location set up with the Apache configuration.
+4.  A cron job is setup on the VPS, as _root_ to call a script. The
+    script starts the hugo process with an additional _watch_ flag in the
+    background. Next it pulls in the git changes and the watch process
+    will deploy the website to the location set up being served via the
+    Apache configuration.
     1.  The reason a root job is required is that the directory exposed to
-        the internet is root controlled.
+        the internet is owned by _root_ .
     2.  The git pull using _root_ has to be specified as to be run under
         the specified user unless one is willing to install necessary SSH
         keys for the root as well.
     3.  The cron job actually calls a script every 10 minutes, because it
         is easier to edit a script.
+    4.  The trick of exiting a background process started by the script is
+        to use a _trap_ as described in <sup id="5aad1e5e2d44edaa5749175e011f528c"><a href="#nil-2017-scrip-start-stop" title="@misc{nil-2017-scrip-start-stop,
+          author =	 {nil},
+          howpublished =
+                          {https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/},
+          note =	 {Online; accessed 09 April 2020},
+          title =	 {A Script to Start (and Stop!) Background Processes in
+                          Bash},
+          year =	 2017,
+        }">nil-2017-scrip-start-stop</a></sup>.
+    5.  My understanding is that the _watch_ process builds the website,
+        compares it with the destination and will sync only the updates in
+        any case. If the `-d` flag was used alone, it means the website is
+        essentially re-constructed from scratch and pushed each time.
 
 The cron job is created for root using `sudo crontab -e`, and it looks
 like this:
@@ -66,15 +88,29 @@ like this:
 #!/usr/bin/env zsh
 
 # Script to git pull hugo site repo and deploy. This script is called by
-# a cron job. Replace username with your username Note that I have
-# compiled go from the source to obtain the latest version which was
+# a cron job. Replace username with your username. Note that I have
+# compiled go from the source to obtain a specific version which was
 # necessary for my theme and also to maintain parity with my local hugo
 # version. This can be added to my path if desired. Since only limited
-# commands are run using hugo at the moment, I am not doing so.
+# commands are run using hugo at the moment, I have not yet done so.
 
+# Setup the trap. This will ensure the background process is killed when
+# the script is finished.
+trap "kill 0" EXIT
+
+# Hugo project root directory. It's easier to work from here.
 cd /home/username/hugo-sr
+
+# Start the hugo watch process in the background to monitor the hugo
+# root directory and send updates to the destination, if any.
+/home/username/go/bin/hugo -w -d /var/www/html/website.name/public_html/ &
+
+# Pull in the latest from the remote
 sudo -u username git pull
-/home/username/go/bin/hugo -d /var/www/html/website.name/public_html/
+
+# Sleep for good measure though hugo generates the site in seconds
+sleep 2m
+
 ```
 
 <div class="src-block-caption">
@@ -89,7 +125,10 @@ Here's a picture of how my local setup looks right now in Emacs:
 > I use the excellent ox-hugo package to maintain my entire blog in a
 > single Org file. Any screenshots or pictures are simply added via drag
 > and drop (org-web-tools and org-download) and ox-hugo takes care of
-> exporting the pictures the correct directory.
+> exporting the pictures the correct directory. I doubt it can get too
+> much easier than it is right now. The only thing that would make it
+> easier if I just commit an Org source file, and have an automated
+> process to check whether the site builds as expected or not.
 
 
 ## Some alternative approaches: {#some-alternative-approaches}
@@ -110,12 +149,30 @@ Here's a picture of how my local setup looks right now in Emacs:
     website generation to be independent of a git commit.
 
 
-## Planned updates {#planned-updates}
+## Conclusions {#conclusions}
 
-It is inefficient to have hugo generate the website every 10 minutes,
-even if there is no change to the files. I need to introduce a
-pre-condition check for the hugo command to check whether there have
-been any changes in the file. One way of doing this is described well at
-[bash - Check if pull needed in Git - Stack Overflow](https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git), however, I would
-like something a little simpler, as in checking the output message of
-git pull.
+I've tested the above and it works satisfactorily. The deployment is
+automated, and is reasonably efficient, though there is always scope to
+make it better.
+
+-   [ ] Perhaps introduce a pre-condition check for the hugo command to
+    check whether there have been any changes in the pull at all. One way of
+    doing this is described well at [bash - Check if pull needed in Git -
+    Stack Overflow](https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git).
+
+-   [ ] Enable website deployment with only the commit of an Org file,
+    along with appropriate tests and checks that the website does
+    build. Perhaps this will need the integration of a CI service, or I
+    wonder if I could have a simple email or message dropped from my VPS,
+    using something like [Gotify](https://gotify.net/docs/).
+
+# Bibliography
+<a id="nil-2017-scrip-start-stop"></a>[nil-2017-scrip-start-stop] @miscnil-2017-scrip-start-stop,
+  author =	 nil,
+  howpublished =
+                  https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/,
+  note =	 Online; accessed 09 April 2020,
+  title =	 A Script to Start (and Stop!) Background Processes in
+                  Bash,
+  year =	 2017,
+ [↩](#5aad1e5e2d44edaa5749175e011f528c)
