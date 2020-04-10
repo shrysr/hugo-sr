@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role:
+role: 
 
 # Organizations/Affiliations
 #organizations:
@@ -74,7 +74,8 @@ email: "shreyas@fastmail.com"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
-#user_groups:
+user_groups:
+- Administration
 #- Researchers
 #- Visitors
 ---
@@ -85,13 +86,3 @@ Armed with a strong background in **analytics** that started in computational ph
 
 I'm frequently available on IRC with the nickname shrysr on a bunch of channels, especially #emacs. I'm active on Linked in and Github, and occassionally on Twitter.
 
------------------
-
-### [Projects](/#projects "Project portfolio")   | <small> a portfolio of my projects.</small>
-### [Experience](/experience/ "Work Experience") | <small> Skills, Commendations, Work Experience timeline and Course Certificates.</small>
-### [Notes](/docs/ "Technical notes, tutorials, project reports, notes on various topics.")  | <small> growing brain dump on various topics, mostly technical.</small>
-### [My Blog](/post/ "Blog posts") | <small> opinionated articles on productivity, Emacs, software tools and other general topics. </small>
-### [Project Reports](/publication)  | <small> some detailed reports from past projects. </small>
-### [Tag Cloud](/#tags "Tag cloud of the website") | <small> for general browsing. </small>
-
-------------------
