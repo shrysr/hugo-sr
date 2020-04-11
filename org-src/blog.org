@@ -1,5 +1,5 @@
 #+AUTHOR: Shreyas Ragavan
-#+hugo_base_dir: ~/hugo-sr/
+#+hugo_base_dir: ~/my_org/hugo-sr/
 #+hugo_section: post
 #+hugo_auto_set_lastmod: nil
 #+hugo_weight: auto
