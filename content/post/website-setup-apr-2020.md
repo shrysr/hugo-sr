@@ -9,6 +9,11 @@ profile = true
 toc = true
 +++
 
+-   Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2020-04-11 Sat 16:27] </span></span> <br />
+    Updated post and the cron job script + notes based on an illuminating
+    conversation with R2robot in the Hugo IRC channel ##hugo. IRC
+    rocks.. most of the time.
+
 This website is based off [Hugo](https://gohugo.io). The complete source is available as a
 Git repo at [shrysr/sr-hugo](https://github.com/shrysr/hugo-sr). Currently, my only actions are to make
 changes to an Org source file and export the same via ox-hugo.
@@ -52,18 +57,24 @@ deploying changes.
 3.  Once satisfied, the changes are consolidated in useful commits and
     pushed to the github repo. It makes no difference whether the repo is
     on github or any other git system.
-4.  A cron job is setup on the VPS, as _root_ to call a script. The
-    script starts the hugo process with an additional _watch_ flag in the
+4.  A cron job is setup on the VPS, to call a script. The script starts
+    the hugo process with an additional _watch_ flag in the
     background. Next it pulls in the git changes and the watch process
     will deploy the website to the location set up being served via the
     Apache configuration.
-    1.  The reason a root job is required is that the directory exposed to
-        the internet is owned by _root_ .
-    2.  The git pull using _root_ has to be specified as to be run under
-        the specified user unless one is willing to install necessary SSH
-        keys for the root as well.
+    1.  It is generally neither recommended nor required for the user
+        files being served by Apache to be owned by root. Instead, the
+        files can be owned by the user (who can have a login account if
+        needed), and the document root can be owned by a user that is
+        still not necessarily root.
+    2.  Note that using an entirely different user may mean installing the
+        necessary SSH keys for that user as well to be able to pull in via
+        git. Technically, if this is a production server, the HTTPS based
+        pulling is sufficient. However, this being a personal server,
+        there are some rare occasions when I want to work directly on the
+        headless server.
     3.  The cron job actually calls a script every 10 minutes, because it
-        is easier to edit a script.
+        is easier to edit a script than write a verbose command in cron.
     4.  The trick of exiting a background process started by the script is
         to use a _trap_ as described in [A Script to Start (and Stop!)
         Background Processes in Bash](https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/,).
@@ -71,8 +82,17 @@ deploying changes.
         compares it with the destination and will sync only the updates in
         any case. If the `-d` flag was used alone, it means the website is
         essentially re-constructed from scratch and pushed each time.
+        1.  [ ] Note that this is yet to be verified. Technically, the hugo
+            watch process would have to build the current website, and then
+            compare it with the destination website to know whether they
+            match. One way to verify this would be check the time stamps of
+            the files in the generated hugo directory. 7
 
-The cron job is created for root using `sudo crontab -e`.
+A cron job is usually created using `crontab -e`. Note that the same
+approach can be used to create/edit crontabs for other `user` using the
+`sudo -u user crontab -e`. Also note that apparently variables like
+`$HOME` do get expanded by cron jobs since these are probably globally
+defined.
 
 ```sh
 */10 * * * * sh /home/username/src/hugo-pull-deploy.sh
@@ -88,7 +108,7 @@ The cron job is created for root using `sudo crontab -e`.
 
 # Script to git pull hugo site repo and deploy. This script is called by
 # a cron job. Replace username with your username. Note that I have
-# compiled go from the source to obtain a specific version which was
+# compiled hugo from the source to obtain a specific version which was
 # necessary for my theme and also to maintain parity with my local hugo
 # version. This can be added to my path if desired. Since only limited
 # commands are run using hugo at the moment, I have not yet done so.
@@ -105,7 +125,7 @@ cd /home/username/hugo-sr
 /home/username/go/bin/hugo -w -d /var/www/html/website.name/public_html/ &
 
 # Pull in the latest from the remote
-sudo -u username git pull
+git pull
 
 # Sleep for good measure though hugo generates the site in seconds
 sleep 2m
@@ -117,7 +137,7 @@ sleep 2m
   hugo-pull-deploy.sh
 </div>
 
-{{< figure src="/ox-hugo/2020-04-09_09-28-19_CleanShot 2020-04-09 at 09.28.06.png" caption="Figure 1: A picture of how my my current Emacs setup looks like. The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows a nice Treemacs workspace (which is usually how I roll)." >}}
+{{< figure src="/ox-hugo/2020-04-09_09-28-19_CleanShot 2020-04-09 at 09.28.06.png" caption="Figure 1: A picture of how my my current Emacs setup looks like. The window on the left is the Org document where I type content. The top right window is a file explorer in case I want to inspect the markdown export. The bottom right window is the on-going Hugo server. Alternatively, I can eschew the file explorer windows for a nice Treemacs workspace (which is usually how I roll)." >}}
 
 > I use the excellent ox-hugo package to maintain my entire blog in a
 > single Org file. Any screenshots or pictures are simply added via drag
