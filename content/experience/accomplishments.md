@@ -18,6 +18,17 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+[[item]]
+  organization = "Google"
+  organization_url = "https://marketingplatform.google.com/about/analytics/"
+  title = "GAIQ - Google Analytics Individual Qualification"
+  url = "https://skillshop.exceedlms.com/student/path/2938?use_local=true"
+  certificate_url = "https://skillshop.exceedlms.com/student/award/47545829"
+  date_start = "2020-04-14"
+  date_end = ""
+  description = """Intermediate professional certification exam covering the applications of Google
+  Analytics in digital marketing applications."""
+  
 
 [[item]]
   organization = "Google"
@@ -26,7 +37,7 @@ date_format = "Jan 2006"
   url = "https://skillshop.exceedlms.com/student/path/2938?use_local=true"
   certificate_url = "https://analytics.google.com/analytics/academy/certificate/zpGYJpc1Ts-p1lZ3GSQbMA"
   date_start = "2020-04-02"
-  date_end = "2023-04-02"
+  date_end = ""
   description = """Fundamentals of the Google Analytics interface and
   tools and setup for marketing analytics."""
 
@@ -39,7 +50,7 @@ date_format = "Jan 2006"
   url = "https://skillshop.exceedlms.com/student/path/2938?use_local=true"
   certificate_url = "https://analytics.google.com/analytics/academy/certificate/QylpRmk1QNW_X3sgL84nFw"
   date_start = "2020-04-08"
-  date_end = "2023-04-08"
+  date_end = ""
   description = """Advanced insight into using Google Analytics to perform
   segmentation and cohort analysis including analysing the audience,
   business KPI's and other factors that go into marketing analytics."""
