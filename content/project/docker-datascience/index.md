@@ -3,10 +3,10 @@
 date = "2020-01-06"
 
 # Project title.
-title = "Docker driven datascience environment and workflow"
+title = "Docker driven Data Science with R"
 
 # Project summary to display on homepage.
-summary = "Developed a workflow built on Docker (and other tools) to create a reproducible, standard, consistent environment to run a variety of datascience projects and cater to development and production modes. The images enable deploying dashboards like shiny or streamlit.io quickly and with ease and addressing problems with a standadrd toolset."
+summary = "Cascading Docker images adapted from Matrix DS to create a reproducible, standard, consistent environment to run datascience projects and cater to development and production modes. The images enable deploying dashboard frameworks like shiny with rapidity & ease."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
 image_preview = "docker-ds.png"

@@ -1044,6 +1044,27 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 
 * Data Science                                     :@DataScience:DataScience:
 
+** TODO GAIQ certified professional at your service
+
+As the list of certificates in the accomplishments section will
+indicate, I am now GAIQ (Google Analytics Independent Qualified)
+certified. This means that I am able to setup and use Google Analytics
+for your website and help you understand what drives your business by
+analysing the traffic that visits your website.
+
+Having been through the certification and the 3 recommended preparatory
+courses, I can state that it is not exactly 'easy' to attain the
+certification. The number of possibilities to analyse, and setup would
+seem overwhelming at first, but as one gets used to the interface and
+terminology, the beauty of the system in efficiently doing what it does
+becomes apparent, and a little scary. This kind of tracking is the
+reason that norms like the GDPR exist and especially considering the
+explosion of data driven analytics in marketing, one should take privacy
+more seriously.
+
+On the other hand, the amount of information and analysis possible of
+the traffic and customers visitng a website is also staggering.
+
 ** TODO Playing with Google Analytics
 
 As the footer at the very bottom displays - this website is powered by Hugo and based off the Academic theme which has Google Analytics baked in. This is a brief foray into the interesting analyses and workflows possible via Google Analytics (GA). Though I had played around with GA in the past - this activity was inspired by the insights gleaned from Tomi Mester's A/B Testing course where he provides a demo of how he uses GA for his own website.
@@ -2771,8 +2792,6 @@ sudo ufw allow 2222/tcp
 Note that all the current ports open can be listed with the command =ufw status=.
 
 *** TODO The oauth and secret setup process for drone to gitea
-
-
 
 * Footnotes
 
