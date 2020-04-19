@@ -1,21 +1,19 @@
-#+hugo_base_dir: ~/hugo-sr/
+#+hugo_base_dir: ~/my_org/hugo-sr/
 #+hugo_auto_set_lastmod: t
 #+hugo_weight: auto
 #+OPTIONS: toc:t
-
 
 * DONE Federal R&D Spending on climate change
 CLOSED: [2019-11-01 Fri 14:27]
 :PROPERTIES:
 :ID:       875A2F42-EF95-43E2-96A3-9CAE594DB1BE
-:EXPORT_HUGO_SECTION: project/goiyale
+:EXPORT_HUGO_SECTION: project/fed-rnd-spending-tt1
 :EXPORT_HUGO_TAGS: R EDA ggplot TidyTuesday Data-Science
 :EXPORT_HUGO_CATEGORIES: R project EDA DataScience
 :EXPORT_DATE: [2019-11-01 Fri 13:29]
 :EXPORT_FILE_NAME: index.md
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :profile false
-:header-args: :session tt :mkdirp yes :results output :exports both :tangle ~/hugo-sr/static/scripts/tt1-fed-rnd.R
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :profile false
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :profile true
+:header-args: :session tt :mkdirp yes :results output :exports both :tangle ~/my_org/hugo-sr/static/scripts/tt1-fed-rnd.R
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :summary "An EDA using `R` of federal government data of thre R&D budget towards Climate Change."
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :image_preview fed-rnd-spending-1.png
 :END:
@@ -60,7 +58,7 @@ All packages loaded successfully
 
 Since this is a small dataset, the data can be read in directly from Github into memory.
 
-#+BEGIN_SRC R  :results verbatim
+#+BEGIN_SRC R :results verbatim
                                         # Reading in data directly from github
 climate_spend_raw  <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-12/climate_spending.csv", col_types = "cin")
 
@@ -100,27 +98,29 @@ Some Notes on the data:
 
 An overview of missing data can be easily scrutinised using the =plot_intro= command, and actual numbers can be extracted using =introduce=. These functions are from the =DataExplorer= package.
 
-#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/plot-intro.png :res 100 :width 800 :height 500
+#+BEGIN_SRC R  :results graphics file :file ./plot-intro.png :res 100 :width 800 :height 500
 ##plot_str(climate_spend_raw, type = 'r')
 plot_intro(climate_spend_raw)
 ##introduce(climate_spend_raw)
 #+END_SRC
 
 #+RESULTS:
-[[file:~/hugo-sr/static/img/plot-intro.png]]
+[[file:./plot-intro.png]]
 
 There are no missing values or NA's.
 
 For a quick look at the outliers, we can use a boxplot, using DataExplorer's functions.
 
 
-#+BEGIN_SRC R :results graphics :file ~/hugo-sr/static/img/variance-spend.png :res 100 :width 800 :height 500
+#+BEGIN_SRC R :results graphics file :file ./variance-spend.png :res 100 :width 800 :height 500
 variance_climate_spend <- plot_boxplot(climate_spend_raw, by = "year")
 #+END_SRC
 
+#+RESULTS:
+[[file:./variance-spend.png]]
+
 #+CAPTION: It can be seen above that there are not many outliers. Subsequent visualisations will show that NASA is the most significant outlier. The median spending has been increasing over the years.
 #+RESULTS:
-[[file:~/hugo-sr/static/img/variance-spend.png]]
 ** Data Conditioning
 :PROPERTIES:
 :ID:       20B7F29F-B310-4E86-979A-4741DB1DAA06
@@ -162,7 +162,7 @@ climate_spend_dept_y <- climate_spend_conditioned %>%
 
 Lets see how much money has been budgeted in each department towards R&D in climate change from 2000 to 2017.
 
-#+BEGIN_SRC R  :results verbatim :exports code
+#+BEGIN_SRC R :exports code
 climate_spend_conditioned %>%
   select(-c(gcc_spending_txt, year_dt)) %>%
   group_by(department) %>%
@@ -174,6 +174,7 @@ climate_spend_conditioned %>%
        )
 
 #+END_SRC
+
 
 | Department      | Total Spend from 2000-2017 |
 |-----------------+----------------------------|
@@ -250,7 +251,7 @@ climate_spend_plt_fn <- function(
 
 Calling the function and passing in the entire date (year) range of 2000-2010. Note that for a single year, have both the arguments =y_range_low= and =y_range_high= equal to the same year.
 
-#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/fed-rnd-spending-1.png :width 800 :height 900 :res 100
+#+BEGIN_SRC R :results graphics file :file ./fed-rnd-spending-1.png :width 800 :height 900 :res 100
 climate_spend_plt_fn(climate_spend_dept_y,
                      y_range_low = 2000,
                      y_range_hi = 2010,
@@ -260,10 +261,9 @@ climate_spend_plt_fn(climate_spend_dept_y,
 
 #+CAPTION: R&D Budget towards Climate Change from year 2000-2010 across departments.
 #+RESULTS:
-[[file:~/hugo-sr/static/ox-hugo/fed-rnd-spending-1.png]]
+[[file:./fed-rnd-spending-1.png]]
 
-
-#+BEGIN_SRC R  :results graphics :file ~/hugo-sr/static/img/fed-rnd-spending-2.png :width 800 :height 900 :res 100
+#+BEGIN_SRC R  :results graphics file :file ./fed-rnd-spending-2.png :width 800 :height 900 :res 100
 climate_spend_plt_fn(climate_spend_dept_y,
                      y_range_low = 2011,
                      y_range_hi = 2017,
@@ -273,7 +273,7 @@ climate_spend_plt_fn(climate_spend_dept_y,
 
 #+CAPTION: R&D Budget towards Climate Change from year 2011-2017 across departments.
 #+RESULTS:
-[[file:~/hugo-sr/static/ox-hugo/fed-rnd-spending-2.png]]
+[[file:./fed-rnd-spending-2.png]]
 
 ** Some Concluding statements
 
