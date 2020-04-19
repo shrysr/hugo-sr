@@ -18,15 +18,9 @@ Visit my website at https://shreyas.ragavan.co
 
 ** [[file:themes/hugo-academic/][Academic Theme directory]]
 
-* Scripts
-Serving Hugo
+* Cloning refined theme from kaushal modi
 
-#+BEGIN_SRC sh :tangle
-cd ~/my_gits/hugo-sr/
-hugo serve
-#+END_SRC
-
-* Cloning Scripter theme from kaushal modi
+- https://gitlab.com/kaushalmodi/hugo-theme-refined
 
 #+BEGIN_SRC shell
 cd themes
@@ -38,23 +32,65 @@ git clone https://github.com/kaushalmodi/hugo-debugprint hugo-debugprint
 #+END_SRC
 
 #+RESULTS:
-* Cloning the modified ghostwriter theme that is indiewebified
-
-See https://github.com/am1t/ghostwriter
-
-#+BEGIN_SRC shell
-cd themes
-git clone https://github.com/am1t/ghostwriter.git
-#+END_SRC
-
-#+RESULTS:
-* Script to pull and deploy the hugo site to the webserver location
+* Deploy hugo site to the webserver location
 
 #+BEGIN_SRC sh
 git pull
-hugo -d ~/hugo-pub
+hugo -d /var/www/html/shreyas.ragavan.co/public_html/
 #+END_SRC
 
-#+BEGIN_SRC sh :dir "/sudo::~/hugo-sr" :cache no
-cp -r ~/hugo-pub/* /var/www/html/shreyas.ragavan.co/public_html/
-#+END_SRC
+* Notes on implementing the refined theme
+- Note taken on [2020-04-19 Sun 11:18]
+
+Summary: In general, the port can take place without major
+issues. However, a lot of re-factoring will be required to adapt to the
+refine theme over academic. The readability and the content focus of
+refined is much better than than the JS heavy approach of academic. In
+general, the customisation options and possibility the modularity of
+academic is higher.
+
+The following error was being encountered, however, this seeme to have
+disappeared after adding and staging all the theme components which were
+cloned.
+
+#+BEGIN_EXAMPLE
+WARN 2020/04/19 11:06:43 File "" not found, skipping.
+WARN 2020/04/19 11:06:43 found no layout file for "JSON" for kind "home": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2020/04/19 11:06:43 found no layout file for "webappmanifest" for kind "home": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.WARN 2020/04/19 11:06:43 File "" not found, skipping.
+WARN 2020/04/19 11:06:43 found no layout file for "JSON" for kind "home": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2020/04/19 11:06:43 found no layout file for "webappmanifest" for kind "home": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+#+END_EXAMPLE
+
+- [ ] The menu bar in the home page does not seem to get updated
+  automatically by adding pages. However, these are accessible by
+  manually using the links in the URL.
+
+- [ ] The images in blog posts do not link to the high resolution images
+  in this theme, unlike in the academic theme.
+
+RSS/Atom feeds are generated for page separately. This is very handy for
+people to subscribe to specific content. 
+
+Most of the content, including the project pages and code display
+natively, and this is probably thanks to using Ox-hugo.
+
+There is some error with a number of posts with the heading being center
+aligned, rather than left aligned. THe reason is not clear. 
+
+The preamble content for the pages will have to be added manually, if at
+all desired. 
+
+Link to specific portion of the text works out of the box.
+
+- [ ] Site search is not functional at the moment, despite copying the
+  search.md file from Kaushal's own config.
+
+- [ ] The notes sections are rendered as pages, but not as notes as in
+  Kaushal's website. The notes keyword in the title is also not
+  highlighted. This has to be investigated.
+
+- [ ] Tag and category differentiation will have to be enforced, since
+  this theme allows easy access to both the categories as well as the
+  tags. There should be some clear categories of topics, further to
+  which tags can be added without much restriction.
+
