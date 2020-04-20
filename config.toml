@@ -5,8 +5,9 @@ theme = ["hugo-debugprint", "hugo-atom-feed", "hugo-jf2", "hugo-search-fuse-js",
   # https://github.com/tummychow/lanyon-hugo/issues/2#issuecomment-253274278
   # Go date formats: https://golang.org/pkg/time/#pkg-constants
   dateform = "Mon Jan 2, 2006"
+  tagline = "Heuristic Ruminations"
 
-  themecolorbase = "green" # Valid values: "red", "orange", "yellow", "green", "cyan", "blue", "magenta", "brown"
+  themecolorbase = "red" # Valid values: "red", "orange", "yellow", "green", "cyan", "blue", "magenta", "brown"
 
   # Set favicons to true only if the following files are present in the project assets/ dir:
   # - safari-pinned-tab.svg
@@ -41,3 +42,11 @@ theme = ["hugo-debugprint", "hugo-atom-feed", "hugo-jf2", "hugo-search-fuse-js",
   #            "/fonts/iosevka/1.14.1/subset/iosevka-ss08-regular.woff2",
   #            "/fonts/linux-libertine/5.3.0/subset/LinBiolinum_Rah.woff2",
   #            "/fonts/source-sans-pro/2.020R-ro-1.075R-it/subset/SourceSansPro-Regular.woff2"]
+
+[Outputs]
+      # <domain>/atom.xml
+       home = ["HTML", "RSS", "ATOM"]     # default = ["HTML", "RSS"]
+       # <domain>/posts/atom.xml
+       section = ["HTML", "RSS", "ATOM"]  # default = ["HTML", "RSS"]
+       # <domain>/tags/mytag/atom.xml, <domain>/categories/mycat/atom.xml
+       taxonomy = ["HTML", "RSS", "ATOM"] # default = ["HTML", "RSS"]
