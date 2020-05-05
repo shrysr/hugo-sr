@@ -2,7 +2,8 @@
 title = "mosh - for better access to my VPS"
 author = ["Shreyas Ragavan"]
 date = 2019-08-01T08:42:00-07:00
-tags = ["mosh", "linux", "vps", "ufw"]
+tags = ["mosh", "linux", "vps", "ufw", "remote", "shell"]
+categories = ["General", "DevOps"]
 draft = false
 profile = false
 +++

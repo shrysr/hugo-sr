@@ -2,15 +2,20 @@
 title = "Notes - What they forgot to teach you about R"
 author = ["Shreyas Ragavan"]
 date = 2020-01-20T09:08:00-08:00
-tags = ["R", "Data-Science", "programming"]
+tags = ["R"]
 categories = ["DataScience"]
 draft = false
 profile = false
 +++
 
-The [book](https://rstats.wtf/), 'What they forgot to teach you about R' being co-authored by <https://twitter.com/JennyBryan @JennyBryan> is not yet completed, however I was still compelled to go through the existing material as it was an engaging read.
+The [book](https://rstats.wtf/), 'What they forgot to teach you about R' being co-authored by
+<https://twitter.com/JennyBryan%20@JennyBryan> is not finished at the time
+of this post, however I was still compelled to go through the existing
+material as it was an engaging read.
 
-These are some notes captured from the book. Verbatim quotes from the book are encapsulated. My notes and observations are added in plain text.
+These are some notes captured from the book. Verbatim quotes from the
+book are encapsulated. My notes and observations are added in plain
+text.
 
 > I recommend you cultivate a workflow in which you treat R processes (a.k.a. “sessions”) like livestock. Any individual R process and the associated workspace is disposable.
 

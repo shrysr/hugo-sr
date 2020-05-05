@@ -1042,7 +1042,7 @@ The Library of Babel can be made persistent across sessions by loading a specifi
 
 # //www.howardism.org/Technical/Emacs/literate-programming-tutorial.html https://s.ragavan.co/wp-content/uploads/literate-programming-tutorial.html
 
-* Data Science                                     :@DataScience:DataScience:
+* Data Science                                     :@DataScience:
 
 ** TODO GAIQ certified professional at your service
 
@@ -1075,16 +1075,21 @@ Blogs and personal website are generally of the low traffic variety (atleast to 
 CLOSED: [2020-01-20 Mon 09:08]
 :PROPERTIES:
 :ID:       2829E495-7601-4A69-A7AC-9F81654A9B4B
-:EXPORT_HUGO_TAGS: R Data-Science programming
+:EXPORT_HUGO_TAGS: R 
 :HUGO_CATEGORIES:
 :EXPORT_DATE: [2020-01-21 Tue 23:03]
 :EXPORT_FILE_NAME: notes-what-they-forgot-r
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
 :END:
 
-The [[https://rstats.wtf/][book]], 'What they forgot to teach you about R' being co-authored by [[https://twitter.com/JennyBryan @JennyBryan]] is not yet completed, however I was still compelled to go through the existing material as it was an engaging read.
+The [[https://rstats.wtf/][book]], 'What they forgot to teach you about R' being co-authored by
+[[https://twitter.com/JennyBryan @JennyBryan]] is not finished at the time
+of this post, however I was still compelled to go through the existing
+material as it was an engaging read.
 
-These are some notes captured from the book. Verbatim quotes from the book are encapsulated. My notes and observations are added in plain text.
+These are some notes captured from the book. Verbatim quotes from the
+book are encapsulated. My notes and observations are added in plain
+text.
 
 #+BEGIN_QUOTE
 I recommend you cultivate a workflow in which you treat R processes (a.k.a. “sessions”) like livestock. Any individual R process and the associated workspace is disposable.
@@ -1148,10 +1153,9 @@ Here's a picture of my terminal tab. So this is a single tab open on my local co
 ** DONE A graphic overview of the 'binary' with respect to R packages
 CLOSED: [2020-01-18 Sat 20:28]
 :PROPERTIES:
-:EXPORT_HUGO_TAGS: DataScience R
+:EXPORT_HUGO_TAGS: R visual-notes binary 
 :EXPORT_DATE: [2020-01-18 Sat 20:20]
 :EXPORT_FILE_NAME: graphic-overview-binary
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false :toc true
 :END:
 
 Recently there was a question as to what a Binary is, building off a question [[https://community.rstudio.com/t/meaning-of-common-message-when-install-a-package-there-are-binary-versions-available-but-the-source-versions-are-later/2431][posted on the Rstudio community forum]]. I've always found these aspects interesting, and a little hard to keep track of the connections and flow - So I've made a flowchart that will help me remember and hopefully explain what is happening to a noob.
@@ -1162,16 +1166,14 @@ So: Lets pretend the binary is a capsule to be swallowed by the computer to gain
 
 Binaries can be built and maintained if you desire. There should be people maintaining their own binaries or frozen versions as well. The question is - who is going to maintain them and how many binaries can you build.
 
-[[~/hugo-sr/static/img/binaries-source-code-11.jpg]]
+[[~/my_org/hugo-sr/static/img/binaries-source-code-11.jpg]]
 
-** DONE Some notes on research-compendium                    :R:DataScience:
+** DONE Some notes on research-compendium                                :R:
 CLOSED: [2019-11-08 Fri 22:48]
 :PROPERTIES:
 :ID:       308FA974-9427-40A8-96B6-CCC9C5A32F37
-:CATEGORY: Data Science, R
+:CATEGORY: R
 :POST_DATE: [2019-09-01 Sun 23:23]
-:POSTID:   1082
-:BLOG:     wp01
 :END:
 
 These are my notes while studying the research-compendium concept, which is essentially a bunch of guidelines to produce research that is 'easily' reproducible.
@@ -1295,13 +1297,13 @@ filter(!duplicated(ItemName))
 
 Method:  regex search for a pattern in a specified column or columns  and populate another column with say a category that you specify.
 
-** DONE [#C] Setting up Continuous Integration (CI) for docker containers :@Docker:
+** DONE Setting up Continuous Integration (CI) for docker containers :@Docker:
 CLOSED: [2020-01-21 Tue 22:30]
 :PROPERTIES:
 :CREATED:  [2020-01-19 Sun]
 :PLANNED:  <2020-01-19 Sun 09:44>
 :ID:       0DD6CF5C-33B0-4779-A571-620184F5412D
-:EXPORT_HUGO_TAGS: docker CI Data-Science
+:EXPORT_HUGO_TAGS: docker CI R
 :HUGO_CATEGORIES:
 :EXPORT_DATE: [2020-01-21 Tue 22:28]
 :EXPORT_FILE_NAME: ci-for-docker-containers
@@ -1636,7 +1638,46 @@ The file might be too large to encrypt it directly via the travis encrypt comman
 #+END_QUOTE
 *** TODO Adding dockerhub credentials using travis CLI
 * General                                                          :@General:
-** DONE Automating the deployment of my Hugo site
+** TODO Some useful Alfred workflows and the first two I've made
+:LOGBOOK:
+CLOCK: [2020-04-21 Tue 12:15]--[2020-04-21 Tue 19:33] =>  7:18
+:END:
+
+I've been a long time subscriber of Alfred's Pro version on the Mac OS.
+
+A bunch of workflows are available on [[https://www.packal.org/workflow-list][Packal]]. Workflows has fascinated
+me as a potential base which could spawn the building of automated
+workflows where most of my daily needs were available at my finger
+tips. However, over the years - I've still barely scratched the surface
+or taken special efforts to hack beyond the available workflows. Perhaps
+my only defence is that I found workflows that catered well enough to my
+needs.
+
+Some excellent workflows that I use on a daily basis are: 
+
+1. Localhost : simply type lh <port number> and the browser window will
+   open to the specified port number. This invaluable for almost
+   everything, starting from previewing a Hugo website, or viewing a
+   flask app, or the web interface of a docker container and so on.
+
+2. github search:  with a simple =gh= I can search for repositories
+   right from Alfred and open the website directly to the
+   repository. This is definitely faster than a browser bookmark.
+
+3. docker 
+
+This brings to the workflows I just made. These are exceedingly simple,
+but I've not found any mention of the matter in the internet and thought
+it was worth writing about. 
+
+The workflows are attached below, and so if you are Emacs and Alfred
+user - you can simply download and import the workflows into Alfred. 
+
+[[file:~/Documents/Emacsclient-alfred-workflow.alfredworkflow]]
+
+[[file:~/Documents/Emacs daemon.alfredworkflow]]
+
+** DONE Automating the deployment of my Hugo site                  :@DevOps:
 CLOSED: [2020-04-09 Thu 12:09]
 :PROPERTIES:
 :EXPORT_HUGO_TAGS: hugo wordpress website emacs org-mode cron shell
@@ -1649,7 +1690,7 @@ CLOSED: [2020-04-09 Thu 12:09]
   rocks.. most of the time.
 
 This website is based off [[https://gohugo.io][Hugo]]. The complete source is available as a
-Git repo at [[https://github.com/shrysr/hugo-sr][shrysr/sr-hugo]]. Currently, my only actions are to make
+Git repo at [[https://github.com/shrysr/hugo-sr][shrysr/hugo-sr]]. Currently, my only actions are to make
 changes to an Org source file and export the same via ox-hugo.
 
 #+BEGIN_QUOTE
@@ -1852,14 +1893,14 @@ My initial catch-all database was Evernote. However, the constant changes in sub
 
 As I work increasingly on the command and go ever deeper into using Emacs for everything - I discovered Pinboard early this year. The simplicity of the interface, and the ability to archive pages, as well as the easy possibility to
 
-** DONE mosh - for better access to my VPS                        :vps:mosh:
+** DONE mosh - for better access to my VPS                         :@DevOps:
 CLOSED: [2019-08-01 Thu 08:42]
 :PROPERTIES:
 :ID:       33616360-e81c-4c51-a856-d2ebc15bc246
 :POST_DATE: [2019-08-01 Thu 08:42]
 :POSTID:   196
 :BLOG:     srwp01
-:EXPORT_HUGO_TAGS: mosh linux vps ufw
+:EXPORT_HUGO_TAGS: mosh linux vps ufw remote shell
 :HUGO_CATEGORIES:
 :EXPORT_DATE: [2020-01-18 Sat 20:44]
 :EXPORT_FILE_NAME: mosh-vps-note
@@ -2120,15 +2161,12 @@ successfully complete the challenge the entity must both:
 - Brief exploration of ACME and it was quite interesting to go through the draft standard, though it will take a lot more effort to fully comprehend all the tests. I think it is likely that I have visit this in more detail as I make progress in learning about encryption.
 - Learned about the existence of '[[https://en.wikipedia.org/wiki/Internet_Standard][Internet Standards]]'. These are documented by one or more documents called RFC's (Request for Comments) and revised until deemed satisfactory to become a standard.
 
-** DONE Incremental improvements can lead to significant gains :Productivity:Emacs:Orgmode:
+** DONE Incremental improvements can lead to significant gains :@Productivity:Emacs:Orgmode:
 CLOSED: [2019-01-19 Sat 19:33]
 :PROPERTIES:
 :CREATED:  <2018-11-12 Mon 17:17>
 :ID:       32266F09-C9B9-48FF-9C48-E2348EEDA33D
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
-:POST_DATE: [2018-11-12 Fri 09:31]
-:POSTID:   711
-:BLOG:     wordpress
+:EXPORT_FILE_NAME: incremental-improvements-significant-gain
 :END:
 :LOGBOOK:
 CLOCK: [2018-11-18 Sun 09:03]--[2018-11-18 Sun 10:18] =>  1:15
@@ -2146,7 +2184,7 @@ Choosing Emacs had unexpected rewards as well. For example, the need of synchron
 
 My journey with Emacs is testament that an incremental, compounding improvement over time can ultimately result in significant gains. It is also important to acknowledge that I am standing on the shoulder of giants and the awesome [[https://github.com/jkitchin/scimax][Scimax]] is a cornerstone in my toolkit.
 
-** DONE Getting productive - an exploration into holistic task management :Productivity:Orgmode:Emacs:
+** DONE Getting productive - an exploration into holistic task management :@Productivity:Orgmode:Emacs:
 CLOSED: [2019-01-19 Sat 19:37]
 :PROPERTIES:
 :HUGO_TAGS:
@@ -2356,16 +2394,13 @@ workflows. Using Org mode and Emacs is a firm step in this direction.
 CLOSED: [2019-01-19 Sat 19:37]
 :PROPERTIES:
 :CREATED:  <2018-06-02 Sat 22:08>
-:TAGS:  productivity, tools, software
+:EXPORT_HUGO_TAGS:  tools software
 :ID:       EC354A8E-A276-4C89-8560-CE82B1693744
-:HUGO_TAGS:
 :CATEGORIES: productivity, tools, software
 :EXPORT_DATE: [2019-01-19 Sat 19:34]
 :EXPORT_FILE_NAME: evernote-to-devonthink
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
 :POST_DATE: [2018-06-22 Fri 15:51]
-:POSTID:   65
-:BLOG:     srwp01
 :END:
 
 I've used [[https://evernote.com/][Evernote]] since 2014, with over 3k notes of all kinds stored
@@ -2496,7 +2531,7 @@ CLOSED: [2019-01-26 Sat 07:51]
 :CREATED:  <2018-07-07 Sat 19:41>
 :TITLE:    Back to RSS
 :ID:       C641A230-37C9-46AA-84EB-E78CC00D0C7E
-:HUGO_TAGS:
+:EXPORT_HUGO_TAGS: rss
 :HUGO_CATEGORIES:
 :EXPORT_DATE: [2019-01-19 Sat 19:36]
 :EXPORT_FILE_NAME: back-to-rss
@@ -2553,18 +2588,14 @@ It would be ideal to setup my own server which will process the RSS feeds. Perha
 
 For now, I guess I will have to rely on Feedly.
 
-** DONE An SSD can breathe life into old computers :Productivity:Emacs:Linux:
+** DONE An SSD can breathe life into old computers :@Productivity:Emacs:Linux:
 CLOSED: [2019-01-19 Sat 19:37]
 :PROPERTIES:
 :CREATED:  <2018-07-10 Tue 11:16>
 :ID:       01252410-853F-4570-858F-F3D609F5DEF5
 :HUGO_DATE: [2018-07-10 Tue 11:32]
-:HUGO_TAGS:
-:HUGO_CATEGORIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :profile false
-:POST_DATE: [2018-07-10 Tue 09:34]
-:POSTID:   701
-:BLOG:     wordpress
+:EXPORT_FILE_NAME: 01252410-853F-4570-858F-F3D609F5DEF5
 :END:
 
 It's a well known trick that installing a [[https://www.storagereview.com/ssd_vs_hdd][SSD]] in place of the

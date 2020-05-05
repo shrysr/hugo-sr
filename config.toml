@@ -1,11 +1,13 @@
 theme = ["hugo-debugprint", "hugo-atom-feed", "hugo-jf2", "hugo-search-fuse-js", "refined"]
-
+title = "Shreyas Ragavan"
 # Default values of custom site.Params
 [Params]
   # https://github.com/tummychow/lanyon-hugo/issues/2#issuecomment-253274278
   # Go date formats: https://golang.org/pkg/time/#pkg-constants
   dateform = "Mon Jan 2, 2006"
+  mainSections = ["post", "notes", "project"]
   tagline = "Heuristic Ruminations"
+
 
   themecolorbase = "red" # Valid values: "red", "orange", "yellow", "green", "cyan", "blue", "magenta", "brown"
 
@@ -50,3 +52,25 @@ theme = ["hugo-debugprint", "hugo-atom-feed", "hugo-jf2", "hugo-search-fuse-js",
        section = ["HTML", "RSS", "ATOM"]  # default = ["HTML", "RSS"]
        # <domain>/tags/mytag/atom.xml, <domain>/categories/mycat/atom.xml
        taxonomy = ["HTML", "RSS", "ATOM"] # default = ["HTML", "RSS"]
+
+
+ [[Params.social]]
+    name = "Github"
+    link = "https://github.com/shrysr/"
+    relme = true
+[[Params.social]]
+    name = "Keybase.io"
+    link = "https://keybase.io/shrysr"
+    icon = "keybase"
+[[Params.social]]
+    name = "Linkedin"
+    link = "https://www.linkedin.com/in/shreyasragavan/"
+    icon = "linkedin"
+
+[Social]
+  github = "shrysr"
+  twitter = "shreyasragavan"
+
+
+
+

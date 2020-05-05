@@ -2,10 +2,10 @@
 title = "A graphic overview of the 'binary' with respect to R packages"
 author = ["Shreyas Ragavan"]
 date = 2020-01-18T20:28:00-08:00
-tags = ["DataScience", "R"]
+tags = ["R", "visual-notes", "binary"]
 categories = ["DataScience"]
 draft = false
-profile = false
+profile = true
 toc = true
 +++
 

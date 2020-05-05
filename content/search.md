@@ -1,5 +1,5 @@
 title = "Search"
-author = ["Shreyas RAgavan"]
+author = ["Shreyas Ragavan"]
 layout = "search"
 outputs = ["html", "json"]
 draft = false

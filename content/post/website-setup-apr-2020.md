@@ -3,7 +3,7 @@ title = "Automating the deployment of my Hugo site"
 author = ["Shreyas Ragavan"]
 date = 2020-04-09T12:09:00-07:00
 tags = ["hugo", "wordpress", "website", "emacs", "org-mode", "cron", "shell"]
-categories = ["General"]
+categories = ["General", "DevOps"]
 draft = false
 profile = true
 toc = true
@@ -15,7 +15,7 @@ toc = true
     rocks.. most of the time.
 
 This website is based off [Hugo](https://gohugo.io). The complete source is available as a
-Git repo at [shrysr/sr-hugo](https://github.com/shrysr/hugo-sr). Currently, my only actions are to make
+Git repo at [shrysr/hugo-sr](https://github.com/shrysr/hugo-sr). Currently, my only actions are to make
 changes to an Org source file and export the same via ox-hugo.
 
 > Even the export of the subtree or the file via [ox-hugo](https://ox-hugo.scripter.co/) can be automated
