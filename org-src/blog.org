@@ -1636,6 +1636,44 @@ The file might be too large to encrypt it directly via the travis encrypt comman
 #+END_QUOTE
 *** TODO Adding dockerhub credentials using travis CLI
 * General                                                          :@General:
+** TODO Some useful Alfred workflows and the first two I've made
+:LOGBOOK:
+CLOCK: [2020-04-21 Tue 12:15]--[2020-04-21 Tue 19:33] =>  7:18
+:END:
+
+I've been a long time subscriber of Alfred's Pro version on the Mac OS.
+
+A bunch of workflows are available on [[https://www.packal.org/workflow-list][Packal]]. Workflows has fascinated
+me as a potential base which could spawn the building of automated
+workflows where most of my daily needs were available at my finger
+tips. However, over the years - I've still barely scratched the surface
+or taken special efforts to hack beyond the available workflows. Perhaps
+my only defence is that I found workflows that catered well enough to my
+needs.
+
+Some excellent workflows that I use on a daily basis are: 
+
+1. Localhost : simply type lh <port number> and the browser window will
+   open to the specified port number. This invaluable for almost
+   everything, starting from previewing a Hugo website, or viewing a
+   flask app, or the web interface of a docker container and so on.
+
+2. github search:  with a simple =gh= I can search for repositories
+   right from Alfred and open the website directly to the
+   repository. This is definitely faster than a browser bookmark.
+
+3. docker 
+
+This brings to the workflows I just made. These are exceedingly simple,
+but I've not found any mention of the matter in the internet and thought
+it was worth writing about. 
+
+The workflows are attached below, and so if you are Emacs and Alfred
+user - you can simply download and import the workflows into Alfred. 
+
+[[file:~/Documents/Emacsclient-alfred-workflow.alfredworkflow]]
+
+[[file:~/Documents/Emacs daemon.alfredworkflow]]
 ** DONE Automating the deployment of my Hugo site
 CLOSED: [2020-04-09 Thu 12:09]
 :PROPERTIES:
