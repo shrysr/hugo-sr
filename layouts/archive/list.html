@@ -9,7 +9,10 @@
   </small>
   {{ end }}
   <ul class="blog-posts">
-      {{ range (where .Site.RegularPages "Type" "blog") }}
+      {{ $pages := where .Site.RegularPages "Type" "blog" }}
+      {{ $pages := $pages | union (where .Site.RegularPages "Type" "archive") }}
+      {{ $pages := $pages | union (where .Site.RegularPages "Type" "project") }}
+      {{ range $pages.ByDate.Reverse }}
     <li>
       <span>
         <i>
