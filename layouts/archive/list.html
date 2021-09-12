@@ -1,5 +1,7 @@
 {{ define "main" }}
 <content>
+    <h2> Archive </h2>
+    
   {{ if .Data.Singular }}
   <h3 style="margin-bottom:0">Filtering for "{{ .Title }}"</h3>
   <small>
@@ -7,7 +9,7 @@
   </small>
   {{ end }}
   <ul class="blog-posts">
-      {{ range (where .Site.Pages "Type" "blog") }}
+      {{ range (where .Site.RegularPages "Type" "blog") }}
     <li>
       <span>
         <i>
