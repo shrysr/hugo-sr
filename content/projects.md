@@ -1,7 +1,9 @@
 +++
 title = "Projects"
 menu = "main"
-weight = "100"
+weight = 50
 +++
 
-# Hello
+
+
+

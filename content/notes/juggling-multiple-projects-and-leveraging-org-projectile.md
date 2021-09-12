@@ -7,6 +7,7 @@ categories = ["Emacs", "Productivity"]
 draft = false
 profile = false
 toc = true
+type="blog"
 +++
 
 [Scimax](https://github.com/jkitchin/scimax) has a convenient feature of immediately creating projects (`M-x nb-new`). The location of the project directory is defined by the setting `(setq nb-notebook-directory "~/my_projects/")`, which has to be set in your Emacs config. Once the name of the project is chosen, a Readme.org buffer is immediately opened and one can start right away. It is an awesome, friction-free method to get started with a project.
