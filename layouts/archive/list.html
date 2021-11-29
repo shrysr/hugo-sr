@@ -10,18 +10,25 @@
   {{ end }}
   <ul class="blog-posts">
       {{ $pages := where .Site.RegularPages "Type" "blog" }}
-      {{ $pages := $pages | union (where .Site.RegularPages "Type" "archive") }}
+      {{ $pages := $pages | union (where .Site.RegularPages "Type" "notes") }}
       {{ $pages := $pages | union (where .Site.RegularPages "Type" "project") }}
       {{ range $pages.ByDate.Reverse }}
     <li>
       <span>
-        <i>
-          <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
-            {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
-          </time>
+          <i>
+	      <div style="display:flex; width: 8rem;vertical-align:middle;">
+		  <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
+		{{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+		  </time>
+	      </div>
         </i>
       </span>
-      <a href="{{ .Permalink }}">{{ .Title }}</a>
+      <div style="display:flex; width:5rem; vertical-align:left;">
+	  <small> {{ .Type }} </small>
+      </div>
+      <div style="display:flex; vertical-align:middle;">
+	  <a href="{{ .Permalink }}">{{ .Title }}</a> 
+      </div>
     </li>
     {{ else }}
     <li>

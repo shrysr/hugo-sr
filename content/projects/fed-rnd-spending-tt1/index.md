@@ -9,6 +9,8 @@ draft = false
 profile = false
 summary = "An EDA using `R` of federal government data of the R&D budget towards Climate Change."
 weight = 1000
+type ="project"
+
 # Featured image
 # To use, add an image named `featured.jpg/png` to your project's folder.
 [image]
