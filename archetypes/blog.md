@@ -11,5 +11,3 @@ tags = [{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $
 +++
 
 This is a page about »{{ replace .Name "-" " " | title }}«.
-
-

@@ -1,5 +1,8 @@
 {{ define "main" }}
-{{ if eq .Type "blog" }}{{ if not .Params.menu }}
+{{ if or (eq .Type "blog") (eq .Type "notes") (eq .Type "project") }}
+
+{{ if not .Params.menu }}
+
 <h1>{{ .Title }}</h1>
 <p>
   <i>
@@ -30,7 +33,6 @@
     {{ end }}
 </p>
 
-{{ partialCached "toc_on_side.html" . }}
 
 {{ end }}
 

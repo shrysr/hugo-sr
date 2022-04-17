@@ -5,7 +5,7 @@ date = 2019-08-01T08:42:00-07:00
 tags = ["mosh", "linux", "vps", "ufw"]
 draft = false
 profile = false
-type = "blog"
+type = "notes"
 +++
 
 [Mosh](https://mosh.org/) is short for mobile shell, and is useful as an alternative to SSH, especially for poor network conditions, and where one has to frequently switch networks. It works via the UDP port, which has to be specifically enabled. I learnt of mosh through the guys in the #emacs.
