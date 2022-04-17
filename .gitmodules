@@ -11,3 +11,9 @@
 [submodule "themes/zzo"]
 	path = themes/zzo
 	url = git@github.com:shrysr/hugo-theme-zzo.git
+[submodule "themes/minimo"]
+	path = themes/minimo
+	url = https://github.com/shrysr/minimo
+[submodule "themes/hugo-bearblog"]
+	path = themes/hugo-bearblog
+	url = https://github.com/janraasch/hugo-bearblog.git
