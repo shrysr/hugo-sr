@@ -16,18 +16,18 @@
     <li>
       <span>
           <i>
-	      <div style="display:flex; width: 8rem;vertical-align:middle;">
-		  <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
-		{{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+	      <div style="display:flex;vertical-align:middle;">
+		  <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate> <small>
+		      {{ .Date.Format (default "2006, Jan 02" .Site.Params.dateFormat) }} </small>
 		  </time>
 	      </div>
         </i>
       </span>
-      <div style="display:flex; padding:0px 10px 0 10px; vertical-align:middle;">
+      <div style="display:flex; width: 200px; padding:0px 1px 0 1px; vertical-align:middle;">
 	  <small> {{ .Type }} </small>
       </div>
-      <div style="display:flex; padding:0 0 0 20px;width:100rem;vertical-align:middle;">
-	  <a href="{{ .Permalink }}">{{ .Title }}</a> 
+      <div style="display:flex; padding:0 0 0 15px;width:300rem;vertical-align:middle;">
+	  <a href="{{ .Permalink }}">{{ .Title }}</a> {{ .Params.tags }}
       </div>
     </li>
     {{ else }}
