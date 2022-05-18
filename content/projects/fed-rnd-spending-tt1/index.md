@@ -9,15 +9,7 @@ draft = false
 profile = false
 summary = "An EDA using `R` of federal government data of the R&D budget towards Climate Change."
 weight = 1000
-# Featured image
-# To use, add an image named `featured.jpg/png` to your project's folder.
-[image]
-  # Caption (optional)
-  caption = "Photo by Harrison Moore on Unsplash"
-
-  # Focal point (optional)
-  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
-  focal_point = "Smart"
+imgs = ["featured.jpg"]
 +++
 
 ## Summary {#summary}

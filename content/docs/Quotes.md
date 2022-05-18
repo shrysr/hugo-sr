@@ -5,10 +5,8 @@ date = 2019-03-15T11:43:00-06:00
 tags = ["Quotes"]
 draft = false
 linktitle = "Quotes"
-toc = "False"
-[menu.docs]
-  weight = 1001
-  identifier = "quotes"
+toc = "True"
+type = "post"
 +++
 
 ## “I never made one of my discoveries through the process of rational thinking” ― `Albert Einstein` {#i-never-made-one-of-my-discoveries-through-the-process-of-rational-thinking-albert-einstein}
