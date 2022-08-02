@@ -1,4 +1,4 @@
-baseurl: https://shreyas.ragavan.cog
+baseurl: https://shreyas.ragavan.co
 
 languageCode: en-us
 theme: hugo-theme-stack
@@ -8,7 +8,7 @@ title: Fluid Renovations
 languages:
     en:
         languageName: English
-        title: Example Site
+        title: Shreyas Ragavan
         weight: 1
 
 # Change it to your Disqus shortname before using
@@ -26,18 +26,18 @@ DefaultContentLanguage: en
 hasCJKLanguage: false
 
 permalinks:
-    post: /p/:slug/
+    post: /:slug/
     page: /:slug/
 
 params:
     mainSections:
-        - post 
+        - post
     featuredImageField: image
     rssFullContent: true
     favicon:
 
     footer:
-        since: 2020
+        since: 2017
         customText:
 
     dateFormat:
@@ -46,7 +46,7 @@ params:
 
     sidebar:
         emoji: 🍥
-        subtitle: LOLOL.
+        subtitle: Ruminations.
         avatar:
             enabled: true
             local: true
@@ -195,7 +195,7 @@ menu:
 
         - identifier: twitter
           name: Twitter
-          url: https://twitter.com
+          url: https://twitter.com/shreyasragavan
           params:
               icon: brand-twitter
 
