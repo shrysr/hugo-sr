@@ -1,31 +1,9 @@
 +++
-# Date this page was created.
 date = "2013-05-27"
-
-# Project title.
 title = "Contributions to the CFD-Online Wiki"
-
-# Project summary to display on homepage.
 summary = "Documentation (based on actual exploration) to the popular CFD-Online wiki related to getting started with Open Source CFD."
-
-# Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = ""
-
-# Tags: can be used for filtering projects.
-# Example: `tags = ["machine-learning", "deep-learning"]`
 tags = ["documentation", "CFD", "open-source", "Linux"]
-
-# Optional external URL for project (replaces project detail page).
-external_link = ""
-
-# Does the project detail page use math formatting?
-math = false
-
-# Optional featured image (relative to `static/img/` folder).
-[header]
-image = ""
-caption = ":smile:"
-
+sidebar = true
 +++
 
 **View : [CFD-Online Wiki page](<http://www.cfd-online.com/Wiki/What_is_Open_Source%3F>).**

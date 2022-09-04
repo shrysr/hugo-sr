@@ -16,7 +16,7 @@ This repository is pulled every 5 minutes through a cron job on my Linode VPS,
 and the static website is served via Apache. The reason I use Apache instead of
 the Hugo server, is that I also use the same VPS to serve multiple experimental
 sites and wikis. Subsequent to the git pull, the Hugo server is started up to
-build from this source repo and I've found it will only copy over updated or
+build from this source repository and I've found it will only copy over updated or
 modified files to the public directory served by Apache. Since Hugo generates
 the entire site in milliseconds, I can get by with the cron job running every 5
 minutes.
@@ -35,8 +35,7 @@ robust. That is.. for the future.
 Currently, this site uses the [[ https://github.com/frjo/hugo-theme-zen][Hugo Zen theme]], which I am modifying to make 'my
 own'. The earlier theme was a modified version of a much older version of the
 Hugo Academic theme. The main reason was to progressively reduce 'bloat' and
-focus on a content centric design, and eventually reduce the page load and
-Javascript to an absolute minimum.
+focus on content while also using a code base that was more approachable.
 
-No - I am more a hacker, both in skills and spirit and am not any kind of expert
-in web design :) Constructive feedback is always welcome.
+I am just another hacker (/both in skills and spirit/), and not any kind of expert
+in web design. Constructive feedback is always welcome.
