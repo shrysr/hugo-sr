@@ -2,7 +2,7 @@
 title = "Hello"
 author = ["Shreyas Ragavan"]
 draft = false
-sidebar = true
+sidebar = false
 +++
 
 **Welcome** to my personal website and blog!
@@ -20,6 +20,12 @@ Content Overview:
 -   **Archive** -- Lists all the pages on this site in a chronogical manner
 -   **Projects** -- Lists projects and general contributions
 
-> All the views expressed on this site are my own. My views tend to evolve and it
-> is not necessary that older articles reflect my current thinking or even
-> practice on the topic. All constructive feedback and/or corrections are welcome.
+<!--listend-->
+
+-   [Tags](tags)
+
+{{< wrapper box >}}
+-   All the views expressed on this site are my own.
+-   My views have a tendency to evolve. It is not necessary that articles reflect my current thinking or even practice on the topic.
+-   Any constructive feedback and/or corrections are welcome.
+{{< /wrapper >}}
