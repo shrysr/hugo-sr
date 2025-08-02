@@ -24,10 +24,10 @@ params:
   feedlinks: true           # Show feed links in the footer.
   footer: "License"
   icon: ""                  # Relative path to icon in json feed and JSON-LD, no leading slash.
-  image: img/SR-reduced.jpg                 # Relative path to site image in JSON-LD, no leading slash.
+  image: ""                 # Relative path to site image in JSON-LD, no leading slash.
   imageMaxWidth: ""         # Max width for images added via figure shortcode.
   internalPagination: true  # Use Hugos internal pagination template, default false.
-  jquery: true              # Add jQuery, default false.
+  jquery: false              # Add jQuery, default false.
   languageDir: ""           # Set ltr or rtl, defaults to ltr.
   logo: true               # Turn off the logo, defaults to true.
   logoPath: img/SR-reduced.jpeg                 # Relative path to site logo, defaults to "images/logo.png", no leading slash.
@@ -48,12 +48,12 @@ params:
   poweredby: true           # Show powered by hugo in footer
   privacyPolicyUrl: ""      # If set will add link to cookie consent form.
   relatedposts: true        # Show related posts under a "See also" section, default false.
-  sassTranspiler: "libsass"# The Sass transpiler to use, default "libsass".
-  searchLimit: 50           # Max number of search hits, default 20.
+  sassTranspiler: "libsass" # The Sass transpiler to use, default "libsass".
+  searchLimit: 100           # Max number of search hits, default 20.
   sidebar: false             # Show a sidebar to the right, default false.
-  siteName: true           # Hide the site name (visually-hidden), default true.
+  siteName: true             # Hide the site name (visually-hidden), default true.
   submitted: false           # Show author and date information for a post.
-  themeColor: "#e73555"               # Hex color value, used in meta tags, default "#ffffff".
+  themeColor: "#e73555"      # Hex color value, used in meta tags, default "#ffffff".
   umbrella: false            # Add Umbrella JS, default false.
 
   podcast:
