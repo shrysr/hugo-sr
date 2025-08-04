@@ -1,0 +1,3 @@
+{{ $posts := where site.RegularPages "Section" "post" }}
+{{ $randomPost := index (shuffle $posts) 0 }}
+<a href="{{ $randomPost.RelPermalink }}">{{ .Name }}</a>

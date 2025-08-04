@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="nojs" lang="{{ site.Language.LanguageCode | default site.Language.Lang }}" dir="{{ site.Language.LanguageDirection | default "ltr" }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ block "title" . }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+{{ partial "head/meta.html" . }}
+{{ partialCached "head/favicons.html" . }}
+{{ partialCached "head/styles.html" . }}
+{{ partial "head/meta-json-ld.html" . }}
+{{ partial "head/scripts.html" . }}
+{{ partial "head/math.html" . }}
+{{ partialCached "head/tracking.html" . }}
+{{ partial "head/extra.html" . }}
+{{ block "head" . }}{{ end }}
+</head>
+
+<body class="{{ if .IsPage }}single-page{{ else }}list-page{{ end }}{{ if .IsHome }} front{{ end }}{{ with $.Param "bodyclass" }} {{ . }}{{ end }}">
+<div class="page layout__page{{ if $.Param "sidebar" }} layout__sidebar-second{{ end }}">
+<header class="header layout__header">
+{{ if $.Param "logo" | default true -}}
+<a href="{{ site.Home.RelPermalink }}" title="Home" rel="home" class="header__logo">
+<img src="{{ with $.Param "logopath" }}{{ . | relURL }}{{ else }}{{ "images/logo.png" | relURL }}{{ end }}"{{ with $.Param "logowidth" }} width="{{ . }}"{{ end }}{{ with $.Param "logoheight" }} height="{{ . }}"{{ end }} alt="Home" class="header__logo-image">
+</a>
+{{ end -}}
+<h1 class="header__site-name{{ if not ($.Param "sitename" | default true) }} visually-hidden{{ end }}">
+<a href="{{ site.Home.RelPermalink }}" title="Home" class="header__site-link" rel="home"><span>{{ site.Title }}</span></a>
+</h1>
+<div class="region header__region">
+{{ if hugo.IsMultilingual }}{{ partial "language-selector.html" . }}{{ end -}}
+{{ if $.Param "menuinheader" }}{{ partial "menu.html" . }}{{ end -}}
+</div>
+</header>
+
+{{ if not ($.Param "menuinheader") }}{{ partial "menu.html" . }}{{ end -}}
+{{ if $.Param "mobilemenu" }}{{ partial "mobilemenu.html" . }}{{ end -}}
+
+{{ block "main" . }}{{ end }}
+
+{{ if $.Param "sidebar" }}{{ partial "sidebar.html" . }}{{ end -}}
+
+<footer class="footer layout__footer mt--l">
+{{ partial "footer.html" . }}
+</footer>
+
+{{ if $.Param "cookieconsent" }}{{ partialCached "cookieconsent.html" . }}{{ end -}}
+</div>
+
+<!-- Adding a scroll to the top button  -->
+{{ $js := resources.Get "js/scroll-to-top.js" }}
+{{ if not (hugo.IsProduction) }}
+  <script src="{{ $js.RelPermalink }}"></script>
+{{ else }}
+  {{ $js := $js | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}
+
+<button id="scrollToTopBtn" title="Go to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{{ define "main" }}
+<main id="main" class="main layout__main">
+    <header class="page-header">
+        <h1 class="page-title">{{ .Title }}</h1>
+    </header>
+
+    {{ .Content }}
+
+    {{ if .Site.Taxonomies.tags }}
+    <div class="tags-section top-tags-section">
+        <h2 class="tags-section-heading">Top 5 Tags</h2>
+        <div class="tags-list">
+            {{ range .Site.Taxonomies.tags.ByCount | first 5 }}
+            <div class="tag-item">
+                <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+                <span class="tag-count">({{ .Count }})</span>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    
+    <div class="tags-section all-tags-section">
+        <h2 class="tags-section-heading">All Tags</h2>
+        <div class="tags-columns-container">
+            {{ $allTags := .Site.Taxonomies.tags.Alphabetical }}
+            {{ $half := div (len $allTags) 2 }}
+            
+            <div class="tag-column">
+                {{ range first $half $allTags }}
+                <div class="tag-item">
+                    <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+                    <span class="tag-count">({{ .Count }})</span>
+                </div>
+                {{ end }}
+            </div>
+            
+            <div class="tag-column">
+                {{ range after $half $allTags }}
+                <div class="tag-item">
+                    <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+                    <span class="tag-count">({{ .Count }})</span>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</main>
+{{ end }}

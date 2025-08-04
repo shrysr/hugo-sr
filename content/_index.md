@@ -17,12 +17,9 @@ Content Overview:
 -   **Blog** -- Weblog of articles that are _relatively_ more structured and complete.
 -   **Notes** -- notes on various topics, people and meant to be a place for content
     that is more dynamic and incomplete in nature.
--   **Archive** -- Lists all the pages on this site in a chronogical manner
--   **Projects** -- Lists projects and general contributions
-
-<!--listend-->
-
--   [Tags](tags)
+-   **[Archive](archive/)** -- Lists all the pages on this site in a chronogical manner
+-   **[Projects](projects/)** -- Lists Projects and general contributions
+-   **[Tags](tags)**
 
 {{< wrapper box >}}
 -   All the views expressed on this site are my own.

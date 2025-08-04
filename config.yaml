@@ -10,12 +10,12 @@ params:
     url:                    # https://example.org/somepage
     avatar:                 # path/to/some-image.jpg
   blogSections:             # Sections whose <schema.org> `JSON+LD` in the page `<head>`
-    - Tags                  # will be `@type: BlogPosting`.
-    - post                  # Defaults to a list including only 'post' and 'blog'.
+    - post                  # will be `@type: BlogPosting`.
+    - ""                 # Defaults to a list including only 'post' and 'blog'.
   breadcrumbSections:       # Sections in which pages will have a `BreadcrumbListing`
-    - blog                  # in the <schema.org> `JSON+LD` in the page's `<head>`.
+    - post                  # in the <schema.org> `JSON+LD` in the page's `<head>`.
     - projects              # This theme requires Hugo `v0.109.0` or higher to
-                            # generate the `BreadcrumbListing`.
+                             # generate the `BreadcrumbListing`.
   cookieConsent: true       # Show cookie consent form, default false.
   contact: "sr@eml.cc"
   dateformat: ""            # Set the date format, default to "2 January, 2006"
@@ -29,18 +29,18 @@ params:
   internalPagination: true  # Use Hugos internal pagination template, default false.
   jquery: false              # Add jQuery, default false.
   languageDir: ""           # Set ltr or rtl, defaults to ltr.
-  logo: true               # Turn off the logo, defaults to true.
+  logo: false               # Turn off the logo, defaults to true.
   logoPath: img/SR-reduced.jpeg                 # Relative path to site logo, defaults to "images/logo.png", no leading slash.
   logoHeight:                # Set logo height, defaults to none.
   logoWidth: 150px                # Set logo width, defaults to none.
   mainSections:             # The sections you want to have listed on the front page.
-    - "none"            # Default to the section with most content if not set.
-    - "none"            # Set to empty if no section should be listed.
+    - ""            # Default to the section with most content if not set.
+    - ""            # Set to empty if no section should be listed.
   math: false                # Turn on math typesetting with KaTeX, default false.
   menuInHeader: true        # Move the main menu to the header, default false.
   microUsername: ""         # Your micro.blog username.
-  mobileMenu: true          # Turn on a mobile menu on small screens, default false.
-  mobileMenuOutline: true   # Mobil menu button as outline, default false.
+  mobileMenu: false          # Turn on a mobile menu on small screens, default false.
+  mobileMenuOutline: false   # Mobil menu button as outline, default false.
   piwikSiteId:              # Matomo site id
   piwikTrackerUrl: ""       # Matomo url, schemaless and no slash on end (example.org/matomo).
   plausibleSiteID: ""       # Plausible site id/domain.
@@ -49,9 +49,9 @@ params:
   privacyPolicyUrl: ""      # If set will add link to cookie consent form.
   relatedposts: true        # Show related posts under a "See also" section, default false.
   sassTranspiler: "libsass" # The Sass transpiler to use, default "libsass".
-  searchLimit: 100           # Max number of search hits, default 20.
+  searchLimit: 500           # Max number of search hits, default 20.
   sidebar: false             # Show a sidebar to the right, default false.
-  siteName: true             # Hide the site name (visually-hidden), default true.
+  siteName: True             # Hide the site name (visually-hidden), default true.
   submitted: false           # Show author and date information for a post.
   themeColor: "#e73555"      # Hex color value, used in meta tags, default "#ffffff".
   umbrella: false            # Add Umbrella JS, default false.
@@ -85,4 +85,12 @@ outputFormats:
     notAlternative: true
 
 outputs:
-  home: ["HTML", "SearchIndex"]
+  home: ["HTML", "SearchIndex", "JSON", "RSS"]
+
+
+
+# menu:
+#   main:
+#     - name: "Random page"
+#       identifier: "random"
+#       weight: 40

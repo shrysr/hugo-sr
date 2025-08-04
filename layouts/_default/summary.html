@@ -1,0 +1,21 @@
+<li class="list-item">
+    <div class="post-header-row">
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time>
+    </div>
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        {{ range . }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ with .Summary }}
+    <div class="list-summary">
+        {{ . }}
+    </div>
+    {{ end }}
+    {{ if .Truncated }}
+    <a href="{{ .RelPermalink }}" class="read-more">Read More &raquo;</a>
+    {{ end }}
+</li>
