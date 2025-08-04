@@ -4,7 +4,7 @@ author = ["Shreyas Ragavan"]
 draft = false
 menu = "main"
 weight = 200
-sidebar = true
+sidebar = false
 toc = true
 +++
 

@@ -1,5 +1,5 @@
 +++
-title = "Blog"
+title = "Posts"
 sidebar = false
 menu = "main"
 +++

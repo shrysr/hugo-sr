@@ -2,9 +2,9 @@
 title = "Bash scripting to compare chat logs of an IRC channel"
 author = ["Shreyas Ragavan"]
 date = 2019-09-22T08:43:00-07:00
-tags = ["Linux", "bash", "shell"]
+tags = ["Linux", "BASH", "shell", "Project"]
 draft = false
-summary = "BASH scripting project utilisintg `cURL` and `diff` tools"
+summary = "BASH scripting project utilising `cURL` and `diff` tools. Pulls down chat logs from a website and compares them by line to a different log."
 +++
 
 <div class="ox-hugo-toc toc">
