@@ -1,18 +1,18 @@
 {{ define "main" }}
-
 <main id="main" id="top">
     <h1 class="page-title">{{ .Title }}</h1>
     {{ .Content }}
 
+    <div class="archive-list">
     {{ range (.Site.RegularPages.GroupByDate "2006") }}
-    <div class="archive-year">
-        <h2>{{ .Key }}</h2>
-        <ul>
+    <div class="archive-year-group">
+        <h2 class="archive-year-heading">{{ .Key }}</h2>
+        <ul class="archive-posts-list">
             {{ range .Pages }}
-            <li>
+            <li class="archive-post-item">
                 <div class="post-header-row">
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
-                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time>
+                    <a href="{{ .Permalink }}" class="post-title">{{ .Title }}</a>
+                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
                 </div>
                 {{ with .Params.tags }}
                 <div class="post-tags">
@@ -26,6 +26,6 @@
         </ul>
     </div>
     {{ end }}
+    </div>
 </main>
-
 {{ end }}

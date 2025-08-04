@@ -1,5 +1,5 @@
 :root {
-  --color-brand: #bb8fce;
+  --color-brand:#3273a8;
   --color-brand-alt: #CD5C5C;
   --color-brand-dark: green;
   --text-color: #333;
@@ -10,9 +10,12 @@
   --accent-color: var(--color-brand);
   --accent-color-dark: #a567c2;
   --border-radius: 6px;
+  --header-height: 50px;
+  --heading-color: var(--text-color);
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-/* Core layout adjustments for the main content area */
+/* Core layout adjustments */
 #main {
   max-width: 900px;
   margin: 0 auto;
@@ -20,95 +23,99 @@
 }
 
 .page-title {
+  font-family: var(--font-family-sans);
+  font-size: 2.5rem;
   margin-bottom: 2rem;
   text-align: center;
+  color: var(--heading-color);
 }
 
-/* Archive page styling */
-.archive-year {
-  margin-bottom: 2.5rem;
+/* --- Archive page styling (Enhanced) --- */
+.archive-list {
+  padding-left: 0; /* Remove top-level padding for cleaner alignment */
 }
 
-.archive-year h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-bottom: 2px solid var(--border-color);
+.archive-year-group {
+  margin-bottom: 3rem; /* Increase space between years */
+}
+
+.archive-year-heading {
+  font-family: var(--font-family-sans);
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent-color); /* Highlight year heading with brand color */
   padding-bottom: 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-left: 10px; /* Indent year heading */
+  color: var(--text-color);
 }
 
-.archive-year ul {
-  list-style: none;
+.archive-posts-list {
+  list-style: square;
   padding: 0;
   margin: 0;
+  padding-left: 20px; /* Indent the post list */
 }
 
-/* Updated styling for each post list item */
-.archive-year li {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0; /* Adjusts padding for spacing */
-  border-bottom: 1px dashed var(--border-color); /* Adds a subtle dashed line separator */
-  margin-bottom: 0.5rem; /* Reduces space between list items */
-  /* The following lines were removed to eliminate the box:
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background-color: var(--light-bg-color);
-  box-shadow: none;
-  */
+.archive-post-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color); /* Use a solid line for a cleaner look */
 }
 
-.archive-year li:hover {
-  /* Removes the hover box-shadow */
-  box-shadow: none;
+.archive-post-item:last-child {
+  border-bottom: none; /* Remove border from the last item of the list */
 }
 
-/* Styles the row containing the post title and date */
 .post-header-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
+  line-height: 1.6;
 }
 
-.post-header-row a {
+.post-header-row a.post-title {
+  font-family: var(--font-family-sans);
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
   color: var(--text-color);
-  margin-right: 1rem;
-  line-height: 1.4;
+  margin-right: 1.5rem;
+  flex-grow: 1;
+  transition: color 0.2s ease-in-out;
 }
 
-.post-header-row a:hover {
+.post-header-row a.post-title:hover {
   color: var(--accent-color);
-  text-decoration: underline;
 }
 
-.post-header-row time {
+.post-header-row time.post-date {
+  font-family: var(--font-family-sans);
   font-size: 0.9rem;
   color: var(--text-color-light);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Styles the tags container */
+/* Styles for tags */
 .post-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
+  padding-left: 0; /* Align tags with the post title */
 }
 
-/* Styling for the individual tags */
 .tag-pill {
   background-color: var(--secondary-bg-color);
   color: var(--text-color-light);
   font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2em 0.8em;
   border-radius: 1em;
   text-decoration: none;
   white-space: nowrap;
   transition: background-color 0.2s, color 0.2s;
+  font-family: var(--font-family-sans);
 }
 
 .tag-pill:hover {
@@ -116,7 +123,8 @@
   color: #fff;
 }
 
-/* Tag List Page Styling (remains the same) */
+/* --- Other sections (Unchanged from original with fixes) --- */
+/* Tag List Page Styling */
 .tag-list-counts {
   list-style: none;
   padding: 0;
@@ -175,222 +183,174 @@
   font-weight: bold;
 }
 
-/* Styling for the tag count on the listing page */
 .tag-count {
-    font-size: 0.9rem;
-    color: var(--text-color-light);
-    font-weight: normal;
-    margin-left: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color-light);
+  font-weight: normal;
+  margin-left: 0.5rem;
 }
 
-
-/* Styling for the page header and last updated date */
 .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .page-header .page-title {
-    font-size: 2.5rem;
-    color: var(--heading-color);
+  font-size: 2.5rem;
+  color: var(--heading-color);
 }
 
 .last-updated {
-    font-size: 0.9rem;
-    color: var(--text-color-light);
-    margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color-light);
+  margin-top: 0.5rem;
 }
 
-/* Styling for the page header and last updated date */
-.page-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.page-header .page-title {
-    font-size: 2.5rem;
-    color: var(--heading-color);
-}
-
-.last-updated {
-    font-size: 0.9rem;
-    color: var(--text-color-light);
-    margin-top: 0.5rem;
-}
-
-
-/* All Tags Section (Multi-Column) */
 .tag-list-by-alpha {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .section-heading {
-    font-size: 1.8rem;
-    font-weight: bold;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--heading-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--heading-color);
 }
 
 .columns-2 ul {
-    list-style: none;
-    padding: 0;
-    column-count: 2; /* Creates two columns for the list */
-    column-gap: 2rem;
+  list-style: none;
+  padding: 0;
+  column-count: 2;
+  column-gap: 2rem;
 }
 
 @media (max-width: 600px) {
-    .columns-2 ul {
-        column-count: 1; /* Collapses to a single column on smaller screens */
-    }
+  .columns-2 ul {
+    column-count: 1;
+  }
 }
 
 .columns-2 li {
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    break-inside: avoid-column; /* Prevents list items from breaking across columns */
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  break-inside: avoid-column;
 }
 
-/* Tags By Year Section */
 .tags-by-year .year-group {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .tags-by-year .year-heading {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--heading-color);
-    margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-bottom: 1rem;
 }
 
 .tags-by-year .tag-list-grouped {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .tags-by-year .tag-pill {
-    background-color: var(--secondary-bg-color);
-    color: var(--text-color);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.3rem 0.8rem;
-    border-radius: 1em;
-    text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
+  background-color: var(--secondary-bg-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1em;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .tags-by-year .tag-pill:hover {
-    background-color: var(--accent-color);
-    color: #fff;
+  background-color: var(--accent-color);
+  color: #fff;
 }
 
-
-/* Styling for the tags sections and headings */
 .tags-section {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .tags-section-heading {
-    font-size: 1.8rem;
-    font-weight: bold;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--heading-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--heading-color);
 }
 
-/* Styling for the tag buttons and their container */
 .tags-list {
-    display: flex;
-    flex-wrap: wrap; /* Allows tags to wrap to the next line */
-    gap: 0.75rem; /* Sets the spacing between buttons */
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Individual tag item styling for sleek buttons */
 .tag-item {
-    display: flex; /* Use flexbox to align content within the button */
-    align-items: center;
-    background-color: var(--secondary-bg-color);
-    border: 1px solid var(--border-color); /* Adds a subtle border */
-    border-radius: 1.5em; /* Creates a pill-like shape */
-    padding: 0.4rem 0.8rem;
-    transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  background-color: var(--secondary-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5em;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.3s ease;
 }
 
-/* Hover and focus effect for interactivity */
 .tag-item:hover,
 .tag-item:focus-within {
-    background-color: var(--accent-color); /* Changes background to highlight color */
-    border-color: var(--accent-color);
-    transform: translateY(-2px); /* A slight lift on hover */
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
 }
 
-/* Ensure the entire button is a clickable link */
 .tag-item a.tag-link {
-    display: flex;
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    flex-grow: 1; /* Makes the link fill the entire button */
+  display: flex;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  flex-grow: 1;
 }
 
-/* Change link text and count color on hover */
 .tag-item:hover a.tag-link,
 .tag-item:hover .tag-count {
-    color: #fff; /* Changes text to white for better contrast */
+  color: #fff;
 }
 
-/* Styling for the post count */
 .tag-count {
-    color: var(--text-color-light);
-    font-size: 0.85em;
-    margin-left: 0.5rem;
-    white-space: nowrap; /* Prevents the count from wrapping */
+  color: var(--text-color-light);
+  font-size: 0.85em;
+  margin-left: 0.5rem;
+  white-space: nowrap;
 }
 
-/* Container for the two columns, using Flexbox */
 .tags-columns-container {
-    display: flex;
-    gap: 2rem; /* Adjusts the space between the columns */
+  display: flex;
+  gap: 2rem;
 }
 
-/* Individual column styling */
 .tag-column {
-    display: flex;
-    flex-direction: column; /* This makes the tags list vertically */
-    flex-grow: 1; /* Ensures columns take up equal space */
-    gap: 0.75rem; /* Sets the space between tags within a column */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.75rem;
 }
 
-/* Existing tag item styling remains the same and will apply here */
-.tag-item {
-    /* ... your existing .tag-item styles ... */
-}
-
-/* You can remove the previous multi-column media queries as they are no longer needed */
-@media (min-width: 768px) {
-    .alphabetical-tags-list {
-        /* This whole block can be removed */
-    }
-}
-
-// Adding a sticky top menu
 .layout__header {
   position: sticky;
   top: 0;
-  z-index: 50; // Ensures the menu stays on top of other content
+  z-index: 50;
 }
 
-
-// scroll to the top button
 #scrollToTopBtn {
   display: none;
   position: fixed;
@@ -399,37 +359,60 @@
   z-index: 99;
   border: none;
   outline: none;
-  background-color: hsla(var(--hue-brand), var(--sat-brand), var(--light-brand), 0.8);
-  color: var(--color-on-brand);
+  background-color: var(--secondary-bg-color); /* Use a solid background color from the theme */
+  color: var(--text-color); /* Use the theme's text color */
   cursor: pointer;
   padding: 15px;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s ease-in-out;
-
-  &:hover {
-    background-color: var(--color-brand-dark);
-  }
+  border-radius: 50%; /* Make it a circular button */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* A clear, soft shadow */
+  transition: all 0.3s ease-in-out;
 }
 
+#scrollToTopBtn:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+  transform: translateY(-2px); /* Lift the button slightly on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* Increase shadow on hover for a "pop" effect */
+}
 
-// blockquotes should be style differently
 blockquote {
-  font-style: italic;
-  font-family: var(--ff-serif);
+  font-style: normal;
+  font-family: serif;
   border-left: 5px solid var(--color-brand);
-  padding-left: var(--spacing-m);
+  padding-left: 1rem;
   margin-top: 2em;
   margin-left: 2em;
-  background-color: var(--color-background-secondary);
-  color: var(--color-text-secondary);
+  background-color: var(--secondary-bg-color);
+  color: var(--text-color);
 }
 
 blockquote p {
   margin: 0em;
 }
 
-/* Add a rule to push down the main content */
 body {
- padding-top: var(--header-height); /* Ensure main content starts below the header */
+  padding-top: var(--header-height);
+}
+
+/* --- Additional CSS for Summary Display in Lists --- */
+.list-summary {
+    font-family: var(--font-family-sans);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-top: 0.75rem;
+    line-height: 1.6;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: color 0.2s ease-in-out;
+}
+
+.read-more:hover {
+    text-decoration: underline;
 }
