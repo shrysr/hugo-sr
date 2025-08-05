@@ -4,7 +4,7 @@ author = ["Shreyas Ragavan"]
 date = 2019-08-08T14:32:00-07:00
 tags = ["PythonNotes", "CodeJournal", "Project"]
 draft = true
-profile = false
+summary = "Python scripts to automate the post processing extraction of information from CFD simulation results"
 +++
 
 <div class="ox-hugo-toc toc">
