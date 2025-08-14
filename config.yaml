@@ -4,7 +4,7 @@ theme: "zen"
 languageCode: "en-GB"       # Set your language code (only needed for none multilingual sites).
 
 params:
-  alpine: true              # Add AlpineJS, default false.
+  alpine: false              # Add AlpineJS, default false.
   author: 
     name: Shreyas Ragavan                  # Your Name
     url:                    # https://example.org/somepage
