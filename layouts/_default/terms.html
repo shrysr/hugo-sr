@@ -11,10 +11,10 @@
         <h2 class="tags-section-heading">Top 5 Tags</h2>
         <div class="tags-list">
             {{ range .Site.Taxonomies.tags.ByCount | first 5 }}
-            <div class="tag-item">
-                <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+            <a href="{{ .Page.Permalink }}" class="tag-item">
+                <span class="tag-link">{{ .Page.Title }}</span>
                 <span class="tag-count">({{ .Count }})</span>
-            </div>
+            </a>
             {{ end }}
         </div>
     </div>
@@ -27,19 +27,19 @@
             
             <div class="tag-column">
                 {{ range first $half $allTags }}
-                <div class="tag-item">
-                    <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+                <a href="{{ .Page.Permalink }}" class="tag-item">
+                    <span class="tag-link">{{ .Page.Title }}</span>
                     <span class="tag-count">({{ .Count }})</span>
-                </div>
+                </a>
                 {{ end }}
             </div>
             
             <div class="tag-column">
                 {{ range after $half $allTags }}
-                <div class="tag-item">
-                    <a href="{{ .Page.Permalink }}" class="tag-link">{{ .Page.Title }}</a>
+                <a href="{{ .Page.Permalink }}" class="tag-item">
+                    <span class="tag-link">{{ .Page.Title }}</span>
                     <span class="tag-count">({{ .Count }})</span>
-                </div>
+                </a>
                 {{ end }}
             </div>
         </div>

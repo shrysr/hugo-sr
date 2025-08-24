@@ -303,34 +303,36 @@
   border: 1px solid var(--border-color);
   border-radius: 1.5em;
   padding: 0.4rem 0.8rem;
+  text-decoration: none;
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
 .tag-item:hover,
-.tag-item:focus-within {
+.tag-item:focus {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
   transform: translateY(-2px);
-}
-
-.tag-item a.tag-link {
-  display: flex;
-  text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  flex-grow: 1;
-}
-
-.tag-item:hover a.tag-link,
-.tag-item:hover .tag-count {
   color: #fff;
 }
 
-.tag-count {
+/* Updated styles for the children inside the clickable tag-item */
+.tag-item .tag-link {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tag-item .tag-count {
   color: var(--text-color-light);
   font-size: 0.85em;
   margin-left: 0.5rem;
   white-space: nowrap;
+}
+
+/* Change the color of the children on hover of the parent link */
+.tag-item:hover .tag-link,
+.tag-item:hover .tag-count {
+  color: #fff;
 }
 
 .tags-columns-container {
