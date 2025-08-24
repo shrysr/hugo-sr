@@ -1,7 +1,7 @@
 baseurl: "https://shreyas.ragavan.cc/"
 title: "Eudaimonia"
 theme: "zen"
-languageCode: "en-GB"       # Set your language code (only needed for none multilingual sites).
+languageCode: ""       # Set your language code (only needed for none multilingual sites).
 
 params:
   alpine: false              # Add AlpineJS, default false.
