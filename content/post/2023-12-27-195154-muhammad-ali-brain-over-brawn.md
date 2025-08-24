@@ -2,6 +2,7 @@
 title = "Muhammad Ali : an example of brain over brawn"
 author = ["Shreyas Ragavan"]
 date = 2023-12-27T19:51:00-08:00
+lastmod = 2025-08-24T14:56:42-07:00
 tags = ["MentalModel", "LifeJournal", "LifeSkills", "BookNotes", "InspirationJournal"]
 draft = false
 profile = false

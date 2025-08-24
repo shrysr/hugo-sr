@@ -2,6 +2,7 @@
 title = "The howm manual is out and left me with mixed feelings"
 author = ["Shreyas Ragavan"]
 date = 2023-12-27T17:42:00-08:00
+lastmod = 2025-08-24T14:57:46-07:00
 tags = ["MoodJournal", "PhilosophyJournal", "LifeJournal", "HowmNotes", "EmacsWiki", "EmacsStuff", "CodeJournal", "SocialJournal"]
 draft = false
 profile = false
