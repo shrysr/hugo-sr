@@ -1,8 +1,8 @@
-<div class="tags meta">
+<div class="tags meta tag-list-with-gap">
 {{ i18n "taxo_tags" }}:
 <ul>
 {{ range (.GetTerms "tags") -}}
-<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+<li><a class="tag-pill" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
 {{ end -}}
 </ul>
 </div>
