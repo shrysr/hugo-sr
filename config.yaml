@@ -55,27 +55,7 @@ params:
   submitted: false           # Show author and date information for a post.
   themeColor: "#e73555"      # Hex color value, used in meta tags, default "#ffffff".
   umbrella: false            # Add Umbrella JS, default false.
-
-  podcast:
-    title:                  # * Feed title, defaults to site title (iTunes).
-    description:            # * Feed description/summary, defaults to  site description (iTunes).
-    image:                  # * Feed image, place inside assets directory (iTunes).
-    category:
-      name:                 # * Feed category (iTunes).
-      subcategories: []     # Feed sub category (iTunes).
-    explicit: false/true    # Feed explicit setting, default to false (iTunes).
-    author:                 # Feed author (iTunes).
-    owner:
-      name:                 # Feed owner name (iTunes).
-      email:                # Feed owner e-mail (iTunes).
-    lang:                   # Feed language, defaults to site language (iTunes).
-    block: no/yes           # Block the feed from iTunes, default to no (iTunes).
-    complete: no/yes        # Set the feed as complete, defaults to no (iTunes).
-    type: episodic/serial   # Podcast type, defaults to episodic (iTunes).
-    newfeed:                # Are you moving? Set the new feed url here (iTunes).
-    cdn:                    # CDN url, no slash on end (https://cdn.example.org).
-    local: false            # Are the audio files local (true) or remote (false), default to true.
-    preload: none/metadata/auto # Set on the HTML5 audio tag, defaults to "metadata".
+  lastmod : ["lastmod", ":git", "date", "publishDate"]
 
 outputFormats:
   SearchIndex:
