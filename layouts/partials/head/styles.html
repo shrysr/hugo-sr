@@ -8,16 +8,22 @@
 {{ $mobile_style := resources.Get "sass/mobilemenu.scss" | toCSS $mobile_options -}}
 {{ $print_style := resources.Get "sass/print.scss" | toCSS $print_options -}}
 
-{{ $code_blocks_css := resources.Get "css/code-blocks.css" -}}
+{{ $elegant_clean_css := resources.Get "css/elegant-clean.css" -}}
+{{ $tags_filter_css := resources.Get "css/tags-filter.css" -}}
+{{ $archive_css := resources.Get "css/archive.css" -}}
 {{ if ne hugo.Environment "development" -}}
   {{ $main_style = $main_style | fingerprint -}}
   {{ $mobile_style = $mobile_style | fingerprint -}}
   {{ $print_style = $print_style | fingerprint -}}
-  {{ $code_blocks_css = $code_blocks_css | minify | fingerprint -}}
+  {{ $elegant_clean_css = $elegant_clean_css | minify | fingerprint -}}
+  {{ $tags_filter_css = $tags_filter_css | minify | fingerprint -}}
+  {{ $archive_css = $archive_css | minify | fingerprint -}}
 {{ end -}}
 <link rel="stylesheet" href="{{ $main_style.RelPermalink }}">
 {{ if $.Param "mobilemenu" -}}
 <link rel="stylesheet" href="{{ $mobile_style.RelPermalink }}" media="screen">
 {{ end -}}
 <link rel="stylesheet" href="{{ $print_style.RelPermalink }}" media="print">
-<link rel="stylesheet" href="{{ $code_blocks_css.RelPermalink }}">
+<link rel="stylesheet" href="{{ $elegant_clean_css.RelPermalink }}">
+<link rel="stylesheet" href="{{ $tags_filter_css.RelPermalink }}">
+<link rel="stylesheet" href="{{ $archive_css.RelPermalink }}">

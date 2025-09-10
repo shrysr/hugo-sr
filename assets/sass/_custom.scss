@@ -1,17 +1,22 @@
 :root {
-  --color-brand:#3273a8;
-  --color-brand-alt: #CD5C5C;
-  --color-brand-dark: green;
-  --text-color: #333;
-  --text-color-light: #888;
-  --border-color: #e0e0e0;
-  --light-bg-color: #f9f9f9;
-  --secondary-bg-color: #f0f0f0;
-  --accent-color: var(--color-brand);
-  --accent-color-dark: #a567c2;
-  --border-radius: 6px;
+  /* Clean Elegant Color Scheme - Reliable hex colors */
+  --color-brand: #4a5d7a;
+  --color-brand-alt: #b85450;
+  --color-brand-dark: #3a4a61;
+  --color-brand-light: #e1e6ee;
+  
+  --text-color: #2c3241;
+  --text-color-light: #5a6070;
+  --border-color: #e5e7eb;
+  --light-bg-color: #f8f9fb;
+  --secondary-bg-color: #f1f3f6;
+  
+  --accent-color: #4a5d7a;
+  --accent-color-dark: #3a4a61;
+  
+  --border-radius: 8px;
   --header-height: 50px;
-  --heading-color: var(--text-color);
+  --heading-color: #2c3241;
   --font-family-sans: -apple-system, BlinkMacMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
@@ -116,21 +121,31 @@
   padding-left: 0; /* Align tags with the post title */
 }
 
+/* Elegant, sophisticated tag-pill styling - refined color palette */
 .tag-pill {
-  background-color: var(--secondary-bg-color);
-  color: var(--text-color-light);
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  background: oklch(95% 0.01 220);
+  color: oklch(40% 0.06 220);
+  border-radius: 16px;
   font-size: 0.75rem;
-  padding: 0.2em 0.8em;
-  border-radius: 1em;
+  font-weight: 500;
   text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid oklch(88% 0.02 220);
+  letter-spacing: 0.01em;
   white-space: nowrap;
-  transition: background-color 0.2s, color 0.2s;
   font-family: var(--font-family-sans);
+  box-shadow: 0 1px 2px oklch(0% 0 0 / 0.05);
 }
 
 .tag-pill:hover {
-  background-color: var(--accent-color);
-  color: #fff;
+  background: oklch(30% 0.08 220);
+  color: white;
+  border-color: oklch(30% 0.08 220);
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px oklch(30% 0.08 220 / 0.25);
 }
 
 /* --- Other sections (Unchanged from original with fixes) --- */
@@ -268,21 +283,7 @@
   gap: 0.75rem;
 }
 
-.tags-by-year .tag-pill {
-  background-color: var(--secondary-bg-color);
-  color: var(--text-color);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.3rem 0.8rem;
-  border-radius: 1em;
-  text-decoration: none;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.tags-by-year .tag-pill:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-}
+/* .tags-by-year .tag-pill - removed to use unified tag-pill styling */
 
 .tags-section {
   margin-bottom: 3rem;

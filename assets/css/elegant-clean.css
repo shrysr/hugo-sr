@@ -1,0 +1,349 @@
+/* Clean Elegant Styling - Consolidated Solution */
+
+/* Modern Tag Pills with Perfect Visibility */
+.tag-pill,
+a.tag-pill,
+.tags .tag-pill,
+.post-tags .tag-pill,
+.tag-list .tag-pill {
+  display: inline-block !important;
+  padding: 0.35rem 0.8rem !important;
+  background: #f1f3f6 !important;
+  color: #4a5d7a !important;
+  border: 1px solid #e1e6ee !important;
+  border-radius: 16px !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  letter-spacing: 0.01em !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.tag-pill:hover,
+a.tag-pill:hover,
+.tags .tag-pill:hover,
+.post-tags .tag-pill:hover,
+.tag-list .tag-pill:hover {
+  background: #4a5d7a !important;
+  color: white !important;
+  border-color: #4a5d7a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(74, 93, 122, 0.3) !important;
+  text-decoration: none !important;
+}
+
+/* Tag Count Styling - Always Visible */
+.tag-count,
+.tag-pill .tag-count,
+a.tag-pill .tag-count {
+  opacity: 0.75 !important;
+  font-size: 0.85em !important;
+  font-weight: 400 !important;
+  margin-left: 0.3em !important;
+  color: inherit !important;
+  display: inline !important;
+}
+
+.tag-pill:hover .tag-count,
+a.tag-pill:hover .tag-count {
+  opacity: 0.9 !important;
+  color: inherit !important;
+}
+
+/* Enhanced Archive Year Links */
+.year-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.5rem 1rem !important;
+  background: #f8f9fb !important;
+  color: #3a4a61 !important;
+  border-radius: 20px !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.year-link:hover {
+  background: #4a5d7a !important;
+  color: white !important;
+  border-color: #4a5d7a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(74, 93, 122, 0.2) !important;
+  text-decoration: none !important;
+}
+
+.year-count {
+  opacity: 0.8 !important;
+  font-size: 0.85em !important;
+  font-weight: normal !important;
+}
+
+/* Enhanced Post Items and Cards */
+.post-item,
+.project-item,
+.card {
+  background: white !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+  transition: all 0.2s ease !important;
+}
+
+.post-item:hover,
+.project-item:hover,
+.card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  border-color: #e1e6ee !important;
+}
+
+/* Enhanced Sections and Containers */
+.year-navigation-section,
+.posts-section,
+.section {
+  background: white !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+}
+
+.year-navigation-section {
+  border-left: 4px solid #4a5d7a !important;
+}
+
+/* Enhanced Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3241 !important;
+  line-height: 1.3 !important;
+  margin-bottom: 1rem !important;
+}
+
+p, li, span {
+  color: #2c3241 !important;
+  line-height: 1.6 !important;
+}
+
+.post-date,
+.post-updated,
+.post-meta,
+.meta,
+.total-count {
+  color: #5a6070 !important;
+  font-size: 0.85rem !important;
+}
+
+/* Enhanced Links */
+a {
+  color: #4a5d7a !important;
+  transition: color 0.2s ease !important;
+}
+
+a:hover {
+  color: #3a4a61 !important;
+}
+
+/* Enhanced Buttons */
+.button,
+.btn,
+button {
+  background: #4a5d7a !important;
+  color: white !important;
+  border: 1px solid #4a5d7a !important;
+  border-radius: 6px !important;
+  padding: 0.6rem 1.2rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+}
+
+.button:hover,
+.btn:hover,
+button:hover {
+  background: #3a4a61 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12) !important;
+}
+
+/* Enhanced Forms */
+input,
+textarea,
+select {
+  background: white !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  padding: 0.6rem 0.8rem !important;
+  color: #2c3241 !important;
+  transition: border-color 0.2s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: #4a5d7a !important;
+  box-shadow: 0 0 0 3px rgba(74, 93, 122, 0.1) !important;
+}
+
+/* Enhanced Code Blocks */
+pre {
+  background: #f8f9fb !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  padding: 1.2rem !important;
+  margin: 1.5rem 0 !important;
+  overflow-x: auto !important;
+}
+
+code {
+  background: #f8f9fb !important;
+  color: #2c3241 !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Enhanced Tables */
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 1.5rem 0 !important;
+  background: white !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+}
+
+th, td {
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+th {
+  background: #f8f9fb !important;
+  color: #2c3241 !important;
+  font-weight: 600 !important;
+}
+
+/* Enhanced Pagination */
+.pagination {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  margin: 2rem 0 !important;
+}
+
+.pagination a,
+.pagination .current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 2.5rem !important;
+  height: 2.5rem !important;
+  padding: 0.5rem !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  background: white !important;
+  color: #2c3241 !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.pagination a:hover {
+  background: #4a5d7a !important;
+  color: white !important;
+  border-color: #4a5d7a !important;
+  transform: translateY(-1px) !important;
+}
+
+.pagination .current {
+  background: #4a5d7a !important;
+  color: white !important;
+  border-color: #4a5d7a !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .tag-pill,
+  a.tag-pill {
+    padding: 0.4rem 0.7rem !important;
+    font-size: 0.8rem !important;
+    min-height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  
+  .year-link {
+    padding: 0.6rem 0.8rem !important;
+    min-height: 44px !important;
+  }
+  
+  .post-item,
+  .project-item,
+  .card,
+  .year-navigation-section,
+  .posts-section {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .button,
+  .btn,
+  button {
+    padding: 0.7rem 1rem !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Focus States for Accessibility */
+.tag-pill:focus,
+.year-link:focus,
+.button:focus,
+.btn:focus,
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid #4a5d7a !important;
+  outline-offset: 2px !important;
+}
+
+/* Selection Styling */
+::selection {
+  background: rgba(74, 93, 122, 0.2) !important;
+  color: #2c3241 !important;
+}
+
+/* Print Styles */
+@media print {
+  .tag-pill,
+  .year-link,
+  .button,
+  .btn {
+    background: white !important;
+    color: black !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}
