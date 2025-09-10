@@ -86,23 +86,20 @@
       {{ range site.RegularPages }}
       {{ if and .Params.tags (or (eq .Section "post") (eq .Section "project")) }}
       <article class="post-item" data-tags="{{ delimit .Params.tags "," }}" data-section="{{ .Section }}">
-        <div class="post-header-row">
+        <div class="post-single-line">
           <h4 class="post-title">
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <span class="content-type">{{ if eq .Section "project" }}Project{{ else }}Post{{ end }}</span>
           </h4>
+          {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
+          {{ if .Params.tags }}
+          <div class="post-tags">
+            {{ range .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+            {{ end }}
+          </div>
+          {{ end }}
           <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
         </div>
-        {{ if and .Lastmod (ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02")) }}
-        <div class="post-updated">Updated: {{ .Lastmod.Format "Jan 2, 2006" }}</div>
-        {{ end }}
-        {{ if .Params.tags }}
-        <div class="post-tags">
-          {{ range .Params.tags }}
-          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
-          {{ end }}
-        </div>
-        {{ end }}
       </article>
       {{ end }}
       {{ end }}

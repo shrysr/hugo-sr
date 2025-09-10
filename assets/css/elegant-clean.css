@@ -82,8 +82,33 @@ a.tag-pill:hover .tag-count {
   font-weight: normal !important;
 }
 
-/* Enhanced Post Items and Cards */
+/* Compact Post Items - No Boxes (Global Override) */
 .post-item,
+.archive-post-item,
+article.post-item,
+.posts-list .post-item,
+.posts-section .post-item {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.4rem 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.post-item:hover,
+.archive-post-item:hover,
+article.post-item:hover,
+.posts-list .post-item:hover,
+.posts-section .post-item:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  background: none !important;
+}
+
+/* Enhanced Project Items and General Cards */
 .project-item,
 .card {
   background: white !important;
@@ -95,7 +120,6 @@ a.tag-pill:hover .tag-count {
   transition: all 0.2s ease !important;
 }
 
-.post-item:hover,
 .project-item:hover,
 .card:hover {
   transform: translateY(-2px) !important;
@@ -314,6 +338,32 @@ th {
     padding: 0.7rem 1rem !important;
     min-height: 44px !important;
   }
+
+  /* Mobile-specific single-line adjustments */
+  .post-single-line {
+    gap: 0.3rem !important;
+  }
+  
+  .post-single-line .post-title {
+    font-size: 1rem !important;
+    flex: 1 1 100% !important;
+    order: 0 !important;
+  }
+  
+  .post-single-line .post-date {
+    margin-left: 0 !important;
+    order: 1 !important;
+    flex: 0 0 auto !important;
+  }
+  
+  .post-single-line .content-type {
+    order: 2 !important;
+  }
+  
+  .post-single-line .post-tags {
+    order: 3 !important;
+    flex: 1 1 auto !important;
+  }
 }
 
 /* Focus States for Accessibility */
@@ -333,6 +383,212 @@ textarea:focus {
 ::selection {
   background: rgba(74, 93, 122, 0.2) !important;
   color: #2c3241 !important;
+}
+
+/* Global Compact Post Styling Overrides */
+.post-title {
+  color: #2c3241 !important;
+  margin: 0 !important;
+  margin-bottom: 0.1rem !important;
+  line-height: 1.2 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+.post-title a {
+  color: inherit !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.post-title a:hover {
+  color: #4a5d7a !important;
+}
+
+.post-date,
+.post-updated,
+.archive-post-item .post-date,
+.posts-list .post-date,
+.posts-section .post-date,
+.archive-post-item .post-updated,
+.posts-list .post-updated,
+.posts-section .post-updated {
+  color: #9ca3af !important;
+  font-size: 0.8rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.post-header-row {
+  margin-bottom: 0.02rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 1rem !important;
+}
+
+/* Improved post layout with better integration */
+.post-meta-line {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  margin-top: 0.1rem !important;
+  flex-wrap: wrap !important;
+}
+
+/* Better post separation */
+.post-item {
+  margin-bottom: 1.2rem !important;
+}
+
+/* Single-line flexible flow layout */
+.post-single-line {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  flex-wrap: wrap !important;
+  line-height: 1.3 !important;
+}
+
+.post-single-line .post-title {
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+}
+
+.post-single-line .post-date {
+  margin-left: auto !important;
+  color: #9ca3af !important;
+  font-size: 0.8rem !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  order: 999 !important;
+}
+
+.post-single-line .content-type {
+  order: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.post-single-line .post-tags {
+  order: 2 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.1rem !important;
+  margin: 0 !important;
+}
+
+/* Even smaller, more integrated tags */
+.post-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.1rem !important;
+  margin: 0 !important;
+}
+
+.post-tags .tag-pill {
+  padding: 0.15rem 0.4rem !important;
+  font-size: 0.65rem !important;
+  opacity: 0.8 !important;
+  font-weight: 400 !important;
+}
+
+.post-tags .tag-pill:hover {
+  opacity: 1 !important;
+}
+
+/* Subtle content type styling - better integrated */
+.content-type {
+  background: #f8f9fb !important;
+  color: #9ca3af !important;
+  padding: 0.1rem 0.35rem !important;
+  border-radius: 4px !important;
+  font-size: 0.6rem !important;
+  font-weight: 400 !important;
+  white-space: nowrap !important;
+  opacity: 0.75 !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* Enhanced Header Menu Navigation */
+.header nav ul,
+.main-menu ul,
+.flex-inline,
+.menu ul,
+nav ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  gap: 0.5rem !important;
+}
+
+.header nav li,
+.main-menu li,
+.flex-inline li,
+.menu li,
+nav li {
+  margin: 0 !important;
+}
+
+.header nav a,
+.main-menu a,
+.flex-inline a,
+.menu a,
+nav a {
+  color: #4a5d7a !important;
+  text-decoration: none !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+  background: transparent !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+}
+
+.header nav a:hover,
+.main-menu a:hover,
+.flex-inline a:hover,
+.menu a:hover,
+nav a:hover {
+  background: #f1f3f6 !important;
+  color: #3a4a61 !important;
+  border-color: #e1e6ee !important;
+}
+
+.header nav a.active,
+.main-menu a.active,
+.flex-inline a.active,
+.menu a.active,
+nav a.active,
+.header nav a[aria-current="page"],
+.main-menu a[aria-current="page"],
+.flex-inline a[aria-current="page"],
+.menu a[aria-current="page"],
+nav a[aria-current="page"] {
+  background: #4a5d7a !important;
+  color: white !important;
+  border-color: #4a5d7a !important;
+  box-shadow: 0 2px 4px rgba(74, 93, 122, 0.2) !important;
+}
+
+/* Ensure spans inside active menu items inherit white color */
+.header nav a.active span,
+.main-menu a.active span,
+.flex-inline a.active span,
+.menu a.active span,
+nav a.active span,
+.header nav a[aria-current="page"] span,
+.main-menu a[aria-current="page"] span,
+.flex-inline a[aria-current="page"] span,
+.menu a[aria-current="page"] span,
+nav a[aria-current="page"] span {
+  color: white !important;
 }
 
 /* Print Styles */
