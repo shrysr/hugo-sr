@@ -1,0 +1,123 @@
+{{ define "head" }}
+{{ $css := resources.Get "css/tags-filter.css" }}
+{{ if hugo.IsProduction }}
+{{ $css = $css | minify | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
+{{ $js := resources.Get "js/tags-filter.js" }}
+{{ if hugo.IsProduction }}
+{{ $js = $js | minify | fingerprint }}
+{{ end }}
+<script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }}></script>
+{{ end }}
+
+{{ define "main" -}}
+<main class="main layout__main">
+<article class="single-view single-view--tags-filter">
+<header>
+<h1 class="title">{{ .Title }}</h1>
+<p class="description">{{ .Content }}</p>
+<div class="usage-note">
+  <p><strong>Tip:</strong> Select multiple tags and click the <span class="highlight-badge">OR</span>/<span class="highlight-badge">AND</span> button to toggle between showing posts with <em>any</em> of the tags vs <em>all</em> of the tags.</p>
+</div>
+</header>
+
+<noscript>
+<meta http-equiv="refresh" content="3;url={{ "/tags/" | relURL }}">
+<div class="notice notice--warning">
+<p><strong>JavaScript Required:</strong> You are being redirected to the <a href="{{ "/tags/" | relURL }}">standard tags page</a> which works without JavaScript.</p>
+</div>
+</noscript>
+
+<div class="filter-sections">
+  <section class="tag-search-section">
+    <div class="search-header">
+      <h2>Available Tags</h2>
+      <input type="text" id="tag-search" placeholder="Search tags..." class="tag-search-input" />
+    </div>
+    
+    <div class="available-tags-container">
+      <div class="available-tags" id="available-tags">
+        {{ $tagMap := dict }}
+        {{ range site.RegularPages }}
+          {{ range .Params.tags }}
+            {{ $key := . | lower }}
+            {{ if not (index $tagMap $key) }}
+              {{ $tagMap = merge $tagMap (dict $key .) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ range site.Taxonomies.tags.ByCount }}
+          {{ $originalName := index $tagMap (.Name | lower) }}
+          {{ $displayName := cond $originalName $originalName .Name }}
+        <a href="#" class="tag-pill tag-selectable" data-tag="{{ $displayName }}" data-search="{{ .Name | lower }}">
+          {{ $displayName }} <span class="tag-count">({{ .Count }})</span>
+        </a>
+        {{ end }}
+      </div>
+      <div id="no-tags-found" class="no-tags" style="display: none;">
+        <em>No tags match your search</em>
+      </div>
+    </div>
+  </section>
+
+  <section class="active-filters-section" id="active-filters" style="display: none;">
+    <div class="filters-header">
+      <h3>Active Filters 
+        <button id="filter-mode-toggle" class="filter-mode-toggle" title="Click to toggle between AND/OR filtering">
+          <span id="filter-mode">OR</span>
+        </button>
+      </h3>
+      <button id="clear-all" class="clear-button">Clear All</button>
+    </div>
+    <div class="filter-explanation">
+      <p id="filter-explanation-text">Showing posts that have <strong>any</strong> of the selected tags</p>
+    </div>
+    <div id="selected-tags-list" class="selected-tags"></div>
+  </section>
+
+  <section class="results-section">
+    <div class="results-header">
+      <h3>Results <span id="post-count" class="count"></span></h3>
+    </div>
+    
+    <div id="posts-container" class="posts-list">
+      {{ range site.RegularPages }}
+      {{ if and .Params.tags (or (eq .Section "post") (eq .Section "project")) }}
+      <article class="post-item" data-tags="{{ delimit .Params.tags "," }}" data-section="{{ .Section }}">
+        <div class="post-header-row">
+          <h4 class="post-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <span class="content-type">{{ if eq .Section "project" }}Project{{ else }}Post{{ end }}</span>
+          </h4>
+          <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
+        </div>
+        {{ if and .Lastmod (ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02")) }}
+        <div class="post-updated">Updated: {{ .Lastmod.Format "Jan 2, 2006" }}</div>
+        {{ end }}
+        {{ if .Params.tags }}
+        <div class="post-tags">
+          {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </article>
+      {{ end }}
+      {{ end }}
+    </div>
+    
+    <div id="no-results" class="no-results" style="display: none;">
+      <div class="no-results-content">
+        <div class="no-results-icon">🔍</div>
+        <h4>No content found</h4>
+        <p>Try selecting different tags or clearing your filters</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</article>
+</main>
+{{ end -}}

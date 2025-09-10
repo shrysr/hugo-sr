@@ -67,6 +67,23 @@ outputFormats:
 outputs:
   home: ["HTML", "SearchIndex", "JSON", "RSS"]
 
+markup:
+  highlight:
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    hl_Lines: ""
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: false
+    noClasses: false
+    style: "github"
+    tabWidth: 4
+
+taxonomies:
+  tag: "tags"
+
 
 
 # menu:

@@ -1,0 +1,222 @@
+/* Archive Page Styling - Similar to Tags Filter Layout */
+
+.single-view--archive .title {
+  margin-bottom: 0.5rem;
+}
+
+.single-view--archive .description {
+  color: var(--color-text-meta);
+  margin-bottom: 2rem;
+}
+
+.archive-sections {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Year Navigation Section */
+.year-navigation-section {
+  background: var(--color-section-bg);
+  border-radius: 6px;
+  border: 1px solid var(--color-border-light);
+  padding: 1.5rem;
+  border-left: 4px solid var(--color-brand);
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--color-headings);
+}
+
+.year-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.year-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-brand-light);
+  color: var(--color-brand-dark);
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border-light);
+}
+
+.year-link:hover {
+  background: var(--color-brand);
+  color: white;
+  border-color: var(--color-brand);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.year-count {
+  opacity: 0.8;
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+/* Posts Section */
+.posts-section {
+  background: var(--color-card-bg);
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  padding: 1.5rem;
+}
+
+.total-count {
+  color: var(--color-text-meta);
+  font-weight: normal;
+}
+
+.posts-list {
+  display: grid;
+  gap: 2rem;
+}
+
+.year-group {
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 1.5rem;
+}
+
+.year-group:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.year-heading {
+  font-size: 1.5rem;
+  color: var(--color-headings);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-brand-light);
+  position: relative;
+}
+
+.year-heading::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  left: -1.5rem;
+  width: 4px;
+  height: calc(100% + 1rem);
+  background: var(--color-brand);
+  border-radius: 2px;
+}
+
+/* Post Items - Similar to Tags Filter */
+.post-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.post-title a {
+  text-decoration: none;
+  color: var(--color-headings);
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title a:hover {
+  color: var(--color-brand);
+}
+
+.content-type {
+  background: var(--color-accent-neutral);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.post-date {
+  color: var(--color-text-meta);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.post-updated {
+  color: var(--color-text-meta);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .year-links {
+    gap: 0.5rem;
+  }
+  
+  .year-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .post-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .post-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .year-heading::before {
+    display: none;
+  }
+  
+  .archive-sections {
+    gap: 1.5rem;
+  }
+  
+  .year-navigation-section,
+  .posts-section {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,103 @@
+/* Code Block Layout - Contained within main content */
+
+.highlight {
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  background: var(--color-section-bg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1rem;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  
+  /* Ensure code blocks stay within main content width */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+
+.highlight pre code {
+  display: block;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Line numbers styling for inline line numbers */
+.highlight .ln {
+  display: inline-block;
+  width: 3rem;
+  color: var(--color-text-meta);
+  user-select: none;
+  text-align: right;
+  padding-right: 1rem;
+  margin-right: 0.5rem;
+  border-right: 1px solid var(--color-border-light);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Simple inline code */
+code:not(.hljs):not([class*="language-"]) {
+  background: var(--color-brand-light);
+  color: var(--color-brand-dark);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  border: 1px solid var(--color-border-light);
+}
+
+/* Code blocks without syntax highlighting */
+pre:not(.highlight pre) {
+  background: var(--color-section-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+pre:not(.highlight pre) code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .highlight pre {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+  
+  .highlight .ln {
+    width: 2.5rem;
+    padding-right: 0.5rem;
+    margin-right: 0.3rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  
+  pre:not(.highlight pre) {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
