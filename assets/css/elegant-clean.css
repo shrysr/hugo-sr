@@ -129,7 +129,6 @@ article.post-item:hover,
 
 /* Enhanced Sections and Containers */
 .year-navigation-section,
-.posts-section,
 .section {
   background: white !important;
   border: 1px solid #e5e7eb !important;
@@ -138,6 +137,8 @@ article.post-item:hover,
   margin-bottom: 2rem !important;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
 }
+
+/* Posts section styling removed - handled by page-specific CSS */
 
 .year-navigation-section {
   border-left: 4px solid #4a5d7a !important;
@@ -326,8 +327,7 @@ th {
   .post-item,
   .project-item,
   .card,
-  .year-navigation-section,
-  .posts-section {
+  .year-navigation-section {
     padding: 1rem !important;
     margin-bottom: 1rem !important;
   }
@@ -339,31 +339,7 @@ th {
     min-height: 44px !important;
   }
 
-  /* Mobile-specific single-line adjustments */
-  .post-single-line {
-    gap: 0.3rem !important;
-  }
-  
-  .post-single-line .post-title {
-    font-size: 1rem !important;
-    flex: 1 1 100% !important;
-    order: 0 !important;
-  }
-  
-  .post-single-line .post-date {
-    margin-left: 0 !important;
-    order: 1 !important;
-    flex: 0 0 auto !important;
-  }
-  
-  .post-single-line .content-type {
-    order: 2 !important;
-  }
-  
-  .post-single-line .post-tags {
-    order: 3 !important;
-    flex: 1 1 auto !important;
-  }
+  /* Mobile post layout now handled by page-specific CSS */
 }
 
 /* Focus States for Accessibility */
@@ -441,52 +417,7 @@ textarea:focus {
   margin-bottom: 1.2rem !important;
 }
 
-/* Single-line flexible flow layout */
-.post-single-line {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-  flex-wrap: wrap !important;
-  line-height: 1.3 !important;
-}
-
-.post-single-line .post-title {
-  margin: 0 !important;
-  font-size: 1.1rem !important;
-  font-weight: 600 !important;
-  flex: 0 1 auto !important;
-  min-width: 0 !important;
-}
-
-.post-single-line .post-date {
-  margin-left: auto !important;
-  color: #9ca3af !important;
-  font-size: 0.8rem !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  order: 999 !important;
-}
-
-.post-single-line .content-type {
-  order: 1 !important;
-  flex-shrink: 0 !important;
-}
-
-.post-single-line .post-tags {
-  order: 2 !important;
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 0.1rem !important;
-  margin: 0 !important;
-}
-
-/* Even smaller, more integrated tags */
-.post-tags {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 0.1rem !important;
-  margin: 0 !important;
-}
+/* Removed conflicting post layout rules - now handled by page-specific CSS */
 
 .post-tags .tag-pill {
   padding: 0.15rem 0.4rem !important;

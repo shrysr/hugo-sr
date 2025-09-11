@@ -19,13 +19,13 @@
   background: var(--elegant-bg-elevated, var(--color-section-bg));
   border-radius: 8px;
   border: 1px solid var(--elegant-neutral-light, var(--color-border-light));
-  padding: 1.5rem;
+  padding: 1rem;
   border-left: 4px solid var(--elegant-primary, var(--color-brand));
   box-shadow: 0 1px 3px oklch(0% 0 0 / 0.06);
 }
 
 .section-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .section-header h2 {
@@ -37,19 +37,20 @@
 .year-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .year-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.5rem 1rem;
+  gap: 0.25rem;
+  padding: 0.35rem 0.75rem;
   background: var(--elegant-neutral-lighter, var(--color-brand-light));
   color: var(--elegant-neutral-dark, var(--color-brand-dark));
-  border-radius: 25px;
+  border-radius: 20px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 0.9rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--elegant-neutral-light, var(--color-border-light));
   box-shadow: 0 1px 2px oklch(0% 0 0 / 0.05);
@@ -70,13 +71,12 @@
   font-weight: normal;
 }
 
-/* Posts Section - Elegant Color Scheme */
+/* Posts Section - No Box Styling */
 .posts-section {
-  background: var(--elegant-bg-elevated, var(--color-card-bg));
-  border-radius: 8px;
-  border: 1px solid var(--elegant-neutral-light, var(--color-border));
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px oklch(0% 0 0 / 0.06);
+  background: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
 }
 
 .total-count {
@@ -131,22 +131,45 @@ article.post-item,
   margin-bottom: 1.2rem !important;
 }
 
-/* Single-line layout specific overrides */
+/* Streamlined Two-Line Post Layout */
 .post-single-line {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  line-height: 1.3;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  line-height: 1.3 !important;
+}
+
+.post-first-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  gap: 0.5rem !important;
+}
+
+.post-second-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.5rem !important;
+  padding-left: 1rem !important;
 }
 
 .post-single-line .post-title {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  flex: 0 1 auto;
-  min-width: 0;
-  line-height: 1.2;
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.post-single-line .post-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.25rem !important;
+  margin: 0 !important;
+  justify-content: flex-start !important;
 }
 
 .post-title a {

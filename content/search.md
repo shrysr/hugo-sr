@@ -7,4 +7,4 @@ weight = 1000
 searchform = true
 +++
 
-`{{< search >}}`
+{{< search >}}

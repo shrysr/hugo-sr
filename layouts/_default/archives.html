@@ -24,11 +24,11 @@
       <h2>Jump to Year</h2>
     </div>
     <div class="year-links">
+      {{ if gt (len $otherPages) 0 }}
+      <a href="#year-pages" class="year-link">Pages <span class="year-count">({{ len $otherPages }})</span></a>
+      {{ end }}
       {{ range $yearGroups }}
       <a href="#year-{{ .Key }}" class="year-link">{{ .Key }} <span class="year-count">({{ len .Pages }})</span></a>
-      {{ end }}
-      {{ if gt (len $otherPages) 0 }}
-      <a href="#year-other" class="year-link">Other <span class="year-count">({{ len $otherPages }})</span></a>
       {{ end }}
     </div>
   </section>
@@ -45,18 +45,22 @@
         {{ range .Pages }}
         <article class="post-item">
           <div class="post-single-line">
-            <h4 class="post-title">
-              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h4>
-            {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
-            {{ if .Params.tags }}
-            <div class="post-tags">
-              {{ range .Params.tags }}
-              <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+            <div class="post-first-line">
+              <h4 class="post-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
+            </div>
+            <div class="post-second-line">
+              {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
+              {{ if .Params.tags }}
+              <div class="post-tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+                {{ end }}
+              </div>
               {{ end }}
             </div>
-            {{ end }}
-            <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
           </div>
         </article>
         {{ end }}
