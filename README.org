@@ -39,3 +39,106 @@ focus on content while also using a code base that was more approachable.
 
 I am just another hacker (/both in skills and spirit/), and not any kind of expert
 in web design. Constructive feedback is always welcome.
+
+* CSS Customizations and Maintenance Notes
+
+** Overview
+
+This site uses a carefully orchestrated system of custom CSS files to achieve specific layout behaviors, particularly for post listings on archive and tag-filter pages. Understanding the CSS loading order and customization architecture is crucial for maintenance.
+
+** CSS Loading Order
+
+The CSS files are loaded in the following specific order:
+
+1. Theme base styles (from =themes/zen/=)
+2. =assets/css/elegant-clean.css= (global overrides and base styling)
+3. =assets/css/tags-filter.css= (loaded globally via =layouts/partials/head/styles.html=)
+4. =assets/css/archive.css= (loaded globally via =layouts/partials/head/styles.html=)
+5. Page-specific CSS (loaded again by individual templates)
+
+** Key Custom CSS Files
+
+*** =assets/css/elegant-clean.css=
+- **Purpose**: Global styling overrides and base theme customizations
+- **Critical Role**: Contains foundational styles but DELIBERATELY excludes post layout rules to avoid conflicts
+- **Maintenance Warning**: This file previously contained conflicting =.post-single-line= rules that were removed to prevent layout conflicts. Do NOT re-add post layout rules here.
+
+*** =assets/css/archive.css=
+- **Purpose**: Archive page specific styling
+- **Key Features**: 
+  - Compact "Jump to Year" section with reduced padding
+  - Compact year pills with smaller dimensions
+  - Two-line post layout: Title+Date on line 1, Tags (indented) on line 2
+  - No box styling around posts section
+- **Layout Structure**: Uses =.post-first-line= and =.post-second-line= for hierarchy
+
+*** =assets/css/tags-filter.css=
+- **Purpose**: Tag filter page specific styling
+- **Key Features**: Identical post layout to archive page for consistency
+- **Layout Structure**: Mirrors archive.css post layout exactly
+
+** Post Layout Architecture
+
+The current post layout uses a two-line hierarchical structure:
+
+#+BEGIN_SRC css
+.post-single-line {
+  display: flex !important;
+  flex-direction: column !important;
+  /* Creates vertical stacking of two lines */
+}
+
+.post-first-line {
+  /* Title on left, Date on right */
+  justify-content: space-between !important;
+}
+
+.post-second-line {
+  /* Tags indented with 1rem left padding */
+  padding-left: 1rem !important;
+  justify-content: flex-start !important;
+}
+#+END_SRC
+
+** Critical Maintenance Guidelines
+
+*** CSS Conflict Prevention
+1. **Never add** =.post-single-line= or =.post-tags= rules to =elegant-clean.css=
+2. **Always use** =!important= declarations in page-specific CSS files to override theme defaults
+3. **Maintain identical** post layout rules between =archive.css= and =tags-filter.css=
+
+*** Template Structure
+- Archive page: =layouts/_default/archives.html=
+- Tag filter page: =layouts/tags-filter/single.html=
+- Both use identical HTML structure with =.post-first-line= and =.post-second-line= classes
+
+*** Layout Requirements
+- **Line 1**: Post title (left) + Date (right)
+- **Line 2**: Content type badge + Tags (left-aligned, indented 1rem for hierarchy)
+- **No boxes**: Post sections should have no background/border styling
+
+** Favicon Configuration
+
+The site uses a comprehensive favicon setup:
+
+- **Essential files**: =favicon.ico= (multi-size), =apple-touch-icon.png= (180x180)
+- **Location**: =static/= directory
+- **Configuration**: Set in =config.yaml= as =favicon: "favicon.ico"= and =icon: "favicon-32x32.png"=
+- **Optimization**: Files are compressed and optimized for web delivery
+
+** Troubleshooting
+
+*** Tags Not Left-Aligned
+- Check if =elegant-clean.css= has conflicting rules
+- Ensure =justify-content: flex-start !important= is present in page-specific CSS
+- Verify =!important= declarations are not being overridden
+
+*** Layout Breaking on Updates
+- Hugo theme updates may introduce conflicting CSS
+- Always test archive and tag-filter pages after theme updates
+- Check browser developer tools for CSS rule conflicts
+
+*** Performance Considerations
+- CSS files are minified and fingerprinted in production
+- Favicon files are optimized but could be further compressed if needed
+- Monitor total CSS payload size when adding new customizations
