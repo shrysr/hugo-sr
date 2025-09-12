@@ -473,13 +473,14 @@ nav li {
 nav a {
   color: #4a5d7a !important;
   text-decoration: none !important;
-  padding: 0.6rem 1rem !important;
-  border-radius: 6px !important;
+  padding: 0.4rem 0.7rem !important;
+  border-radius: 4px !important;
   transition: all 0.2s ease !important;
   display: block !important;
   background: transparent !important;
   font-weight: 500 !important;
   border: 1px solid transparent !important;
+  font-size: 0.9rem !important;
 }
 
 .header nav a:hover,

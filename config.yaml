@@ -39,7 +39,7 @@ params:
   math: false                # Turn on math typesetting with KaTeX, default false.
   menuInHeader: true        # Move the main menu to the header, default false.
   microUsername: ""         # Your micro.blog username.
-  mobileMenu: false          # Turn on a mobile menu on small screens, default false.
+  mobileMenu: true           # Turn on a mobile menu on small screens, default false.
   mobileMenuOutline: false   # Mobil menu button as outline, default false.
   piwikSiteId:              # Matomo site id
   piwikTrackerUrl: ""       # Matomo url, schemaless and no slash on end (example.org/matomo).

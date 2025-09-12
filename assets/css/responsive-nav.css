@@ -1,0 +1,268 @@
+/* Responsive Navigation and Footnote Fix */
+
+/* Mobile Menu Improvements */
+@media (max-width: 666px) {
+  /* Hide the sticky header menu on mobile when mobile menu is active */
+  .header .main-menu {
+    display: none !important;
+  }
+  
+  /* Ensure header doesn't interfere with mobile menu */
+  .header {
+    position: static !important;
+    z-index: 1 !important;
+  }
+  
+  /* Ensure mobile menu toggle is visible and properly positioned */
+  .mobile-nav__toggle {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    z-index: 9999 !important;
+    background: rgba(74, 93, 122, 0.85) !important; /* More transparent background */
+    backdrop-filter: blur(15px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; /* Softer shadow */
+    border: 1px solid rgba(74, 93, 122, 0.6) !important; /* Transparent border */
+    border-radius: 6px !important; /* Slightly smaller radius */
+    padding: 0.5rem !important; /* More compact */
+    min-height: 40px !important; /* Slightly smaller */
+    min-width: 40px !important; /* Slightly smaller */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: transparent !important; /* Hide the "Menu" text */
+    font-size: 0 !important; /* Hide the "Menu" text completely */
+    transition: all 0.2s ease !important;
+  }
+  
+  .mobile-nav__toggle:hover {
+    background: rgba(58, 74, 97, 0.9) !important; /* Less transparent on hover */
+    border-color: rgba(58, 74, 97, 0.8) !important;
+    transform: scale(1.02) !important; /* Subtle scale */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  }
+  
+  .mobile-nav__toggle:focus {
+    outline: 2px solid rgba(74, 93, 122, 0.5) !important;
+    outline-offset: 2px !important;
+  }
+  
+  /* Mobile menu sheet improvements - more unobtrusive */
+  .mobile-nav__sheet {
+    background-color: rgba(255, 255, 255, 0.97) !important;
+    backdrop-filter: blur(15px) !important;
+    border-left: 1px solid rgba(229, 231, 235, 0.8) !important;
+    width: 75vw !important; /* Narrower menu */
+    padding: 1.5rem !important;
+    box-shadow: -20px 0 40px rgba(0,0,0,0.1) !important;
+  }
+  
+  /* Improved cover with subtle overlay */
+  .mobile-nav__cover {
+    background-color: rgba(0, 0, 0, 0.2) !important; /* Lighter overlay */
+  }
+  
+  /* Mobile menu links styling - cleaner */
+  .mobile-nav__navbar {
+    margin-top: 2rem !important; /* Space from top */
+  }
+  
+  .mobile-nav__navbar a {
+    padding: 1rem 0 !important;
+    font-size: 1rem !important;
+    color: #2c3241 !important;
+    border-bottom: 1px solid rgba(241, 243, 246, 0.6) !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .mobile-nav__navbar a:hover,
+  .mobile-nav__navbar a[aria-current="page"] {
+    color: #4a5d7a !important;
+    background: rgba(248, 249, 251, 0.8) !important;
+    padding-left: 1.2rem !important;
+    border-left: 3px solid #4a5d7a !important;
+    margin-left: -1.2rem !important;
+  }
+  
+  /* Smooth animation improvements */
+  .mobile-nav__sheet {
+    transform: translateX(100vw) !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  
+  [data-navopen] .mobile-nav__sheet {
+    transform: translateX(25vw) !important; /* Slide in to 25vw from right */
+  }
+}
+
+/* Desktop Menu - More Compact */
+@media (min-width: 667px) {
+  /* Reduce gaps between menu items */
+  .header nav ul,
+  .main-menu ul {
+    gap: 0.3rem !important;
+  }
+  
+  /* Make menu items even more compact */
+  .header nav a,
+  .main-menu a {
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.85rem !important;
+    margin: 0 0.1rem !important;
+  }
+}
+
+/* Footnote Scroll Offset Fix */
+/* Add scroll padding to account for sticky header */
+html {
+  scroll-padding-top: 80px; /* Adjust based on your header height */
+}
+
+/* Alternative method for older browsers */
+.footnote-ref,
+.footnote-backref {
+  scroll-margin-top: 80px !important;
+}
+
+/* Specific footnote target styling */
+.footnotes ol li:target {
+  scroll-margin-top: 80px !important;
+  background-color: rgba(74, 93, 122, 0.1) !important;
+  padding: 0.5rem !important;
+  border-radius: 4px !important;
+  animation: highlight-fade 3s ease-out !important;
+}
+
+@keyframes highlight-fade {
+  0% { background-color: rgba(74, 93, 122, 0.3); }
+  100% { background-color: rgba(74, 93, 122, 0.1); }
+}
+
+/* Ensure footnote links work properly */
+a[href^="#fn:"]:target,
+a[href^="#fnref:"]:target {
+  scroll-margin-top: 80px !important;
+}
+
+/* Mobile footnote adjustments */
+@media (max-width: 666px) {
+  html {
+    scroll-padding-top: 60px; /* Smaller offset for mobile */
+  }
+  
+  .footnote-ref,
+  .footnote-backref,
+  .footnotes ol li:target {
+    scroll-margin-top: 60px !important;
+  }
+}
+
+/* Scroll-to-top arrow improvements */
+#scrollToTopBtn {
+  opacity: 0.4 !important; /* More transparent */
+  transition: all 0.3s ease-in-out !important;
+}
+
+#scrollToTopBtn:hover {
+  opacity: 0.9 !important; /* Less transparent on hover */
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Large screen positioning - closer to content */
+@media (min-width: 1200px) {
+  #scrollToTopBtn {
+    right: calc((100vw - 900px) / 2 + 20px) !important; /* Align with content margin */
+    bottom: 60px !important;
+  }
+}
+
+/* Medium to large screens */
+@media (min-width: 900px) and (max-width: 1199px) {
+  #scrollToTopBtn {
+    right: 40px !important; /* Closer to content */
+    bottom: 40px !important;
+  }
+}
+
+/* Mobile scroll button adjustments */
+@media (max-width: 666px) {
+  #scrollToTopBtn {
+    opacity: 0.3 !important; /* Even more transparent on mobile */
+    right: 15px !important;
+    bottom: 15px !important;
+    padding: 12px !important; /* Smaller on mobile */
+  }
+  
+  #scrollToTopBtn:hover {
+    opacity: 0.8 !important;
+  }
+}
+
+/* Additional improvements for mobile experience */
+@media (max-width: 666px) {
+  /* Ensure main content doesn't get hidden behind mobile menu toggle */
+  body {
+    padding-top: 0 !important;
+  }
+  
+  /* Better mobile menu button styling */
+  .mobile-nav__toggle {
+    border: 2px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    padding: 0.6rem !important;
+    min-height: 44px !important; /* Touch-friendly size */
+    min-width: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .mobile-nav__toggle:hover {
+    border-color: #4a5d7a !important;
+    background: rgba(248, 249, 251, 0.9) !important;
+    transform: scale(1.02) !important;
+  }
+  
+  /* Hamburger icon styling - optimized and refined */
+  .mobile-nav__hamburger {
+    width: 1.4rem !important; /* Slightly smaller for better proportion */
+    height: 1.4rem !important;
+    fill: rgba(255, 255, 255, 0.9) !important; /* Semi-transparent white */
+    opacity: 0.9 !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .mobile-nav__hamburger rect {
+    fill: rgba(255, 255, 255, 0.9) !important;
+    rx: 2 !important; /* Slightly rounded corners for modern look */
+    transition: all 0.2s ease !important;
+  }
+  
+  /* Hover state for hamburger */
+  .mobile-nav__toggle:hover .mobile-nav__hamburger {
+    opacity: 1 !important;
+    transform: scale(1.05) !important;
+  }
+  
+  .mobile-nav__toggle:hover .mobile-nav__hamburger rect {
+    fill: white !important;
+  }
+  
+  /* Close button state improvements - more transparent */
+  [data-navopen] .mobile-nav__toggle {
+    background: rgba(58, 74, 97, 0.9) !important;
+    border-color: rgba(58, 74, 97, 0.8) !important;
+  }
+  
+  [data-navopen] .mobile-nav__hamburger {
+    opacity: 1 !important;
+  }
+  
+  [data-navopen] .mobile-nav__hamburger rect {
+    fill: white !important;
+  }
+}
