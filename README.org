@@ -142,3 +142,37 @@ The site uses a comprehensive favicon setup:
 - CSS files are minified and fingerprinted in production
 - Favicon files are optimized but could be further compressed if needed
 - Monitor total CSS payload size when adding new customizations
+
+** Mobile Navigation and Responsive Design
+
+*** Mobile Menu Configuration
+- **Enabled**: =mobileMenu: true= in =config.yaml=
+- **Behavior**: Automatically switches from sticky header menu to slide-out mobile menu on screens ≤666px
+- **Implementation**: Uses Zen theme's built-in mobile menu with enhanced styling
+
+*** Mobile Menu Fixes Applied
+- **Toggle Visibility**: Fixed z-index conflicts (=z-index: 9999=) to ensure hamburger button appears above header
+- **Header Positioning**: Set header to =position: static= on mobile to prevent interference
+- **Unobtrusive Design**: 75vw width menu with backdrop blur and subtle overlay
+- **Touch-Friendly**: 44px minimum touch targets and improved visual feedback
+
+*** Responsive Navigation Features
+- **Desktop**: Compact menu items with reduced padding (0.3rem 0.6rem)
+- **Mobile**: Slide-out menu (75vw width) with backdrop blur and smooth animations
+- **Toggle Button**: Fixed position top-right with glassmorphism styling
+- **Sticky Header**: Only active on desktop; disabled on mobile to prevent conflicts
+- **CSS File**: =assets/css/responsive-nav.css= handles all responsive behavior
+
+*** Footnote Scroll Offset Fix
+- **Problem**: Sticky header obscures footnote targets when clicked
+- **Solution**: =scroll-padding-top: 80px= (desktop) / =60px= (mobile)
+- **Features**: 
+  - Footnote targets are highlighted with fade animation
+  - Works with both forward and back footnote links
+  - Responsive offset adjustments for different screen sizes
+
+*** Navigation Maintenance Guidelines
+- **Mobile Menu Toggle**: Fixed positioned at top-right with backdrop blur
+- **Menu Item Spacing**: Controlled via =gap= and =padding= properties in =responsive-nav.css=
+- **Scroll Offsets**: Adjust =scroll-padding-top= values if header height changes
+- **Mobile Detection**: Uses CSS media queries (max-width: 666px) to match theme's JS breakpoint
