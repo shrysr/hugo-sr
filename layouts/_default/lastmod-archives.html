@@ -1,60 +1,91 @@
+{{ define "head" }}
+{{ $css := resources.Get "css/archive.css" }}
+{{ if hugo.IsProduction }}
+{{ $css = $css | minify | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{ end }}
+
 {{ define "main" }}
-<main id="main" id="top">
-    <h1 class="page-title">{{ .Title }}</h1>
-    {{ .Content }}
+<main class="main layout__main">
+<article class="single-view single-view--archive">
+<header>
+<h1 class="title">{{ .Title }}</h1>
+<p class="description">{{ .Content }}</p>
+</header>
 
-    <div class="archive-list">
-    {{/* Exclude pages with no last modified date from the main list */}}
-    {{ $datedPages := where .Site.RegularPages ".Lastmod.IsZero" "eq" false }}
-    {{ range ($datedPages.GroupByLastmod "2006") }}
-    <div class="archive-year-row">
-        <h2 class="archive-year-heading">{{ .Key }}</h2>
-        <ul class="archive-posts-list">
-            {{ range .Pages }}
-            <li class="archive-post-item">
-                <div class="post-header-row" style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;">
-                    <a href="{{ .Permalink }}" class="post-title" style="flex: 1; min-width: 0;">{{ .Title }}</a>
-                    <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" class="post-date" style="flex-shrink: 0; white-space: nowrap;">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
-                </div>
-                {{ with .Params.tags }}
-                <div class="post-tags">
-                    {{ range . }}
-                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
-                    {{ end }}
-                </div>
-                {{ end }}
-            </li>
-            {{ end }}
-        </ul>
+<div class="archive-sections">
+  {{ $datedPages := where .Site.RegularPages ".Lastmod.IsZero" "eq" false }}
+  {{ $yearGroups := $datedPages.GroupByLastmod "2006" }}
+  {{ $otherPages := where .Site.RegularPages ".Lastmod.IsZero" "eq" true }}
+  
+  <section class="posts-section">
+    <div class="section-header">
+      <h2>Recently Updated <span class="total-count">({{ add (len $datedPages) (len $otherPages) }})</span></h2>
     </div>
-    {{ end }}
+    
+    <div class="posts-list">
+      {{ range $yearGroups }}
+      <div class="year-group" id="year-{{ .Key }}">
+        <h3 class="year-heading">{{ .Key }}</h3>
+        {{ range .Pages }}
+        <article class="post-item">
+          <div class="post-single-line">
+            <div class="post-first-line">
+              <h4 class="post-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              <time class="post-date">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+            </div>
+            <div class="post-second-line">
+              {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
+              {{ if .Params.tags }}
+              <div class="post-tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+      {{ end }}
 
-    {{/* Group pages with no last modified date under 'Other' */}}
-    {{ $otherPages := where .Site.RegularPages ".Lastmod.IsZero" "eq" true }}
-    {{ if gt (len $otherPages) 0 }}
-    <div class="archive-year-row">
-        <h2 class="archive-year-heading">Other</h2>
-        <ul class="archive-posts-list">
-            {{ range $otherPages }}
-            <li class="archive-post-item">
-                <div class="post-header-row" style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;">
-                    <a href="{{ .Permalink }}" class="post-title" style="flex: 1; min-width: 0;">{{ .Title }}</a>
-                    {{ if not .Date.IsZero }}
-                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="post-date" style="flex-shrink: 0; white-space: nowrap;">{{ .Date.Format "Jan 2, 2006" }}</time>
-                    {{ end }}
-                </div>
-                {{ with .Params.tags }}
-                <div class="post-tags">
-                    {{ range . }}
-                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
-                    {{ end }}
-                </div>
+      {{ if gt (len $otherPages) 0 }}
+      <div class="year-group" id="year-other">
+        <h3 class="year-heading">Other</h3>
+        {{ range $otherPages }}
+        <article class="post-item">
+          <div class="post-single-line">
+            <div class="post-first-line">
+              <h4 class="post-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              {{ if not .Date.IsZero }}
+              <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
+              {{ end }}
+            </div>
+            <div class="post-second-line">
+              {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
+              {{ if .Params.tags }}
+              <div class="post-tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
                 {{ end }}
-            </li>
-            {{ end }}
-        </ul>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+      {{ end }}
     </div>
-    {{ end }}
-    </div>
+  </section>
+</div>
+
+</article>
 </main>
 {{ end }}
