@@ -258,4 +258,13 @@ article.post-item,
   .posts-section {
     padding: 1rem;
   }
+  
+  /* Mobile tag pill styling for archive page */
+  .post-tags {
+    justify-content: flex-start !important;
+  }
+  
+  .post-tags .tag-pill {
+    margin-bottom: 0.1rem;
+  }
 }

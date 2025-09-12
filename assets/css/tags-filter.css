@@ -464,4 +464,13 @@ article.post-item,
     flex-direction: column;
     align-items: stretch;
   }
+  
+  /* Mobile tag pill styling for tags-filter page */
+  .post-tags {
+    justify-content: flex-start !important;
+  }
+  
+  .post-tags .tag-pill {
+    margin-bottom: 0.1rem;
+  }
 }

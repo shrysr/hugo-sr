@@ -234,11 +234,22 @@ pre code {
 @media (max-width: 768px) {
   .tag-pill,
   a.tag-pill {
-    padding: 0.4rem 0.7rem !important;
-    font-size: 0.8rem !important;
-    min-height: 36px !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.7rem !important;
+    min-height: 28px !important;
     display: inline-flex !important;
     align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Even smaller styling for post tags in mobile */
+  .post-tags .tag-pill,
+  .posts-list .post-tags .tag-pill,
+  .post-item .post-tags .tag-pill {
+    padding: 0.15rem 0.35rem !important;
+    font-size: 0.65rem !important;
+    min-height: 22px !important;
+    line-height: 1.2 !important;
   }
   
   .year-link {
@@ -568,7 +579,6 @@ nav a[aria-current="page"] span {
   
   .mobile-nav__hamburger rect {
     fill: rgba(255, 255, 255, 0.9) !important;
-    rx: 2 !important; /* Slightly rounded corners for modern look */
     transition: all 0.2s ease !important;
   }
   

@@ -12,30 +12,112 @@ document.addEventListener('DOMContentLoaded', function() {
   const filterModeSpan = document.getElementById('filter-mode');
   const filterExplanationText = document.getElementById('filter-explanation-text');
   
+  // Debug: Check if elements are found
+  console.log('Tag search element found:', tagSearch ? 'YES' : 'NO');
+  console.log('Tag selectables found:', tagSelectables.length);
+  console.log('NoTagsFound element found:', noTagsFound ? 'YES' : 'NO');
+  
   let selectedTags = new Set();
   let filterMode = 'OR'; // 'OR' or 'AND'
 
-  // Tag search functionality
+  // Tag search functionality - improved with fuzzy search
   function filterTagButtons() {
+    if (!tagSearch) {
+      console.error('tagSearch element not found!');
+      return;
+    }
+    
     const searchTerm = tagSearch.value.toLowerCase().trim();
     let visibleTagCount = 0;
     
+    console.log('Filtering with search term:', searchTerm);
+    
     tagSelectables.forEach(button => {
       const tagName = button.getAttribute('data-search');
-      const shouldShow = searchTerm === '' || tagName.includes(searchTerm);
+      
+      // Semantic fuzzy search: match words and word boundaries
+      let shouldShow = false;
+      if (searchTerm === '') {
+        shouldShow = true;
+      } else {
+        const originalTagName = button.getAttribute('data-tag') || '';
+        const displayName = originalTagName.toLowerCase();
+        
+        // Split search term into words
+        const searchWords = searchTerm.split(/\s+/).filter(word => word.length > 0);
+        
+        // Check different matching strategies with priority order
+        shouldShow = searchWords.every(word => {
+          // Priority 1: Exact word match at word boundaries
+          const camelCaseWords = originalTagName.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+          if (camelCaseWords.some(w => w === word)) {
+            return true;
+          }
+          
+          // Priority 2: Word starts with search term
+          if (camelCaseWords.some(w => w.startsWith(word))) {
+            return true;
+          }
+          
+          // Priority 3: Direct substring match (but only for longer search terms)
+          if (word.length >= 3 && (tagName.includes(word) || displayName.includes(word))) {
+            return true;
+          }
+          
+          // Priority 4: Tag starts with search term
+          if (tagName.startsWith(word) || displayName.startsWith(word)) {
+            return true;
+          }
+          
+          // Priority 5: Acronym matching - for 2+ character searches
+          if (word.length >= 2) {
+            const acronym = originalTagName.replace(/[a-z]/g, '').toLowerCase();
+            if (acronym.includes(word)) {
+              return true;
+            }
+          }
+          
+          // Priority 6: Fuzzy matching only for 3+ characters and must start at word boundary
+          if (word.length >= 3) {
+            // Check if fuzzy match starts at beginning of a camelCase word
+            for (const camelWord of camelCaseWords) {
+              let searchIndex = 0;
+              for (let i = 0; i < camelWord.length && searchIndex < word.length; i++) {
+                if (camelWord[i] === word[searchIndex]) {
+                  searchIndex++;
+                }
+              }
+              if (searchIndex === word.length && searchIndex > 0) {
+                return true;
+              }
+            }
+          }
+          
+          return false;
+        });
+      }
       
       if (shouldShow) {
-        button.style.display = 'inline-block';
+        button.style.setProperty('display', 'inline-block', 'important');
         visibleTagCount++;
       } else {
-        button.style.display = 'none';
+        button.style.setProperty('display', 'none', 'important');
       }
     });
     
-    noTagsFound.style.display = visibleTagCount === 0 ? 'block' : 'none';
+    console.log('Visible tag count:', visibleTagCount);
+    if (noTagsFound) {
+      noTagsFound.style.display = visibleTagCount === 0 && searchTerm !== '' ? 'block' : 'none';
+    }
   }
 
-  tagSearch.addEventListener('input', filterTagButtons);
+  // Add event listener with error handling
+  if (tagSearch) {
+    tagSearch.addEventListener('input', filterTagButtons);
+    console.log('Event listener added to tag search input');
+  } else {
+    console.error('tagSearch element not found - cannot add event listener!');
+  }
 
   // Filter mode toggle functionality
   function toggleFilterMode() {
