@@ -176,3 +176,177 @@ The site uses a comprehensive favicon setup:
 - **Menu Item Spacing**: Controlled via =gap= and =padding= properties in =responsive-nav.css=
 - **Scroll Offsets**: Adjust =scroll-padding-top= values if header height changes
 - **Mobile Detection**: Uses CSS media queries (max-width: 666px) to match theme's JS breakpoint
+
+* Recent Performance Optimizations (2025)
+
+** Overview
+
+The site has undergone significant performance optimizations to qualify for [[https://250kb.club][250kb.club]] standards while maintaining full functionality. These optimizations focus on reducing HTTP requests, minimizing file sizes, and improving mobile user experience.
+
+** Performance Metrics
+
+*** Before Optimization
+- **CSS Files**: 6-7 separate CSS files per page
+- **Total CSS Size**: ~74KB per page
+- **Page Sizes**: 150-195KB (within 250kb.club limits)
+- **HTTP Requests**: Multiple CSS file requests
+
+*** After Optimization
+- **CSS Files**: Reduced HTTP requests through strategic consolidation
+- **File Size Reductions**: 25-81% reduction in favicon files, CSS cleanup
+- **Enhanced Mobile Experience**: Improved tag pill styling and alignment
+- **Maintained Functionality**: All features preserved while reducing bloat
+
+** CSS Consolidation and Optimization
+
+*** Files Merged and Consolidated
+
+**** =responsive-nav.css= → =elegant-clean.css=
+- **Action**: Merged 247 lines of responsive navigation CSS
+- **Impact**: Eliminated one HTTP request per page load
+- **Content**: Mobile navigation, footnote fixes, scroll-to-top positioning
+- **Result**: =responsive-nav.css= removed from =layouts/partials/head/styles.html=
+
+*** CSS Rule Cleanup in =elegant-clean.css=
+- **Removed Unused Rules**: Tables, project/card styling, pagination
+- **File Size Reduction**: 19.6KB → 17.7KB (9.7% reduction)
+- **Fixed CSS Errors**: Removed invalid =rx: 2 !important;= SVG property causing console errors
+- **Maintained**: All essential styling preserved
+
+*** Page-Specific CSS Loading
+- **Strategy**: Page-specific CSS files (=archive.css=, =tags-filter.css=) load only when needed
+- **Implementation**: Already optimized with conditional loading
+- **Benefit**: Avoids loading unused CSS on irrelevant pages
+
+** Favicon Optimization
+
+*** File Size Reductions
+- **apple-touch-icon.png**: 11.7KB → 8.8KB (25% reduction)
+- **android-chrome-192x192.png**: 54.7KB → 10.5KB (81% reduction)
+- **Method**: Lossless compression and optimization for web delivery
+- **Quality**: Visual quality maintained while significantly reducing file sizes
+
+** Mobile User Experience Improvements
+
+*** Tag Pills Mobile Optimization
+**** Problem Solved
+- Tag pills appeared too large and misaligned on mobile devices
+- Content was aligned to top instead of center within pills
+- Poor visual hierarchy on archive and tag-filter pages
+
+**** Solution Implemented
+***** General Mobile Tag Pills (=elegant-clean.css=):
+#+BEGIN_SRC css
+@media (max-width: 768px) {
+  .tag-pill, a.tag-pill {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.7rem !important;
+    min-height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+#+END_SRC
+
+***** Post Tags Specific Mobile Styling:
+#+BEGIN_SRC css
+.post-tags .tag-pill {
+  padding: 0.15rem 0.35rem !important;
+  font-size: 0.65rem !important;
+  min-height: 22px !important;
+  line-height: 1.2 !important;
+}
+#+END_SRC
+
+***** Page-Specific Mobile Enhancements:
+- **=tags-filter.css=**: Added mobile-specific tag alignment rules
+- **=archive.css=**: Added mobile-specific tag alignment rules
+- **Result**: Consistent mobile tag pill experience across all pages
+
+** Tag Search Functionality Enhancement
+
+*** Issues Resolved
+
+**** Search Not Working
+- **Problem**: Tag search input had no visual effect on available tags
+- **Root Cause**: CSS specificity conflict - =.tag-pill { display: inline-block }= overriding JavaScript's =display: none=
+- **Solution**: Used =setProperty('display', 'none', 'important')= to force style application
+
+**** Search Algorithm Improvements
+- **Original**: Basic substring matching
+- **Enhanced**: Multi-priority semantic search algorithm
+
+***** Search Matching Priorities:
+1. **Exact word match** at word boundaries
+2. **Word prefix match** for CamelCase words  
+3. **Substring match** (3+ characters only)
+4. **Tag prefix match**
+5. **Acronym matching** (2+ characters)
+6. **Fuzzy matching** with word boundary detection
+
+***** Features:
+- **Multi-word support**: "py data" matches "PythonDataAnalysis"
+- **CamelCase aware**: Splits "ProductivityJournal" into ["productivity", "journal"]
+- **Case insensitive**: All matching is case-insensitive
+- **Length restrictions**: Prevents false positives (e.g., "py" no longer matches "ProductivityJournal")
+
+*** Implementation Details
+#+BEGIN_SRC javascript
+// Priority-based semantic search in tags-filter.js
+shouldShow = searchWords.every(word => {
+  const camelCaseWords = originalTagName.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+  // Priority 1: Exact word match
+  if (camelCaseWords.some(w => w === word)) return true;
+  // Priority 2: Word prefix match  
+  if (camelCaseWords.some(w => w.startsWith(word))) return true;
+  // Additional priorities with length restrictions...
+});
+#+END_SRC
+
+** Technical Debt Fixes
+
+*** CSS Console Errors
+- **Error Fixed**: "Error in parsing value for 'rx'. Declaration dropped."
+- **Cause**: Invalid CSS property =rx: 2 !important;= meant for SVG elements
+- **Location**: =elegant-clean.css:571=
+- **Resolution**: Removed invalid property, error eliminated
+
+*** CSS File Organization
+- **Consolidated**: Merged related CSS files to reduce HTTP requests
+- **Maintained**: Logical separation between global and page-specific styles
+- **Optimized**: Removed unused CSS rules without affecting functionality
+
+** 250kb.club Compliance Status
+
+*** Current Status: ✅ QUALIFIED
+- **Page Sizes**: Consistently under 250KB limit
+- **Optimization Level**: Significant improvements made while maintaining full functionality
+- **Future Considerations**: Additional optimizations possible but not necessary for compliance
+
+*** Optimization Strategies Applied
+1. **HTTP Request Reduction**: Merged CSS files where logical
+2. **File Size Optimization**: Compressed images and cleaned unused CSS
+3. **Mobile-First Approach**: Enhanced mobile experience without desktop compromise
+4. **Selective Loading**: Page-specific CSS only loads when needed
+5. **Performance Monitoring**: Established baseline for future optimizations
+
+** Maintenance Guidelines for Performance
+
+*** CSS File Management
+- **Never re-separate** merged CSS files without performance justification
+- **Monitor total CSS payload** when adding new customizations
+- **Test mobile experience** thoroughly after any CSS changes
+- **Use browser dev tools** to verify HTTP request counts
+
+*** Mobile Optimization
+- **Test tag pills** on actual mobile devices, not just browser resize
+- **Maintain consistent** mobile styling across archive and tag-filter pages  
+- **Verify center alignment** of tag content on various screen sizes
+- **Check touch targets** meet accessibility guidelines (44px minimum)
+
+*** Search Functionality
+- **Preserve search algorithm** complexity - simpler algorithms cause user frustration
+- **Test edge cases** like single-character searches and special characters
+- **Maintain CamelCase awareness** for technical tag names
+- **Debug with console logging** if search behavior changes unexpectedly
