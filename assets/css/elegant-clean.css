@@ -641,21 +641,60 @@ nav a[aria-current="page"] span {
   }
 }
 
-/* Footnote Scroll Offset Fix */
-/* Add scroll padding to account for sticky header */
+/* Sticky Header and Scroll Offset System */
+:root {
+  /* Define header height variables with extra buffer for proper visibility */
+  --header-height-desktop: 70px; /* Accounts for actual header size plus buffer */
+  --header-height-mobile: 55px;  /* Accounts for mobile header size plus buffer */
+  
+  /* Calculate actual header height based on screen size */
+  --header-height: var(--header-height-desktop);
+}
+
+/* Reduce sticky header height with maximum specificity */
+.header,
+.layout__header .header,
+header.header,
+.page .header,
+main .header {
+  padding-block: 0.1rem !important; /* Very compact header */
+  padding-top: 0.1rem !important;
+  padding-bottom: 0.1rem !important;
+  min-height: auto !important; /* Remove any min-height constraints */
+}
+
+/* Mobile header height override */
+@media (max-width: 666px) {
+  :root {
+    --header-height: var(--header-height-mobile);
+  }
+  
+  .header,
+  .layout__header .header,
+  header.header,
+  .page .header,
+  main .header {
+    padding-block: 0.05rem !important; /* Extremely compact on mobile */
+    padding-top: 0.05rem !important;
+    padding-bottom: 0.05rem !important;
+    min-height: auto !important;
+  }
+}
+
+/* Scroll Offset System - All linked to header height variables */
 html {
-  scroll-padding-top: 80px; /* Adjust based on your header height */
+  scroll-padding-top: var(--header-height);
 }
 
 /* Alternative method for older browsers */
 .footnote-ref,
 .footnote-backref {
-  scroll-margin-top: 80px !important;
+  scroll-margin-top: var(--header-height) !important;
 }
 
 /* Specific footnote target styling */
 .footnotes ol li:target {
-  scroll-margin-top: 80px !important;
+  scroll-margin-top: var(--header-height) !important;
   background-color: rgba(74, 93, 122, 0.1) !important;
   padding: 0.5rem !important;
   border-radius: 4px !important;
@@ -667,23 +706,12 @@ html {
   100% { background-color: rgba(74, 93, 122, 0.1); }
 }
 
-/* Ensure footnote links work properly */
+/* Ensure all anchor links work properly with dynamic header height */
 a[href^="#fn:"]:target,
-a[href^="#fnref:"]:target {
-  scroll-margin-top: 80px !important;
-}
-
-/* Mobile footnote adjustments */
-@media (max-width: 666px) {
-  html {
-    scroll-padding-top: 60px; /* Smaller offset for mobile */
-  }
-  
-  .footnote-ref,
-  .footnote-backref,
-  .footnotes ol li:target {
-    scroll-margin-top: 60px !important;
-  }
+a[href^="#fnref:"]:target,
+a[href^="#"]:target,
+*:target {
+  scroll-margin-top: var(--header-height) !important;
 }
 
 /* Scroll-to-top arrow improvements */
