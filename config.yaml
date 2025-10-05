@@ -3,6 +3,9 @@ title: "Eudaimonia"
 theme: "zen"
 languageCode: ""       # Set your language code (only needed for none multilingual sites).
 
+# Summary/Excerpt Configuration
+summaryLength: 70        # Number of words for auto-generated summaries (default: 70)
+
 params:
   alpine: false              # Add AlpineJS, default false.
   author: 
