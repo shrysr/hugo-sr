@@ -1,0 +1,70 @@
+{{ define "head" }}
+<!-- Load project showcase CSS -->
+{{ $css := resources.Get "css/project-showcase.css" }}
+{{ if hugo.IsProduction }}
+{{ $css = $css | minify | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{ end }}
+
+{{ define "main" }}
+<main class="main layout__main">
+<article class="single-view single-view--project">
+    <!-- Page header -->
+    <header>
+        <h1 class="title">{{ .Title }}</h1>
+    </header>
+
+    {{ .Content }}
+
+    <!-- Project showcase grid -->
+    <div class="project-showcase">
+        {{ $paginator := .Paginate (.Pages) }}
+        {{ range $paginator.Pages }}
+        <article class="project-card">
+            <!-- Clickable card wrapper -->
+            <a href="{{ .Permalink }}" class="project-card-link">
+                <!-- Project image (only if available) -->
+                {{ if .Params.image }}
+                <div class="project-image">
+                    <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" loading="lazy">
+                </div>
+                {{ else if .Resources.GetMatch "featured.*" }}
+                    {{ with .Resources.GetMatch "featured.*" }}
+                    <div class="project-image">
+                        <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" loading="lazy">
+                    </div>
+                    {{ end }}
+                {{ end }}
+
+                <!-- Project content -->
+                <div class="project-content">
+                    <h2 class="project-title">{{ .Title }}</h2>
+
+                    {{ with .Params.summary }}
+                    <p class="project-summary">{{ . }}</p>
+                    {{ else }}
+                    {{ with .Summary }}
+                    <p class="project-summary">{{ . }}</p>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </a>
+
+            <!-- Tags (clickable separately from card) -->
+            {{ with .Params.tags }}
+            <div class="project-tags">
+                {{ range . }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill" onclick="event.stopPropagation()">{{ . }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+        </article>
+        {{ end }}
+    </div>
+
+    <!-- Pagination -->
+    {{ partial "pagination-lite.html" . }}
+</article>
+</main>
+{{ end }}

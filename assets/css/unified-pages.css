@@ -16,6 +16,11 @@
   padding-right: 0;
 }
 
+/* List items section within single-view should blend seamlessly */
+.single-view .archive-list {
+  margin-top: 2rem;
+}
+
 /* ========================================
    Header Consistency Across All Page Types
    ======================================== */
