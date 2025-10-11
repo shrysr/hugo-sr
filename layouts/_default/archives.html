@@ -72,8 +72,8 @@
         <h3 class="year-heading">Pages</h3>
         {{ range $otherPages }}
         <article class="post-item">
-          <div class="post-header-row">
-            <div class="post-title-line">
+          <div class="post-single-line">
+            <div class="post-first-line">
               <h4 class="post-title">
                 <a href="{{ .RelPermalink }}">{{ .Title }}</a>
               </h4>
@@ -81,7 +81,7 @@
               <time class="post-date">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
               {{ end }}
             </div>
-            <div class="post-meta-line">
+            <div class="post-second-line">
               {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
               {{ if .Params.tags }}
               <div class="post-tags">

@@ -1,0 +1,135 @@
+/* Unified Page Styling - Normalize all page types for consistent formatting */
+/* Makes project pages, tag pages, post pages, and about pages look consistent */
+
+/* ========================================
+   Width and Padding Consistency
+   ======================================== */
+
+.layout__main {
+  max-width: var(--max-content-width);
+}
+
+.single-view,
+.list-page-header,
+.archive-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ========================================
+   Header Consistency Across All Page Types
+   ======================================== */
+
+/* All page headers - single pages (about, search, posts) and list pages (projects, tags) */
+.single-view header,
+.single-view--page header,
+.single-view--post header,
+.single-view--project header,
+.single-view--search header,
+.list-page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+/* ========================================
+   Title Consistency Across All Page Types
+   ======================================== */
+
+/* All h1 titles have consistent size and styling */
+.single-view h1.title,
+.single-view--page h1.title,
+.single-view--post h1.title,
+.single-view--project h1.title,
+.single-view--search h1.title,
+.list-page-title,
+.list-page-title-with-prefix {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+/* Taxonomy pages with prefix (like "Tag: tagname") */
+.list-page-title-with-prefix {
+  display: flex;
+  align-items: center;  /* Changed from baseline to center for perfect vertical alignment */
+  gap: 0.5rem;
+}
+
+.list-page-prefix {
+  color: var(--color-text-meta);
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
+}
+
+.list-page-name {
+  color: var(--color-headings);
+  font-weight: 600;
+}
+
+/* ========================================
+   Badge Styling - Optimized
+   ======================================== */
+
+/* Post count badge with increased gap from title */
+.list-count-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  margin-left: 1rem;  /* Increased from 0.5rem for better spacing */
+  background: var(--elegant-neutral-lighter, var(--color-brand-light));
+  color: var(--elegant-neutral-dark, var(--color-brand-dark));
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--elegant-neutral-light, var(--color-border-light));
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* ========================================
+   Description/Metadata
+   ======================================== */
+
+.list-page-description {
+  margin: 0.5rem 0 0 0;
+  color: var(--color-text-meta);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Smaller titles on mobile */
+  .single-view h1.title,
+  .single-view--page h1.title,
+  .single-view--post h1.title,
+  .single-view--project h1.title,
+  .single-view--search h1.title,
+  .list-page-title,
+  .list-page-title-with-prefix {
+    font-size: 1.75rem;
+  }
+
+  .list-page-prefix {
+    font-size: 1rem;
+  }
+
+  /* Stack prefix on mobile */
+  .list-page-title-with-prefix {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  /* Badge adjustments on mobile */
+  .list-count-badge {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+  }
+}

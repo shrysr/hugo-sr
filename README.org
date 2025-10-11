@@ -48,15 +48,80 @@ This site uses a carefully orchestrated system of custom CSS files to achieve sp
 
 ** CSS Loading Order
 
-The CSS files are loaded in the following specific order:
+The CSS files are loaded in a two-tier system optimized for performance:
 
-1. Theme base styles (from =themes/zen/=)
-2. =assets/css/elegant-clean.css= (global overrides and base styling)
-3. =assets/css/tags-filter.css= (loaded globally via =layouts/partials/head/styles.html=)
-4. =assets/css/archive.css= (loaded globally via =layouts/partials/head/styles.html=)
-5. Page-specific CSS (loaded again by individual templates)
+*** Global CSS (Loaded on ALL Pages)
+Loaded via =layouts/partials/head/styles.html= in this order:
+
+1. **Theme base styles** (from =themes/zen/assets/sass/styles.scss=)
+   - Core Hugo Zen theme styles
+   - Layout grid system, typography, base components
+2. **=assets/css/elegant-clean.css=** (~743 lines)
+   - Global overrides and customizations
+   - Tag pill styling, post layout rules
+   - Responsive navigation, mobile menu
+   - Consolidated from former =responsive-nav.css=
+3. **=assets/css/unified-pages.css=** (~135 lines)
+   - Page header normalization across all page types
+   - Title consistency (single, list, taxonomy pages)
+   - Badge styling for list count
+   - Width and padding normalization
+   - **Purpose**: Ensures about, search, posts, projects, and tag pages have identical formatting
+
+*** Page-Specific CSS (Conditionally Loaded)
+Loaded only on relevant pages via template =define "head"= blocks:
+
+1. **=assets/css/archive.css=** (~269 lines)
+   - Loaded by: =layouts/_default/archives.html=
+   - Archive page specific styling
+   - Year navigation, compact post items
+2. **=assets/css/tags-filter.css=** (~475 lines)
+   - Loaded by: =layouts/tags-filter/single.html=
+   - Tag filter page with search functionality
+   - Interactive tag selection styling
+3. **=assets/css/list-pages.css=** (~260 lines)
+   - Loaded by: =layouts/_default/list.html= and =layouts/taxonomy/tag.html=
+   - Post/item listing styles for projects, tags, categories
+   - **Note**: Header, title, and badge styles are in =unified-pages.css= to avoid duplication
+   - Focuses on post item layout, summaries, read-more links
+
+*** Why Keep unified-pages.css and list-pages.css Separate?
+
+**Performance Optimization Strategy:**
+- **unified-pages.css** (135 lines): Loaded on ALL pages
+  - Minimal size ensures fast load times
+  - Only contains styling needed by every page type
+  - Headers, titles, badges that appear universally
+
+- **list-pages.css** (260 lines): Loaded ONLY on list pages
+  - ~260 lines of list-specific CSS not needed on about, search, or post pages
+  - Conditional loading aligns with site's 250kb.club optimization goals
+  - Reduces CSS payload by ~50% on non-list pages
+
+**Duplication Avoidance:**
+- Header, title, prefix, and badge styles centralized in =unified-pages.css=
+- =list-pages.css= references this in comments to prevent re-addition
+- Mobile responsive rules for page headers live in =unified-pages.css=
+- Only post item-specific responsive rules remain in =list-pages.css=
+
+**Consolidation Considered But Rejected:**
+- Merging would add 260 lines to every page load
+- Current two-tier system provides better performance
+- Page-specific CSS loading is a web performance best practice
 
 ** Key Custom CSS Files
+
+*** =assets/css/unified-pages.css= (NEW - Added 2025)
+- **Purpose**: Normalize formatting across all page types (single, list, taxonomy)
+- **Key Features**:
+  - Width and padding consistency for all pages
+  - Header formatting (margins, borders) unified across page types
+  - Title sizing standardized at 2rem (desktop) / 1.75rem (mobile)
+  - Badge styling with 1rem gap from title text
+  - Vertical centering of badge with heading using =align-items: center=
+- **Covers**: About, search, posts, projects, tag listings, category listings
+- **Loading**: Global (via =layouts/partials/head/styles.html=)
+- **Maintenance**: Single source of truth for page headers and titles
 
 *** =assets/css/elegant-clean.css=
 - **Purpose**: Global styling overrides and base theme customizations
@@ -76,6 +141,17 @@ The CSS files are loaded in the following specific order:
 - **Purpose**: Tag filter page specific styling
 - **Key Features**: Identical post layout to archive page for consistency
 - **Layout Structure**: Mirrors archive.css post layout exactly
+
+*** =assets/css/list-pages.css=
+- **Purpose**: Post/item listing styles for project pages, tag pages, category pages
+- **Loading**: Conditionally loaded by =list.html= and =tag.html= templates
+- **Key Features**:
+  - Post item layout (title, date, tags, summary)
+  - Read More link styling
+  - Archive-compatible post item structure
+  - Mobile responsive post items
+- **Dependencies**: Relies on =unified-pages.css= for headers, titles, and badges
+- **Maintenance**: Do NOT add header/title/badge styles here - they belong in =unified-pages.css=
 
 ** Post Layout Architecture
 
