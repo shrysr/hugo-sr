@@ -81,9 +81,14 @@ Loaded only on relevant pages via template =define "head"= blocks:
    - Interactive tag selection styling
 3. **=assets/css/list-pages.css=** (~260 lines)
    - Loaded by: =layouts/_default/list.html= and =layouts/taxonomy/tag.html=
-   - Post/item listing styles for projects, tags, categories
+   - Post/item listing styles for tags, categories
    - **Note**: Header, title, and badge styles are in =unified-pages.css= to avoid duplication
    - Focuses on post item layout, summaries, read-more links
+4. **=assets/css/project-showcase.css=** (~165 lines)
+   - Loaded by: =layouts/project/list.html=
+   - Special card-based showcase layout for projects
+   - Compact grid design with optional featured images
+   - Entire cards clickable, tags independently clickable
 
 *** Why Keep unified-pages.css and list-pages.css Separate?
 
@@ -143,7 +148,7 @@ Loaded only on relevant pages via template =define "head"= blocks:
 - **Layout Structure**: Mirrors archive.css post layout exactly
 
 *** =assets/css/list-pages.css=
-- **Purpose**: Post/item listing styles for project pages, tag pages, category pages
+- **Purpose**: Post/item listing styles for tag pages, category pages
 - **Loading**: Conditionally loaded by =list.html= and =tag.html= templates
 - **Key Features**:
   - Post item layout (title, date, tags, summary)
@@ -152,6 +157,118 @@ Loaded only on relevant pages via template =define "head"= blocks:
   - Mobile responsive post items
 - **Dependencies**: Relies on =unified-pages.css= for headers, titles, and badges
 - **Maintenance**: Do NOT add header/title/badge styles here - they belong in =unified-pages.css=
+
+*** =assets/css/project-showcase.css= (NEW - Added 2025)
+- **Purpose**: Special card-based layout for project listing page
+- **Loading**: Conditionally loaded by =layouts/project/list.html=
+- **Key Features**:
+  - Compact card grid layout (280px min width per card)
+  - Responsive grid: 1 column (mobile), 2 columns (tablet), 3+ columns (desktop)
+  - Optional featured image support (140px height, 120px on mobile)
+  - No placeholder if image unavailable
+  - Entire card clickable to open project
+  - Tags independently clickable with =event.stopPropagation()=
+  - Summary limited to 3 lines with ellipsis overflow
+  - Subtle colors matching site aesthetic (=#fafbfc= background, =#e2e8f0= border)
+- **Card Components**:
+  - Featured image (if =image= param or =featured.*= resource exists)
+  - Project title (1.1rem, changes color on hover)
+  - Summary (0.875rem, 3-line clamp)
+  - Tags at bottom (clickable separately from card)
+- **Design Philosophy**: Compact, clean, subtle - no elevation shadows or bold colors
+- **Image Support**: Add =image = "/path/to/image.png"= to project frontmatter or place =featured.jpg/png/webp= alongside markdown file
+
+** Project Showcase Architecture
+
+*** Overview
+
+The project listing page uses a special showcase layout distinct from regular post listings. Unlike the simple list format for posts/tags, projects are displayed in a compact card-based grid that highlights each project individually.
+
+*** Layout Template: =layouts/project/list.html=
+
+**Structure:**
+#+BEGIN_SRC html
+<article class="single-view single-view--project">
+  <header><h1>Projects</h1></header>
+  <div class="project-showcase">
+    <article class="project-card">
+      <a href="/project/name" class="project-card-link">
+        <!-- Optional featured image -->
+        <div class="project-content">
+          <h2>Project Title</h2>
+          <p>Summary...</p>
+        </div>
+      </a>
+      <!-- Tags (clickable separately) -->
+      <div class="project-tags">...</div>
+    </article>
+  </div>
+</article>
+#+END_SRC
+
+**Key Design Decisions:**
+1. **Entire card clickable**: =<a>= wrapper around image and content for better UX
+2. **Tags outside wrapper**: Allows independent navigation with =event.stopPropagation()=
+3. **No placeholder images**: Cards gracefully adapt when no image available
+4. **Conditional image rendering**: Checks both =.Params.image= and =.Resources.GetMatch "featured.*"=
+
+*** Styling: =assets/css/project-showcase.css=
+
+**Grid System:**
+- **Mobile** (≤768px): 1 column, 120px images
+- **Tablet** (769-1023px): 2 columns
+- **Desktop** (≥1024px): 3+ columns, auto-fill with 300px min
+
+**Color Palette (Matches Site Aesthetic):**
+- Card background: =#fafbfc= (very light gray)
+- Border: =#e2e8f0= (subtle gray)
+- Hover border: =#cbd5e1= (slightly darker)
+- Tag background: =#f1f5f9= (light slate)
+- Tag text: =#64748b= (slate)
+
+**Compact Dimensions:**
+- Card min-width: 280px (300px on large screens)
+- Grid gap: 1.25rem (1.5rem on large screens)
+- Image height: 140px (120px mobile)
+- Content padding: 1rem (0.875rem mobile)
+- Title size: 1.1rem (1rem mobile)
+- Summary: 3-line clamp with ellipsis
+
+*** Adding Featured Images to Projects
+
+**Method 1: Frontmatter Parameter**
+#+BEGIN_SRC toml
++++
+title = "My Project"
+image = "/images/projects/my-project.png"
+summary = "Brief description..."
++++
+#+END_SRC
+
+**Method 2: Page Resource (Recommended)**
+Place image file alongside project markdown:
+#+BEGIN_SRC
+content/project/
+  my-project.md
+  featured.jpg    # or featured.png, featured.webp
+#+END_SRC
+
+Hugo will automatically detect and use the =featured.*= resource.
+
+*** Maintenance Guidelines
+
+**DO:**
+- Keep colors subtle and matching site palette
+- Maintain compact sizing for better information density
+- Ensure entire card is clickable for good UX
+- Keep tags independently clickable
+- Test responsive grid on actual devices
+
+**DON'T:**
+- Add placeholder images (cards should adapt gracefully)
+- Use elevation shadows or bold colors (keep it subtle)
+- Make cards too large (defeats compact design goal)
+- Remove =event.stopPropagation()= from tags (breaks independent clicking)
 
 ** Post Layout Architecture
 
@@ -426,3 +543,136 @@ shouldShow = searchWords.every(word => {
 - **Test edge cases** like single-character searches and special characters
 - **Maintain CamelCase awareness** for technical tag names
 - **Debug with console logging** if search behavior changes unexpectedly
+
+* Recent CSS Enhancements (October 2025)
+
+** Code Block Styling Improvements
+
+*** Issues Resolved
+**** Black Bands Around Code Blocks
+- **Problem**: Code blocks displayed with black bands at top and bottom, creating visual artifacts
+- **Root Cause**: Multiple conflicting CSS rules across different files
+  - =elegant-clean.css= applying aggressive =!important= styles to ALL =pre= elements
+  - Theme's =article pre= styling conflicting with custom =code-blocks.css=
+  - =.highlight= container and =.chroma= wrapper both adding backgrounds
+
+**** Solution Implemented
+***** File: =assets/css/code-blocks.css=
+- **Container Strategy**: =.highlight= provides single elegant box with all visual styling
+  - Background: =#f8f9fb= (matches site's elegant-clean aesthetic)
+  - Border: =1px solid #e5e7eb= with =8px border-radius=
+  - Box shadow: =0 1px 3px rgba(0, 0, 0, 0.06)= for subtle elevation
+  - =overflow: hidden= to clip contents to border-radius
+
+- **Pre Element**: Transparent background, inherits from parent container
+  - Padding: =1.25rem 1.5rem= for comfortable code readability
+  - No border or shadow (parent handles all visual styling)
+  - Custom scrollbar with matching background colors
+
+- **Chroma Wrapper**: Completely transparent to prevent artifacts
+  - All background, border, padding, and margin set to transparent/0
+  - Ensures no visual interference with parent styling
+
+***** File: =assets/css/elegant-clean.css= (Lines 207-229)
+- **Critical Fix**: Modified selectors to exclude syntax-highlighted blocks
+  #+BEGIN_SRC css
+  /* Before: Applied to ALL pre elements */
+  pre { background: #f8f9fb !important; }
+
+  /* After: Excludes highlight blocks */
+  pre:not(.highlight pre):not(.chroma) { background: #f8f9fb !important; }
+  #+END_SRC
+
+*** Result
+- **Single Elegant Box**: Code blocks now display as unified, clean boxes
+- **No Visual Artifacts**: Black bands completely eliminated
+- **Consistent Styling**: Matches site's elegant design language
+- **Proper Separation**: Clear visual differentiation from surrounding text
+
+** Text Flow Consistency
+
+*** Issues Resolved
+**** Discrepancy Between Paragraphs and Lists
+- **Problem**: Paragraphs had restrictive line wrapping while lists flowed naturally to container width
+- **Cause**: Paragraphs constrained to =80ch= (80 characters) via =--max-line-width= variable
+- **Visual Impact**: Uneven text layout with paragraphs appearing artificially narrow compared to lists
+
+**** Solution Implemented
+***** File: =assets/sass/_custom.scss= (Lines 450-451, 547-548)
+#+BEGIN_SRC scss
+/* Before: Restrictive 80-character limit */
+.main p {
+  max-width: var(--max-line-width);  /* 80ch */
+}
+
+/* After: Natural flow like lists */
+.main p {
+  max-width: none !important;
+}
+#+END_SRC
+
+***** File: =assets/css/unified-pages.css= (Lines 125-126)
+- Applied same fix for consistency across all page types
+- Ensures uniform text flow on single pages, list pages, and taxonomy pages
+
+*** Result
+- **Consistent Text Flow**: Paragraphs and lists now flow identically
+- **Natural Line Breaks**: =text-wrap: pretty= still applies for optimal readability
+- **Unified Layout**: No visual discrepancy between different text elements
+- **Better Use of Space**: Text utilizes full container width appropriately
+
+** External Link Visual Differentiation
+
+*** Implementation
+**** Purpose
+- Clearly distinguish external links from internal navigation
+- Provide visual indicator for links that open external websites
+- Maintain elegant aesthetics aligned with site design
+
+**** Features Implemented
+***** File: =assets/sass/_custom.scss= (Lines 551-606)
+
+***** External Link Detection (Generic, Domain-Agnostic)
+#+BEGIN_SRC scss
+/* Targets any absolute URL (http:// or https://) */
+.main a[href^="http://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link),
+.main a[href^="https://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link)
+#+END_SRC
+
+- **Generic Detection**: Uses protocol detection instead of hardcoded domains
+- **Exclusions**: Localhost (development), tag pills, year links, buttons
+- **Assumption**: Internal links use relative paths (Hugo best practice)
+
+***** Visual Indicator
+- **Icon**: Prominent "↗" arrow after external links
+- **Color**: =#b85450= (brand alt color) at =0.8= opacity
+- **Size**: =0.85em= with =0.3em= spacing
+- **Weight**: =font-weight: 600= for better visibility
+- **Position**: =vertical-align: super= (superscript positioning)
+
+***** Interactive Behavior
+- **Hover State**:
+  - Link color changes to =#b85450= (brand alt)
+  - Underline becomes thicker (1px → 2px)
+  - Arrow opacity increases to 1.0
+  - Arrow animates: =translate(3px, -3px)= for pronounced movement
+
+- **Smooth Transitions**: All changes use =0.2s ease= transitions
+
+***** Internal Link Styling
+- **Color**: =var(--accent-color)= (#4a5d7a)
+- **Underline**: Solid, 1px thickness
+- **Hover**: Darkens to =var(--accent-color-dark)=
+- **No Icon**: Internal links remain clean without indicators
+
+*** Design Philosophy
+- **Subtle Yet Noticeable**: Prominent enough to be immediately visible
+- **Elegant Integration**: Matches site's color palette and design language
+- **Universal Symbol**: "↗" is widely recognized as "external link" indicator
+- **Accessible**: Color contrast and size meet accessibility guidelines
+
+*** Maintenance Notes
+- **Generic Detection**: Works on any domain, no hardcoded URLs
+- **Easily Adjustable**: Icon size, color, and opacity can be tweaked via CSS variables
+- **No JavaScript**: Pure CSS solution, works without JavaScript enabled
+- **Performance**: No impact on page load times
