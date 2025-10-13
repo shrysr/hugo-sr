@@ -110,6 +110,90 @@
    Responsive Design
    ======================================== */
 
+/* ========================================
+   Text Wrapping and Readability Improvements
+   ======================================== */
+
+/* Override theme's restrictive max-width on list items
+   List items should flow naturally within their container,
+   as they already have indentation that reduces effective line length */
+.main li {
+  max-width: none !important;
+}
+
+/* Remove max-width constraint on paragraphs for natural text flow */
+.main p {
+  max-width: none !important;
+}
+
+/* Maintain pretty text wrapping across all content types for optimal line breaks */
+.main p,
+.main li,
+.main blockquote,
+.main dd {
+  text-wrap: pretty;
+}
+
+/* ========================================
+   Clickable Image Thumbnails with Full-Size Links
+   ======================================== */
+
+/* Image link container styling */
+.image-link {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 0;
+}
+
+.image-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Post images styling */
+.post-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Full-size hint indicator */
+.image-fullsize-hint {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(74, 93, 122, 0.9);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 6px 0 6px 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.image-link:hover .image-fullsize-hint {
+  opacity: 1;
+}
+
+/* Ensure images without links still have proper spacing */
+img.post-image {
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+}
+
 @media (max-width: 768px) {
   /* Smaller titles on mobile */
   .single-view h1.title,
@@ -136,5 +220,16 @@
   .list-count-badge {
     margin-left: 0.5rem;
     font-size: 0.75rem;
+  }
+
+  /* Image responsive adjustments */
+  .image-link,
+  img.post-image {
+    margin: 1rem 0;
+  }
+
+  .image-fullsize-hint {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
   }
 }

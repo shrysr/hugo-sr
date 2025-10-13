@@ -59,14 +59,16 @@
   --ui-rounded:      ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
 
   // Monospace font stacks.
+  // Enhanced with Iosevka as the primary monospace font for code blocks
   --ui-monospace:    ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  --iosevka-mono:    'Iosevka', 'Iosevka Web', 'Cascadia Code', 'Source Code Pro', 'SF Mono', Monaco, Menlo, Consolas, 'DejaVu Sans Mono', 'Liberation Mono', 'Courier New', monospace;
   // stylelint-enable value-keyword-case
 
   // Font family.
   --ff-body: var(--ui-serif);
   --ff-headings: var(--ui-sans-serif);
   --ff-alt: var(--system-ui);
-  --ff-monospace: var(--ui-monospace);
+  --ff-monospace: var(--iosevka-mono);
 
   // Font weights.
   --fw-headings: 700;
@@ -105,7 +107,8 @@
   --indent-amount: 2rem;
 
   // The max line width for readability.
-  --max-line-width: 70ch;
+  // Increased from 70ch to 80ch for better modern readability standards
+  --max-line-width: 80ch;
 
   // The pt font-size to be used for printing.
   --print-font-size: 12pt;

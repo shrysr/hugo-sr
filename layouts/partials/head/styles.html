@@ -10,12 +10,16 @@
 
 {{ $elegant_clean_css := resources.Get "css/elegant-clean.css" -}}
 {{ $unified_pages_css := resources.Get "css/unified-pages.css" -}}
+{{ $chroma_css := resources.Get "css/chroma-github.css" -}}
+{{ $code_blocks_css := resources.Get "css/code-blocks.css" -}}
 {{ if ne hugo.Environment "development" -}}
   {{ $main_style = $main_style | fingerprint -}}
   {{ $mobile_style = $mobile_style | fingerprint -}}
   {{ $print_style = $print_style | fingerprint -}}
   {{ $elegant_clean_css = $elegant_clean_css | minify | fingerprint -}}
   {{ $unified_pages_css = $unified_pages_css | minify | fingerprint -}}
+  {{ $chroma_css = $chroma_css | minify | fingerprint -}}
+  {{ $code_blocks_css = $code_blocks_css | minify | fingerprint -}}
 {{ end -}}
 <link rel="stylesheet" href="{{ $main_style.RelPermalink }}">
 {{ if $.Param "mobilemenu" -}}
@@ -24,3 +28,5 @@
 <link rel="stylesheet" href="{{ $print_style.RelPermalink }}" media="print">
 <link rel="stylesheet" href="{{ $elegant_clean_css.RelPermalink }}">
 <link rel="stylesheet" href="{{ $unified_pages_css.RelPermalink }}">
+<link rel="stylesheet" href="{{ $chroma_css.RelPermalink }}">
+<link rel="stylesheet" href="{{ $code_blocks_css.RelPermalink }}">

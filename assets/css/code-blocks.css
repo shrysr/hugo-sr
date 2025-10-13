@@ -1,0 +1,245 @@
+/* ========================================
+   Enhanced Code Block Formatting
+   - Syntax highlighting with Chroma
+   - Iosevka font family
+   - Improved spacing and readability
+   ======================================== */
+
+/* Define font-mono with Iosevka as priority */
+:root {
+  --font-mono: 'Iosevka', 'Iosevka Web', 'Cascadia Code', 'Source Code Pro',
+               'SF Mono', Monaco, Menlo, Consolas, 'DejaVu Sans Mono',
+               'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Code block container with syntax highlighting - Single elegant box */
+.highlight {
+  margin: 2rem 0 !important;
+  border-radius: 8px !important;  /* Match site's section styling */
+  background: #f8f9fb !important;  /* Match elegant-clean background */
+  border: 1px solid #e5e7eb !important;  /* Clean border */
+  overflow: hidden !important;  /* Clip contents to border-radius */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;  /* Subtle elevation */
+  padding: 0 !important;  /* No padding on container */
+}
+
+/* Pre element inside highlight blocks - Override theme's article pre styling */
+.highlight pre,
+article .highlight pre {
+  margin: 0 !important;
+  /* Comfortable padding for code readability */
+  padding: 1.25rem 1.5rem !important;
+  background: transparent !important;  /* Inherit from parent .highlight */
+  border: none !important;  /* No border - parent handles it */
+  border-radius: 0 !important;  /* No border-radius - parent handles it */
+  box-shadow: none !important;  /* No shadow - parent handles it */
+  font-family: var(--font-mono) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.7 !important;
+  overflow-x: auto !important;
+  max-width: 100% !important;
+  max-height: none !important;  /* Override theme's max-height */
+  box-sizing: border-box !important;
+
+  /* Smooth scrolling for code overflow */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d7de #f8f9fb;
+}
+
+/* Custom scrollbar for webkit browsers */
+.highlight pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.highlight pre::-webkit-scrollbar-track {
+  background: #f8f9fb;
+  border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb {
+  background: #d0d7de;
+  border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb:hover {
+  background: #afb8c1;
+}
+
+/* Code within pre elements */
+.highlight pre code {
+  display: block;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+
+/* Line numbers styling - significantly improved spacing */
+.highlight .ln,
+.highlight .lnt {
+  display: inline-block;
+  min-width: 2.5rem;
+  color: #8c959f;
+  user-select: none;
+  text-align: right;
+  padding-right: 1.25rem;  /* Increased from 0.5rem for better spacing */
+  margin-right: 1.25rem;   /* Increased from 0.5rem for better spacing */
+  border-right: 2px solid #d0d7de;  /* Thicker, more visible border */
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* Individual line styling */
+.highlight .line {
+  display: flex;
+  align-items: baseline;
+}
+
+/* Inline code (not in code blocks) */
+code:not(.hljs):not([class*="language-"]):not([data-lang]) {
+  background: #f8f9fb;
+  color: #2c3241;
+  padding: 0.25rem 0.45rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  border: 1px solid #e5e7eb;
+  font-weight: 400;
+}
+
+/* Code blocks without syntax highlighting */
+pre:not(.highlight pre) {
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+pre:not(.highlight pre) code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+}
+
+/* Chroma-specific enhancements - Ensure .chroma doesn't interfere */
+.chroma,
+pre.chroma,
+article pre.chroma {
+  background-color: transparent !important;  /* Let parent handle background */
+  background: transparent !important;
+  border-radius: 0 !important;  /* Let parent handle border-radius */
+  border: none !important;  /* No border on .chroma */
+  padding: 0 !important;  /* No padding on .chroma */
+  margin: 0 !important;  /* No margin on .chroma */
+  box-shadow: none !important;  /* No shadow on .chroma */
+}
+
+/* Ensure highlight container handles all the visual styling */
+.highlight .chroma {
+  background: transparent !important;
+}
+
+/* Ensure Chroma code elements use Iosevka */
+.chroma code,
+.chroma pre {
+  font-family: var(--font-mono);
+}
+
+/* Line highlighting for Chroma */
+.chroma .hl {
+  background-color: #fff8c5;
+  display: block;
+  margin: 0 -1.25rem;
+  padding: 0 1.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .highlight pre,
+  pre:not(.highlight pre) {
+    font-size: 0.85rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight .ln,
+  .highlight .lnt {
+    min-width: 2rem;
+    padding-right: 0.75rem;
+    margin-right: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  code:not(.hljs):not([class*="language-"]):not([data-lang]) {
+    font-size: 0.85em;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Print styles for code blocks */
+@media print {
+  .highlight,
+  pre:not(.highlight pre) {
+    border: 1px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .highlight .ln,
+  .highlight .lnt {
+    border-right: 1px solid #000;
+  }
+
+  code:not(.hljs):not([class*="language-"]):not([data-lang]) {
+    border: 1px solid #666;
+  }
+}
+
+/* Dark mode support (if implemented in future) */
+@media (prefers-color-scheme: dark) {
+  .highlight,
+  .chroma {
+    background-color: #0d1117;
+    border-color: #30363d;
+  }
+
+  .highlight pre {
+    scrollbar-color: #30363d #0d1117;
+  }
+
+  .highlight .ln,
+  .highlight .lnt {
+    color: #6e7681;
+    border-right-color: #30363d;
+  }
+
+  code:not(.hljs):not([class*="language-"]):not([data-lang]) {
+    background: #161b22;
+    color: #c9d1d9;
+    border-color: #30363d;
+  }
+
+  pre:not(.highlight pre) {
+    background: #0d1117;
+    border-color: #30363d;
+  }
+
+  .chroma .hl {
+    background-color: #161b22;
+  }
+}
