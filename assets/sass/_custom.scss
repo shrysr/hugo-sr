@@ -547,3 +547,60 @@ img.post-image {
 .main p {
   max-width: none !important;
 }
+
+/* ========================================
+   External Link Styling - Elegant Differentiation
+   ======================================== */
+
+/* Target external links (absolute URLs starting with http/https)
+   Excludes localhost for development and common UI elements */
+.main a[href^="http://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link):not(.button):not(.btn),
+.main a[href^="https://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link):not(.button):not(.btn),
+article a[href^="http://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link):not(.button):not(.btn),
+article a[href^="https://"]:not([href*="localhost"]):not(.tag-pill):not(.year-link):not(.button):not(.btn) {
+  /* Visual differentiation */
+  color: #3a4a61;  /* Slightly darker than brand color */
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+
+  /* Add prominent external link indicator */
+  &::after {
+    content: "↗";
+    display: inline-block;
+    font-size: 0.85em;  /* Increased from 0.75em */
+    margin-left: 0.3em;  /* Increased from 0.25em */
+    color: #b85450;  /* Brand alt color - more noticeable */
+    opacity: 0.8;  /* Increased from 0.6 */
+    vertical-align: super;
+    font-weight: 600;  /* Make the arrow bolder */
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    color: #b85450;  /* Brand alt color on hover */
+    text-decoration-thickness: 2px;
+
+    &::after {
+      opacity: 1;
+      color: #b85450;
+      transform: translate(3px, -3px);  /* More pronounced movement */
+    }
+  }
+}
+
+/* Internal links (relative paths and anchors) maintain current styling */
+.main a:not([href^="http://"]):not([href^="https://"]),
+article a:not([href^="http://"]):not([href^="https://"]) {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--accent-color-dark);
+  }
+}
