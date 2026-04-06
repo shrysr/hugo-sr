@@ -1,0 +1,65 @@
+{{ define "title" }}{{ site.Title }}{{ end }}
+
+{{ define "head" }}
+{{ $css := resources.Get "css/archive.css" }}
+{{ if hugo.IsProduction }}
+{{ $css = $css | minify | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{ end }}
+
+{{ define "main" }}
+<main class="main layout__main">
+<article class="single-view single-view--archive">
+<header>
+<h1 class="title">{{ .Title }}</h1>
+</header>
+
+{{ .Content }}
+
+<hr style="margin: 2.5rem 0;">
+
+{{ $allPages := (site.RegularPages.ByLastmod.Reverse) | first 10 }}
+
+<div class="archive-sections">
+  <section class="posts-section">
+    <div class="section-header">
+      <h2><a href="/last-modified/" style="text-decoration: none; color: inherit;">Recent Changes</a></h2>
+    </div>
+
+    <div class="posts-list">
+      <div class="year-group">
+        {{ range $allPages }}
+        <article class="post-item">
+          <div class="post-single-line">
+            <div class="post-first-line">
+              <h4 class="post-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              {{ if not .Lastmod.IsZero }}
+              <time class="post-date">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+              {{ else if not .Date.IsZero }}
+              <time class="post-date">{{ .Date.Format "Jan 2, 2006" }}</time>
+              {{ end }}
+            </div>
+            <div class="post-second-line">
+              {{ if eq .Section "project" }}<span class="content-type">Project</span>{{ end }}
+              {{ if .Params.tags }}
+              <div class="post-tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag-pill">{{ . }}</a>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</div>
+
+</article>
+</main>
+{{ end }}

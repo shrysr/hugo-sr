@@ -8,7 +8,7 @@ summaryLength: 70        # Number of words for auto-generated summaries (default
 
 params:
   alpine: false              # Add AlpineJS, default false.
-  author: 
+  author:
     name: Shreyas Ragavan                  # Your Name
     url:                    # https://example.org/somepage
     avatar:                 # path/to/some-image.jpg
@@ -36,9 +36,8 @@ params:
   logoPath: img/SR-reduced.jpeg                 # Relative path to site logo, defaults to "images/logo.png", no leading slash.
   logoHeight:                # Set logo height, defaults to none.
   logoWidth: 150px                # Set logo width, defaults to none.
-  mainSections:             # The sections you want to have listed on the front page.
-    - ""            # Default to the section with most content if not set.
-    - ""            # Set to empty if no section should be listed.
+  mainSections:             # Not used by home page (see layouts/index.html).
+    - ""
   math: false                # Turn on math typesetting with KaTeX, default false.
   menuInHeader: true        # Move the main menu to the header, default false.
   microUsername: ""         # Your micro.blog username.

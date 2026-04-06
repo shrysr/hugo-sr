@@ -1,6 +1,7 @@
 +++
 title = "About"
 author = ["Shreyas Ragavan"]
+lastmod = 2026-04-05T19:26:50-07:00
 draft = false
 menu = "main"
 weight = 200
@@ -13,18 +14,19 @@ toc = true
 <div class="heading">Table of Contents</div>
 
 - [Me Me Me](#me-me-me)
-- [This website](#this-website)
-- [Social Media](#social-media)
-- [Uses](#uses)
+- [Contact](#contact)
+- [Uses](#about-uses)
+    - [Hardware](#hardware)
+    - [Software and Services](#software-and-services)
 
 </div>
 <!--endtoc-->
 
-This is a long page, that is About many things, including myself, the things I use, this web site and so on.
-
-It felt self-limiting and unnecessarily humble to have a short About page with a blurb about myself.
-
-Sometimes, I have wanted to know some details about folks and though it is not fun to read terribly outdated information - there is a certain thrill to know the tools and approaches used by many folks.
+> This is a long page, that is About Many Things, including myself, the things I use, this web site and so on.
+>
+> As of <span class="timestamp-wrapper"><span class="timestamp">[2026-04-05 Sun]</span></span> It felt self-limiting and unnecessarily humble to have a short About page with a blurb about myself.
+>
+> I'm sure this will evolve over time, as always.
 
 
 ## Me Me Me {#me-me-me}
@@ -43,25 +45,8 @@ My hobbies tend to lie in the directions of reading, writing and drawing, and of
 
 I love using [Emacs](<https://www.emacswiki.org>)! and am currently one of the many Admins for the [EmacsWiki](<https://www.emacswiki.org>).
 
-Education
-: -   MSc(Engg) in Advanced Mechanical Engineering
-        -   [University of Leeds](https://leeds.ac.uk) (Leeds, UK)
-    -   Bachelor of Technology (B.Tech) in Automotive Design Engineering
-        -   [University of Petroleum and Energy Studies](https://www.upes.ac.in/) (Dehradun, India)
 
-
-## This website {#this-website}
-
-This is a static website built using Hugo. The [source](https://github.com/shrysr/hugo-sr) is available on a git repo which contains some more background details.
-
-Currently, this site uses the [Hugo Zen theme](https://github.com/frjo/hugo-theme-zen), which I am slowly modifying to make 'my own'.
-
-The earlier theme was a modified version of a much older version of the Hugo Academic theme, which is now known as Hugo Blox. The main reason behind the change to the current theme was to progressively reduce 'bloat' and focus on content while also using a codebase that was simpler and more approachable. The page size was thus reduced from something close to 1MB to a mere 30KB.
-
-I am just another hacker (_both in skills and spirit_), and not any kind of expert in web design. Constructive feedback is always welcome.
-
-
-## Social Media {#social-media}
+## Contact {#contact}
 
 The best way to get in touch with me is via email. shreyas[at]ragavan[dot]co
 
@@ -69,7 +54,7 @@ The only social media platform that I am active on, is Linked in, where I've
 included a fairly detailed chronological work history and also have a few
 commendations from people I've worked with.
 
-I do have accounts on Mastodon and Twitter (and perhaps others that I've
+I do have accounts on Mastodon (and perhaps others that I've
 forgotten about), but I never seem to find the inclination to look at them
 much. On ocassion, I also tend to hang out around #emacs and other channels on the Libera
 network (IRC), and in particular in the [EmacsChannel](https://www.emacswiki.org/emacs/EmacsChannel) on IRC.
@@ -78,34 +63,34 @@ I do have accounts on other networks like ResearchGate, and CFDOnline, though it
 has been many years since I logged into these sites.
 
 
-## Uses {#uses}
+## Uses {#about-uses}
 
-A non exhaustive list of 'stuff' that I use, more for amusement and assessment
-than anything else.
+A non exhaustive list of ‘stuff’ that I use, more for amusement and assessment than anything else.
 
-While I like the concept of Open source software and dislike my dependence on
-expensive Apple products - I also grudgingly admit that they work rather well
-for my personal needs. It is a non-trivial challenge for folks who are not
-entirely software engineers or geeks to setup and maintain a Linux/FOSS system
-for daily use.
+Emacs is of course one of the main 'computer interfaces' that I use.
 
-I did have a number of things routed through Emacs and Org mode, but while these
-tools work well for work in isolation, it becomes a little complex to
-collaborate with folks.
+While I like the concept of Open source software and dislike my dependence on expensive Apple products - I also grudgingly admit that they work rather well for my personal needs. It is a non-trivial challenge for folks who are not entirely software engineers or geeks to setup and maintain a Linux/FOSS system for daily use.
 
-Hardware
-: -   Macbook Pro 2018 15"
-    -   Asus ProArt 27"
-    -   Logitech M570 mouse
-    -   Keyboardio Model 100 keyboard
-    -   Keyboardio Atreus
-    -   Also tend to play
 
-Software and Services
-: -   Emacs
-    -   Fastmail : Mu4e in Emacs for email and the Fastmail apps.
-    -   DevonThink Pro
-    -   Instapaper (cancelled for Reader Pro. Still used to email articles)
-    -   Spotify
-    -   Readwise and Reader
-    -   Beorg (mobile org mode tasks)
+### Hardware {#hardware}
+
+-   Mac Mini M4 64 GB (main)
+-   Macbook Pro 2018 15" (Not used much anymore)
+-   Ipad Air (M3) - Primarily used for reading and watching videos.
+-   LG DualUP
+-   Logitech M570 mouse
+-   Keyboardio Model 100 keyboard
+-   Keyboardio Atreus (not used as much)
+-   Also tend to play
+
+
+### Software and Services {#software-and-services}
+
+-   Emacs
+-   Fastmail : Mu4e in Emacs for email and the Fastmail apps.
+-   DevonThink Pro
+-   Instapaper (cancelled for Reader Pro. Still used to email articles)
+-   Spotify
+-   Readwise and Reader
+-   Beorg (mobile org mode tasks)
+-   Working Copy (for git based sync of my notes repo)
