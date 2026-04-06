@@ -212,6 +212,89 @@ article pre.chroma {
   }
 }
 
+/* ========================================
+   Zebra Striping - Alternating Line Colors
+   ======================================== */
+
+/* Each .line span is display:flex (from chroma CSS), so background fills the row.
+   Very subtle tint over the #f8f9fb base — visible but unobtrusive. */
+.highlight .line:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.028);
+}
+
+/* ========================================
+   Code Block Header Bar (injected by code-blocks.js)
+   ======================================== */
+
+/* Header sits at the top of .highlight; overflow:hidden on .highlight
+   clips its top corners to the 8px border-radius automatically. */
+.code-header {
+  display: flex;
+  justify-content: flex-end;  /* language + toggle pinned to the right */
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  background: #edf0f4;        /* slightly darker than code block #f8f9fb */
+  border-bottom: 1px solid #e5e7eb;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  user-select: none;
+}
+
+/* Make the header a pointer-cursor click target for collapsible blocks */
+.code-header--collapsible {
+  cursor: pointer;
+}
+
+.code-header--collapsible:hover {
+  background: #e3e7ed;
+}
+
+/* Language name label */
+.code-lang {
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8c959f;
+}
+
+/* Expand/collapse chevron — rotates when aria-expanded="true" on the header */
+.code-toggle {
+  display: inline-block;
+  font-size: 0.58rem;
+  color: #8c959f;
+  transition: transform 0.3s ease;
+}
+
+.code-header[aria-expanded="true"] .code-toggle {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   Collapsible Content Wrapper
+   ======================================== */
+
+/* Wraps <pre> so we can animate max-height independently of the header.
+   position:relative is required for the ::after gradient pseudo-element. */
+.code-content-wrapper {
+  overflow: hidden;
+  position: relative;
+  /* max-height and transition set dynamically by code-blocks.js */
+}
+
+/* Gradient fade-out indicates hidden content when collapsed.
+   The wrapper's overflow:hidden clips this to the visible area. */
+.code-content-wrapper.is-collapsed::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, transparent, #f8f9fb);
+  pointer-events: none;
+}
+
 /* Dark mode support (if implemented in future) */
 @media (prefers-color-scheme: dark) {
   .highlight,
@@ -243,5 +326,19 @@ article pre.chroma {
 
   .chroma .hl {
     background-color: #161b22;
+  }
+
+  /* Dark mode header and gradient */
+  .code-header {
+    background: #161b22;
+    border-bottom-color: #30363d;
+  }
+
+  .code-header--collapsible:hover {
+    background: #1c2128;
+  }
+
+  .code-content-wrapper.is-collapsed::after {
+    background: linear-gradient(to bottom, transparent, #0d1117);
   }
 }
