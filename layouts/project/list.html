@@ -42,10 +42,10 @@
                     <h2 class="project-title">{{ .Title }}</h2>
 
                     {{ with .Params.summary }}
-                    <p class="project-summary">{{ . }}</p>
+                    <p class="project-summary">{{ . | markdownify }}</p>
                     {{ else }}
                     {{ with .Summary }}
-                    <p class="project-summary">{{ . }}</p>
+                    <p class="project-summary">{{ . | safeHTML }}</p>
                     {{ end }}
                     {{ end }}
                 </div>
