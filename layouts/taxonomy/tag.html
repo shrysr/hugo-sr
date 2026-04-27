@@ -18,6 +18,10 @@
         </h1>
     </header>
 
+    {{ with .Content }}
+    <div class="taxonomy-description">{{ . }}</div>
+    {{ end }}
+
     <!-- Posts list with archive-style formatting -->
     <div class="archive-list">
         <ul class="archive-posts-list">
